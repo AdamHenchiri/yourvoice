@@ -12,7 +12,7 @@ class Reponse
     private Question $id_question;
 
 
-    public function __construct(string $id, string $id_utilisateur, Question $id_question)
+    public function __construct(int $id, string $id_utilisateur, Question $id_question)
     {
         $this->id = $id;
         $this->id_utilisateur = $id_utilisateur;
@@ -24,7 +24,7 @@ class Reponse
      * @return string
      */
 
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id;
     }
@@ -32,7 +32,7 @@ class Reponse
     /**
      * @param string $id
      */
-    public function setId(string $id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
