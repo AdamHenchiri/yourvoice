@@ -3,18 +3,18 @@ use App\YourVoice\Controller\ControllerQuestion ;
 require_once __DIR__ . '/../src/Lib/Psr4AutoloaderClass.php';
 
 // instantiate the loader
-$loader = new App\Covoiturage\Lib\Psr4AutoloaderClass();
+$loader = new App\YourVoice\Lib\Psr4AutoloaderClass();
 // register the base directories for the namespace prefix
-$loader->addNamespace('App\Covoiturage', __DIR__ .'/../src');
+$loader->addNamespace('App\YourVoice', __DIR__ .'/../src');
 // register the autoloader
 $loader->register();
 
 
 if (isset($_GET['controller'])) {
     $controller = $_GET['controller'];
-    $controllerClassName = "App\Covoiturage\Controller\Controller" . ucfirst($controller);
+    $controllerClassName = "App\YourVoice\Controller\Controller" . ucfirst($controller);
 }else{
-    $controllerClassName="App\Covoiturage\Controller\ControllerQuestion";
+    $controllerClassName="App\YourVoice\Controller\ControllerQuestion";
 }
 if (class_exists($controllerClassName)){
     //verif si action a été initialisée

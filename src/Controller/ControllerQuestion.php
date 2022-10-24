@@ -1,9 +1,9 @@
 <?php
 namespace App\YourVoice\Controller ;
 
-use App\Covoiturage\Model\Repository\AbstractRepository;
-use App\Covoiturage\Model\Repository\QuestionRepository;
-use App\Covoiturage\Model\DataObject\Question ;
+use App\YourVoice\Model\Repository\AbstractRepository;
+use App\YourVoice\Model\Repository\QuestionRepository;
+use App\YourVoice\Model\DataObject\Question ;
 use Couchbase\View;
 
 // chargement du modèle

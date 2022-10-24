@@ -5,7 +5,7 @@ PSR-4 autoloader example implementations given by
 https://www.php-fig.org/psr/psr-4/
 */
 
-namespace App\YourVoice\Lib;
+namespace App\YourVoice\Lib ;
 
 /**
  * An example of a general-purpose implementation that includes the optional
@@ -162,8 +162,8 @@ class Psr4AutoloaderClass
             // replace namespace separators with directory separators
             // in the relative class name, append with .php
             $file = $base_dir
-                  . str_replace('\\', '/', $relative_class)
-                  . '.php';
+                . str_replace('\\', '/', $relative_class)
+                . '.php';
 
             // if the mapped file exists, require it
             if ($this->requireFile($file)) {
@@ -184,8 +184,6 @@ class Psr4AutoloaderClass
      */
     protected function requireFile(string $file) : bool
     {
-        //echo $file;
-
         if (file_exists($file)) {
             require $file;
             return true;

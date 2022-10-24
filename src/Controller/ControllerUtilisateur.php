@@ -2,10 +2,10 @@
 
 namespace App\YourVoice\Controller;
 
-use App\Covoiturage\Model\DataObject\Utilisateur;
-use App\Covoiturage\Model\Repository\AbstractRepository;
-use App\Covoiturage\Model\Repository\UtilisateurRepository;
-use App\Covoiturage\Model\Repository\VoitureRepository;
+use App\YourVoice\Model\DataObject\Utilisateur;
+use App\YourVoice\Model\Repository\AbstractRepository;
+use App\YourVoice\Model\Repository\UtilisateurRepository;
+use App\YourVoice\Model\Repository\VoitureRepository;
 
 class ControllerUtilisateur
 {

@@ -2,8 +2,8 @@
 
 namespace App\YourVoice\Model\Repository;
 
-use App\Covoiturage\Model\DataObject\AbstractDataObject;
-use App\Covoiturage\Model\DataObject\Voiture;
+use App\YourVoice\Model\DataObject\AbstractDataObject;
+use App\YourVoice\Model\DataObject\Voiture;
 
 abstract class AbstractRepository
 {
