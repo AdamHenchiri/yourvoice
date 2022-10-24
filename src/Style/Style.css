@@ -1,0 +1,15 @@
+html{
+    font-size: medium;
+    font-family: Arial;
+    color: blue;
+}
+nav>ul{
+    display: flex;
+}
+li{
+    margin: 10px 10px 10px 10px;
+    color: brown;
+}
+footer {
+    color: red;
+}
