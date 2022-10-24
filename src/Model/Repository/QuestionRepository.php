@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Covoiturage\Model\Repository;
-use App\Covoiturage\Model\DataObject\Question as Quest;
+namespace App\YourVoice\Model\Repository;
+use App\YourVoice\Model\DataObject\Question as Quest;
 
 class QuestionRepository extends AbstractRepository
 {

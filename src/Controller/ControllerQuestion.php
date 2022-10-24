@@ -1,5 +1,5 @@
 <?php
-namespace App\Covoiturage\Controller ;
+namespace App\YourVoice\Controller ;
 
 use App\Covoiturage\Model\Repository\AbstractRepository;
 use App\Covoiturage\Model\Repository\QuestionRepository;

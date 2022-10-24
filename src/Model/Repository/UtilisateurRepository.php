@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Covoiturage\Model\Repository;
-use App\Covoiturage\Model\DataObject\Utilisateur as User;
+namespace App\YourVoice\Model\Repository;
+use App\YourVoice\Model\DataObject\Utilisateur as User;
 
 class UtilisateurRepository extends AbstractRepository
 {

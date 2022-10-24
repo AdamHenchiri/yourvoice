@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Covoiturage\Controller;
+namespace App\YourVoice\Controller;
 
 use App\Covoiturage\Model\DataObject\Utilisateur;
 use App\Covoiturage\Model\Repository\AbstractRepository;
