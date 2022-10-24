@@ -20,8 +20,6 @@ class Reponse
     }
 
 
-
-
     /**
      * @return string
      */
