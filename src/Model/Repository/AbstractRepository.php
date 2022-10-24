@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Covoiturage\Model\Repository;
+namespace App\YourVoice\Model\Repository;
 
 use App\Covoiturage\Model\DataObject\AbstractDataObject;
 use App\Covoiturage\Model\DataObject\Voiture;

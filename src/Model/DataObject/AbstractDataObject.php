@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Covoiturage\Model\DataObject;
+namespace App\YourVoice\Model\DataObject;
 
 abstract Class AbstractDataObject
 {

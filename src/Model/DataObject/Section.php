@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Covoiturage\Model\DataObject;
-use App\Covoiturage\Model\DataObject\Question;
+namespace App\YourVoice\Model\DataObject;
+use App\YourVoice\Model\DataObject\Question;
 
 class Section
 {

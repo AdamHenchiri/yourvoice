@@ -1,5 +1,5 @@
 <?php
-namespace App\Covoiturage\Config ;
+namespace App\YourVoice\Config ;
 
 class Conf
 {

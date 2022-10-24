@@ -1,5 +1,5 @@
 <?php
-namespace App\Covoiturage\Model\Repository ;
+namespace App\YourVoice\Model\Repository ;
 use App\Covoiturage\Config\Conf as Conf;
 use PDO;
 
