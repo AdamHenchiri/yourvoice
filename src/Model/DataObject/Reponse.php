@@ -7,7 +7,7 @@ use App\YourVoice\Model\Repository\DatabaseConnection;
 class Reponse
 {
 
-    private string $id;
+    private int $id;
     private string $id_utilisateur;
     private Question $id_question;
 
