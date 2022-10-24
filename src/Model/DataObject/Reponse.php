@@ -1,6 +1,6 @@
 <?php
 
-namespace App\YourVoice\Model\DataObject;
+namespace App\Covoiturage\Model\DataObject;
 use App\Covoiturage\Model\DataObject\Question;
 use App\Covoiturage\Model\Repository\DatabaseConnection;
 

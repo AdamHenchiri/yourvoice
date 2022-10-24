@@ -11,7 +11,7 @@ class Section
     private string $texteExplicatif;
     private int $numero;
     private $texteReponse;
-    private Question $id_question;
+    private Question $question;
 
 
     /**
@@ -20,16 +20,16 @@ class Section
      * @param String $texteExplicatif
      * @param int $numero
      * @param $texteReponse
-     * @param Question $id_question
+     * @param Question $question
      */
-    public function __construct(string $section, string $titre, string $texteExplicatif, int $numero, $texteReponse, Question $id_question)
+    public function __construct(string $section, string $titre, string $texteExplicatif, int $numero, $texteReponse, Question $question)
     {
         $this->section = $section;
         $this->titre = $titre;
         $this->texteExplicatif = $texteExplicatif;
         $this->numero = $numero;
         $this->texteReponse = $texteReponse;
-        $this->id_question = $id_question;
+        $this->id_question = $question;
     }
 
     /**
@@ -121,11 +121,11 @@ class Section
     }
 
     /**
-     * @param Question $id_question
+     * @param Question $question
      */
-    public function setid_question(Question $id_question): void
+    public function setid_question(Question $question): void
     {
-        $this->id_question = $id_question;
+        $this->id_question = $question;
     }
 
 }
