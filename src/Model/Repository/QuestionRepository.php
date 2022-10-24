@@ -1,12 +1,13 @@
 <?php
 
 namespace App\YourVoice\Model\Repository;
+use App\YourVoice\Model\DataObject\Question;
 use App\YourVoice\Model\DataObject\Question as Quest;
 
 class QuestionRepository extends AbstractRepository
 {
-    public function construire(array $questFormatTableau) : Quest {
-        return new Quest($questFormatTableau['idQ'],$questFormatTableau['intitule'],$questFormatTableau['textQuestion'],$questFormatTableau['utilisateurResponsable'],$questFormatTableau['dateDebutVote'],$questFormatTableau['dateFinVote'],$questFormatTableau['dateDebutRedac'],$questFormatTableau['dateFinRedac'],$questFormatTableau['section'],$questFormatTableau['reponse']);
+    public function construire(array $questFormatTableau) : Question {
+        return new Question($questFormatTableau['idQ'],$questFormatTableau['intitule'],$questFormatTableau['textQuestion'],$questFormatTableau['utilisateurResponsable'],$questFormatTableau['dateDebutVote'],$questFormatTableau['dateFinVote'],$questFormatTableau['dateDebutRedac'],$questFormatTableau['dateFinRedac'],$questFormatTableau['section'],$questFormatTableau['reponse']);
     }
 
     protected function getNomTable(): string{

@@ -7,9 +7,9 @@ use App\YourVoice\Model\Repository\DatabaseConnection;
 class Reponse
 {
 
-    private string $id;
-    private string $id_utilisateur;
-    private Question $id_question;
+    private int $id_reponse;
+    private int $id_utilisateur;
+    private int $id_question;
 
 
     public function __construct(string $id, string $id_utilisateur, Question $id_question)
