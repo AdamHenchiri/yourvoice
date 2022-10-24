@@ -7,7 +7,7 @@ use App\YourVoice\Model\DataObject\Reponse;
 class ReponseRepository
 {
     public function construire(array $reponseFormatTableau) : Reponse {
-        return new Reponse($reponseFormatTableau['$id_reponse'],$reponseFormatTableau['$id_utilisateur'],$reponseFormatTableau['$id_question']);
+        return new Reponse($reponseFormatTableau['id_reponse'],$reponseFormatTableau['id_utilisateur'],$reponseFormatTableau['id_question']);
     }
 
     protected function getNomTable(): string{
