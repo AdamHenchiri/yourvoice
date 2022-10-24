@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Covoiturage\Model\DataObject;
-use App\Covoiturage\Model\DataObject\Question;
-use App\Covoiturage\Model\Repository\DatabaseConnection;
+namespace App\YourVoice\Model\DataObject;
+use App\YourVoice\Model\DataObject\Question;
+use App\YourVoice\Model\Repository\DatabaseConnection;
 
 class Reponse
 {
