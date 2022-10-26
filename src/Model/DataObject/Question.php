@@ -6,106 +6,51 @@ use App\YourVoice\Model\DataObject\AbstractDataObject;
 class Question extends AbstractDataObject
 {
 
-    private string $idQ;
+    private string $id_question ;
     private string $intitule;
-    private string $textQuestion;
-    private Utilisateur $utilisateurResponsable;
-    private string $dateDebutVote;
-    private string $dateFinVote;
-    private string $dateDebutRedac;
-    private string $datefinRedac;
-    private Section $section;
-    private array $reponses;
+    private string $explication;
+    private string $dateDebut_redaction;
+    private string $dateFin_redaction;
+    private string $dateDebut_vote;
+    private string $dateFin_vote;
+    private string $id_utilisateur ;
 
     /**
-     * @param string $idQ
+     * @param string $id_question
      * @param string $intitule
-     * @param string $textquestion
-     * @param Utilisateur $utilisateurResponsable
-     * @param string $dateDebutVote
-     * @param string $dateFinVote
-     * @param string $dateDebutRedac
-     * @param string $datefinRedac
-     * @param Section $section
-     * @param array $reponses
+     * @param string $explication
+     * @param string $dateDebut_redaction
+     * @param string $dateFin_redaction
+     * @param string $dateDebut_vote
+     * @param string $dateFin_vote
+     * @param Utilisateur $id_utilisateur
      */
-    public function     __construct(string $idQ, string $intitule, string $textQuestion, Utilisateur $utilisateurResponsable, string $dateDebutVote, string $dateFinVote, string $dateDebutRedac, string $datefinRedac, Section $section, array $reponses)
+    public function __construct(string $id_question, string $intitule, string $explication, string $dateDebut_redaction, string $dateFin_redaction, string $dateDebut_vote, string $dateFin_vote, string $id_utilisateur)
     {
-        $this->idQ = $idQ;
+        $this->id_question = $id_question;
         $this->intitule = $intitule;
-        $this->textquestion = $textQuestion;
-        $this->utilisateurResponsable = $utilisateurResponsable;
-        $this->dateDebutVote = $dateDebutVote;
-        $this->dateFinVote = $dateFinVote;
-        $this->dateDebutRedac = $dateDebutRedac;
-        $this->datefinRedac = $datefinRedac;
-        $this->section = $section;
-        $this->reponses = $reponses;
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getTextquestion(): string
-    {
-        return $this->textquestion;
-    }
-
-    /**
-     * @param string $textQuestion
-     */
-    public function setTextquestion(string $textQuestion): void
-    {
-        $this->textquestion = $textQuestion;
-    }
-
-    /**
-     * @return Utilisateur
-     */
-    public function getUtilisateurResponsable(): Utilisateur
-    {
-        return $this->utilisateurResponsable;
-    }
-
-    /**
-     * @param Utilisateur $utilisateurResponsable
-     */
-    public function setUtilisateurResponsable(Utilisateur $utilisateurResponsable): void
-    {
-        $this->utilisateurResponsable = $utilisateurResponsable;
-    }
-
-    /**
-     * @return array
-     */
-    public function getReponses(): array
-    {
-        return $this->reponses;
-    }
-
-    /**
-     * @param array $reponses
-     */
-    public function setReponses(array $reponses): void
-    {
-        $this->reponses = $reponses;
+        $this->explication = $explication;
+        $this->dateDebut_redaction = $dateDebut_redaction;
+        $this->dateFin_redaction = $dateFin_redaction;
+        $this->dateDebut_vote = $dateDebut_vote;
+        $this->dateFin_vote = $dateFin_vote;
+        $this->id_utilisateur = $id_utilisateur;
     }
 
     /**
      * @return string
      */
-    public function getIdQ(): string
+    public function getIdQuestion(): string
     {
-        return $this->idQ;
+        return $this->id_question;
     }
 
     /**
-     * @param string $idQ
+     * @param string $id_question
      */
-    public function setIdQ(string $idQ): void
+    public function setIdQuestion(string $id_question): void
     {
-        $this->idQ = $idQ;
+        $this->id_question = $id_question;
     }
 
     /**
@@ -127,17 +72,65 @@ class Question extends AbstractDataObject
     /**
      * @return string
      */
-    public function getDateDebutVote(): string
+    public function getExplication(): string
     {
-        return $this->dateDebutVote;
+        return $this->explication;
     }
 
     /**
-     * @param string $dateDebutVote
+     * @param string $explication
      */
-    public function setDateDebutVote(string $dateDebutVote): void
+    public function setExplication(string $explication): void
     {
-        $this->dateDebutVote = $dateDebutVote;
+        $this->explication = $explication;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateDebutRedaction(): string
+    {
+        return $this->dateDebut_redaction;
+    }
+
+    /**
+     * @param string $dateDebut_redaction
+     */
+    public function setDateDebutRedaction(string $dateDebut_redaction): void
+    {
+        $this->dateDebut_redaction = $dateDebut_redaction;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateFinRedaction(): string
+    {
+        return $this->dateFin_redaction;
+    }
+
+    /**
+     * @param string $dateFin_redaction
+     */
+    public function setDateFinRedaction(string $dateFin_redaction): void
+    {
+        $this->dateFin_redaction = $dateFin_redaction;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateDebutVote(): string
+    {
+        return $this->dateDebut_vote;
+    }
+
+    /**
+     * @param string $dateDebut_vote
+     */
+    public function setDateDebutVote(string $dateDebut_vote): void
+    {
+        $this->dateDebut_vote = $dateDebut_vote;
     }
 
     /**
@@ -145,71 +138,39 @@ class Question extends AbstractDataObject
      */
     public function getDateFinVote(): string
     {
-        return $this->dateFinVote;
+        return $this->dateFin_vote;
     }
 
     /**
-     * @param string $dateFinVote
+     * @param string $dateFin_vote
      */
-    public function setDateFinVote(string $dateFinVote): void
+    public function setDateFinVote(string $dateFin_vote): void
     {
-        $this->dateFinVote = $dateFinVote;
+        $this->dateFin_vote = $dateFin_vote;
     }
 
     /**
-     * @return string
+     * @return Utilisateur
      */
-    public function getDateDebutRedac(): string
+    public function getIdUtilisateur(): Utilisateur
     {
-        return $this->dateDebutRedac;
+        return $this->id_utilisateur;
     }
 
     /**
-     * @param string $dateDebutRedac
+     * @param Utilisateur $id_utilisateur
      */
-    public function setDateDebutRedac(string $dateDebutRedac): void
+    public function setIdUtilisateur(string $id_utilisateur): void
     {
-        $this->dateDebutRedac = $dateDebutRedac;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDatefinRedac(): string
-    {
-        return $this->datefinRedac;
-    }
-
-    /**
-     * @param string $datefinRedac
-     */
-    public function setDatefinRedac(string $datefinRedac): void
-    {
-        $this->datefinRedac = $datefinRedac;
-    }
-
-    /**
-     * @return Section
-     */
-    public function getSection(): Section
-    {
-        return $this->section;
-    }
-
-    /**
-     * @param Section $section
-     */
-    public function setSection(Section $section): void
-    {
-        $this->section = $section;
+        $this->id_utilisateur = $id_utilisateur;
     }
 
 
 
     public function formatTableau(): array{
         return array(
-            "loginTag" => $this->getLogin(),
-            "nomTag" => $this->getNom(),
+            "loginTag" => $this->getIdQ(),
+            "nomTag" => $this->getIntitule(),
             "prenomTag" => $this->getPrenom(),
         );
     }

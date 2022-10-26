@@ -1,6 +1,6 @@
 <?php
 namespace App\YourVoice\Model\Repository ;
-use App\Covoiturage\Config\Conf as Conf;
+use App\YourVoice\Config\Conf as Conf;
 use PDO;
 
 class DatabaseConnection

@@ -6,8 +6,10 @@ use App\YourVoice\Model\DataObject\Question as Quest;
 
 class QuestionRepository extends AbstractRepository
 {
+
+
     public function construire(array $questFormatTableau) : Question {
-        return new Question($questFormatTableau['idQ'],$questFormatTableau['intitule'],$questFormatTableau['textQuestion'],$questFormatTableau['utilisateurResponsable'],$questFormatTableau['dateDebutVote'],$questFormatTableau['dateFinVote'],$questFormatTableau['dateDebutRedac'],$questFormatTableau['dateFinRedac'],$questFormatTableau['section'],$questFormatTableau['reponse']);
+        return new Question($questFormatTableau['id_question'],$questFormatTableau['intitule'],$questFormatTableau['explication'],$questFormatTableau['dateDebut_redaction'],$questFormatTableau['dateFin_redaction'],$questFormatTableau['dateDebut_vote'],$questFormatTableau['dateFin_vote'],$questFormatTableau['id_utilisateur']);
     }
 
     protected function getNomTable(): string{
@@ -20,6 +22,6 @@ class QuestionRepository extends AbstractRepository
     }
     protected function getNomsColonnes(): array
     {
-     return ["idQ","intitule","textQuestion","utilisateurResponsable","dateDebutVote","dateFinVote","dateDebutRedac","dateFinRedac","section","reponse"];
+     return ["id_question","intitule","explication","dateDebut_redaction","dateFin_redaction","dateDebut_vote","dateFin_vote","id_utilisateur"];
     }
 }

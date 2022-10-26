@@ -8,6 +8,10 @@ use App\YourVoice\Model\DataObject\Voiture;
 abstract class AbstractRepository
 {
 
+    public function __construct()
+    {
+    }
+
     public function sauvegarder(AbstractDataObject $v)
     {
         $reponse = true;
@@ -96,17 +100,20 @@ abstract class AbstractRepository
         }
     }
 
-    public function selectAll(): array
+    public function selectAll(): ?array
     {
         $pdo = DatabaseConnection::getPdo();
         $pdoStatement = $pdo->query("select * from ".$this->getNomTable());
         foreach ($pdoStatement as $tableFormatTableau) {
             $tab[] = $this->construire($tableFormatTableau);
         }
+        //echo($tab);
         return $tab;
     }
 
     protected abstract function getNomTable(): string;
+
+
 
     protected abstract function construire(array $objetFormatTableau);
 
