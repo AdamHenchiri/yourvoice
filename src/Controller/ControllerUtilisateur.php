@@ -10,6 +10,11 @@ use App\YourVoice\Model\Repository\VoitureRepository;
 class ControllerUtilisateur
 {
 
+    public static function connexion(): void{
+        self::afficheVue('/view.php', ["pagetitle" => "connection",
+            "cheminVueBody" => "utilisateur/connexion.php"   //"redirige" vers la vue
+        ]);
+    }
     public static function create() : void {
         self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre utilisateur",
             "cheminVueBody" => "utilisateur/create.php"   //"redirige" vers la vue

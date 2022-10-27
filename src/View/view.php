@@ -33,7 +33,7 @@
 <header>
     <nav>
             <div class="col-md-4 col-sm-3">
-            <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/web/frontController.php" target="_blank" title="YourVoice" ><h1 class="logo"><img class="logo" src="img/Logo.png">YourVoice</h1></a>
+            <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/web/frontController.php" target="_blank" title="YourVoice" ><h1 class="logo"><img class="logo" src="../img/Logo.png">YourVoice</h1></a>
           </div>
           
         <!-- Votre menu de navigation ici -->
@@ -41,7 +41,7 @@
             <li><a href="frontController.php?controller=question&action=readAll"> Q&A </a></li>
             <li><a href="frontController.php?controller=utilisateur&action=readAll"> VOTE </a></li>
             <li><a href="frontController.php?action=readAll&controller=utilisateur"> YOUR QUESTION </a></li>
-            <li><a href="frontController.php?action=connection&controller=utilisateur"> your account </a></li>
+            <li><a href="frontController.php?controller=utilisateur&action=connexion"> your account </a></li>
 
 
         </ul>
