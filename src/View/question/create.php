@@ -5,7 +5,7 @@
     <title>Créer Question</title>
 </head>
 <body>
-<form method="post" action="frontController.php?controller=section&action=create">
+<form method="post" action="frontController.php?controller=question&action=created" ">
     <fieldset>
         <legend>Créez une question :</legend>
         <p>
@@ -41,23 +41,44 @@
         <p>
             <label for="id_utilisateur">Serra rempli automatiquement avec les sessions</label> :
             <input type="int" placeholder="serra rempli automatiquement avec les sessions" name="id_utilisateur" id="id_utilisateur" required/>
-<!--        </p>-->
-<!---->
-<!--        <label for="votants ">choisissez les votants</label> :-->
-<!--        <p>-->
-<!--            --><?php
-//            use App\YourVoice\Model\Repository\UtilisateurRepository;
-//            $users=UtilisateurRepository::selectAll();
-//            if ($users){
-//            foreach($users as $user)
-//            {
-//            ?>
-<!--        <div>-->
-<!--            <input type="checkbox" id="--><?php //echo $user->getLogin()?><!--" name="--><?php //echo $user->getLogin()?><!--">-->
-<!--            <label for="--><?php //echo $user->getLogin()?><!--">--><?php //echo $user->getLogin()?><!--</label>-->
-<!--        </div>-->
-<!--        --><?php //} ?>
-<!--        </p>-->
+
+
+
+        <p>
+            <label for="votants ">choisissez les votants</label> :
+
+            <?php
+            use App\YourVoice\Model\Repository\UtilisateurRepository;
+
+            $users = (new UtilisateurRepository())->selectAll();
+            if ($users){
+            foreach($users as $user)
+            {
+            ?>
+        <div>
+            <input type="checkbox" id="<?php echo $user->getLogin()?>" name="<?php echo $user->getLogin()?>">
+            <label for="<?php echo $user->getLogin()?>"><?php echo $user->getLogin()?></label>
+        </div>
+        <?php } }?>
+        </p>
+
+        <p>
+            <label for="votants ">choisissez les responssables</label> :
+
+            <?php
+
+
+            $users = (new UtilisateurRepository())->selectAll();
+            if ($users){
+            foreach($users as $user)
+            {
+            ?>
+        <div>
+            <input type="checkbox" id="<?php echo $user->getLogin()?>" name="<?php echo $user->getLogin()?>">
+            <label for="<?php echo $user->getLogin()?>"><?php echo $user->getLogin()?></label>
+        </div>
+    <?php } }?>
+        </p>
 
         <p>
             <input type="submit" value="Envoyer" />

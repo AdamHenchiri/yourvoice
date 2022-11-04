@@ -5,9 +5,6 @@
     <title>Créer Section</title>
 </head>
 <body>
-<?php
-echo "<p>La question a bien été créée !</p>";
-?>
 <form method="post" action="frontController.php?controller=section&action=create">
     <fieldset>
         <legend>Créez une section :</legend>

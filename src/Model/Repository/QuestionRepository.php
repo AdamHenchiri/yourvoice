@@ -22,6 +22,6 @@ class QuestionRepository extends AbstractRepository
     }
     protected function getNomsColonnes(): array
     {
-     return ["id_question","intitule","explication","dateDebut_redaction","dateFin_redaction","dateDebut_vote","dateFin_vote","id_utilisateur"];
+     return [NULL ,"intitule","explication","dateDebut_redaction","dateFin_redaction","dateDebut_vote","dateFin_vote","id_utilisateur"];
     }
 }

@@ -46,12 +46,14 @@ class ControllerQuestion {
 
 
     public static function created() : void {
-        $v=new Question($_POST["marque"],$_POST["couleur"],$_POST["immatriculation"],$_POST["nbrSieges"]);
+        $v=new Question( $_POST["intitule"],$_POST["explication"],
+            $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
+            $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
         (new QuestionRepository())->sauvegarder($v);
         self::afficheVue('/view.php', ["pagetitle" => "creation de question",
-            "cheminVueBody" => "question/created.php"   //"redirige" vers la vue
+            "cheminVueBody" => "section/create.php"   //"redirige" vers la vue
         ]);
-        self::readAll();
+
     }
 
 

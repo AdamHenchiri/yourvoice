@@ -2,6 +2,7 @@
 
 namespace App\YourVoice\Model\DataObject;
 use App\YourVoice\Model\DataObject\AbstractDataObject;
+use App\YourVoice\Model\DataObject\Utilisateur;
 
 class Question extends AbstractDataObject
 {
@@ -13,7 +14,7 @@ class Question extends AbstractDataObject
     private string $dateFin_redaction;
     private string $dateDebut_vote;
     private string $dateFin_vote;
-    private string $id_utilisateur ;
+    private Utilisateur $id_utilisateur ;
 
     /**
      * @param string $id_question
@@ -25,9 +26,9 @@ class Question extends AbstractDataObject
      * @param string $dateFin_vote
      * @param Utilisateur $id_utilisateur
      */
-    public function __construct(string $id_question, string $intitule, string $explication, string $dateDebut_redaction, string $dateFin_redaction, string $dateDebut_vote, string $dateFin_vote, string $id_utilisateur)
+    public function __construct( string $intitule, string $explication, string $dateDebut_redaction, string $dateFin_redaction, string $dateDebut_vote, string $dateFin_vote, Utilisateur $id_utilisateur)
     {
-        $this->id_question = $id_question;
+        //$this->id_question = $id_question;
         $this->intitule = $intitule;
         $this->explication = $explication;
         $this->dateDebut_redaction = $dateDebut_redaction;
@@ -154,6 +155,7 @@ class Question extends AbstractDataObject
      */
     public function getIdUtilisateur(): Utilisateur
     {
+
         return $this->id_utilisateur;
     }
 
@@ -169,9 +171,16 @@ class Question extends AbstractDataObject
 
     public function formatTableau(): array{
         return array(
-            "loginTag" => $this->getIdQ(),
-            "nomTag" => $this->getIntitule(),
-            "prenomTag" => $this->getPrenom(),
+            "id_questionTag" => $this->getIdQuestion(),
+            "intituleTag" => $this->getIntitule(),
+            "explicationTag" => $this->getExplication(),
+            "dateDebut_redactionTag" => $this->getDateDebutRedaction(),
+            "dateFin_redactionTag" => $this->getDateFinRedaction(),
+            "dateDebut_voteTag" => $this->getDateDebutVote(),
+            "dateFin_voteTag" => $this->getDateFinVote(),
+            "id_utilisateurTag" => $this->getIdUtilisateur()
+
+
         );
     }
 
