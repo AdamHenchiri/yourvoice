@@ -7,17 +7,15 @@ use App\YourVoice\Model\DataObject\Utilisateur;
 class Question extends AbstractDataObject
 {
 
-    private string $id_question ;
     private string $intitule;
     private string $explication;
     private string $dateDebut_redaction;
     private string $dateFin_redaction;
     private string $dateDebut_vote;
     private string $dateFin_vote;
-    private Utilisateur $id_utilisateur ;
+    private int $id_utilisateur ;
 
     /**
-     * @param string $id_question
      * @param string $intitule
      * @param string $explication
      * @param string $dateDebut_redaction
@@ -26,9 +24,8 @@ class Question extends AbstractDataObject
      * @param string $dateFin_vote
      * @param Utilisateur $id_utilisateur
      */
-    public function __construct( string $intitule, string $explication, string $dateDebut_redaction, string $dateFin_redaction, string $dateDebut_vote, string $dateFin_vote, Utilisateur $id_utilisateur)
+    public function __construct( string $intitule, string $explication, string $dateDebut_redaction, string $dateFin_redaction, string $dateDebut_vote, string $dateFin_vote, int $id_utilisateur)
     {
-        //$this->id_question = $id_question;
         $this->intitule = $intitule;
         $this->explication = $explication;
         $this->dateDebut_redaction = $dateDebut_redaction;
@@ -36,22 +33,6 @@ class Question extends AbstractDataObject
         $this->dateDebut_vote = $dateDebut_vote;
         $this->dateFin_vote = $dateFin_vote;
         $this->id_utilisateur = $id_utilisateur;
-    }
-
-    /**
-     * @return string
-     */
-    public function getIdQuestion(): string
-    {
-        return $this->id_question;
-    }
-
-    /**
-     * @param string $id_question
-     */
-    public function setIdQuestion(string $id_question): void
-    {
-        $this->id_question = $id_question;
     }
 
     /**
@@ -153,7 +134,7 @@ class Question extends AbstractDataObject
     /**
      * @return Utilisateur
      */
-    public function getIdUtilisateur(): Utilisateur
+    public function getIdUtilisateur(): int
     {
 
         return $this->id_utilisateur;
@@ -162,7 +143,7 @@ class Question extends AbstractDataObject
     /**
      * @param Utilisateur $id_utilisateur
      */
-    public function setIdUtilisateur(string $id_utilisateur): void
+    public function setIdUtilisateur(int $id_utilisateur): void
     {
         $this->id_utilisateur = $id_utilisateur;
     }
@@ -171,16 +152,13 @@ class Question extends AbstractDataObject
 
     public function formatTableau(): array{
         return array(
-            "id_questionTag" => $this->getIdQuestion(),
             "intituleTag" => $this->getIntitule(),
             "explicationTag" => $this->getExplication(),
             "dateDebut_redactionTag" => $this->getDateDebutRedaction(),
             "dateFin_redactionTag" => $this->getDateFinRedaction(),
             "dateDebut_voteTag" => $this->getDateDebutVote(),
             "dateFin_voteTag" => $this->getDateFinVote(),
-            "id_utilisateurTag" => $this->getIdUtilisateur()
-
-
+            "id_utilisateurTag" => $this->getIdUtilisateur(),
         );
     }
 

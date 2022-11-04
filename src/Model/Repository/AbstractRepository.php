@@ -111,6 +111,12 @@ abstract class AbstractRepository
         //echo($tab);
         return $tab;
     }
+    public function getId():int
+    {
+        $pdo = DatabaseConnection::getPdo();
+        $pdoStatement = $pdo->query("select id_".$this->getNomTable()." from ".$this->getNomTable());
+        return $pdoStatement;
+    }
 
     protected abstract function getNomTable(): string;
 

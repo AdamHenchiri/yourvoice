@@ -5,7 +5,7 @@
     <title>Créer Question</title>
 </head>
 <body>
-<form method="post" action="frontController.php?controller=question&action=created" ">
+<form method="post" action="frontController.php?controller=question&action=created" >
     <fieldset>
         <legend>Créez une question :</legend>
         <p>
