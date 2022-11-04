@@ -16,7 +16,7 @@ class ControllerQuestion {
             $questions =(new QuestionRepository())->selectAll();//appel au modèle pour gerer la BD
        // var_dump($questions);
         self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
-                                                "cheminVueBody" => "question/list.php",   //"redirige" vers la vue
+                                                "cheminVueBody" => "Question/list.php",   //"redirige" vers la vue
                                                 "questions"=>$questions]);
     }
 
@@ -24,11 +24,11 @@ class ControllerQuestion {
         $question =(new QuestionRepository())->select($_GET['idQ']);
         if ($question!==null) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
-                "cheminVueBody" => "question/detail.php",   //"redirige" vers la vue
+                "cheminVueBody" => "Question/detail.php",   //"redirige" vers la vue
                 "question"=>$question]);
         }else{
             self::afficheVue('/view.php', ["pagetitle" => "ERROR",
-                "cheminVueBody" => "question/error.php",   //"redirige" vers la vue
+                "cheminVueBody" => "Question/error.php",   //"redirige" vers la vue
                ]);
         }
     }
@@ -40,7 +40,7 @@ class ControllerQuestion {
 
     public static function create() : void {
         self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
-            "cheminVueBody" => "question/create.php"   //"redirige" vers la vue
+            "cheminVueBody" => "Question/create.php"   //"redirige" vers la vue
             ]);
     }
 
@@ -49,7 +49,7 @@ class ControllerQuestion {
         $v=new Question($_POST["marque"],$_POST["couleur"],$_POST["immatriculation"],$_POST["nbrSieges"]);
         (new QuestionRepository())->sauvegarder($v);
         self::afficheVue('/view.php', ["pagetitle" => "creation de question",
-            "cheminVueBody" => "question/created.php"   //"redirige" vers la vue
+            "cheminVueBody" => "Question/created.php"   //"redirige" vers la vue
         ]);
         self::readAll();
     }
@@ -60,7 +60,7 @@ class ControllerQuestion {
         $rep=(new QuestionRepository())->supprimer($_GET['immat']);
         if ($v!=null){
             self::afficheVue('/view.php', ["pagetitle" => "suppresion de question",
-                "cheminVueBody" => "question/deleted.php","nom"=>$v->getMarque(),"immat"=>$v->getImmatriculation()   //"redirige" vers la vue
+                "cheminVueBody" => "Question/deleted.php","nom"=>$v->getMarque(),"immat"=>$v->getImmatriculation()   //"redirige" vers la vue
             ]);
         }else{
             $s='suppression echoué';
@@ -71,21 +71,21 @@ class ControllerQuestion {
 
 
     public static function error(string $errorMessage):void {
-        self::afficheVue('view.php',["pagetitle"=>"ERROR","cheminVueBody"=>"question/error.php","s"=>"Problème avec la question : $errorMessage "]);
+        self::afficheVue('view.php',["pagetitle"=>"ERROR","cheminVueBody"=>"Question/error.php","s"=>"Problème avec la question : $errorMessage "]);
 
     }
 
     public static function update() : void {
         $v= (new QuestionRepository())->select($_GET['immat']);
         $values=$v->formatTableau();
-        self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une question","cheminVueBody"=>"question/update.php","v"=>$v]);
+        self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une question","cheminVueBody"=>"Question/update.php","v"=>$v]);
     }
 
     public static function updated() : void {
         $v=new Question($_POST["marque"],$_POST["couleur"],$_POST["immatriculation"],$_POST["nbrSieges"]);
         (new QuestionRepository())->update($v);
         self::afficheVue('/view.php', ["pagetitle" => "creation de question",
-            "cheminVueBody" => "question/updated.php" ,  //"redirige" vers la vue
+            "cheminVueBody" => "Question/updated.php" ,  //"redirige" vers la vue
             "immatriculation"=>htmlspecialchars($v->getImmatriculation()),
         ]);
         self::readAll();

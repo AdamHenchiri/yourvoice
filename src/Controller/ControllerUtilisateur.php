@@ -2,6 +2,7 @@
 
 namespace App\YourVoice\Controller;
 
+use App\YourVoice\Model\DataObject\Question;
 use App\YourVoice\Model\DataObject\Utilisateur;
 use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\UtilisateurRepository;
@@ -15,6 +16,24 @@ class ControllerUtilisateur
             "cheminVueBody" => "utilisateur/connexion.php"   //"redirige" vers la vue
         ]);
     }
+
+    public static function connected() : void {
+        $v= (new UtilisateurRepository())->select($_POST['login']);
+        if ($v!=NULL && $v->getMdp()==$_POST['mdp']){
+            self::afficheVue('/view.php', ["pagetitle" => "connected",
+                "cheminVueBody" => "utilisateur/connected.php",//"redirige" vers la vue
+                "prenom"=>$v->getPrenom()
+            ]);
+            ControllerQuestion::readAll();
+        }
+        else{
+            echo "login ou mot de passe incorrecte";
+            self::afficheVue('/view.php', ["pagetitle" => "connexion",
+                "cheminVueBody" => "utilisateur/connexion.php",   //"redirige" vers la vue
+            ]);
+        }
+    }
+
     public static function create() : void {
         self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre utilisateur",
             "cheminVueBody" => "utilisateur/create.php"   //"redirige" vers la vue
@@ -23,7 +42,7 @@ class ControllerUtilisateur
 
 
     public static function created() : void {
-        $v=new Utilisateur($_POST["login"],$_POST["nom"],$_POST["prenom"]);
+        $v=new Utilisateur($_POST["login"],$_POST["nom"],$_POST["prenom"],$_POST["age"],"",$_POST["email"],$_POST["mdp"]);
         (new UtilisateurRepository())->sauvegarder($v);
         self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
             "cheminVueBody" => "utilisateur/created.php"   //"redirige" vers la vue
