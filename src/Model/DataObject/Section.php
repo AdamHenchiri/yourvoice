@@ -6,50 +6,46 @@ use App\YourVoice\Model\DataObject\Question;
 class Section
 {
 
-    private string $section;
+    private string $id_section;
     private string $titre;
-    private string $texteExplicatif;
+    private string $texte_explicatif;
     private int $numero;
-    private $texteReponse;
-    private Question $question;
-
+    private Question $id_question;
 
     /**
-     * @param String $section
-     * @param String $titre
-     * @param String $texteExplicatif
+     * @param string $id_section
+     * @param string $titre
+     * @param string $texte_explicatif
      * @param int $numero
-     * @param $texteReponse
-     * @param Question $question
+     * @param \App\YourVoice\Model\DataObject\Question $id_question
      */
-    public function __construct(string $section, string $titre, string $texteExplicatif, int $numero, $texteReponse, Question $question)
+    public function __construct(string $id_section, string $titre, string $texte_explicatif, int $numero, \App\YourVoice\Model\DataObject\Question $id_question)
     {
-        $this->section = $section;
+        $this->id_section = $id_section;
         $this->titre = $titre;
-        $this->texteExplicatif = $texteExplicatif;
+        $this->texte_explicatif = $texte_explicatif;
         $this->numero = $numero;
-        $this->texteReponse = $texteReponse;
-        $this->id_question = $question;
+        $this->id_question = $id_question;
     }
 
     /**
-     * @return String
+     * @return string
      */
-    public function getSection(): string
+    public function getIdSection(): string
     {
-        return $this->section;
+        return $this->id_section;
     }
 
     /**
-     * @param String $section
+     * @param string $id_section
      */
-    public function setSection(string $section): void
+    public function setIdSection(string $id_section): void
     {
-        $this->section = $section;
+        $this->id_section = $id_section;
     }
 
     /**
-     * @return String
+     * @return string
      */
     public function getTitre(): string
     {
@@ -57,7 +53,7 @@ class Section
     }
 
     /**
-     * @param String $titre
+     * @param string $titre
      */
     public function setTitre(string $titre): void
     {
@@ -65,19 +61,19 @@ class Section
     }
 
     /**
-     * @return String
+     * @return string
      */
     public function getTexteExplicatif(): string
     {
-        return $this->texteExplicatif;
+        return $this->texte_explicatif;
     }
 
     /**
-     * @param String $texteExplicatif
+     * @param string $texte_explicatif
      */
-    public function setTexteExplicatif(string $texteExplicatif): void
+    public function setTexteExplicatif(string $texte_explicatif): void
     {
-        $this->texteExplicatif = $texteExplicatif;
+        $this->texte_explicatif = $texte_explicatif;
     }
 
     /**
@@ -97,35 +93,20 @@ class Section
     }
 
     /**
-     * @return mixed
+     * @return \App\YourVoice\Model\DataObject\Question
      */
-    public function getTexteReponse()
-    {
-        return $this->texteReponse;
-    }
-
-    /**
-     * @param mixed $texteReponse
-     */
-    public function setTexteReponse($texteReponse): void
-    {
-        $this->texteReponse = $texteReponse;
-    }
-
-    /**
-     * @return Question
-     */
-    public function getid_question(): Question
+    public function getIdQuestion(): \App\YourVoice\Model\DataObject\Question
     {
         return $this->id_question;
     }
 
     /**
-     * @param Question $question
+     * @param \App\YourVoice\Model\DataObject\Question $id_question
      */
-    public function setid_question(Question $question): void
+    public function setIdQuestion(\App\YourVoice\Model\DataObject\Question $id_question): void
     {
-        $this->id_question = $question;
+        $this->id_question = $id_question;
     }
+
 
 }

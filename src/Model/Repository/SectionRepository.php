@@ -17,11 +17,12 @@ class SectionRepository
 
     protected function getNomClePrimaire(): string
     {
-        return "section";
+        return "id_section";
     }
     protected function getNomsColonnes(): array
     {
-        return ["section","titre","texteExplicatif", "numero", "texteReponse", "question" ];
+
+        return ["id_section","titre","texte_explicatif", "numero", "id_question" ];
     }
 
 

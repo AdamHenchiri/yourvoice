@@ -18,7 +18,7 @@ class QuestionRepository extends AbstractRepository
 
     protected function getNomClePrimaire(): string
     {
-        return "idQ";
+        return "id_question";
     }
     protected function getNomsColonnes(): array
     {

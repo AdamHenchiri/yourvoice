@@ -2,28 +2,22 @@
 
 namespace App\YourVoice\Controller;
 
-use App\YourVoice\Model\DataObject\Utilisateur;
 use App\YourVoice\Model\Repository\AbstractRepository;
-use App\YourVoice\Model\Repository\UtilisateurRepository;
+use App\YourVoice\Model\Repository\SectionRepository;
+use App\YourVoice\Model\DataObject\Section ;
 
-
-class ControllerUtilisateur
+class ControllerSection
 {
 
-    public static function connexion(): void{
-        self::afficheVue('/view.php', ["pagetitle" => "connection",
-            "cheminVueBody" => "utilisateur/connexion.php"   //"redirige" vers la vue
-        ]);
-    }
     public static function create() : void {
-        self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre utilisateur",
-            "cheminVueBody" => "utilisateur/create.php"   //"redirige" vers la vue
+        self::afficheVue('/view.php', ["pagetitle" => "Ajouter une section",
+            "cheminVueBody" => "section/create.php"   //"redirige" vers la vue
         ]);
     }
 
 
     public static function created() : void {
-        $v=new Utilisateur($_POST["login"],$_POST["nom"],$_POST["prenom"]);
+        $v=new Reponse($_POST["login"],$_POST["nom"],$_POST["prenom"]);
         (new UtilisateurRepository())->sauvegarder($v);
         self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
             "cheminVueBody" => "utilisateur/created.php"   //"redirige" vers la vue
@@ -91,4 +85,5 @@ class ControllerUtilisateur
         self::afficheVue('view.php',["pagetitle"=>"ERROR","cheminVueBody"=>"utilisateur/error.php","s"=>"Problème avec la utilisateur : $errorMessage "]);
 
     }
+
 }
