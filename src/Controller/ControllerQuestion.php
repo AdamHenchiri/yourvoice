@@ -15,9 +15,9 @@ class ControllerQuestion {
     public static function readAll() : void {
             $questions =(new QuestionRepository())->selectAll();//appel au modèle pour gerer la BD
        // var_dump($questions);
-        self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
-                                                "cheminVueBody" => "Question/list.php",   //"redirige" vers la vue
-                                                "questions"=>$questions]);
+            self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
+                "cheminVueBody" => "Question/list.php",   //"redirige" vers la vue
+                "questions" => $questions]);
     }
 
     public static function read() : void {

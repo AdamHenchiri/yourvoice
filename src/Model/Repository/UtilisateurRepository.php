@@ -6,7 +6,7 @@ use App\YourVoice\Model\DataObject\Utilisateur as User;
 class UtilisateurRepository extends AbstractRepository
 {
     public function construire(array $userFormatTableau) : User {
-        return new User($userFormatTableau['login'],$userFormatTableau['nom'],$userFormatTableau['prenom']);
+        return new User($userFormatTableau['login'],$userFormatTableau['nom'],$userFormatTableau['prenom'],$userFormatTableau['age'],"",$userFormatTableau['email'],$userFormatTableau['mdp']);
     }
 
     protected function getNomTable(): string{
@@ -19,6 +19,6 @@ class UtilisateurRepository extends AbstractRepository
     }
     protected function getNomsColonnes(): array
     {
-     return ["login","nom","prenom"];
+     return ["login","nom","prenom","age","role","email","mdp"];
     }
 }

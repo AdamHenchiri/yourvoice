@@ -22,15 +22,15 @@
         </p>
         <p>
             <label for="age">age</label> :
-            <input type="text" placeholder="20" name="age" id="age" required/>
+            <input type="number" placeholder="20" name="age" id="age" required/>
         </p>
         <p>
             <label for="email">email</label> :
-            <input type="text" placeholder="email@amail.com" name="email" id="email" required/>
+            <input type="email" placeholder="email@amail.com" name="email" id="email" required/>
         </p>
         <p>
             <label for="mdp">mot de passe</label> :
-            <input type="text" placeholder="******" name="mdp" id="mdp" required/>
+            <input type="password" placeholder="******" name="mdp" id="mdp" required/>
         </p>
         <p>
             <input type="submit" value="Envoyer" />

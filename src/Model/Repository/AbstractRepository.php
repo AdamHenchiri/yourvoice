@@ -32,6 +32,7 @@ abstract class AbstractRepository
             // throw new MyDatabaseException($exception->getMessage(), $exception->getCode());
             $reponse = false;
         }
+        var_dump($pdoStatement);
         $values=$v->formatTableau();
         // On donne les valeurs et on exécute la requête
         $pdoStatement->execute($values);
