@@ -56,8 +56,8 @@
             {
             ?>
         <div>
-            <input type="checkbox" id="<?php echo $user->getLogin()?>" name="<?php echo $user->getLogin()?>">
-            <label for="<?php echo $user->getLogin()?>"><?php echo $user->getLogin()?></label>
+            <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>">
+            <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
         </div>
         <?php } }?>
         </p>
@@ -74,8 +74,8 @@
             {
             ?>
         <div>
-            <input type="checkbox" id="<?php echo $user->getLogin()?>" name="<?php echo $user->getLogin()?>">
-            <label for="<?php echo $user->getLogin()?>"><?php echo $user->getLogin()?></label>
+            <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>">
+            <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
         </div>
     <?php } }?>
         </p>

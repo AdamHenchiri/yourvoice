@@ -6,7 +6,7 @@ use App\YourVoice\Model\DataObject\Utilisateur;
 
 class Question extends AbstractDataObject
 {
-
+    private ?int $id_question;
     private string $intitule;
     private string $explication;
     private string $dateDebut_redaction;
@@ -24,8 +24,9 @@ class Question extends AbstractDataObject
      * @param string $dateFin_vote
      * @param Utilisateur $id_utilisateur
      */
-    public function __construct( string $intitule, string $explication, string $dateDebut_redaction, string $dateFin_redaction, string $dateDebut_vote, string $dateFin_vote, int $id_utilisateur)
+    public function __construct(?int $id_question,string $intitule, string $explication, string $dateDebut_redaction, string $dateFin_redaction, string $dateDebut_vote, string $dateFin_vote, int $id_utilisateur)
     {
+        $this->id_question = $id_question;
         $this->intitule = $intitule;
         $this->explication = $explication;
         $this->dateDebut_redaction = $dateDebut_redaction;
@@ -33,6 +34,22 @@ class Question extends AbstractDataObject
         $this->dateDebut_vote = $dateDebut_vote;
         $this->dateFin_vote = $dateFin_vote;
         $this->id_utilisateur = $id_utilisateur;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdQuestion(): ?int
+    {
+        return $this->id_question;
+    }
+
+    /**
+     * @param int $id_question
+     */
+    public function setIdQuestion(int $id_question): void
+    {
+        $this->id_question = $id_question;
     }
 
     /**
@@ -152,6 +169,7 @@ class Question extends AbstractDataObject
 
     public function formatTableau(): array{
         return array(
+            "id_questionTag" => $this->getIdQuestion(),
             "intituleTag" => $this->getIntitule(),
             "explicationTag" => $this->getExplication(),
             "dateDebut_redactionTag" => $this->getDateDebutRedaction(),

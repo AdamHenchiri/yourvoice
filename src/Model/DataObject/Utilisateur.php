@@ -5,7 +5,7 @@ use App\YourVoice\Model\DataObject\AbstractDataObject;
 
 class Utilisateur extends AbstractDataObject
 {
-
+    private ?int $id_utilisateur;
     private string $login;
     private string $nom;
     private string $prenom;
@@ -13,6 +13,22 @@ class Utilisateur extends AbstractDataObject
     private string $role;
     private string $email;
     private string $mdp;
+
+    /**
+     * @return int
+     */
+    public function getIdUtilisateur(): ?int
+    {
+        return $this->id_utilisateur;
+    }
+
+    /**
+     * @param int $id_utilisateur
+     */
+    public function setIdUtilisateur(int $id_utilisateur): void
+    {
+        $this->id_utilisateur = $id_utilisateur;
+    }
 
     /**
      * @return string
@@ -127,6 +143,7 @@ class Utilisateur extends AbstractDataObject
     }
 
     public function __construct(
+        ?int $id_utilisateur,
         string $login,
         string $nom,
         string $prenom,
@@ -136,6 +153,7 @@ class Utilisateur extends AbstractDataObject
         string $mdp,
 
     ){
+        $this->id_utilisateur = $id_utilisateur;
         $this->login = $login;
         $this-> nom = $nom;
         $this-> prenom = $prenom;
@@ -148,6 +166,7 @@ class Utilisateur extends AbstractDataObject
 
     public function formatTableau(): array{
         return array(
+            "id_utilisateurTag"=>$this->getIdUtilisateur(),
             "loginTag" => $this->getLogin(),
             "nomTag" => $this->getNom(),
             "prenomTag" => $this->getPrenom(),
