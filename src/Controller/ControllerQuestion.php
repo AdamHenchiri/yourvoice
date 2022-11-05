@@ -49,7 +49,6 @@ class ControllerQuestion {
         $v=new Question( null,$_POST["intitule"],$_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
             $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
-        $ca=new
         (new QuestionRepository())->sauvegarder($v);
         self::afficheVue('/view.php', ["pagetitle" => "creation de question",
             "cheminVueBody" => "section/create.php"   //"redirige" vers la vue
