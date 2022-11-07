@@ -14,6 +14,7 @@ echo '<p> Date de début des votes :  ' . htmlspecialchars($question->getDateDeb
 echo '<p> Date de fin des votes :  ' . htmlspecialchars($question->getDateFinVote()) . '.</p>';
 
 
+
 echo '<p> ------------------------------------------------------------------</p>';
 
 ?>
