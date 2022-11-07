@@ -43,27 +43,8 @@
             <input type="int" placeholder="serra rempli automatiquement avec les sessions" name="id_utilisateur" id="id_utilisateur" required/>
 
 
-
         <p>
-            <label for="votants ">choisissez les votants</label> :
-
-            <?php
-            use App\YourVoice\Model\Repository\UtilisateurRepository;
-
-            $users = (new UtilisateurRepository())->selectAll();
-            if ($users){
-            foreach($users as $user)
-            {
-            ?>
-        <div>
-            <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>">
-            <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
-        </div>
-        <?php } }?>
-        </p>
-
-        <p>
-            <label for="votants ">choisissez les responssables</label> :
+            <label for="votants ">choisissez les contributeurs</label> :
 
             <?php
 

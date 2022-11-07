@@ -5,10 +5,10 @@ namespace App\YourVoice\Model\Repository;
 use App\YourVoice\Model\DataObject\Reponse;
 use App\YourVoice\Model\DataObject\Section;
 
-class SectionRepository
+class SectionRepository extends AbstractRepository
 {
     public function construire(array $sectionFormatTableau) : Section {
-        return new Section($sectionFormatTableau['section'],$sectionFormatTableau['titre'],$sectionFormatTableau['texteExplicatif'], $sectionFormatTableau['numero'], $sectionFormatTableau['texteReponse'], $sectionFormatTableau['question']);
+        return new Section($sectionFormatTableau['id_section'],$sectionFormatTableau['titre'],$sectionFormatTableau['texteExplicatif'], $sectionFormatTableau['numero'], $sectionFormatTableau['texteReponse'], $sectionFormatTableau['id_question']);
     }
 
     protected function getNomTable(): string{

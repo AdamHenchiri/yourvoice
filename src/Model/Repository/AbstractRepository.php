@@ -4,6 +4,7 @@ namespace App\YourVoice\Model\Repository;
 
 use App\YourVoice\Model\DataObject\AbstractDataObject;
 use App\YourVoice\Model\DataObject\Voiture;
+use PDO;
 
 abstract class AbstractRepository
 {
@@ -12,9 +13,8 @@ abstract class AbstractRepository
     {
     }
 
-    public function sauvegarder(AbstractDataObject $v)
+    public function sauvegarder(AbstractDataObject $v):?int
     {
-        $reponse = true;
         $sql = "INSERT INTO ".$this->getNomTable()." (";
         foreach ($this->getNomsColonnes() as $nomChamps){
             $sql.=$nomChamps.", ";
@@ -32,11 +32,11 @@ abstract class AbstractRepository
             // throw new MyDatabaseException($exception->getMessage(), $exception->getCode());
             $reponse = false;
         }
-        var_dump($pdoStatement);
         $values=$v->formatTableau();
         // On donne les valeurs et on exécute la requête
         $pdoStatement->execute($values);
-        return $reponse;
+        //var_dump($pdoStatement);
+        return DatabaseConnection::getPdo()->lastInsertId() ;
     }
 
     public function update(AbstractDataObject $v)

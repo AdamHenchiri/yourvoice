@@ -4,7 +4,7 @@ namespace App\YourVoice\Model\Repository;
 
 use App\YourVoice\Model\DataObject\Reponse;
 
-class ReponseRepository
+class ReponseRepository extends AbstractRepository
 {
     public function construire(array $reponseFormatTableau) : Reponse {
         return new Reponse($reponseFormatTableau['id_reponse'],$reponseFormatTableau['id_utilisateur'],$reponseFormatTableau['id_question']);

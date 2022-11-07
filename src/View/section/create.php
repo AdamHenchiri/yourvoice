@@ -5,9 +5,11 @@
     <title>Créer Section</title>
 </head>
 <body>
-<form method="post" action="frontController.php?controller=section&action=create">
+<form method="post" action="frontController.php?controller=section&action=created">
     <fieldset>
         <legend>Créez une section :</legend>
+        <input id="id_question" name="id_question" type="hidden" value=<?php echo $id_question ?> >
+        <?php echo $id_question?>
         <p>
             <label for="titre">Titre</label> :
             <textarea placeholder="Je vais bien " name="titre" id="titre" required></textarea>
@@ -20,10 +22,23 @@
             <label for="numero">Numéro de la section</label> :
             <input type="number" placeholder="1" name="numero" id="numero" required/>
         </p>
-        <?php
-            $id_question = $_POST['id_question'];
-        ?>
+        <p>
+            <label for="votants ">choisissez les votants</label> :
 
+            <?php
+            use App\YourVoice\Model\Repository\UtilisateurRepository;
+
+            $users = (new UtilisateurRepository())->selectAll();
+            if ($users){
+            foreach($users as $user)
+            {
+            ?>
+        <div>
+            <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>">
+            <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
+        </div>
+    <?php } }?>
+        </p>
         <p>
             <input type="submit" value="Envoyer" />
         </p>

@@ -17,12 +17,11 @@ class ControllerSection
 
 
     public static function created() : void {
-        $v=new Reponse($_POST["login"],$_POST["nom"],$_POST["prenom"]);
-        (new UtilisateurRepository())->sauvegarder($v);
-        self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
-            "cheminVueBody" => "utilisateur/created.php"   //"redirige" vers la vue
+        $v=new Section($_POST["id_question"],$_POST["titre"],$_POST["texte_explicatif"],$_POST["numero"],$_POST["id_question"]);
+        (new SectionRepository())->sauvegarder($v);
+        self::afficheVue('/view.php', ["pagetitle" => "section ajouter",
+            "cheminVueBody" => "section/created.php"   //"redirige" vers la vue
         ]);
-        self::readAll();
     }
 
     public static function update() : void {

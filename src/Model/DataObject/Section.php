@@ -3,23 +3,23 @@
 namespace App\YourVoice\Model\DataObject;
 use App\YourVoice\Model\DataObject\Question;
 
-class Section
+class Section extends AbstractDataObject
 {
 
-    private string $id_section;
+    private ?int $id_section;
     private string $titre;
     private string $texte_explicatif;
     private int $numero;
-    private Question $id_question;
+    private int $id_question;
 
     /**
      * @param string $id_section
      * @param string $titre
      * @param string $texte_explicatif
      * @param int $numero
-     * @param \App\YourVoice\Model\DataObject\Question $id_question
+     * @param int $id_question
      */
-    public function __construct(string $id_section, string $titre, string $texte_explicatif, int $numero, \App\YourVoice\Model\DataObject\Question $id_question)
+    public function __construct(?int $id_section, string $titre, string $texte_explicatif, int $numero, int $id_question)
     {
         $this->id_section = $id_section;
         $this->titre = $titre;
@@ -31,7 +31,7 @@ class Section
     /**
      * @return string
      */
-    public function getIdSection(): string
+    public function getIdSection(): ?int
     {
         return $this->id_section;
     }
@@ -39,7 +39,7 @@ class Section
     /**
      * @param string $id_section
      */
-    public function setIdSection(string $id_section): void
+    public function setIdSection(int $id_section): void
     {
         $this->id_section = $id_section;
     }
@@ -93,20 +93,30 @@ class Section
     }
 
     /**
-     * @return \App\YourVoice\Model\DataObject\Question
+     * @return int
      */
-    public function getIdQuestion(): \App\YourVoice\Model\DataObject\Question
+    public function getIdQuestion(): int
     {
         return $this->id_question;
     }
 
     /**
-     * @param \App\YourVoice\Model\DataObject\Question $id_question
+     * @param int $id_question
      */
-    public function setIdQuestion(\App\YourVoice\Model\DataObject\Question $id_question): void
+    public function setIdQuestion(int $id_question): void
     {
         $this->id_question = $id_question;
     }
 
 
+    public function formatTableau(): array
+    {
+        return array(
+            "id_sectionTag" => $this->getIdSection(),
+            "titreTag" => $this->getTitre(),
+            "texte_explicatifTag" => $this->getTexteExplicatif(),
+            "numeroTag" => $this->getNumero(),
+            "id_questionTag" => $this->getIdQuestion(),
+        );
+    }
 }
