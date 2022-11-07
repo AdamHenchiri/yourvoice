@@ -49,7 +49,7 @@
             <?php
 
 
-            $users = (new UtilisateurRepository())->selectAll();
+            $users = (new \App\YourVoice\Model\Repository\UtilisateurRepository())->selectAll();
             if ($users){
             foreach($users as $user)
             {

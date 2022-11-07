@@ -7,7 +7,7 @@
 <body>
 <form method="post" action="frontController.php?controller=section&action=created">
     <fieldset>
-        <legend>Créez une section :</legend>
+        <legend>Creer une section :</legend>
         <input id="id_question" name="id_question" type="hidden" value=<?php echo $id_question ?> >
         <?php echo $id_question?>
         <p>
