@@ -40,7 +40,10 @@
     <?php } }?>
         </p>
         <p>
-            <input type="submit" value="Envoyer" />
+            <input type="submit" value="Ajouter une nouvelle section" />
+        </p>
+        <p>
+            <a href="frontController.php?controller=question&action=list">Finir et voir la question </a>
         </p>
 
 
