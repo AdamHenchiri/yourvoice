@@ -33,7 +33,7 @@
 <header>
     <nav>
             <div class="col-md-4 col-sm-3">
-            <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/web/frontController.php" target="_blank" title="YourVoice" ><h1 class="logo"><img class="logo" src="../img/Logo.png">YourVoice</h1></a>
+            <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php" target="_blank" title="YourVoice" ><h1 class="logo"><img class="logo" src="../img/Logo.png">YourVoice</h1></a>
           </div>
           
         <!-- Votre menu de navigation ici -->

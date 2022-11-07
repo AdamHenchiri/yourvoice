@@ -48,7 +48,7 @@
 
             <?php
 
-
+            use App\YourVoice\Model\Repository\UtilisateurRepository;
             $users = (new UtilisateurRepository())->selectAll();
             if ($users){
             foreach($users as $user)
