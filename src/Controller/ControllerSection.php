@@ -3,6 +3,7 @@
 namespace App\YourVoice\Controller;
 
 use App\YourVoice\Model\Repository\AbstractRepository;
+use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\SectionRepository;
 use App\YourVoice\Model\DataObject\Section ;
 
@@ -17,10 +18,11 @@ class ControllerSection
 
 
     public static function created() : void {
-        $v=new Section($_POST["id_question"],$_POST["titre"],$_POST["texte_explicatif"],$_POST["numero"],$_POST["id_question"]);
+        $v=new Section(null,$_POST["titre"],$_POST["texte_explicatif"],$_POST["numero"],$_POST["id_question"]);
         (new SectionRepository())->sauvegarder($v);
+
         self::afficheVue('/view.php', ["pagetitle" => "section ajouter",
-            "cheminVueBody" => "section/created.php"   //"redirige" vers la vue
+            "cheminVueBody" => "section/created.php", "id_question"=>$id   //"redirige" vers la vue
         ]);
     }
 

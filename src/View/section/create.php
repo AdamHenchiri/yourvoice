@@ -24,7 +24,7 @@
         </p>
 
         <p>
-            <input type="submit" value="Valider" />
+            <input type="submit" value="Ajouter une nouvelle section" />
         </p>
 
 
