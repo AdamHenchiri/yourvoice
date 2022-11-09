@@ -16,7 +16,7 @@ class UtilisateurRepository extends AbstractRepository
 
     protected function getNomClePrimaire(): string
     {
-        return "login";
+        return "id_utilisateur";
     }
     protected function getNomsColonnes(): array
     {

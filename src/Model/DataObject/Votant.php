@@ -2,38 +2,22 @@
 
 namespace App\YourVoice\Model\DataObject;
 
-class Votant
+class Votant extends AbstractDataObject
 {
-    private int $id_reponse;
-    private int $id_utilisateur;
-    private string $vote;
+    private int $id_utilisateur ;
+    private ?int $vote;
+    private string $id_question ;
 
     /**
-     * @param int $id_reponse
      * @param int $id_utilisateur
-     * @param string $vote
+     * @param int $vote
+     * @param string $id_question
      */
-    public function __construct(int $id_reponse, int $id_utilisateur, string $vote)
+    public function __construct(int $id_utilisateur, ?int $vote, string $id_question)
     {
-        $this->id_reponse = $id_reponse;
         $this->id_utilisateur = $id_utilisateur;
         $this->vote = $vote;
-    }
-
-    /**
-     * @return int
-     */
-    public function getIdReponse(): int
-    {
-        return $this->id_reponse;
-    }
-
-    /**
-     * @param int $id_reponse
-     */
-    public function setIdReponse(int $id_reponse): void
-    {
-        $this->id_reponse = $id_reponse;
+        $this->id_question = $id_question;
     }
 
     /**
@@ -53,20 +37,43 @@ class Votant
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getVote(): string
+    public function getVote(): ?int
     {
         return $this->vote;
     }
 
     /**
-     * @param string $vote
+     * @param int $vote
      */
-    public function setVote(string $vote): void
+    public function setVote(int $vote): void
     {
         $this->vote = $vote;
     }
 
+    /**
+     * @return string
+     */
+    public function getIdQuestion(): string
+    {
+        return $this->id_question;
+    }
+
+    /**
+     * @param string $id_question
+     */
+    public function setIdQuestion(string $id_question): void
+    {
+        $this->id_question = $id_question;
+    }
+
+    public function formatTableau(): array{
+        return array(
+            "id_utilisateurTag" => $this->getIdUtilisateur(),
+            "voteTag" => $this->getVote(),
+            "id_questionTag" => $this->getIdQuestion(),
+        );
+    }
 
 }
