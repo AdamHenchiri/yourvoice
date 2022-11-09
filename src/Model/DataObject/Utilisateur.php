@@ -10,7 +10,6 @@ class Utilisateur extends AbstractDataObject
     private string $nom;
     private string $prenom;
     private int $age;
-    //private string $role;
     private string $email;
     private string $mdp;
 
@@ -28,22 +27,6 @@ class Utilisateur extends AbstractDataObject
     public function setIdUtilisateur(int $id_utilisateur): void
     {
         $this->id_utilisateur = $id_utilisateur;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRole(): string
-    {
-        return $this->role;
-    }
-
-    /**
-     * @param string $role
-     */
-    public function setRole(string $role): void
-    {
-        $this->role = $role;
     }
 
     /**
@@ -148,7 +131,6 @@ class Utilisateur extends AbstractDataObject
         string $nom,
         string $prenom,
         int $age,
-
         string $email,
         string $mdp,
 
@@ -158,7 +140,6 @@ class Utilisateur extends AbstractDataObject
         $this-> nom = $nom;
         $this-> prenom = $prenom;
         $this-> age = $age;
-
         $this-> email = $email;
         $this-> mdp = $mdp;
 
@@ -171,7 +152,6 @@ class Utilisateur extends AbstractDataObject
             "nomTag" => $this->getNom(),
             "prenomTag" => $this->getPrenom(),
             "ageTag" => $this->getAge(),
-
             "emailTag" => $this->getEmail(),
             "mdpTag" => $this->getMdp(),
         );
