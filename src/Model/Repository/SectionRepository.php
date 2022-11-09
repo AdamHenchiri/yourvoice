@@ -8,7 +8,7 @@ use App\YourVoice\Model\DataObject\Section;
 class SectionRepository extends AbstractRepository
 {
     public function construire(array $sectionFormatTableau) : Section {
-        return new Section($sectionFormatTableau['id_section'],$sectionFormatTableau['titre'],$sectionFormatTableau['texteExplicatif'], $sectionFormatTableau['numero'], $sectionFormatTableau['texteReponse'], $sectionFormatTableau['id_question']);
+        return new Section($sectionFormatTableau['id_section'],$sectionFormatTableau['titre'],$sectionFormatTableau['texte_explicatif'], $sectionFormatTableau['numero'], $sectionFormatTableau['id_question']);
     }
 
     protected function getNomTable(): string{

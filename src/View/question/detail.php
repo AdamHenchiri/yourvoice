@@ -23,6 +23,21 @@ echo '<p> Date de fin des votes :  ' .  date('d-m-Y', strtotime($dateFinVote)) .
 
 echo '<p> ------------------------------------------------------------------</p>';
 
+//require __DIR__. '/../section/list.php';
+
+/*foreach ($sections as $section) {
+    //$questNonFormater = $question->getIdQuestion();
+    //$questFormater = rawurlencode($questNonFormater);
+    $titreSection = $section->getTitre();
+    $idSection = $section->getIdSection();
+    $idQuestion = $section->getIdQuestion();
+    echo "boujour";
+    echo $titreSection;
+    echo "<li><a href=\"frontController.php?controller=section&action=read&id_question={$idSection}\"> Section  {$idSection}:\n".  htmlspecialchars ( $titreSection ) . " </a></li> ";
+
+    echo "--------------------------------------------------------------------------\n";
+}*/
+
 ?>
 </body>
 </html><?php

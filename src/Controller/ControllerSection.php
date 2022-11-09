@@ -59,13 +59,28 @@ class ControllerSection
         self::readAll();
     }
 
+    public static function readAll2() : void {
+
+        $sections =(new SectionRepository())->selection($_GET['login'], "section");
+        ;//appel au modèle pour gerer la BD
+        self::afficheVue('/view.php', ["pagetitle" => "Liste des sections",
+            "cheminVueBody" => "section/list.php",   //"redirige" vers la vue
+            "sections"=>$sections]);
+    }
+
     public static function readAll() : void {
 
-        $utilisateurs =(new UtilisateurRepository())->selectAll();//appel au modèle pour gerer la BD
-        self::afficheVue('/view.php', ["pagetitle" => "Liste des utilisateurs",
-            "cheminVueBody" => "utilisateur/list.php",   //"redirige" vers la vue
-            "utilisateurs"=>$utilisateurs]);
+        $sections =(new SectionRepository())->selectAll();
+        ;//appel au modèle pour gerer la BD
+        /*self::afficheVue('/view.php', ["pagetitle" => "Liste des sections",
+            "cheminVueBody" => "section/list.php",   //"redirige" vers la vue
+            "sections"=>$sections]);*/
+        self::afficheVue('/view.php', ["pagetitle" => "Liste des sections",
+            "cheminVueBody" => "question/detail.php",   //"redirige" vers la vue
+            "sections"=>$sections]);
     }
+
+
 
     public static function read() : void {
         $user =(new UtilisateurRepository())->select($_GET['login']);
