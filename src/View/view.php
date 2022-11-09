@@ -39,8 +39,8 @@
         <!-- Votre menu de navigation ici -->
         <ul>
             <li><a href="frontController.php?action=readAll&controller=question"> Q&A </a></li>
-            <li><a href="frontController.php?controller=utilisateur&action=readAll"> VOTE </a></li>
-            <li><a href="frontController.php?action=create&controller=question"> YOUR QUESTION </a></li>
+            <li><a href="#"> VOTE </a></li>
+            <li><a href="#"> YOUR QUESTION </a></li>
             <li><a href="frontController.php?controller=utilisateur&action=connexion"> your account </a></li>
             <li><a href="frontController.php?controller=question&action=create"> create question </a></li>
 

@@ -18,11 +18,15 @@ class ControllerSection
 
 
     public static function created() : void {
+        $id=$_POST["id_question"];
         $v=new Section(null,$_POST["titre"],$_POST["texte_explicatif"],$_POST["numero"],$_POST["id_question"]);
         (new SectionRepository())->sauvegarder($v);
 
-        self::afficheVue('/view.php', ["pagetitle" => "section ajouter",
-            "cheminVueBody" => "section/created.php", "id_question"=>$id   //"redirige" vers la vue
+        self::afficheVue('/view.php', ["pagetitle" => "section done",
+            "cheminVueBody" => "section/created.php" //"redirige" vers la vue
+        ]);
+        self::afficheVue('/view.php', ["pagetitle" => "ajouter section",
+            "cheminVueBody" => "section/create.php", "id_question"=>$id   //"redirige" vers la vue
         ]);
     }
 

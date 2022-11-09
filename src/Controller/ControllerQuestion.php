@@ -21,7 +21,7 @@ class ControllerQuestion {
     }
 
     public static function read() : void {
-        $question =(new QuestionRepository())->select($_GET['id_question']);
+        $question =(new QuestionRepository())->select($_GET['login']);
         if ($question!==null) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
                 "cheminVueBody" => "question/detail.php",   //"redirige" vers la vue
