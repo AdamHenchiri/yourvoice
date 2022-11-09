@@ -70,7 +70,7 @@ class ControllerQuestion {
             $s='suppression echoué';
             self::error($s);
         }
-        self::readAll();
+        //self::readAll();
     }
 
 
