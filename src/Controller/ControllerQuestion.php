@@ -58,13 +58,13 @@ class ControllerQuestion {
 
     }
 
-
     public static function delete() : void {
-        $v=(new QuestionRepository())->select($_GET['immat']);
-        $rep=(new QuestionRepository())->supprimer($_GET['immat']);
+        echo $_GET['id_question'];
+        $v=(new QuestionRepository())->select($_GET['id_question']);
+        $rep=(new QuestionRepository())->supprimer($_GET['id_question']);
         if ($v!=null){
             self::afficheVue('/view.php', ["pagetitle" => "suppresion de question",
-                "cheminVueBody" => "question/deleted.php","nom"=>$v->getMarque(),"immat"=>$v->getImmatriculation()   //"redirige" vers la vue
+                "cheminVueBody" => "question/deleted.php", "id_question"=>$v->getIdQuestion()   //"redirige" vers la vue
             ]);
         }else{
             $s='suppression echoué';

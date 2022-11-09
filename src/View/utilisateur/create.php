@@ -7,33 +7,33 @@
 <body>
 <form method="post" action="frontController.php?controller=utilisateur&action=created">
     <fieldset>
-        <legend>inscription :</legend>
+        <legend>INSCRIPTION</legend>
         <p>
-            <label for="login_id">login</label> :
+            <label for="login_id">Identifiant</label>
             <input type="text" placeholder="macrone" name="login" id="login_id" required/>
         </p>
         <p>
-            <label for="nom">nom</label> :
+            <label for="nom">Nom</label>
             <input type="text" placeholder="macron" name="nom" id="nom" required/>
         </p>
         <p>
-            <label for="prenom">prenom</label> :
+            <label for="prenom">Prénom</label>
             <input type="text" placeholder="emmanuel" name="prenom" id="prenom" required/>
         </p>
         <p>
-            <label for="age">age</label> :
+            <label for="age">Âge</label>
             <input type="number" placeholder="20" name="age" id="age" required/>
         </p>
         <p>
-            <label for="email">email</label> :
+            <label for="email">Email</label>
             <input type="email" placeholder="email@amail.com" name="email" id="email" required/>
         </p>
         <p>
-            <label for="mdp">mot de passe</label> :
+            <label for="mdp">Mot de passe</label>
             <input type="password" placeholder="******" name="mdp" id="mdp" required/>
         </p>
         <p>
-            <input type="submit" value="Envoyer" />
+            <input type="submit" value="S'inscrire" />
         </p>
     </fieldset>
 </form>
