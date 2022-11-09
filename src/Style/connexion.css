@@ -24,6 +24,8 @@
 
 #champsrequis{
     margin: 0;
+    font-size: 15px;
+    color: red;
 }
 #envoyer{
     border: 1px solid black;
