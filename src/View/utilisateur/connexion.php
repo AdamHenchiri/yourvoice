@@ -10,7 +10,7 @@
             <h1>Connexion</h1>
             <input type="text" placeholder="Login*" name="login" id="login_id" required/>
             <input type="password" placeholder="Mot de passe*" name="mdp" id="mdp" required/>
-            <p>* champs requis</p>
+            <p id="champsrequis">* champs requis</p>
             <input id="envoyer" type="submit" value="Connexion"/>
 
     </div>

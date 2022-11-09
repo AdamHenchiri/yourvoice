@@ -10,8 +10,12 @@
     height: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
+    gap: 20px;
 }
 
+#champsrequis{
+    margin: 0;
+}
 #envoyer{
     border: 1px solid black;
     border-radius: 5px;
