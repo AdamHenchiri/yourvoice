@@ -9,9 +9,10 @@
 #envoyer{
     border: 1px solid black;
     border-radius: 5px;
+    padding: 5px;
     color: white;
     background-color: black;
-    font-size: 20px;
+    font-size: 17px;
     transition-duration: 0.2s;
 }
 
