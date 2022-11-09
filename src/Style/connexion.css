@@ -13,12 +13,12 @@
     gap: 10px;
 }
 @font-face {
-    src: url(font/HindMadurail-Bold.ttf);
+    src: url("HindMudarail-Bold.ttf");
     font-family: 'mudarailbold';
 }
 
 @font-face {
-    src: url(font/HindMadurail-Regular.ttf);
+    src: url("HindMadurail-Regular.ttf");
     font-family: 'mudarailnormal';
 }
 
