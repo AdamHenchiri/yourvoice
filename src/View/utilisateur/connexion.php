@@ -15,7 +15,7 @@
             <input type="password" placeholder="Mot de passe*" name="mdp" id="mdp" required/>
         </p>
         <p>
-            <input type="submit" value="Envoyer" />
+            <input id="envoyer" type="submit" value="Connexion"/>
         </p>
 
 </form>
