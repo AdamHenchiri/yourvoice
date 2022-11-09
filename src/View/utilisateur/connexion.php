@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <title>connexion</title>
 </head>
-<div class="container_connexion">
+
 <form method="post" action="frontController.php?controller=utilisateur&action=connected">
+    <div class="container_connexion">
             <h1>Connexion</h1>
             <input type="text" placeholder="Login*" name="login" id="login_id" required/>
             <input type="password" placeholder="Mot de passe*" name="mdp" id="mdp" required/>
             <p>* champs requis</p>
             <input id="envoyer" type="submit" value="Connexion"/>
 
-
+    </div>
 </form>
 <?php echo "<a href=\"frontController.php?controller=utilisateur&action=create\"> vous n'avez pas encore de compte ? cliquer ici!</a> "; ?>
 </div>
