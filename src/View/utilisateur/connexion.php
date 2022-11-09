@@ -9,11 +9,9 @@
     <fieldset>
         <legend>Connexion</legend>
         <p>
-            <label for="login_id">login</label> :
             <input type="text" placeholder="macrone" name="login" id="login_id" required/>
         </p>
         <p>
-            <label for="mdp">mot de passe</label> :
             <input type="password" placeholder="******" name="mdp" id="mdp" required/>
         </p>
         <p>
