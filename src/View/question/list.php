@@ -6,6 +6,7 @@
 </head>
 <body>
 <?php
+echo "Il y a " . $nbLigne . " questions";
 foreach ($questions as $question) {
     $questNonFormater = $question->getIdQuestion();
     $questFormater = rawurlencode($questNonFormater);

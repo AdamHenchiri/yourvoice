@@ -13,12 +13,14 @@ class ControllerQuestion {
 
     // Déclaration de type de retour void : la fonction ne retourne pas de valeur
     public static function readAll() : void {
-        $questions =(new QuestionRepository())->selectAll();//appel au modèle pour gerer la BD
-       // var_dump($questions);
+        $question =new QuestionRepository();//appel au modèle pour gerer la BD
+        $questions = $question->selectAll();
+        $nbLigne =count($questions);
         self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
-                                                "cheminVueBody" => "question/list.php",   //"redirige" vers la vue
-                                                "questions"=>$questions]);
+            "cheminVueBody" => "question/list.php",   //"redirige" vers la vue
+            "questions"=>$questions, "nbLigne" => $nbLigne] );
     }
+
 
     public static function read() : void {
         $question =(new QuestionRepository())->select($_GET['login']);
