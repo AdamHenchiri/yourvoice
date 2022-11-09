@@ -25,13 +25,17 @@
 .text{
     width: 30%;
     font-size: 17px;
+    position: relative;
 }
 
-#champsrequis{
+#mdp::after {
     margin: 0;
     font-size: 15px;
     color: red;
+    position: absolute;
+    left: 0;
 }
+
 #envoyer{
     border: 1px solid black;
     border-radius: 5px;
