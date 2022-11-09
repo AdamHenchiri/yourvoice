@@ -47,7 +47,7 @@ class ControllerUtilisateur
         self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
             "cheminVueBody" => "utilisateur/created.php"   //"redirige" vers la vue
         ]);
-        self::readAll();
+        //self::readAll();
     }
 
     public static function update() : void {
