@@ -112,6 +112,7 @@ abstract class AbstractRepository
         return $tab;
     }
 
+
     protected abstract function getNomTable(): string;
 
 
