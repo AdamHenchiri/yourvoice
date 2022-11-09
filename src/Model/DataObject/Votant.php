@@ -2,7 +2,7 @@
 
 namespace App\YourVoice\Model\DataObject;
 
-class votant
+class Votant
 {
     private int $id_reponse;
     private int $id_utilisateur;

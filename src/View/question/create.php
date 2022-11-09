@@ -62,6 +62,24 @@
         </p>
 
         <p>
+            <label for="votants ">choisissez les votants</label> :
+
+            <?php
+
+
+            $users = (new UtilisateurRepository())->selectAll();
+            if ($users){
+            foreach($users as $user)
+            {
+            ?>
+        <div>
+            <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>">
+            <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
+        </div>
+    <?php } }?>
+        </p>
+
+        <p>
             <input type="submit" value="Envoyer" />
         </p>
     </fieldset>
