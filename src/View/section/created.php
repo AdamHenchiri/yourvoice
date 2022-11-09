@@ -1,3 +1,3 @@
 <?php
-echo "section bien ajouter";
+echo "La section à bien été ajoutée";
 ?>

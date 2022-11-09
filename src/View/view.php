@@ -38,11 +38,12 @@
           
         <!-- Votre menu de navigation ici -->
         <ul>
-            <li><a href="frontController.php?action=readAll&controller=question"> Q&A </a></li>
+            <li><a href="frontController.php?action=readAll&controller=question"> QUESTIONS </a></li>
+            <li><a href="frontController.php?controller=question&action=create"> CRÉER QUESTION </a></li>
+            <li><a href="#"> MES QUESTIONS </a></li>
             <li><a href="#"> VOTE </a></li>
-            <li><a href="#"> YOUR QUESTION </a></li>
-            <li><a href="frontController.php?controller=utilisateur&action=connexion"> your account </a></li>
-            <li><a href="frontController.php?controller=question&action=create"> create question </a></li>
+            <li><a href="frontController.php?controller=utilisateur&action=connexion"> MON COMPTE </a></li>
+
 
 
         </ul>
@@ -55,7 +56,7 @@
 </main>
 <footer>
     <p>
-        Forum de vote libre crée par l'équipe de choc (Mme.RATHIER Sylia, Mme.BETTINGER Sarah, M.HARRIBAUD Kim, M.HENCHIRI Adam).
+        Forum de vote libre créé par l'équipe de choc (Mme.BETTINGER Sarah, M.HARRIBAUD Kim, M.HENCHIRI Adam, Mme.RATHIER Sylia).
     </p>
 </footer>
 </body>

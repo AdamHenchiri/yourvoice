@@ -7,34 +7,34 @@
 <body>
 <form method="post" action="frontController.php?controller=question&action=created" >
     <fieldset>
-        <legend>Créez une question :</legend>
+        <legend>Créer une question :</legend>
         <p>
-            <label for="intitule">Intitulé</label> :
+            <label for="intitule">Intitulé</label>
         </p>
             <textarea placeholder="Comment allez-vous ?" name="intitule" id="intitule" cols="60" , rows="1" required></textarea>
 
         <p>
-            <label for="explication">Développement de votre question</label> :
+            <label for="explication">Développement de la question</label>
         </p>
             <textarea placeholder="Comment répondriez vous à cette question ...." name="explication" id="explication" cols="90" , rows="6" required></textarea>
 
         <p>
-            <label for="dateDebut_redaction">Date du début de la rédaction</label> :
+            <label for="dateDebut_redaction">Début de la rédaction</label>
             <input type="date" placeholder="" name="dateDebut_redaction" id="dateDebut_redaction" required/>
         </p>
 
         <p>
-            <label for="dateFin_redaction">Date de fin de la rédaction</label> :
+            <label for="dateFin_redaction">Fin de la rédaction</label>
             <input type="date" placeholder="" name="dateFin_redaction" id="dateFin_redaction" required/>
         </p>
 
         <p>
-            <label for="dateDebut_vote">Date du début du vote</label> :
+            <label for="dateDebut_vote">Début du vote</label>
             <input type="date" placeholder="" name="dateDebut_vote" id="dateDebut_vote" required/>
         </p>
 
         <p>
-            <label for="dateFin_vote">Date de fin du vote</label> :
+            <label for="dateFin_vote">Fin du vote</label>
             <input type="date" placeholder="" name="dateFin_vote" id="dateFin_vote" required/>
         </p>
 
@@ -44,7 +44,7 @@
 
 
         <p>
-            <label for="votants ">choisissez les contributeurs</label> :
+            <label for="votants ">Choisissez les contributeurs</label> :
 
             <?php
 
@@ -62,7 +62,7 @@
         </p>
 
         <p>
-            <label for="votants ">choisissez les votants</label> :
+            <label for="votants ">Choisissez les votants</label> :
 
             <?php
 
@@ -80,7 +80,7 @@
         </p>
 
         <p>
-            <input type="submit" value="Envoyer" />
+            <input type="submit" value="Créer" />
         </p>
     </fieldset>
 </form>
