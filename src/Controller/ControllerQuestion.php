@@ -1,8 +1,10 @@
 <?php
 namespace App\YourVoice\Controller ;
 
+use App\YourVoice\Model\DataObject\Contributeur;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
+use App\YourVoice\Model\Repository\ContributeurRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\DataObject\Question ;
 use App\YourVoice\Model\Repository\VotantRepository;
@@ -52,26 +54,30 @@ class ControllerQuestion {
 
 
     public static function created() : void {
-        $v=new Question( null,$_POST["intitule"],$_POST["explication"],
+            $v=new Question( null,$_POST["intitule"],$_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
             $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
-        $id=(new QuestionRepository())->sauvegarder($v);
-        $users = (new UtilisateurRepository())->selectAll();
-
-        if ($users) {
+            //sauvegarde de la question dans la base de donnée
+            $id=(new QuestionRepository())->sauvegarder($v);
+            //sauvegarde des votants dans la base de donnée
             foreach ($_POST["idVotant"] as $idUser) {
                 if ($idUser) {
                     $v2 = new Votant($idUser, null, $id);
                     (new VotantRepository())->sauvegarder($v2);
                 }
             }
-        }
-
-        //echo $id;
-        self::afficheVue('/view.php', ["pagetitle" => "creation d'une section",
-            "cheminVueBody" => "section/create.php",//"redirige" vers la vue
-            "id_question"=>$id
-        ]);
+            //sauvegarde des contributeurs dans la base de donnée
+            foreach ($_POST["idContributeur"] as $idUser) {
+                if ($idUser) {
+                    $v3 = new Contributeur($idUser, $id);
+                    (new ContributeurRepository())->sauvegarder($v3);
+                }
+            }
+            //echo $id;
+            self::afficheVue('/view.php', ["pagetitle" => "creation d'une section",
+                "cheminVueBody" => "section/create.php",//"redirige" vers la vue
+                "id_question"=>$id
+            ]);
     }
 
     public static function delete() : void {

@@ -44,7 +44,7 @@
 
 
         <p>
-            <label for="votants ">Choisissez les contributeurs</label> :
+            <label for="contributeurs">Choisissez les contributeurs</label> :
 
             <?php
 
@@ -55,8 +55,8 @@
             {
             ?>
         <div>
-            <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>">
-            <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
+            <input type="checkbox" name="idContributeur[]" value="<?php echo $user->getIdUtilisateur()?>">
+            <?php echo $user->getLogin()?>
         </div>
     <?php } }?>
         </p>
@@ -74,7 +74,7 @@
             ?>
         <div>
             <input type="checkbox"  name="idVotant[]" value="<?php echo $user->getIdUtilisateur()?>">
-            <?php echo $user->getLogin()?></label>
+            <?php echo $user->getLogin()?>
         </div>
     <?php } }?>
         </p>
