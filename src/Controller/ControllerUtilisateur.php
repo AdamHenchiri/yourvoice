@@ -24,7 +24,7 @@ class ControllerUtilisateur
                 "cheminVueBody" => "utilisateur/connected.php",//"redirige" vers la vue
                 "prenom"=>$v->getPrenom()
             ]);
-            ControllerQuestion::readAll();
+            //ControllerQuestion::readAll();
         }
         else{
             echo "login ou mot de passe incorrecte";
@@ -47,7 +47,7 @@ class ControllerUtilisateur
         self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
             "cheminVueBody" => "utilisateur/created.php"   //"redirige" vers la vue
         ]);
-        self::readAll();
+        //self::readAll();
     }
 
     public static function update() : void {
