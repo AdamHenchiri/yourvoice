@@ -7,7 +7,7 @@
 <div class="container_connexion">
 <form method="post" action="frontController.php?controller=utilisateur&action=connected">
     <div>
-    <fieldset>
+
         <legend>Connexion</legend>
         <p>
             <input type="text" placeholder="macrone" name="login" id="login_id" required/>
@@ -18,7 +18,7 @@
         <p>
             <input type="submit" value="Envoyer" />
         </p>
-    </fieldset>
+
 </form>
 <?php echo "<div><a href=\"frontController.php?controller=utilisateur&action=create\"> vous n'avez pas encore de compte ? cliquer ici!</a></div> "; ?>
 </div>
