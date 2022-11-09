@@ -22,7 +22,7 @@ class ControllerSection
         (new SectionRepository())->sauvegarder($v);
 
         self::afficheVue('/view.php', ["pagetitle" => "section ajouter",
-            "cheminVueBody" => "section/created.php", "id_question"=>$id   //"redirige" vers la vue
+            "cheminVueBody" => "section/created.php", "id_question"=>$id  //"redirige" vers la vue
         ]);
     }
 
