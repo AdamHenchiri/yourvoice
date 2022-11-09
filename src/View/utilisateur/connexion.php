@@ -9,10 +9,10 @@
 
         <legend>Connexion</legend>
         <p>
-            <input type="text" placeholder="macrone" name="login" id="login_id" required/>
+            <input type="text" placeholder="Login*" name="login" id="login_id" required/>
         </p>
         <p>
-            <input type="password" placeholder="******" name="mdp" id="mdp" required/>
+            <input type="password" placeholder="Mot de passe*" name="mdp" id="mdp" required/>
         </p>
         <p>
             <input type="submit" value="Envoyer" />
