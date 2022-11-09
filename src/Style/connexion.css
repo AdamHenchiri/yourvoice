@@ -16,7 +16,10 @@
 .container_connexion h1{
     font-size: 17px;
     color: black;
+}
 
+.text{
+    width: 20%;
 }
 
 #champsrequis{
