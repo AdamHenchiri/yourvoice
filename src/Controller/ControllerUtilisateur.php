@@ -42,7 +42,7 @@ class ControllerUtilisateur
 
 
     public static function created() : void {
-        $v=new Utilisateur(null,$_POST["login"],$_POST["nom"],$_POST["prenom"],$_POST["age"],"",$_POST["email"],$_POST["mdp"]);
+        $v=new Utilisateur(null,$_POST["login"],$_POST["nom"],$_POST["prenom"],$_POST["age"],$_POST["email"],$_POST["mdp"]);
         (new UtilisateurRepository())->sauvegarder($v);
         self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
             "cheminVueBody" => "utilisateur/created.php"   //"redirige" vers la vue
