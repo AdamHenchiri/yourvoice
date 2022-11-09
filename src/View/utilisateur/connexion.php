@@ -7,7 +7,7 @@
 <body>
 <form method="post" action="frontController.php?controller=utilisateur&action=connected">
     <fieldset>
-        <legend>inscription :</legend>
+        <legend>Connexion</legend>
         <p>
             <label for="login_id">login</label> :
             <input type="text" placeholder="macrone" name="login" id="login_id" required/>
