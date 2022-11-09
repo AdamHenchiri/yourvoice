@@ -18,7 +18,7 @@
         </p>
         <p>
             <label for="prenom">prenom</label> :
-            <input type="text" placeholder="emanuelle" name="prenom" id="prenom" required/>
+            <input type="text" placeholder="emmanuel" name="prenom" id="prenom" required/>
         </p>
         <p>
             <label for="age">age</label> :
