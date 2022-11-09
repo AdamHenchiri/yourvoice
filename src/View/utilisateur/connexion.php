@@ -6,7 +6,6 @@
 </head>
 <div class="container_connexion">
 <form method="post" action="frontController.php?controller=utilisateur&action=connected">
-    <div>
 
         <legend>Connexion</legend>
         <p>
@@ -20,7 +19,7 @@
         </p>
 
 </form>
-<?php echo "<div><a href=\"frontController.php?controller=utilisateur&action=create\"> vous n'avez pas encore de compte ? cliquer ici!</a></div> "; ?>
+<?php echo "<a href=\"frontController.php?controller=utilisateur&action=create\"> vous n'avez pas encore de compte ? cliquer ici!</a> "; ?>
 </div>
 </body>
 </html>
