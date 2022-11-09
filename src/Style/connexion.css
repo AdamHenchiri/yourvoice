@@ -10,7 +10,13 @@
     height: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
-    gap: 20px;
+    gap: 10px;
+}
+
+.container_connexion h1{
+    font-size: 17px;
+    color: black;
+
 }
 
 #champsrequis{
