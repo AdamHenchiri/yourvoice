@@ -1,9 +1,13 @@
 <?php
 namespace App\YourVoice\Controller ;
 
+use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\DataObject\Question ;
+use App\YourVoice\Model\Repository\VotantRepository;
+use App\YourVoice\Model\Repository\UtilisateurRepository;
+
 use Couchbase\View;
 
 // chargement du modèle
@@ -51,13 +55,23 @@ class ControllerQuestion {
         $v=new Question( null,$_POST["intitule"],$_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
             $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
-        $id=    (new QuestionRepository())->sauvegarder($v);
+        $id=(new QuestionRepository())->sauvegarder($v);
+        $users = (new UtilisateurRepository())->selectAll();
+
+        if ($users) {
+            foreach ($_POST["idVotant"] as $idUser) {
+                if ($idUser) {
+                    $v2 = new Votant($idUser, null, $id);
+                    (new VotantRepository())->sauvegarder($v2);
+                }
+            }
+        }
+
         //echo $id;
         self::afficheVue('/view.php', ["pagetitle" => "creation d'une section",
             "cheminVueBody" => "section/create.php",//"redirige" vers la vue
             "id_question"=>$id
         ]);
-
     }
 
     public static function delete() : void {

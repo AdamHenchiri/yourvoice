@@ -73,8 +73,8 @@
             {
             ?>
         <div>
-            <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>">
-            <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
+            <input type="checkbox"  name="idVotant[]" value="<?php echo $user->getIdUtilisateur()?>">
+            <?php echo $user->getLogin()?></label>
         </div>
     <?php } }?>
         </p>
