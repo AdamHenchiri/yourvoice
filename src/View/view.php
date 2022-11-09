@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="../src/Style/Style.css" rel="stylesheet" >
+    <link href="../src/Style/connexion.css" rel="stylesheet">
     <title>YourVoice</title>
     <meta name="description" content="site de vote YourVoice.com">
     <meta name="author" content="Mme.RATHIER Sylia, Mme.BETTINGER Sarah, M.HARRIBAUD Kim, M.HENCHIRI Adam">

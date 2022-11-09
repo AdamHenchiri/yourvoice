@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>connexion</title>
 </head>
-<body>
+<div class="container_connexion">
 <form method="post" action="frontController.php?controller=utilisateur&action=connected">
+    <div>
     <fieldset>
         <legend>Connexion</legend>
         <p>
@@ -20,5 +21,6 @@
     </fieldset>
 </form>
 <?php echo "<div><a href=\"frontController.php?controller=utilisateur&action=create\"> vous n'avez pas encore de compte ? cliquer ici!</a></div> "; ?>
+</div>
 </body>
 </html>
