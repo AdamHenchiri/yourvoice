@@ -18,6 +18,10 @@
     color: black;
 }
 
+::placeholder{
+    color: black;
+}
+
 .text{
     width: 30%;
     font-size: 17px;
