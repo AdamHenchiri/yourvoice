@@ -33,8 +33,8 @@
     background-color: black;
     font-size: 17px;
     transition-duration: 0.2s;
-    padding-bottom: 20px;
-    padding-top: 20px;
+    padding-bottom: 5px;
+    padding-top: 5px;
 }
 
 #envoyer:hover{
