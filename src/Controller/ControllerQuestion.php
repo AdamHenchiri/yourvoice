@@ -80,9 +80,9 @@ class ControllerQuestion {
     }
 
     public static function update() : void {
-        $v= (new QuestionRepository())->select($_GET['immat']);
+        $v= (new QuestionRepository())->select($_GET['id_question']);
         $values=$v->formatTableau();
-        self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une question","cheminVueBody"=>"Question/update.php","v"=>$v]);
+        self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une question","cheminVueBody"=>"question/update.php","v"=>$v]);
     }
 
     public static function updated() : void {
