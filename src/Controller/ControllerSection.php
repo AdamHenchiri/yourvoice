@@ -6,6 +6,7 @@ use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\SectionRepository;
 use App\YourVoice\Model\DataObject\Section ;
+use App\YourVoice\Model\DataObject\Question;
 
 class ControllerSection
 {
@@ -21,15 +22,19 @@ class ControllerSection
         $id=$_POST["id_question"];
         $v=new Section(null,$_POST["titre"],$_POST["texte_explicatif"],$_POST["numero"],$_POST["id_question"]);
         (new SectionRepository())->sauvegarder($v);
+        $question =(new QuestionRepository())->select($id);
+        //$sections = (new SectionRepository())->selectWhere("id_question",$_GET['id_question']);
 
-        if (isset($_POST['finirBtn'])) {
-            self::afficheVue('/view.php', ["pagetitle" => "Finir section",
-                "cheminVueBody" => "question/readAll.php"]);  //"redirige" vers la vue
+        if (isset($_POST['ajouterBtn'])) {
+            self::afficheVue('/view.php', ["pagetitle" => "ajouter section",
+                "cheminVueBody" => "section/created.php", "id_question"=>$id   //"redirige" vers la vue
+            ]);
         }
         else{
-        self::afficheVue('/view.php', ["pagetitle" => "ajouter section",
-            "cheminVueBody" => "section/created.php", "id_question"=>$id   //"redirige" vers la vue
-        ]);}
+            self::afficheVue('/view.php', ["pagetitle" => "Finir section",
+                "cheminVueBody" => "question/detail.php", "question"=>$question,
+                "sections"=>$v ]);  //"redirige" vers la vue
+        }
     }
 
     public static function update() : void {
