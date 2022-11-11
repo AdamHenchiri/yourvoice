@@ -22,6 +22,8 @@ class ControllerSection
         $id=$_POST["id_question"];
         $v=new Section(null,$_POST["titre"],$_POST["texte_explicatif"],$_POST["numero"],$_POST["id_question"]);
         (new SectionRepository())->sauvegarder($v);
+        //$sections = (new SectionRepository())->selectWhere("id_question",$_GET['id_question']);
+
         $question =(new QuestionRepository())->select($id);
         //$sections = (new SectionRepository())->selectWhere("id_question",$_GET['id_question']);
 

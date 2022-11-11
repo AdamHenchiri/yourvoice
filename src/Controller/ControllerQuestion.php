@@ -111,11 +111,13 @@ class ControllerQuestion {
     }
 
     public static function updated() : void {
-        $v=new Question($_POST["marque"],$_POST["couleur"],$_POST["immatriculation"],$_POST["nbrSieges"]);
+        $v=new Question($_POST['id_question'],$_POST["intitule"],$_POST["explication"],
+            $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
+            $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
         (new QuestionRepository())->update($v);
-        self::afficheVue('/view.php', ["pagetitle" => "creation de question",
+        self::afficheVue('/view.php', ["pagetitle" => "modification de la question",
             "cheminVueBody" => "question/updated.php" ,  //"redirige" vers la vue
-            "immatriculation"=>htmlspecialchars($v->getImmatriculation()),
+            "id_question"=>htmlspecialchars($_POST['id_question']),
         ]);
         self::readAll();
     }
