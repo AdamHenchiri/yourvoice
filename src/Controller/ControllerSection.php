@@ -22,12 +22,14 @@ class ControllerSection
         $v=new Section(null,$_POST["titre"],$_POST["texte_explicatif"],$_POST["numero"],$_POST["id_question"]);
         (new SectionRepository())->sauvegarder($v);
 
-        self::afficheVue('/view.php', ["pagetitle" => "section done",
-            "cheminVueBody" => "section/created.php" //"redirige" vers la vue
-        ]);
+        if (isset($_POST['finirBtn'])) {
+            self::afficheVue('/view.php', ["pagetitle" => "Finir section",
+                "cheminVueBody" => "question/readAll.php"]);  //"redirige" vers la vue
+        }
+        else{
         self::afficheVue('/view.php', ["pagetitle" => "ajouter section",
-            "cheminVueBody" => "section/create.php", "id_question"=>$id   //"redirige" vers la vue
-        ]);
+            "cheminVueBody" => "section/created.php", "id_question"=>$id   //"redirige" vers la vue
+        ]);}
     }
 
     public static function update() : void {
