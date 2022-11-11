@@ -25,18 +25,16 @@ echo '<p> ------------------------------------------------------------------</p>
 
 //require __DIR__. '/../section/list.php';
 
-/*foreach ($sections as $section) {
+foreach ($sections as $section) {
     //$questNonFormater = $question->getIdQuestion();
     //$questFormater = rawurlencode($questNonFormater);
     $titreSection = $section->getTitre();
-    $idSection = $section->getIdSection();
+    $numeroSection = $section->getNumero();
     $idQuestion = $section->getIdQuestion();
-    echo "boujour";
-    echo $titreSection;
-    echo "<li><a href=\"frontController.php?controller=section&action=read&id_question={$idSection}\"> Section  {$idSection}:\n".  htmlspecialchars ( $titreSection ) . " </a></li> ";
+    echo "<li> Section: {$numeroSection}:\n".  htmlspecialchars ( $titreSection ) . " </li> ";
 
     echo "--------------------------------------------------------------------------\n";
-}*/
+}
 
 ?>
 </body>
