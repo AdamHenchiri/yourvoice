@@ -21,11 +21,17 @@
         <p>
             <label for="dateDebut_redaction">Début de la rédaction</label>
             <input type="date" placeholder="" name="dateDebut_redaction" id="dateDebut_redaction" required/>
+            <?php  if(isset($_POST["message_11"] )){ echo $_POST["message_11"]; }
+                   if(isset($_POST["message_12"] )){ echo $_POST["message_12"]; }
+
+            ?>
         </p>
 
         <p>
             <label for="dateFin_redaction">Fin de la rédaction</label>
-            <input type="date" placeholder="" name="dateFin_redaction" id="dateFin_redaction" required/>
+            <input type="date" placeholder="" name="dateFin_redaction" id="dateFin_redaction" required
+
+            />
         </p>
 
         <p>
@@ -80,7 +86,7 @@
         </p>
 
         <p>
-            <input type="submit" value="Créer" />
+            <input type="submit" value="Créer" name="valider" />
         </p>
     </fieldset>
 </form>
