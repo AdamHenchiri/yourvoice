@@ -24,15 +24,19 @@
         </p>
 
         <p>
-            <input type="submit" value="Ajouter une nouvelle section" />
+            <input type="submit" value="Ajouter une nouvelle section" name="ajouterBtn"/>
         </p>
-        <button onclick="window.location.href = 'frontController.php?controller=question&action=readAll';">Finir</button>
+        <p>
+            <input type="submit" value="Finir" name="finirBtn""/>
+        </p>
+        <!--<button name="ajouterBtn" onclick="window.location.href = 'frontController.php?controller=section&action=created';">Ajouter une section</button>
 
-
-
+        <button name="finirBtn" onclick="window.location.href = 'frontController.php?controller=question&action=readAll';">Finir</button>-->
 
     </fieldset>
 </form>
+
+
 </body>
 </html>
 
