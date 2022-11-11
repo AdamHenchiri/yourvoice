@@ -12,15 +12,9 @@
     padding-bottom: 50px;
     gap: 10px;
 }
-@font-face {
-    src: url("HindMudarail-Bold.ttf");
-    font-family: 'mudarailbold';
-}
 
-@font-face {
-    src: url("HindMadurail-Regular.ttf");
-    font-family: 'mudarailnormal';
-}
+
+
 
 .container_connexion h1{
     font-size: 17px;
@@ -60,7 +54,7 @@
     transition-duration: 0.2s;
     padding-bottom: 5px;
     padding-top: 5px;
-    font-family: 'mudarailbold';
+    font-family: sans-serif;
 }
 
 #envoyer:hover{
