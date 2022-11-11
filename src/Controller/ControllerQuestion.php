@@ -7,6 +7,7 @@ use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\ContributeurRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\DataObject\Question ;
+use App\YourVoice\Model\Repository\SectionRepository;
 use App\YourVoice\Model\Repository\VotantRepository;
 use App\YourVoice\Model\Repository\UtilisateurRepository;
 
@@ -29,11 +30,13 @@ class ControllerQuestion {
 
 
     public static function read() : void {
-        $question =(new QuestionRepository())->select($_GET['login']);
-        if ($question!==null) {
+        $question =(new QuestionRepository())->select($_GET['id_question']);
+        $sections = (new SectionRepository())->selectWhere("id_question",$_GET['id_question']);
+        if ($question!==null && $sections!==null) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
                 "cheminVueBody" => "question/detail.php",   //"redirige" vers la vue
-                "question"=>$question]);
+                "question"=>$question,
+                "sections"=>$sections]);
         }else{
             self::afficheVue('/view.php', ["pagetitle" => "ERROR",
                 "cheminVueBody" => "question/error.php",   //"redirige" vers la vue

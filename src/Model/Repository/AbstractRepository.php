@@ -101,6 +101,30 @@ abstract class AbstractRepository
         }
     }
 
+    public function selectWhere(string $nomCle,string $valeurCle):?array
+    {
+        $sql = "SELECT * FROM ".$this->getNomTable()." WHERE ".$nomCle ."= :valeurCleTag";
+        // Préparation de la requête
+        try {
+            $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
+        } catch (PDOException $exception) {
+            //throw new MyDatabaseException($exception->getMessage(), $exception->getCode());
+            $reponse = false;
+        }
+        $values = array(
+            "valeurCleTag"=> $valeurCle,
+            //nomdutag => valeur, ...
+        );
+        // On donne les valeurs et on exécute la requête
+        $pdoStatement->execute($values);
+        // On récupère les résultats comme précédemment
+        // Note: fetch() renvoie false si pas de Voiture correspondante
+        foreach ($pdoStatement as $acteur) {
+            $tab[] = $this->construire($acteur);
+        }
+        return $tab;
+    }
+
     public function selectAll(): ?array
     {
         $pdo = DatabaseConnection::getPdo();
