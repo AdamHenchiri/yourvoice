@@ -1,7 +1,7 @@
 <?php
 
 namespace App\YourVoice\Model\Repository;
-use App\YourVoice\Model\DataObject\Utilisateur as User;
+use App\YourVoice\Model\DataObject\Votant;
 
 class VotantRepository extends AbstractRepository {
 

@@ -119,6 +119,7 @@ abstract class AbstractRepository
         $pdoStatement->execute($values);
         // On récupère les résultats comme précédemment
         // Note: fetch() renvoie false si pas de Voiture correspondante
+        $tab =array();
         foreach ($pdoStatement as $acteur) {
             $tab[] = $this->construire($acteur);
         }
