@@ -154,10 +154,5 @@ class ControllerQuestion {
         }
     }*/
 
-
-
-
-
-
 }
 ?>
