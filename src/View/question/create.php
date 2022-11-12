@@ -5,7 +5,8 @@
     <title>Créer Question</title>
 </head>
 <body>
-<form method="post" action="frontController.php?controller=question&action=created" >
+<form method="post" action="frontController.php?controller=question&action=created" name="creationQuestion" id="creationQuestion" onsubmit="return validation()">
+
     <fieldset>
         <legend>Créer une question :</legend>
         <p>
@@ -20,7 +21,7 @@
 
         <p>
             <label for="dateDebut_redaction">Début de la rédaction</label>
-            <input type="date" placeholder="" name="dateDebut_redaction" id="dateDebut_redaction" required/>
+            <input type="date" placeholder="" name="dateDebut_redaction" id="dateDebut_redaction" readonly/>
             <?php  if(isset($_POST["message_11"] )){ echo $_POST["message_11"]; }
                    if(isset($_POST["message_12"] )){ echo $_POST["message_12"]; }
 
@@ -90,6 +91,8 @@
         </p>
     </fieldset>
 </form>
+<script src="../src/js/app.js"></script>
+
 </body>
 </html>
 
