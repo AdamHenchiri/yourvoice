@@ -13,9 +13,11 @@ foreach ($questions as $question) {
 
     echo "<li><a href=\"frontController.php?controller=question&action=read&id_question={$questFormater}\"> question {$question->getIdQuestion()}:\n".  htmlspecialchars ( $question->getIntitule() ) . " </a></li> ";
     echo "<li><a href=\"frontController.php?controller=question&action=update&id_question={$questFormater}\"> Mettre a jour la question </a></li>      ";
-    echo "<li><a href=\"frontController.php?controller=question&action=delete&id_question={$questFormater}\"> Supprimer cette question </a></li>      ";
+    echo "<li><a id=\"confirmation\" onclick=\"return confirmation()\" href=\"frontController.php?controller=question&action=delete&id_question={$questFormater}\"> Supprimer cette question </a></li>      ";
     echo "--------------------------------------------------------------------------\n";
+//onclick=\"validation()\"
 }
 ?>
+<script src="../src/js/app.js"></script>
 </body>
 </html>

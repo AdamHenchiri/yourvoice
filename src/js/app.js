@@ -71,3 +71,12 @@ function validation()
 
     //alert(dateDebut_redaction.value+" "+dateFin_redaction.value+" "+dateDebut_vote.value+" "+dateFin_vote.value);
 }
+
+function confirmation(){
+    var res = confirm("Êtes-vous sûr de vouloir supprimer?");
+    if(! res){
+        return false;
+    }
+
+
+}
