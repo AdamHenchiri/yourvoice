@@ -53,12 +53,31 @@
             if ($users){
             foreach($users as $user)
             {
+            $usersContributeur=(new \App\YourVoice\Model\Repository\ContributeurRepository())->selectWhere("id_utilisateur",$user->getIdUtilisateur());
+            if ($usersContributeur){
+                $aux=false;
+            foreach ($usersContributeur as $userContributeur){
+            if ($userContributeur->getIdQuestion()==$v->getIdQuestion()){
             ?>
         <div>
-            <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>">
+            <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>" checked>
+            <?php $aux=true;?>
             <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
         </div>
-        <?php } }?>
+        <?php }}if($aux===false){ ?>
+            <div>
+                <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>">
+
+                <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
+            </div>
+        <?php }}else{ ?>
+        <div>
+            <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>">
+
+            <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
+        </div>
+        <?php } }} ?>
+
         </p>
 
         <p>
@@ -69,16 +88,33 @@
 
             $users = (new UtilisateurRepository())->selectAll();
             if ($users){
-            foreach($users as $user)
-            {
+            foreach($users as $user){
+                $usersVotant=(new \App\YourVoice\Model\Repository\VotantRepository())->selectWhere("id_utilisateur",$user->getIdUtilisateur());
+            if ($usersVotant){
+            $aux=false;
+            foreach ($usersVotant as $userVotant){
+            if ($userVotant->getIdQuestion()==$v->getIdQuestion()){
             ?>
         <div>
-            <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>">
+            <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>" checked>
+            <?php $aux=true;?>
             <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
         </div>
-    <?php } }?>
-        </p>
+        <?php }}if($aux===false){ ?>
+        <div>
+            <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>">
 
+            <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
+        </div>
+        <?php }}else{ ?>
+        <div>
+            <input type="checkbox" id="<?php echo $user->getIdUtilisateur()?>" name="<?php echo $user->getIdUtilisateur()?>">
+
+            <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
+        </div>
+        <?php } }} ?>
+
+        </p>
         <p>
             <input type="submit" value="Envoyer" />
         </p>
