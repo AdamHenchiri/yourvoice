@@ -22,10 +22,6 @@
         <p>
             <label for="dateDebut_redaction">Début de la rédaction</label>
             <input type="date" placeholder="" name="dateDebut_redaction" id="dateDebut_redaction" readonly/>
-            <?php  if(isset($_POST["message_11"] )){ echo $_POST["message_11"]; }
-                   if(isset($_POST["message_12"] )){ echo $_POST["message_12"]; }
-
-            ?>
         </p>
 
         <p>

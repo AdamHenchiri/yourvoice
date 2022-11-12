@@ -26,10 +26,10 @@ class ControllerSection
 
         $question =(new QuestionRepository())->select($id);
         //$sections = (new SectionRepository())->selectWhere("id_question",$_GET['id_question']);
-
+        $num=$_POST["numero"]+1;
         if (isset($_POST['ajouterBtn'])) {
             self::afficheVue('/view.php', ["pagetitle" => "ajouter section",
-                "cheminVueBody" => "section/created.php", "id_question"=>$id   //"redirige" vers la vue
+                "cheminVueBody" => "section/create.php", "id_question"=>$id , "num"=>$num //"redirige" vers la vue
             ]);
         }
         else{

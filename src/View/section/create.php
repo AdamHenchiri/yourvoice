@@ -9,7 +9,10 @@
     <fieldset>
         <legend>Creer une section :</legend>
         <input id="id_question" name="id_question" type="hidden" value=<?php echo  $id_question ?> >
-        <?php echo $id_question?>
+        <p>
+            <label for="numero">Section numéro</label> : <?php echo $num ?>
+            <input type="hidden" value=<?php echo $num ?> name="numero" id="numero" readonly/>
+        </p>
         <p>
             <label for="titre">Titre</label> :
             <textarea placeholder="Je vais bien " name="titre" id="titre" required></textarea>
@@ -17,10 +20,6 @@
         <p>
             <label for="texte_explicatif">Texte explicatif</label> :
             <textarea placeholder="Pourquoi je vais bien" name="texte_explicatif" id="texte_explicatif" required></textarea>
-        </p>
-        <p>
-            <label for="numero">Numéro de la section</label> :
-            <input type="number" placeholder="1" name="numero" id="numero" required/>
         </p>
 
         <p>

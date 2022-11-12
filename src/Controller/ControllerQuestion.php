@@ -77,9 +77,11 @@ class ControllerQuestion {
                 }
             }
             //echo $id;
+            $num=1;
             self::afficheVue('/view.php', ["pagetitle" => "creation d'une section",
                 "cheminVueBody" => "section/create.php",//"redirige" vers la vue
-                "id_question"=>$id
+                "id_question"=>$id,
+                "num"=>$num
             ]);
     }
 
