@@ -22,6 +22,8 @@ class ControllerSection
         $id=$_POST["id_question"];
         $v=new Section(null,$_POST["titre"],$_POST["texte_explicatif"],$_POST["numero"],$_POST["id_question"]);
         (new SectionRepository())->sauvegarder($v);
+        $sections = (new SectionRepository())->selectWhere("id_question", $id);
+
         //$sections = (new SectionRepository())->selectWhere("id_question",$_GET['id_question']);
 
         $question =(new QuestionRepository())->select($id);
@@ -35,7 +37,7 @@ class ControllerSection
         else{
             self::afficheVue('/view.php', ["pagetitle" => "Finir section",
                 "cheminVueBody" => "question/detail.php", "question"=>$question,
-                "sections"=>$v ]);  //"redirige" vers la vue
+                "sections"=>$sections ]);  //"redirige" vers la vue
         }
     }
 
@@ -68,14 +70,7 @@ class ControllerSection
         self::readAll();
     }
 
-    public static function readAll2() : void {
 
-        $sections =(new SectionRepository())->selection($_GET['login'], "section");
-        ;//appel au modèle pour gerer la BD
-        self::afficheVue('/view.php', ["pagetitle" => "Liste des sections",
-            "cheminVueBody" => "section/list.php",   //"redirige" vers la vue
-            "sections"=>$sections]);
-    }
 
     public static function readAll() : void {
 
