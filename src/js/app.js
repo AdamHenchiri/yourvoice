@@ -68,7 +68,6 @@ function validation()
         alert("vous devez choisir au minimum cinq votants");
         return false;
     }
-    return false;
 
     //alert(dateDebut_redaction.value+" "+dateFin_redaction.value+" "+dateDebut_vote.value+" "+dateFin_vote.value);
 }
