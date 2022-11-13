@@ -31,11 +31,15 @@ foreach ($sections as $section) {
     $titreSection = $section->getTitre();
     $numeroSection = $section->getNumero();
     $idQuestion = $section->getIdQuestion();
+    $sectionFormater = rawurlencode($section->getIdSection());
     echo "<li> Section: {$numeroSection}:\n".  htmlspecialchars ( $titreSection ) . " </li> ";
-
+    echo "<li><a href=\"frontController.php?controller=section&action=read&id_section={$sectionFormater}\"> section {$numeroSection}:\n".  htmlspecialchars ( $titreSection ) . " </a></li> ";
+    echo "<li><a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}\"> Mettre a jour la section </a></li>      ";
+    echo "<li><a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}\"> Supprimer cette section </a></li>      ";
     echo "--------------------------------------------------------------------------\n";
 }
 
 ?>
 </body>
+<script src="../src/js/app.js"></script>
 </html><?php

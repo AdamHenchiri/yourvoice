@@ -73,10 +73,18 @@ function validation()
 }
 
 function confirmation(){
-    var res = confirm("Êtes-vous sûr de vouloir supprimer?");
+    var res = confirm("Êtes-vous sûr de vouloir supprimer cette question?");
     if(! res){
         return false;
     }
 
+
+}
+
+function confirmationSection(){
+    var res = confirm("Êtes-vous sûr de vouloir supprimer cette section?");
+    if(! res){
+        return false;
+    }
 
 }

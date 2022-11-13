@@ -124,37 +124,7 @@ class ControllerQuestion {
         self::readAll();
     }
 
-    /*public static function checkDateForm(){
-        $t = time();
-        $d = date( "Y/m/d", $t );
 
-        if(isset($_POST["valider"])){
-            if(strtotime($_POST["dateDebut_redaction"])>strtotime($_POST["dateFin_redaction"]) ){
-                echo "erreur 1.1"."<br>" ;
-                $message_11 = "* La date de rédaction doit être supérieur ou égale à la date de fin de rédaction ";
-                self::afficheVue('/view.php', ["pagetitle" => "vérification formulaire question",
-                    "cheminVueBody" => "question/create.php" ,
-                    "message_11" =>$message_11]);
-
-            }
-            else if(strtotime($_POST["dateDebut_redaction"])< ($d)){
-                echo "erreur1.2";
-                $message_12 = "* La date de rédaction doit être supérieur ou égale à la date d'aujourd'hui ";
-                self::afficheVue('/view.php', ["pagetitle" => "vérification formulaire question",
-                    "cheminVueBody" => "question/create.php" ,
-                    "message_12" =>$message_12]);
-            }
-            else if(strtotime($_POST["dateDebut_vote"])>strtotime($_POST["dateFin_vote"])){
-                echo "erreur2";
-            }
-            else if(strtotime($_POST["dateDebut_vote"])< strtotime($d)){
-                echo "erreur2.2";
-            }
-        }
-        else {
-            echo "super";
-        }
-    }*/
 
 }
 ?>
