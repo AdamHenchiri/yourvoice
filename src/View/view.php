@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link href="../src/Style/Style.css" rel="stylesheet" >
     <link href="../src/Style/connexion.css" rel="stylesheet">
+    <link href="../src/Style/view.css" rel="stylesheet">
     <title>YourVoice</title>
     <meta name="description" content="site de vote YourVoice.com">
     <meta name="author" content="Mme.RATHIER Sylia, Mme.BETTINGER Sarah, M.HARRIBAUD Kim, M.HENCHIRI Adam">
@@ -34,19 +35,20 @@
 <header>
     <nav>
             <div class="col-md-4 col-sm-3">
-            <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php" target="_blank" title="YourVoice" ><h1 class="logo"><img class="logo" src="../img/Logo.png">YourVoice</h1></a>
+            <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php" target="_blank" title="YourVoice" >
+                <h1 class="logo"><img class="logo" src="../img/Logo.png">YourVoice</h1>
+            </a>
           </div>
           
         <!-- Votre menu de navigation ici -->
-        <ul>
-            <li><a href="frontController.php?action=readAll&controller=question"> Q&A </a></li>
-            <li><a href="frontController.php?controller=utilisateur&action=readAll"> VOTE </a></li>
-            <li><a href="frontController.php?action=create&controller=question"> YOUR QUESTION </a></li>
-            <li><a href="frontController.php?controller=utilisateur&action=connexion"> your account </a></li>
-            <li><a href="frontController.php?controller=question&action=create"> create question </a></li>
+            <a href="frontController.php?action=readAll&controller=question"> Questions </a>
+            <a href="frontController.php?controller=utilisateur&action=readAll"> Créer question </a>
+            <a href="frontController.php?action=create&controller=question"> Mes questions</a>
+            <a href="frontController.php?controller=utilisateur&action=connexion"> Vote </a>
+            <a href="frontController.php?controller=question&action=create"> Mon compte </a>
 
 
-        </ul>
+
     </nav>
 </header>
 <main>
