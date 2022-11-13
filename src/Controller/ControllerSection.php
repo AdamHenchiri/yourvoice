@@ -57,17 +57,17 @@ class ControllerSection
     }
 
     public static function delete() : void {
-        $v=(new UtilisateurRepository())->select($_GET['login']);
-        $rep=(new UtilisateurRepository())->supprimer($_GET['login']);
+        $v=(new SectionRepository())->select($_GET['id_section']);
+        $rep=(new SectionRepository())->supprimer($_GET['id_section']);
         if ($v!=null){
             self::afficheVue('/view.php', ["pagetitle" => "suppresion de utilisateur",
-                "cheminVueBody" => "utilisateur/deleted.php","nom"=>$v->getnom(),"login"=>$v->getlogin()   //"redirige" vers la vue
+                "cheminVueBody" => "section/deleted.php","num_section"=>$v->getNumero()   //"redirige" vers la vue
             ]);
         }else{
             $s='suppression echoué';
             self::error($s);
         }
-        self::readAll();
+        //self::readAll();
     }
 
 
