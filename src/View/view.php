@@ -39,14 +39,16 @@
                 <h1 class="logo"><img class="logo" src="../img/Logo.png">YourVoice</h1>
             </a>
           </div>
-          
-        <!-- Votre menu de navigation ici -->
-            <a href="frontController.php?action=readAll&controller=question"> Questions </a>
-            <a href="frontController.php?controller=utilisateur&action=readAll"> Créer question </a>
-            <a href="frontController.php?action=create&controller=question"> Mes questions</a>
-            <a href="frontController.php?controller=utilisateur&action=connexion"> Vote </a>
-            <a href="frontController.php?controller=question&action=create"> Mon compte </a>
-
+        <div class="container_menu">
+        <ul id="menu">
+            <li class="active"><a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php">YourVoice</a></li>
+            <li><a href="frontController.php?action=readAll&controller=question">Questions</a></li>
+            <li><a href="frontController.php?controller=utilisateur&action=readAll">Créer question</a></li>
+            <li><a href="frontController.php?action=create&controller=question">Mes questions</a></li>
+            <li><a href="frontController.php?controller=utilisateur&action=connexion">Vote</a></li>
+            <li><a href="frontController.php?controller=question&action=create">Mon compte</a></li>
+        </ul>
+        </div>
 
 
     </nav>
