@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link href="../src/Style/Style.css" rel="stylesheet" >
     <link href="../src/Style/connexion.css" rel="stylesheet">
     <link href="../src/Style/view.css" rel="stylesheet">
     <title>YourVoice</title>
