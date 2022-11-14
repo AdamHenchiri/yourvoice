@@ -42,16 +42,19 @@ class ControllerSection
     }
 
     public static function update() : void {
-        $v= (new UtilisateurRepository())->select($_GET['login']);
-        self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une utilisateur","cheminVueBody"=>"utilisateur/update.php","v"=>$v]);
+        echo $_GET['id_section'];
+        $v= (new SectionRepository())->select($_GET['id_section']);
+        self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une section","cheminVueBody"=>"section/update.php","v"=>$v]);
     }
 
+
     public static function updated() : void {
-        $v=new Utilisateur($_POST["login"],$_POST["nom"],$_POST["prenom"]);
-        (new UtilisateurRepository())->update($v);
-        self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
-            "cheminVueBody" => "utilisateur/updated.php" ,  //"redirige" vers la vue
-            "login"=>htmlspecialchars($v->getLogin()),
+        $v=new Section($_POST["id_section"],$_POST["titre"],$_POST["texte_explicatif"],$_POST["numero"],$_POST["id_question"]);
+        $ids=htmlspecialchars($v->getIdSection());
+        (new SectionRepository())->update($v);
+        self::afficheVue('/view.php', ["pagetitle" => "creation de section",
+            "cheminVueBody" => "section/updated.php" ,  //"redirige" vers la vue
+            "v"=>$ids,
         ]);
         self::readAll();
     }
