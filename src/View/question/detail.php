@@ -21,6 +21,9 @@ echo '<p> Date de fin des votes :  ' .  date('d-m-Y', strtotime($dateFinVote)) .
 
 
 
+
+
+
 echo '<p> ------------------------------------------------------------------</p>';
 
 //require __DIR__. '/../section/list.php';
