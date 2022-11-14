@@ -42,7 +42,6 @@ class ControllerSection
     }
 
     public static function update() : void {
-        echo $_GET['id_section'];
         $v= (new SectionRepository())->select($_GET['id_section']);
         self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une section","cheminVueBody"=>"section/update.php","v"=>$v]);
     }
@@ -50,13 +49,12 @@ class ControllerSection
 
     public static function updated() : void {
         $v=new Section($_POST["id_section"],$_POST["titre"],$_POST["texte_explicatif"],$_POST["numero"],$_POST["id_question"]);
-        $ids=htmlspecialchars($v->getIdSection());
         (new SectionRepository())->update($v);
-        self::afficheVue('/view.php', ["pagetitle" => "creation de section",
+        self::afficheVue('/view.php', ["pagetitle" => "modification de section",
             "cheminVueBody" => "section/updated.php" ,  //"redirige" vers la vue
-            "v"=>$ids,
+            "v"=>htmlspecialchars($_POST['id_section']),
         ]);
-        self::readAll();
+        //self::readAll();
     }
 
     public static function delete() : void {
