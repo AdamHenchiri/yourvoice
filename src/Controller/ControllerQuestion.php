@@ -121,7 +121,7 @@ class ControllerQuestion {
             "cheminVueBody" => "question/updated.php" ,  //"redirige" vers la vue
             "id_question"=>htmlspecialchars($_POST['id_question']),
         ]);
-        self::readAll();
+        //self::readAll();
     }
 
 
