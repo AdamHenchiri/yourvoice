@@ -88,14 +88,14 @@ class ControllerSection
 
 
     public static function read() : void {
-        $section =(new SectionRepository())->select($_GET['id_section']);
-        if ($section!==null) {
-            self::afficheVue('/view.php', ["pagetitle" => "detail la section",
-                "cheminVueBody" => "section/detail.php",   //"redirige" vers la vue
-                "section"=>$section]);
+        $user =(new UtilisateurRepository())->select($_GET['login']);
+        if ($user!==null) {
+            self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
+                "cheminVueBody" => "utilisateur/detail.php",   //"redirige" vers la vue
+                "user"=>$user]);
         }else{
             self::afficheVue('/view.php', ["pagetitle" => "ERROR",
-                "cheminVueBody" => "section/error.php",   //"redirige" vers la vue
+                "cheminVueBody" => "utilisateur/error.php",   //"redirige" vers la vue
             ]);
         }
     }
