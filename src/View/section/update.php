@@ -5,13 +5,13 @@
     <title>Mettre à jour une section</title>
 </head>
 <body>
-<form method="post" action="frontController.php?controller=section&action=created">
+<form method="post" action="frontController.php?controller=section&action=updated">
     <fieldset>
-        <legend>Creer une section :</legend>
-        <input id="id_question" name="id_question" type="hidden" value=<?php echo htmlspecialchars($v->getIdSection()) ?> >
+        <legend>Mettre à jour une section :</legend>
+        <input id="id_question" name="id_question" type="hidden" value=<?php echo $v->getIdSection() ?> >
         <p>
             <label for="numero">Section numéro</label> : <?php echo $v->getNumero() ?>
-            <input type="hidden" value=<?php echo htmlspecialchars($v->getNumero()) ?> name="numero" id="numero" readonly/>
+            <input type="hidden" value=<?php echo $v->getNumero() ?> name="numero" id="numero" readonly/>
         </p>
         <p>
             <label for="titre">Titre</label> :
