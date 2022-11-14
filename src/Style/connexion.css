@@ -32,9 +32,6 @@
     font-family: sans-serif;
 }
 
-::placeholder{
-    color: black;
-}
 
 .text{
     width: 60%;
