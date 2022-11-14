@@ -58,14 +58,25 @@ class ControllerSection
     }
 
     public static function delete() : void {
+        $sections = (new SectionRepository())->selectWhere("id_question",$_GET["id_question"]);
+        $nbLigne =count($sections);
         $v=(new SectionRepository())->select($_GET['id_section']);
-        $rep=(new SectionRepository())->supprimer($_GET['id_section']);
-        if ($v!=null){
+        if ($v!=null && $nbLigne!=1){
+            (new SectionRepository())->supprimer($_GET['id_section']);
+            $sections = (new SectionRepository())->selectWhere("id_question",$_GET["id_question"]);
+            $index=0;
+            foreach ($sections as $section){
+                (new SectionRepository())->supprimer($section->getIdSection());
+                $index++;
+                $v=new Section($section->getIdSection(),$section->getTitre(),$section->getTexteExplicatif(),$index,$section->getIdQuestion());
+                (new SectionRepository())->sauvegarder($v);
+            }
             self::afficheVue('/view.php', ["pagetitle" => "suppresion de utilisateur",
                 "cheminVueBody" => "section/deleted.php","num_section"=>$v->getNumero()   //"redirige" vers la vue
             ]);
         }else{
             $s='suppression echoué';
+
             self::error($s);
         }
         //self::readAll();
