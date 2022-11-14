@@ -18,6 +18,10 @@ class ContributeurRepository extends AbstractRepository {
     {
         return "id_utilisateur";
     }
+    protected function getNomClesPrimaires(): array
+    {
+        return ["id_utilisateur","id_question"];
+    }
     protected function getNomsColonnes(): array
     {
         return ["id_utilisateur","id_question"];
