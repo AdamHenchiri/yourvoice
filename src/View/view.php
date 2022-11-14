@@ -5,10 +5,11 @@
     <link href="../src/Style/connexion.css" rel="stylesheet">
     <link href="../src/Style/view.css" rel="stylesheet">
     <title>YourVoice</title>
+    <script src="https://kit.fontawesome.com/26e0d024d1.js" crossorigin="anonymous" defer></script>
     <meta name="description" content="site de vote YourVoice.com">
     <meta name="author" content="Mme.RATHIER Sylia, Mme.BETTINGER Sarah, M.HARRIBAUD Kim, M.HENCHIRI Adam">
     <!-- Mobile Specific Meta -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title><?php echo $pagetitle; ?></title>
     <!-- Favicon and Apple Icons -->
@@ -33,34 +34,34 @@
 <body>
 <header>
     <nav>
-            <div class="col-md-4 col-sm-3">
-            <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php" target="_blank" title="YourVoice" >
-                <h1 class="logo"><img class="logo" src="../img/Logo.png">YourVoice</h1>
-            </a>
-          </div>
+            <!--<div class="col-md-4 col-sm-3">
+            <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php" target="_blank" title="YourVoice" ></a>
+          </div>-->
         <div class="container_menu">
         <ul id="menu">
             <li class="active"><a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php">YourVoice</a></li>
             <li><a href="frontController.php?action=readAll&controller=question">Questions</a></li>
             <li><a href="frontController.php?controller=utilisateur&action=readAll">Créer question</a></li>
             <li><a href="frontController.php?action=create&controller=question">Mes questions</a></li>
-            <li><a href="frontController.php?controller=utilisateur&action=connexion">Vote</a></li>
-            <li><a href="frontController.php?controller=question&action=create">Mon compte</a></li>
+            <li><a href="frontController.php?controller=utilisateur&action=connexion"><i class="fa-solid fa-check-to-slot"></i> Vote</a></li>
+            <li><a href="frontController.php?controller=question&action=create"><i class="fa-solid fa-user"></i> Mon compte</a></li>
         </ul>
         </div>
-
+    
 
     </nav>
 </header>
 <main>
+    <div class="container_main">
     <?php
     require __DIR__ . "/{$cheminVueBody}";
     ?>
+    </div>
 </main>
 <footer>
-    <p>
+    <div class="foot">
         Forum de vote libre crée par l'équipe de choc (Mme.RATHIER Sylia, Mme.BETTINGER Sarah, M.HARRIBAUD Kim, M.HENCHIRI Adam).
-    </p>
+    </div>
 </footer>
 </body>
 </html>

@@ -4,13 +4,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border : 1px solid black;
-    border-radius: 25px;
+    /*border : 1px solid black;*/
+    border-radius: 50px;
     width: 50%;
     height: 100%;
     padding-top: 170px;
     padding-bottom: 170px;
-
+    background-color : white;
+    /*box-shadow: 5px 5px 5px rgb(188, 188, 188);*/
 }
 
 .container{
@@ -28,6 +29,7 @@
     font-size: 20px;
     color: black;
     margin-bottom: 20px;
+    font-family: sans-serif;
 }
 
 ::placeholder{
@@ -42,6 +44,7 @@
     padding-bottom: 5px;
     border-radius: 5px;
     border: solid 1px black;
+    padding-left: 10px;
 }
 
 #login_id{
@@ -76,7 +79,7 @@
 }
 #envoyer{
     border: 1px solid black;
-    border-radius: 5px;
+    border-radius: 50px;
     width: 35%;
     color: white;
     background-color: black;
@@ -91,7 +94,8 @@
 
 #envoyer:hover{
     border: 1px solid black;
-    border-radius: 5px;
+    transition-duration: 0.2s;
+    border-radius: 50px;
     color: black;
     background-color: white;
 }

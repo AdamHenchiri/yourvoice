@@ -1,11 +1,34 @@
-
+html{
+    margin: 0;
+}
+body{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("back.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 .container_menu{
-    height: 100vh;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     background-color: #212121;
+
+}
+
+.container{
+    margin-top: 200px;
+    margin-bottom: 200px;
+}
+nav{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+
 }
 
 #menu{
@@ -13,6 +36,7 @@
     text-transform: uppercase;
     font-weight: 500;
     font-family:'Raleway', Arial, sans-serif ;
+    font-size: 15px;
 }
 #menu li{
     display: inline-block;
@@ -22,7 +46,8 @@
 }
 #menu li a{
     padding: 0.5em 0;
-    color:#ffffff80;
+    color: white;
+    /*#ffffff80*/
     position: relative;
     letter-spacing: 1px;
     text-decoration: none;
@@ -59,4 +84,21 @@
 #menu li a:hover::after,
 #menu .active a::after{
     max-width: 100%;
+}
+
+#logo{
+    aspect-ratio: 1/1;
+    height: 50px;
+
+}
+
+.foot{
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: white;
+    background-color: #212121;
+    bottom: 0;
 }
