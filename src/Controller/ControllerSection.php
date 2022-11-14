@@ -90,7 +90,7 @@ class ControllerSection
     public static function read() : void {
         $section =(new SectionRepository())->select($_GET['id_section']);
         if ($section!==null) {
-            self::afficheVue('/view.php', ["pagetitle" => "detail la section",
+            self::afficheVue('/view.php', ["pagetitle" => "detail de la section",
                 "cheminVueBody" => "section/detail.php",   //"redirige" vers la vue
                 "section"=>$section]);
         }else{
