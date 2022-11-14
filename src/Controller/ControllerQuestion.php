@@ -112,17 +112,37 @@ class ControllerQuestion {
         self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une question","cheminVueBody"=>"question/update.php","v"=>$v]);
     }
 
-    public static function updated() : void {
-        $v=new Question($_POST['id_question'],$_POST["intitule"],$_POST["explication"],
+    public static function updated() : void
+    {
+        $id=$_POST['id_question'];
+        $v = new Question($_POST['id_question'], $_POST["intitule"], $_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
             $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
         (new QuestionRepository())->update($v);
+
+
+        foreach ($_POST["idVotant"] as $idUser) {
+            if ($idUser) {
+                (new VotantRepository())->supprimer([$idUser,$id]);
+                $v2 = new Votant($idUser, null, $id);
+                (new VotantRepository())->sauvegarder($v2);
+            }
+        }
+        //sauvegarde des contributeurs dans la base de donnée
+        foreach ($_POST["idContributeur"] as $idUser) {
+            if ($idUser) {
+                (new ContributeurRepository())->supprimer([$idUser,$id]);
+                $v3 = new Contributeur($idUser, $id);
+                    (new ContributeurRepository())->sauvegarder($v3);
+                }
+            }
         self::afficheVue('/view.php', ["pagetitle" => "modification de la question",
-            "cheminVueBody" => "question/updated.php" ,  //"redirige" vers la vue
-            "id_question"=>htmlspecialchars($_POST['id_question']),
-        ]);
+                "cheminVueBody" => "question/updated.php",  //"redirige" vers la vue
+                "id_question" => htmlspecialchars($_POST['id_question']),
+            ]);
         self::readAll();
     }
+
 
 
 

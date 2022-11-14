@@ -57,22 +57,33 @@ abstract class AbstractRepository
         $pdoStatement->execute($values);
     }
 
-    public function supprimer(string $valeurClePrimaire): bool
+    public function supprimer(string|array $valeurClePrimaire): bool
     {
         $rep = true;
-        $sql = "DELETE FROM ".$this->getNomTable()." WHERE ".$this->getNomClePrimaire()." = :primaireTag";
+        if (is_array($valeurClePrimaire)){
+            $sql = "DELETE FROM " . $this->getNomTable() . " WHERE " . $this->getNomClesPrimaires()[0] . " = :premierTag"." AND ". $this->getNomClesPrimaires()[1] . " = :secondTag";
+            $values = array(
+                "premierTag" => $valeurClePrimaire[0],
+                "secondTag"=> $valeurClePrimaire [1],
+            );
+        }else {
+            $sql = "DELETE FROM " . $this->getNomTable() . " WHERE " . $this->getNomClePrimaire() . " = :primaireTag";
+            $values = array(
+                "primaireTag" => $valeurClePrimaire,
+            );
+        }
         try {
             $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
         } catch (PDOException $exception) {
             throw new MyDatabaseException($exception->getMessage(), $exception->getCode());
             $rep = false;
         }
-        $values = array(
-            "primaireTag" => $valeurClePrimaire,
-        );
+
         $rep = $pdoStatement->execute($values);
         return $rep;
     }
+
+
 
     public function select(string $valeurClePrimaire):?AbstractDataObject
     {
