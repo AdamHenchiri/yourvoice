@@ -40,6 +40,8 @@ foreach ($sections as $section) {
     echo "<li><a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> Mettre a jour la section </a></li>      ";
     echo "<li><a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> Supprimer cette section </a></li>      ";
     echo "--------------------------------------------------------------------------\n";
+    echo "<li><a href=\"frontController.php?controller=section&action=create&id_question={$idQuestion}\"> Ajouter une section </a></li>      ";
+
 }
 echo "<li><a href=\"frontController.php?controller=section&action=create&id_question={$idQuestion}\"> Ajouter une section </a></li>      ";
 
