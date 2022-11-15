@@ -12,8 +12,10 @@ class ControllerSection
 {
 
     public static function create() : void {
+        $id=$_POST["id_question"];
+        $num=$_POST["numero"];
         self::afficheVue('/view.php', ["pagetitle" => "Ajouter une section",
-            "cheminVueBody" => "section/create.php"   //"redirige" vers la vue
+            "cheminVueBody" => "section/create.php", "id_question" => $id , "num" => $num  //"redirige" vers la vue
         ]);
     }
 
@@ -40,6 +42,8 @@ class ControllerSection
                 "sections"=>$sections ]);  //"redirige" vers la vue
         }
     }
+
+
 
     public static function update() : void {
         $v= (new SectionRepository())->select($_GET['id_section']);
