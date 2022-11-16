@@ -39,9 +39,9 @@
     position: relative;
     padding-top: 5px;
     padding-bottom: 5px;
-    border-radius: 5px;
-    border: solid 1px black;
-    padding-left: 10px;
+    background: white;
+    border : none;
+    border-bottom: solid 1px black;
 }
 
 #login_id{

@@ -6,12 +6,11 @@
 </head>
 <body>
 <form method="post" action="frontController.php?controller=question&action=created" >
-    <fieldset>
         <legend>Créez une question :</legend>
         <p>
             <label for="intitule">Intitulé</label> :
         </p>
-            <textarea placeholder="Comment allez-vous ?" name="intitule" id="intitule" cols="60" , rows="1" required></textarea>
+            <textarea placeholder="Comment allez-vous ?" name="intitule" id="intitule" cols="60" , rows="1" style="resize: none;" required></textarea>
 
         <p>
             <label for="explication">Développement de votre question</label> :
@@ -82,7 +81,6 @@
         <p>
             <input type="submit" value="Envoyer" />
         </p>
-    </fieldset>
 </form>
 </body>
 </html>
