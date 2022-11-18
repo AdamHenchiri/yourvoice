@@ -135,10 +135,11 @@ class ControllerQuestion {
                     (new ContributeurRepository())->sauvegarder($v3);
                 }
             }
-        self::afficheVue('/view.php', ["pagetitle" => "modification de la question",
+        /*self::afficheVue('/view.php', ["pagetitle" => "modification de la question",
                 "cheminVueBody" => "question/updated.php",  //"redirige" vers la vue
                 "id_question" => htmlspecialchars($_POST['id_question']),
             ]);
+        */
         self::readAll();
     }
 
