@@ -91,7 +91,7 @@ class ControllerQuestion {
         $rep=(new QuestionRepository())->supprimer($_GET['id_question']);
         if ($v!=null){
             self::afficheVue('/view.php', ["pagetitle" => "suppresion de question",
-                "cheminVueBody" => "question/deleted.php", "id_question"=>$v->getIdQuestion()   //"redirige" vers la vue
+                "cheminVueBody" => "question/list.php", "id_question"=>$v->getIdQuestion()   //"redirige" vers la vue
             ]);
         }else{
             $s='suppression echoué';

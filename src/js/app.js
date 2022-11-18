@@ -77,6 +77,9 @@ function confirmation(){
     if(! res){
         return false;
     }
+    else{
+        alert("La question a bien été supprimer");
+    }
 
 
 }
@@ -85,6 +88,9 @@ function confirmationSection(){
     var res = confirm("Êtes-vous sûr de vouloir supprimer cette section?");
     if(! res){
         return false;
+    }
+    else{
+        alert("La section a bien été supprimer");
     }
 
 }
