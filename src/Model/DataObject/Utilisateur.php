@@ -3,7 +3,7 @@
 namespace App\YourVoice\Model\DataObject;
 use App\YourVoice\Model\DataObject\AbstractDataObject;
 
-class Utilisateur extends AbstractDataObject
+class   Utilisateur extends AbstractDataObject
 {
     private ?int $id_utilisateur;
     private string $login;
@@ -147,17 +147,17 @@ class Utilisateur extends AbstractDataObject
         string $login,
         string $nom,
         string $prenom,
-        int $age,
+        // int $age,
         string $role,
         string $email,
         string $mdp,
 
     ){
-        $this->id_utilisateur = $id_utilisateur;
-        $this->login = $login;
+        $this-> id_utilisateur = $id_utilisateur;
+        $this-> login = $login;
         $this-> nom = $nom;
         $this-> prenom = $prenom;
-        $this-> age = $age;
+        // $this-> age = $age;
         $this-> role = $role;
         $this-> email = $email;
         $this-> mdp = $mdp;
@@ -170,7 +170,7 @@ class Utilisateur extends AbstractDataObject
             "loginTag" => $this->getLogin(),
             "nomTag" => $this->getNom(),
             "prenomTag" => $this->getPrenom(),
-            "ageTag" => $this->getAge(),
+            // "ageTag" => $this->getAge(),
             "roleTag" => $this->getRole(),
             "emailTag" => $this->getEmail(),
             "mdpTag" => $this->getMdp(),

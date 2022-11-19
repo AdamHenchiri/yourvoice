@@ -5,10 +5,15 @@ body{
     margin: 0;
     width: 100%;
     height: 100%;
-    background-image: url("back.jpeg");
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: #acdcee;
 }
+
+/* Couleur :
+Couleur 1 : #2e94b9
+Couleur 2 : #475053
+Couleur 3 : #acdcee
+Couleur 4 : #f0fbff
+ */
 .container_menu{
     height: auto;
     display: flex;
@@ -90,6 +95,10 @@ nav{
     aspect-ratio: 1/1;
     height: 50px;
 
+}
+
+textarea{
+    resize: none;
 }
 
 .foot{

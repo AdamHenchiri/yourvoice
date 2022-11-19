@@ -28,7 +28,7 @@
 .container_connexion h1{
     font-size: 20px;
     color: black;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     font-family: sans-serif;
 }
 
@@ -42,11 +42,10 @@
     background: white;
     border : none;
     border-bottom: solid 1px black;
+    margin-top: 15px;
 }
 
-#login_id{
-    margin-bottom: 15px;
-}
+
 
 #mdp{
     margin-bottom: 5px;
