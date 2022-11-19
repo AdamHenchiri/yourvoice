@@ -75,17 +75,37 @@
             foreach($users as $user)
             {
             ?>
-        <div>
-            <input type="checkbox"  name="idVotant[]" value="<?php echo $user->getIdUtilisateur()?>">
-            <?php echo $user->getLogin()?>
-        </div>
-    <?php } }?>
+                <div>
+                    <input type="checkbox"  name="idVotant[]" value="<?php echo $user->getIdUtilisateur()?>">
+                    <?php echo $user->getLogin()?>
+                </div>
+            <?php } }?>
         </p>
 
-        <p>
-            <input type="submit" value="Créer" name="valider" />
-        </p>
     </fieldset>
+
+    <fieldset id="sections">
+        <legend>Creer une section :</legend>
+        <div id="section">
+        <p>
+            <label for="titre">Titre</label> :
+            <textarea placeholder="Je vais bien " name="titre[]" id="titre[]" required></textarea>
+        </p>
+        <p>
+            <label for="texte_explicatif">Texte explicatif</label> :
+            <textarea placeholder="Pourquoi je vais bien" name="texte_explicatif[]" id="texte_explicatif[]" required></textarea>
+        </p>
+        </div>
+    </fieldset>
+        <p>
+            <script type="text/javascript" src="../src/js/app.js"></script>
+            <input type="button" value="Ajouter une nouvelle section" onclick="ajouterBtn()"/>
+        </p>
+
+
+    <p>
+        <input type="submit" value="Créer" name="valider" />
+    </p>
 </form>
 <script src="../src/js/app.js"></script>
 

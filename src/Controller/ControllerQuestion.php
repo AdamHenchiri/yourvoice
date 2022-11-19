@@ -7,6 +7,7 @@ use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\ContributeurRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\DataObject\Question ;
+use App\YourVoice\Model\DataObject\Section ;
 use App\YourVoice\Model\Repository\SectionRepository;
 use App\YourVoice\Model\Repository\VotantRepository;
 use App\YourVoice\Model\Repository\UtilisateurRepository;
@@ -23,9 +24,11 @@ class ControllerQuestion {
         $question =new QuestionRepository();//appel au modèle pour gerer la BD
         $questions = $question->selectAll();
         $nbLigne =count($questions);
-        self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
+         self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
             "cheminVueBody" => "question/list.php",   //"redirige" vers la vue
             "questions"=>$questions, "nbLigne" => $nbLigne] );
+
+
     }
 
 
@@ -44,7 +47,7 @@ class ControllerQuestion {
         }
     }
 
-    private static function afficheVue(string $cheminVue, array $parametres = []) : void {
+    public static function afficheVue(string $cheminVue, array $parametres = []) : void {
         extract($parametres); // Crée des variables à partir du tableau $parametres
         require "../src/View/$cheminVue"; // Charge la vue
     }
@@ -76,28 +79,24 @@ class ControllerQuestion {
                     (new ContributeurRepository())->sauvegarder($v3);
                 }
             }
-            //echo $id;
-            $num=1;
-            self::afficheVue('/view.php', ["pagetitle" => "creation d'une section",
-                "cheminVueBody" => "section/create.php",//"redirige" vers la vue
-                "id_question"=>$id,
-                "num"=>$num
-            ]);
+            foreach ($_POST["titre"] as $i=>$section){
+               $s= new Section(null,$_POST["titre"][$i],$_POST["texte_explicatif"][$i],$id);
+                (new SectionRepository())->sauvegarder($s);
+            }
+            self::readAll();
+
+
     }
 
     public static function delete() : void {
-        echo $_GET['id_question'];
         $v=(new QuestionRepository())->select($_GET['id_question']);
         $rep=(new QuestionRepository())->supprimer($_GET['id_question']);
         if ($v!=null){
-            self::afficheVue('/view.php', ["pagetitle" => "suppresion de question",
-                "cheminVueBody" => "question/deleted.php", "id_question"=>$v->getIdQuestion()   //"redirige" vers la vue
-            ]);
+            self::readAll();
         }else{
             $s='suppression echoué';
             self::error($s);
         }
-        //self::readAll();
     }
 
 
