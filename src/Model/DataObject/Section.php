@@ -9,22 +9,19 @@ class Section extends AbstractDataObject
     private ?int $id_section;
     private string $titre;
     private string $texte_explicatif;
-    private int $numero;
     private int $id_question;
 
     /**
      * @param string $id_section
      * @param string $titre
      * @param string $texte_explicatif
-     * @param int $numero
      * @param int $id_question
      */
-    public function __construct(?int $id_section, string $titre, string $texte_explicatif, int $numero, int $id_question)
+    public function __construct(?int $id_section, string $titre, string $texte_explicatif, int $id_question)
     {
         $this->id_section = $id_section;
         $this->titre = $titre;
         $this->texte_explicatif = $texte_explicatif;
-        $this->numero = $numero;
         $this->id_question = $id_question;
     }
 
@@ -79,22 +76,6 @@ class Section extends AbstractDataObject
     /**
      * @return int
      */
-    public function getNumero(): int
-    {
-        return $this->numero;
-    }
-
-    /**
-     * @param int $numero
-     */
-    public function setNumero(int $numero): void
-    {
-        $this->numero = $numero;
-    }
-
-    /**
-     * @return int
-     */
     public function getIdQuestion(): int
     {
         return $this->id_question;
@@ -115,7 +96,6 @@ class Section extends AbstractDataObject
             "id_sectionTag" => $this->getIdSection(),
             "titreTag" => $this->getTitre(),
             "texte_explicatifTag" => $this->getTexteExplicatif(),
-            "numeroTag" => $this->getNumero(),
             "id_questionTag" => $this->getIdQuestion(),
         );
     }

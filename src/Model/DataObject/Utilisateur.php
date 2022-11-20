@@ -3,14 +3,13 @@
 namespace App\YourVoice\Model\DataObject;
 use App\YourVoice\Model\DataObject\AbstractDataObject;
 
-class   Utilisateur extends AbstractDataObject
+class Utilisateur extends AbstractDataObject
 {
     private ?int $id_utilisateur;
     private string $login;
     private string $nom;
     private string $prenom;
     private int $age;
-    private string $role;
     private string $email;
     private string $mdp;
 
@@ -28,22 +27,6 @@ class   Utilisateur extends AbstractDataObject
     public function setIdUtilisateur(int $id_utilisateur): void
     {
         $this->id_utilisateur = $id_utilisateur;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRole(): string
-    {
-        return $this->role;
-    }
-
-    /**
-     * @param string $role
-     */
-    public function setRole(string $role): void
-    {
-        $this->role = $role;
     }
 
     /**
@@ -147,18 +130,16 @@ class   Utilisateur extends AbstractDataObject
         string $login,
         string $nom,
         string $prenom,
-        // int $age,
-        string $role,
+        int $age,
         string $email,
         string $mdp,
 
     ){
-        $this-> id_utilisateur = $id_utilisateur;
-        $this-> login = $login;
+        $this->id_utilisateur = $id_utilisateur;
+        $this->login = $login;
         $this-> nom = $nom;
         $this-> prenom = $prenom;
-        // $this-> age = $age;
-        $this-> role = $role;
+        $this-> age = $age;
         $this-> email = $email;
         $this-> mdp = $mdp;
 
@@ -170,8 +151,7 @@ class   Utilisateur extends AbstractDataObject
             "loginTag" => $this->getLogin(),
             "nomTag" => $this->getNom(),
             "prenomTag" => $this->getPrenom(),
-            // "ageTag" => $this->getAge(),
-            "roleTag" => $this->getRole(),
+            "ageTag" => $this->getAge(),
             "emailTag" => $this->getEmail(),
             "mdpTag" => $this->getMdp(),
         );

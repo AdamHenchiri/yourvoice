@@ -81,10 +81,34 @@ function confirmation(){
 
 }
 
-function confirmationSection(){
+function confirmationSection() {
     var res = confirm("Êtes-vous sûr de vouloir supprimer cette section?");
-    if(! res){
+    if (!res) {
         return false;
     }
+}
+let i = 1;
+function createSectionRemoveButton() {
+    let removeButton = document.createElement("input")
+    removeButton.setAttribute("type", "button");
+    removeButton.setAttribute("value", "supprimer cette section");
+    removeButton.setAttribute("onclick", "removeSection(" + i + ")");
+    document
+        .getElementById("section-" + i)
+        .appendChild(removeButton);
+}
 
+function removeSection(a) {
+    document.getElementById("section-" + a).remove();
+}
+
+function ajouterBtn(){
+    ++i;
+    const sectionClone = document
+        .getElementById("section")
+        .cloneNode(true);
+    sectionClone.setAttribute("id", "section-"+i );
+    const sections = document.getElementById("sections");
+    sections.appendChild(sectionClone);
+   createSectionRemoveButton();
 }

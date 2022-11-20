@@ -11,10 +11,6 @@
         <input id="id_section" name="id_section" type="hidden" value=<?php echo $v->getIdSection() ?> >
         <input id="id_question" name="id_question" type="hidden" value=<?php echo $v->getIdQuestion() ?> >
         <p>
-            <label for="numero">Section numéro</label> : <?php echo $v->getNumero() ?>
-            <input type="hidden" value=<?php echo $v->getNumero() ?> name="numero" id="numero" readonly/>
-        </p>
-        <p>
             <label for="titre">Titre</label> :
             <textarea name="titre" id="titre" required><?php echo $v->getTitre(); ?></textarea>
         </p>

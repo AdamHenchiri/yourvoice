@@ -12,35 +12,30 @@ class ControllerSection
 {
 
     public static function create() : void {
-        $id=$_POST["id_question"];
-        $num=$_POST["numero"];
+        $id=$_GET["id_question"];
         self::afficheVue('/view.php', ["pagetitle" => "Ajouter une section",
-            "cheminVueBody" => "section/create.php", "id_question" => $id , "num" => $num  //"redirige" vers la vue
+            "cheminVueBody" => "section/create.php", "id_question" => $id  //"redirige" vers la vue
         ]);
     }
 
 
     public static function created() : void {
         $id=$_POST["id_question"];
-        $v=new Section(null,$_POST["titre"],$_POST["texte_explicatif"],$_POST["numero"],$_POST["id_question"]);
+        $v=new Section(null,$_POST["titre"],$_POST["texte_explicatif"],$id);
         (new SectionRepository())->sauvegarder($v);
-        $sections = (new SectionRepository())->selectWhere("id_question", $id);
-
-        //$sections = (new SectionRepository())->selectWhere("id_question",$_GET['id_question']);
-
+        (new ControllerQuestion())::readAll();
+       /* $sections = (new SectionRepository())->selectWhere("id_question", $id);
         $question =(new QuestionRepository())->select($id);
-        //$sections = (new SectionRepository())->selectWhere("id_question",$_GET['id_question']);
-        $num=$_POST["numero"]+1;
         if (isset($_POST['ajouterBtn'])) {
             self::afficheVue('/view.php', ["pagetitle" => "ajouter section",
-                "cheminVueBody" => "section/create.php", "id_question"=>$id , "num"=>$num //"redirige" vers la vue
+                "cheminVueBody" => "section/create.php", "id_question"=>$id  //"redirige" vers la vue
             ]);
         }
         else{
             self::afficheVue('/view.php', ["pagetitle" => "Finir section",
                 "cheminVueBody" => "question/detail.php", "question"=>$question,
                 "sections"=>$sections ]);  //"redirige" vers la vue
-        }
+        }*/
     }
 
 
@@ -52,7 +47,7 @@ class ControllerSection
 
 
     public static function updated() : void {
-        $v=new Section($_POST["id_section"],$_POST["titre"],$_POST["texte_explicatif"],$_POST["numero"],$_POST["id_question"]);
+        $v=new Section($_POST["id_section"],$_POST["titre"],$_POST["texte_explicatif"],$_POST["id_question"]);
         (new SectionRepository())->update($v);
         self::afficheVue('/view.php', ["pagetitle" => "modification de section",
             "cheminVueBody" => "section/updated.php" ,  //"redirige" vers la vue
@@ -63,24 +58,13 @@ class ControllerSection
 
     public static function delete() : void {
         $sections = (new SectionRepository())->selectWhere("id_question",$_GET["id_question"]);
-        $nbLigne =count($sections);
         $v=(new SectionRepository())->select($_GET['id_section']);
-        if ($v!=null && $nbLigne!=1){
+        $question=(new QuestionRepository())->select($_GET["id_question"]);
+        if ($v!=null && count($sections)>1){
             (new SectionRepository())->supprimer($_GET['id_section']);
-            $sections = (new SectionRepository())->selectWhere("id_question",$_GET["id_question"]);
-            $index=0;
-            foreach ($sections as $section){
-                (new SectionRepository())->supprimer($section->getIdSection());
-                $index++;
-                $v=new Section($section->getIdSection(),$section->getTitre(),$section->getTexteExplicatif(),$index,$section->getIdQuestion());
-                (new SectionRepository())->sauvegarder($v);
-            }
-            self::afficheVue('/view.php', ["pagetitle" => "suppresion de utilisateur",
-                "cheminVueBody" => "section/deleted.php","num_section"=>$v->getNumero()   //"redirige" vers la vue
-            ]);
+            (new ControllerQuestion)::read();
         }else{
             $s='suppression echoué';
-
             self::error($s);
         }
         //self::readAll();
@@ -107,7 +91,8 @@ class ControllerSection
         if ($section!==null) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la section",
                 "cheminVueBody" => "section/detail.php",   //"redirige" vers la vue
-                "section"=>$section]);
+                "section"=>$section,
+                ]);
         }else{
             self::afficheVue('/view.php', ["pagetitle" => "ERROR",
                 "cheminVueBody" => "section/error.php",   //"redirige" vers la vue
