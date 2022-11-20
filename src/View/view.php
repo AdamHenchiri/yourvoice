@@ -5,6 +5,7 @@
     <link href="../src/Style/connexion.css" rel="stylesheet">
     <link href="../src/Style/view.css" rel="stylesheet">
     <link href="../src/Style/inscription.css" rel="stylesheet">
+    <link href="../src/Style/create_question.css" rel="stylesheet">
     <title>YourVoice</title>
     <script src="https://kit.fontawesome.com/26e0d024d1.js" crossorigin="anonymous" defer></script>
     <meta name="description" content="site de vote YourVoice.com">

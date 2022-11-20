@@ -18,8 +18,8 @@
                 <p id="champsrequis">* champs requis</p>
             </div>
             <div class="cgu">
-            <input type="checkbox" required/>
-            <p>En cochant cette case vous acceptez les CGU</p>
+                <input type="checkbox" required/>
+                <p>En cochant cette case vous acceptez les CGU</p>
             </div>
             <input id="envoyer" type="submit" value="S'inscrire" />
             <div class="separateur">

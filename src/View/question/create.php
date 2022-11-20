@@ -6,55 +6,69 @@
 </head>
 <body>
 <form method="post" action="frontController.php?controller=question&action=created" name="creationQuestion" id="creationQuestion" onsubmit="return validation()">
+<div class="container">
+    <div class="container_creerquestion">
+        <div class="titre">
+            <a id="boutonpublic" class="public"><i class="fa-solid fa-eye"></i> Public</a>
+            <h1>Créer une question :</h1>
+        </div>
 
-    <fieldset>
-        <legend>Créer une question :</legend>
-        <p>
+        <div class="question_description">
             <label for="intitule">Intitulé</label>
-        </p>
-            <textarea placeholder="Comment allez-vous ?" name="intitule" id="intitule" cols="60" , rows="1" required></textarea>
+            <textarea placeholder="Titre de la question" name="intitule" id="intitule" rows="10" required></textarea>
 
-        <p>
             <label for="explication">Développement de la question</label>
-        </p>
-            <textarea placeholder="Comment répondriez vous à cette question ...." name="explication" id="explication" cols="90" , rows="6" required></textarea>
+            <textarea placeholder="Pour aller plus loin..." name="explication" id="explication" cols="10" rows="10" required></textarea>
+        </div>
 
-        <p>
-            <label for="dateDebut_redaction">Début de la rédaction</label>
-            <input type="date" placeholder="" name="dateDebut_redaction" id="dateDebut_redaction" readonly/>
-            <?php  if(isset($_POST["message_11"] )){ echo $_POST["message_11"]; }
+        <div class="separateur1">
+        </div>
+
+        <div class="container_date">
+            <div class="date_redac">
+                <div class="date_all">
+                <label for="dateDebut_redaction">Début de la rédaction :</label>
+                <input type="date" placeholder="" name="dateDebut_redaction" id="dateDebut_redaction" readonly/>
+                <?php  if(isset($_POST["message_11"] )){ echo $_POST["message_11"]; }
                    if(isset($_POST["message_12"] )){ echo $_POST["message_12"]; }
 
-            ?>
-        </p>
+                ?>
+                </div>
+                <div class="date_all">
+                <label for="dateFin_redaction">Fin de la rédaction :</label>
+                <input type="date" placeholder="" name="dateFin_redaction" id="dateFin_redaction" required/>
+                </div>
+            </div>
 
-        <p>
-            <label for="dateFin_redaction">Fin de la rédaction</label>
-            <input type="date" placeholder="" name="dateFin_redaction" id="dateFin_redaction" required
-
-            />
-        </p>
-
-        <p>
-            <label for="dateDebut_vote">Début du vote</label>
+            <div class="date_redac">
+                <div class="date_all">
+            <label for="dateDebut_vote">Début du vote :</label>
             <input type="date" placeholder="" name="dateDebut_vote" id="dateDebut_vote" required/>
-        </p>
-
-        <p>
-            <label for="dateFin_vote">Fin du vote</label>
+                </div>
+                <div class="date_all">
+            <label for="dateFin_vote">Fin du vote : </label>
             <input type="date" placeholder="" name="dateFin_vote" id="dateFin_vote" required/>
-        </p>
+                </div>
+            </div>
+        </div>
 
-        <p>
+        <div class="separateur1">
+        </div>
+
+
             <label for="id_utilisateur">Serra rempli automatiquement avec les sessions</label> :
             <input type="int" placeholder="serra rempli automatiquement avec les sessions" name="id_utilisateur" id="id_utilisateur" required/>
 
 
-        <p>
-            <label for="contributeurs">Choisissez les contributeurs</label> :
+        <div class="container_votant_contributeur">
+            <div class="container_contributeur">
+            <label for="contributeurs">Choisissez les contributeurs :</label>
+            <div id="affichecontributeur">
 
-            <?php
+            </div>
+            <div class="scroll_votant">
 
+                <?php
             use App\YourVoice\Model\Repository\UtilisateurRepository;
             $users = (new UtilisateurRepository())->selectAll();
             if ($users){
@@ -62,14 +76,21 @@
             {
             ?>
         <div>
-            <input type="checkbox" name="idContributeur[]" value="<?php echo $user->getIdUtilisateur()?>">
+            <input type="checkbox" name="idContributeur[]" value="<?php echo $user->getLogin()?>">
             <?php echo $user->getLogin()?>
         </div>
     <?php } }?>
-        </p>
+            </div>
+            </div>
 
-        <p>
-            <label for="votants ">Choisissez les votants</label> :
+
+
+        <div class="container_votant">
+        <label for="votants ">Choisissez les votants :</label>
+        <div id="affichevotant">
+        </div>
+        <div class="scroll_votant">
+
 
             <?php
 
@@ -80,18 +101,81 @@
             {
             ?>
         <div>
-            <input type="checkbox"  name="idVotant[]" value="<?php echo $user->getIdUtilisateur()?>">
+            <input type="checkbox"  name="idVotant[]" value="<?php echo $user->getLogin()?>">
             <?php echo $user->getLogin()?>
         </div>
     <?php } }?>
-        </p>
+        </div>
+        </div>
+        </div>
 
-        <p>
-            <input type="submit" value="Créer" name="valider" />
-        </p>
-    </fieldset>
+            <input id="valider" type="submit" value="Créer" name="valider" />
+
+    </div>
+</div>
 </form>
 <script src="../src/js/app.js"></script>
+<script>
+    var public = true;
+    var boutton = document.getElementById("boutonpublic")
+    boutton.addEventListener("click", ()=>{
+        if(public){
+            boutton.classList.add("priver");
+            boutton.classList.remove("public");
+            public = false;
+            boutton.innerHTML = '<i class="fa-solid fa-eye-slash"></i> Privé';
+
+        }else{
+            boutton.classList.add("public");
+            boutton.classList.remove("priver");
+            public = true;
+            boutton.innerHTML = '<i class="fa-solid fa-eye"></i> Public';
+        }
+    });
+
+    const listevotant = document.querySelectorAll("input[type=checkbox][name='idVotant[]']");
+    const listecontributeur = document.querySelectorAll("input[type=checkbox][name='idContributeur[]']");
+
+    function ajoutVotant(name){
+        const div = document.createElement("div");
+        div.innerHTML = name;
+        div.id = name;
+        document.getElementById("affichevotant").appendChild(div);
+
+    }
+
+    function ajoutContributeur(name){
+        const div = document.createElement("div");
+        div.innerHTML = name;
+        div.id = name;
+        document.getElementById("affichecontributeur").appendChild(div);
+
+    }
+
+
+    for(e of listevotant){
+        const contient = e;
+        contient.addEventListener("change", ()=>{
+            if(contient.checked){
+                ajoutVotant(contient.value);
+            }else{
+                document.getElementById(contient.value).remove();
+            }
+        });
+    }
+
+    for(c of listecontributeur){
+        const contient1 = c;
+        contient1.addEventListener("change", ()=>{
+            if(contient1.checked){
+                ajoutContributeur(contient1.value);
+            }else{
+                document.getElementById(contient1.value).remove();
+            }
+        });
+    }
+
+</script>
 
 </body>
 </html>

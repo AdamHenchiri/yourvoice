@@ -1,0 +1,172 @@
+
+.container_creerquestion{
+    display: flex;
+    flex-direction: column;
+    border-radius: 50px;
+    background-color: white;
+    width: 60%;
+    height: 100%;
+}
+
+.titre{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+    margin-top: 30px;
+}
+
+.titre h1{
+    margin:0;
+    font-size: 20px;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.titre a{
+    text-decoration: none;
+    font-size: 12px;
+    font-family: sans-serif;
+    color: black;
+    margin-top: 5px;
+}
+
+.question_description{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+
+}
+
+
+.question_description label{
+    width: 60%;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+.question_description textarea{
+    width: 60%;
+    border-radius: 15px;
+}
+
+
+
+.separateur1{
+    border-bottom: solid 1px grey;
+    width: 90%;
+    align-self: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.container_date{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.date_redac{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.date_all{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    gap: 5px;
+    font-size: 15px;
+    color: black;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+#valider{
+    align-self: center;
+    border: 1px solid black;
+    border-radius: 50px;
+    width: 35%;
+    color: white;
+    background-color: black;
+    font-size: 15px;
+    transition-duration: 0.2s;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-family: sans-serif;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#valider:hover{
+    border: 1px solid black;
+    transition-duration: 0.2s;
+    border-radius: 50px;
+    color: black;
+    background-color: white;
+}
+
+.public{
+    transform: rotateY(0deg);
+}
+
+.priver{
+    transform: rotateY(360deg);
+}
+
+#boutonpublic{
+    transition: 0.5s;
+    cursor: pointer;
+    position: absolute;
+    left: 50px;
+}
+
+.scroll_votant{
+    height: 150px;
+    overflow: scroll;
+    border : solid 2px green;
+}
+
+.container_votant_contributeur{
+    border: solid 1px yellow;
+    display:flex;
+    justify-content: center;
+    gap: 100px;
+    flex-direction: row;
+}
+
+.container_contributeur{
+    display: flex;
+    flex-direction: column;
+    border: solid 1px black;
+    border-radius: 20px;
+    width: 30%;
+}
+
+.container_votant{
+    display: flex;
+    flex-direction: column;
+    border: solid 1px black;
+    border-radius: 20px;
+    width: 30%;
+}
+
+.container_votant label{
+    align-self: center;
+}
+
+#affichevotant{
+    display: flex;
+    flex-direction: row;
+}
+
+#affichecontributeur{
+    display: flex;
+    flex-direction: row;
+}
