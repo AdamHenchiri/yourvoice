@@ -56,13 +56,13 @@
         </div>
 
 
-            <label for="id_utilisateur">Serra rempli automatiquement avec les sessions</label> :
-            <input type="int" placeholder="serra rempli automatiquement avec les sessions" name="id_utilisateur" id="id_utilisateur" required/>
+          <!--  <label for="id_utilisateur">Serra rempli automatiquement avec les sessions</label> :
+            <input type="int" placeholder="serra rempli automatiquement avec les sessions" name="id_utilisateur" id="id_utilisateur" required/>-->
 
 
         <div class="container_votant_contributeur">
             <div class="container_contributeur">
-            <label for="contributeurs">Choisissez les contributeurs :</label>
+            <label for="contributeurs">Choisissez les contributeurs</label>
             <div id="affichecontributeur">
 
             </div>
@@ -75,18 +75,20 @@
             foreach($users as $user)
             {
             ?>
-        <div>
+        <div class="checkbox">
             <input type="checkbox" name="idContributeur[]" value="<?php echo $user->getLogin()?>">
             <?php echo $user->getLogin()?>
         </div>
     <?php } }?>
+
             </div>
+                <p id="minimum">Min : 5 contributeurs</p>
             </div>
 
 
 
         <div class="container_votant">
-        <label for="votants ">Choisissez les votants :</label>
+        <label for="votants ">Choisissez les votants</label>
         <div id="affichevotant">
         </div>
         <div class="scroll_votant">
@@ -100,12 +102,14 @@
             foreach($users as $user)
             {
             ?>
-        <div>
+        <div class="checkbox">
             <input type="checkbox"  name="idVotant[]" value="<?php echo $user->getLogin()?>">
             <?php echo $user->getLogin()?>
         </div>
     <?php } }?>
+
         </div>
+            <p id="minimum">Min : 5 votants</p>
         </div>
         </div>
 
