@@ -2,6 +2,7 @@
 
 namespace App\YourVoice\Controller;
 
+use App\YourVoice\Model\DataObject\Contributeur;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\ReponseRepository;
@@ -16,26 +17,27 @@ class ControllerReponse
 {
 
     public static function create() : void {
+
         self::afficheVue('/view.php', ["pagetitle" => "Ajouter une réponse",
-            "cheminVueBody" => "reponse/create.php"   //"redirige" vers la vue
+            "cheminVueBody" => "reponse/create.php",   //"redirige" vers la vue
         ]);
     }
 
 
     public static function created() : void {
-        $v=new Reponse($_POST["id_reponse"],$_POST["id_utilisateur"],$_POST["id_question"]);
-        (new ReponseRepository())->sauvegarder($v);
-        foreach ($_POST["idCoAuteur"] as $idUser) {
+        $v=new Reponse(null,$_POST["id_utilisateur"],$_POST["id_question"]);
+        $id = (new ReponseRepository())->sauvegarder($v);
+        foreach ($_POST["idContributeur"] as $idUser) {
             if ($idUser) {
-                $v2 = new CoAuteur($idUser, $v);
-                (new ContributeurRepository())->sauvegarder($v2);
+                $v3 = new Contributeur($idUser, $id);
+                (new ContributeurRepository())->sauvegarder($v3);
             }
         }
 
         self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
             "cheminVueBody" => "reponse/created.php"   //"redirige" vers la vue
         ]);
-        self::readAll();
+        //self::readAll();
     }
 
     public static function update() : void {

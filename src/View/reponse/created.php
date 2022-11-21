@@ -1,4 +1,4 @@
 
 <?php
-echo "<p>La question a bien été créée !</p>";
+echo "<p>La réponse a bien été créée !</p>";
 ?>

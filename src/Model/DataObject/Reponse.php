@@ -4,15 +4,15 @@ namespace App\YourVoice\Model\DataObject;
 use App\YourVoice\Model\DataObject\Question;
 use App\YourVoice\Model\Repository\DatabaseConnection;
 
-class Reponse
+class Reponse extends AbstractDataObject
 {
 
-    private int $id_reponse;
+    private ?int $id_reponse;
     private int $id_utilisateur;
     private int $id_question;
 
 
-    public function __construct(string $id_reponse, string $id_utilisateur, int $id_question)
+    public function __construct(?int $id_reponse, string $id_utilisateur, int $id_question)
     {
         $this->id_reponse = $id_reponse;
         $this->id_utilisateur = $id_utilisateur;
@@ -24,7 +24,7 @@ class Reponse
      * @return string
      */
 
-    public function getIdRponses(): string
+    public function getIdRponses(): ?int
     {
         return $this->id_reponse;
     }
@@ -40,7 +40,7 @@ class Reponse
     /**
      * @return string
      */
-    public function getIdUtilisateur(): string
+    public function getIdUtilisateur(): int
     {
         return $this->id_utilisateur;
     }
@@ -56,7 +56,7 @@ class Reponse
     /**
      * @return Question
      */
-    public function getIdQuestion(): Question
+    public function getIdQuestion(): int
     {
         return $this->id_question;
     }
@@ -67,6 +67,15 @@ class Reponse
     public function setIdQuestion(Question $id_question): void
     {
         $this->id_question = $id_question;
+    }
+
+    public function formatTableau(): array
+    {
+        return array(
+            "id_reponseTag" => $this->getIdRponses(),
+            "id_utilisateurTag" => $this->getIdUtilisateur(),
+            "id_questionTag" => $this->getIdQuestion(),
+        );
     }
 
 }
