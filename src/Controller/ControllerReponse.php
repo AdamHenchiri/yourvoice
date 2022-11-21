@@ -42,7 +42,7 @@ class ControllerReponse
 
     public static function update() : void {
         $v= (new ReponseRepository())->select($_GET['id_reponse']);
-        self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une utilisateur","cheminVueBody"=>"utilisateur/update.php","v"=>$v]);
+        self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une réponse","cheminVueBody"=>"reponse/update.php","v"=>$v]);
     }
 
     public static function updated() : void {
