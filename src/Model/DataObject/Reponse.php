@@ -12,9 +12,9 @@ class Reponse
     private int $id_question;
 
 
-    public function __construct(string $id, string $id_utilisateur, Question $id_question)
+    public function __construct(string $id_reponse, string $id_utilisateur, int $id_question)
     {
-        $this->id = $id;
+        $this->id_reponse = $id_reponse;
         $this->id_utilisateur = $id_utilisateur;
         $this->id_question = $id_question;
     }
@@ -24,9 +24,9 @@ class Reponse
      * @return string
      */
 
-    public function getId(): string
+    public function getIdRponses(): string
     {
-        return $this->id;
+        return $this->id_reponse;
     }
 
     /**
@@ -34,7 +34,7 @@ class Reponse
      */
     public function setId(string $id): void
     {
-        $this->id = $id;
+        $this->id = $id_reponse;
     }
 
     /**
