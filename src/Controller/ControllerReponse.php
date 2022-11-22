@@ -41,16 +41,16 @@ class ControllerReponse
     }
 
     public static function update() : void {
-        $v= (new ReponseRepository())->select($_GET['id_reponse']);
-        self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une réponse","cheminVueBody"=>"reponse/update.php","v"=>$v]);
+        $reponses= (new ReponseRepository())->select($_GET['id_reponse']);
+        self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une réponse","cheminVueBody"=>"reponse/update.php","reponses"=>$reponses]);
     }
 
     public static function updated() : void {
-        $v=new Response($_POST["id_reponse"],$_POST["id_utilisateur"],$_POST["id_question"]);
-        (new ReponseRepository())->update($v);
+        $reponses=new Response($_POST["id_reponse"],$_POST["id_utilisateur"],$_POST["id_question"]);
+        (new ReponseRepository())->update($reponses);
         self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
-            "cheminVueBody" => "utilisateur/updated.php" ,  //"redirige" vers la vue
-            "login"=>htmlspecialchars($v->getId()),
+            "cheminVueBody" => "reponse/updated.php" ,  //"redirige" vers la vue
+            "id_reponse"=>htmlspecialchars($reponses->getIdRponses()),
         ]);
         self::readAll();
     }
