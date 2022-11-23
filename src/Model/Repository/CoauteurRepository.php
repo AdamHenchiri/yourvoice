@@ -1,0 +1,29 @@
+<?php
+
+namespace App\YourVoice\Model\Repository;
+use App\YourVoice\Model\DataObject\Contributeur;
+use App\YourVoice\Model\DataObject\Utilisateur;
+
+class CoauteurRepository extends AbstractRepository {
+
+    public function construire(array $questFormatTableau) : Contributeur {
+        return new Contributeur($questFormatTableau['id_reponse'],$questFormatTableau['id_utilisateur']);
+    }
+
+    protected function getNomTable(): string{
+        return "est_coAuteur";
+    }
+
+    protected function getNomClePrimaire(): string
+    {
+        return "id_reponse";
+    }
+    protected function getNomClesPrimaires(): array
+    {
+        return ["id_reponse","id_utilisateur"];
+    }
+    protected function getNomsColonnes(): array
+    {
+        return ["id_reponse","id_utilisateur"];
+    }
+}
