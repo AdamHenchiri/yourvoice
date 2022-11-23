@@ -1,11 +1,9 @@
 <?php
 namespace App\YourVoice\Controller ;
 
-use App\YourVoice\Model\DataObject\Contributeur;
 use App\YourVoice\Model\DataObject\Reponse;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
-use App\YourVoice\Model\Repository\ContributeurRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\DataObject\Question ;
 use App\YourVoice\Model\DataObject\Section ;
@@ -64,7 +62,7 @@ class ControllerQuestion {
     public static function created() : void {
             $v=new Question( null,$_POST["intitule"],$_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
-            $_POST["dateFin_vote"], $_POST["id_organisateur"]);
+            $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
             //sauvegarde de la question dans la base de donnée
             $id=(new QuestionRepository())->sauvegarder($v);
             //sauvegarde des votants dans la base de donnée
