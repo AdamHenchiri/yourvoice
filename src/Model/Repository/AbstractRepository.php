@@ -5,6 +5,7 @@ namespace App\YourVoice\Model\Repository;
 use App\YourVoice\Model\DataObject\AbstractDataObject;
 use App\YourVoice\Model\DataObject\Voiture;
 use PDO;
+use PDOException;
 
 abstract class AbstractRepository
 {

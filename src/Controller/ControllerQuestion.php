@@ -60,25 +60,36 @@ class ControllerQuestion {
 
 
     public static function created() : void {
+            $tab = array();
             $v=new Question( null,$_POST["intitule"],$_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
             $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
-            //sauvegarde de la question dans la base de donnée
-            $id=(new QuestionRepository())->sauvegarder($v);
-            //sauvegarde des votants dans la base de donnée
-            foreach ($_POST["idVotant"] as $idUser) {
+        //sauvegarde de la question dans la base de donnée
+        $id=(new QuestionRepository())->sauvegarder($v);
+        echo $id;
+        //sauvegarde des votants dans la base de donnée
+        foreach ($_POST["idContributeur"] as $idUser) {
+            if ($idUser) {
+                $v3 = new Reponse(null,$idUser, $id);
+                $reponse =  (new ReponseRepository())->sauvegarder($v3);
+                echo $reponse;
+                $tab[] = $reponse;
+
+            }
+        }
+        var_dump($tab);
+        print_r($tab);
+        foreach ($_POST["idVotant"] as $idUser) {
                 if ($idUser) {
-                    $v2 = new Votant($idUser, null, $id);
-                    (new VotantRepository())->sauvegarder($v2);
+                    foreach ($tab as $rep)
+                    {
+                        $v2 = new Votant($idUser, null, $id, $rep);
+                        (new VotantRepository())->sauvegarder($v2);
+                    }
+
                 }
             }
-            //sauvegarde des contributeurs dans la base de donnée
-            foreach ($_POST["idContributeur"] as $idUser) {
-                if ($idUser) {
-                    $v3 = new Reponse(null,$idUser, $id);
-                    (new ReponseRepository())->sauvegarder($v3);
-                }
-            }
+        //sauvegarde des contributeurs dans la base de donnée
             foreach ($_POST["titre"] as $i=>$section){
                $s= new Section(null,$_POST["titre"][$i],$_POST["texte_explicatif"][$i],$id);
                 (new SectionRepository())->sauvegarder($s);
