@@ -4,9 +4,9 @@ namespace App\YourVoice\Model\DataObject;
 use App\YourVoice\Model\DataObject\Reponse;
 use App\YourVoice\Model\DataObject\Section;
 
-class Texte
+class Texte extends AbstractDataObject
 {
-    private int $id_texte;
+    private ?int $id_texte;
     private String $texte;
     private Reponse $id_reponse;
     private Section $id_section;
@@ -17,7 +17,7 @@ class Texte
      * @param Reponse $id_reponse
      * @param Section $id_section
      */
-    public function __construct(int $id_texte, string $texte, Reponse $id_reponse, Section $id_section)
+    public function __construct(?int $id_texte, string $texte, Reponse $id_reponse, Section $id_section)
     {
         $this->id_texte = $id_texte;
         $this->texte = $texte;
@@ -28,7 +28,7 @@ class Texte
     /**
      * @return int
      */
-    public function getIdTexte(): int
+    public function getIdTexte(): ?int
     {
         return $this->id_texte;
     }
@@ -89,6 +89,14 @@ class Texte
         $this->id_section = $id_section;
     }
 
+    public function formatTableau(): array{
+        return array(
+            "id_texteTag" => $this->getIdTexte(),
+            "texteTag" => $this->getTexte(),
+            "id_reponseTag" => $this->getIdReponse(),
+            "id_sectionTag" => $this->getIdSection(),
+        );
+    }
 
 
 

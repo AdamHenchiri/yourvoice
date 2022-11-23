@@ -2,7 +2,8 @@
 
 namespace App\YourVoice\Controller;
 
-class ControllerContributeur
+class ControllerCoauteur
 {
+
 
 }

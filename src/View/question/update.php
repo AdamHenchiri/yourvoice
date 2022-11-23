@@ -56,7 +56,7 @@
             if ($users){
             foreach($users as $user)
             {
-            $usersContributeur=(new \App\YourVoice\Model\Repository\ContributeurRepository())->selectWhere("id_utilisateur",$user->getIdUtilisateur());
+            $usersContributeur=(new \App\YourVoice\Model\Repository\ReponseRepository())->selectWhere("id_utilisateur",$user->getIdUtilisateur());
             if ($usersContributeur){
                 $aux=false;
             foreach ($usersContributeur as $userContributeur){

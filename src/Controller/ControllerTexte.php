@@ -2,14 +2,12 @@
 namespace App\YourVoice\Controller ;
 
 use App\YourVoice\Model\DataObject\Contributeur;
-use App\YourVoice\Model\DataObject\Reponse;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\ContributeurRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\DataObject\Question ;
 use App\YourVoice\Model\DataObject\Section ;
-use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\Repository\SectionRepository;
 use App\YourVoice\Model\Repository\VotantRepository;
 use App\YourVoice\Model\Repository\UtilisateurRepository;
@@ -19,14 +17,14 @@ use Couchbase\View;
 // chargement du modèle
 
 
-class ControllerQuestion {
+class ControllerTexte {
 
     // Déclaration de type de retour void : la fonction ne retourne pas de valeur
     public static function readAll() : void {
         $question =new QuestionRepository();//appel au modèle pour gerer la BD
         $questions = $question->selectAll();
         $nbLigne =count($questions);
-         self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
+        self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
             "cheminVueBody" => "question/list.php",   //"redirige" vers la vue
             "questions"=>$questions, "nbLigne" => $nbLigne] );
 
@@ -45,7 +43,7 @@ class ControllerQuestion {
         }else{
             self::afficheVue('/view.php', ["pagetitle" => "ERROR",
                 "cheminVueBody" => "question/error.php",   //"redirige" vers la vue
-               ]);
+            ]);
         }
     }
 
@@ -57,35 +55,35 @@ class ControllerQuestion {
     public static function create() : void {
         self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
             "cheminVueBody" => "question/create.php"   //"redirige" vers la vue
-            ]);
+        ]);
     }
 
 
     public static function created() : void {
-            $v=new Question( null,$_POST["intitule"],$_POST["explication"],
+        $v=new Question( null,$_POST["intitule"],$_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
-            $_POST["dateFin_vote"], $_POST["id_organisateur"]);
-            //sauvegarde de la question dans la base de donnée
-            $id=(new QuestionRepository())->sauvegarder($v);
-            //sauvegarde des votants dans la base de donnée
-            foreach ($_POST["idVotant"] as $idUser) {
-                if ($idUser) {
-                    $v2 = new Votant($idUser, null, $id);
-                    (new VotantRepository())->sauvegarder($v2);
-                }
+            $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
+        //sauvegarde de la question dans la base de donnée
+        $id=(new QuestionRepository())->sauvegarder($v);
+        //sauvegarde des votants dans la base de donnée
+        foreach ($_POST["idVotant"] as $idUser) {
+            if ($idUser) {
+                $v2 = new Votant($idUser, null, $id);
+                (new VotantRepository())->sauvegarder($v2);
             }
-            //sauvegarde des contributeurs dans la base de donnée
-            foreach ($_POST["idContributeur"] as $idUser) {
-                if ($idUser) {
-                    $v3 = new Reponse(null,$idUser, $id);
-                    (new ReponseRepository())->sauvegarder($v3);
-                }
+        }
+        //sauvegarde des contributeurs dans la base de donnée
+        foreach ($_POST["idContributeur"] as $idUser) {
+            if ($idUser) {
+                $v3 = new Contributeur($idUser, $id);
+                (new ContributeurRepository())->sauvegarder($v3);
             }
-            foreach ($_POST["titre"] as $i=>$section){
-               $s= new Section(null,$_POST["titre"][$i],$_POST["texte_explicatif"][$i],$id);
-                (new SectionRepository())->sauvegarder($s);
-            }
-            self::readAll();
+        }
+        foreach ($_POST["titre"] as $i=>$section){
+            $s= new Section(null,$_POST["titre"][$i],$_POST["texte_explicatif"][$i],$id);
+            (new SectionRepository())->sauvegarder($s);
+        }
+        self::readAll();
 
 
     }
@@ -118,7 +116,7 @@ class ControllerQuestion {
         $id=$_POST['id_question'];
         $v = new Question($_POST['id_question'], $_POST["intitule"], $_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
-            $_POST["dateFin_vote"], $_POST["id_organisateur"]);
+            $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
         (new QuestionRepository())->update($v);
 
 
@@ -132,16 +130,15 @@ class ControllerQuestion {
         //sauvegarde des contributeurs dans la base de donnée
         foreach ($_POST["idContributeur"] as $idUser) {
             if ($idUser) {
-                (new ReponseRepository())->supprimer([$idUser,$id]);
+                (new ContributeurRepository())->supprimer([$idUser,$id]);
                 $v3 = new Contributeur($idUser, $id);
-                    (new ContributeurRepository())->sauvegarder($v3);
-                }
+                (new ContributeurRepository())->sauvegarder($v3);
             }
-        /*self::afficheVue('/view.php', ["pagetitle" => "modification de la question",
-                "cheminVueBody" => "question/updated.php",  //"redirige" vers la vue
-                "id_question" => htmlspecialchars($_POST['id_question']),
-            ]);
-        */
+        }
+        self::afficheVue('/view.php', ["pagetitle" => "modification de la question",
+            "cheminVueBody" => "question/updated.php",  //"redirige" vers la vue
+            "id_question" => htmlspecialchars($_POST['id_question']),
+        ]);
         self::readAll();
     }
 

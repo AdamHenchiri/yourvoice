@@ -7,31 +7,71 @@
 <body>
 <form method="post" action="frontController.php?controller=reponse&action=created">
     <fieldset>
-        <legend>inscription :</legend>
+        <legend>Creéation d'une réponse :</legend>
+        <input type="hidden" value="<?php echo $_GET["id_question"]?>" name="id_question" >
+
+        <?php
+
+        use App\YourVoice\Model\Repository\SectionRepository;
+        use App\YourVoice\Model\Repository\UtilisateurRepository;
+        $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
+        if ($sections){
+        foreach ($sections as $section){ ?>
+            <p>
+            <label for="titre">Titre</label> :
+<!--                <input type="text" placeholder="macrone" name="titre" id="titre" required/>-->
+                </p>
+                <p id="titre">
+                    <?php
+                echo $section->getTitre();
+                ?>
+                </p>
         <p>
-            <label for="login_id">login</label> :
-            <input type="text" placeholder="macrone" name="login" id="login_id" required/>
+            <label for="description">Description</label> :
+
+                <!--<input type="text" placeholder="macron" name="description" id="description" required/>-->
         </p>
+                <p id="description">
+                <?php
+                echo $section->getTexteExplicatif();
+                ?>
+                </p>
+
         <p>
-            <label for="nom">nom</label> :
-            <input type="text" placeholder="macron" name="nom" id="nom" required/>
+            <label for="texte">Texte</label> :
+
         </p>
+            <textarea name="texte" id="texte" cols="90"  rows="6"></textarea>;
+
+                <?php }}
+            ?>
+
         <p>
-            <label for="prenom">prenom</label> :
-            <input type="text" placeholder="emanuelle" name="prenom" id="prenom" required/>
+            <label for="idCoAuteur ">Choisissez les co-auteurs</label> :
+
+            <?php
+
+
+            $users = (new UtilisateurRepository())->selectAll();
+            if ($users){
+            foreach($users as $user)
+            {
+            ?>
+        <div>
+            <input type="checkbox"  name="idCoAuteur[]" value="<?php echo $user->getIdUtilisateur()?>">
+            <?php echo $user->getLogin()?>
+        </div>
+    <?php } }?>
         </p>
+
+
         <p>
-            <label for="age">age</label> :
-            <input type="text" placeholder="20" name="age" id="age" required/>
-        </p>
+            <label for="id_utilisateur">Serra rempli automatiquement avec les sessions</label> :
+            <input type="int" placeholder="serra rempli automatiquement avec les sessions" name="id_utilisateur" id="id_utilisateur" required/>
+
+
         <p>
-            <label for="email">email</label> :
-            <input type="text" placeholder="email@amail.com" name="email" id="email" required/>
-        </p>
-        <p>
-            <label for="mdp">mot de passe</label> :
-            <input type="text" placeholder="******" name="mdp" id="mdp" required/>
-        </p>
+
         <p>
             <input type="submit" value="Envoyer" />
         </p>

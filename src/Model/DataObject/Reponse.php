@@ -4,18 +4,18 @@ namespace App\YourVoice\Model\DataObject;
 use App\YourVoice\Model\DataObject\Question;
 use App\YourVoice\Model\Repository\DatabaseConnection;
 
-class Reponse
+class Reponse extends AbstractDataObject
 {
 
-    private int $id_reponse;
-    private int $id_utilisateur;
+    private ?int $id_reponse;
+    private int $id_responsable;
     private int $id_question;
 
 
-    public function __construct(string $id, string $id_utilisateur, Question $id_question)
+    public function __construct(?int $id_reponse, string $id_responsable, int $id_question)
     {
-        $this->id = $id;
-        $this->id_utilisateur = $id_utilisateur;
+        $this->id_reponse = $id_reponse;
+        $this->id_responsable = $id_responsable;
         $this->id_question = $id_question;
     }
 
@@ -24,9 +24,9 @@ class Reponse
      * @return string
      */
 
-    public function getId(): string
+    public function getIdRponses(): ?int
     {
-        return $this->id;
+        return $this->id_reponse;
     }
 
     /**
@@ -34,29 +34,29 @@ class Reponse
      */
     public function setId(string $id): void
     {
-        $this->id = $id;
+        $this->id_reponse = $id;
     }
 
     /**
      * @return string
      */
-    public function getIdUtilisateur(): string
+    public function getIdUtilisateur(): int
     {
-        return $this->id_utilisateur;
+        return $this->id_responsable;
     }
 
     /**
-     * @param string $id_utilisateur
+     * @param string $id_responsable
      */
-    public function setIdUtilisateur(string $id_utilisateur): void
+    public function setIdUtilisateur(string $id_responsable): void
     {
-        $this->id_utilisateur = $id_utilisateur;
+        $this->id_responsable = $id_responsable;
     }
 
     /**
      * @return Question
      */
-    public function getIdQuestion(): Question
+    public function getIdQuestion(): int
     {
         return $this->id_question;
     }
@@ -67,6 +67,15 @@ class Reponse
     public function setIdQuestion(Question $id_question): void
     {
         $this->id_question = $id_question;
+    }
+
+    public function formatTableau(): array
+    {
+        return array(
+            "id_reponseTag" => $this->getIdRponses(),
+            "id_responsableTag" => $this->getIdUtilisateur(),
+            "id_questionTag" => $this->getIdQuestion(),
+        );
     }
 
 }
