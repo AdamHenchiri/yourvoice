@@ -2,12 +2,14 @@
 namespace App\YourVoice\Controller ;
 
 use App\YourVoice\Model\DataObject\Contributeur;
+use App\YourVoice\Model\DataObject\Reponse;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\ContributeurRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\DataObject\Question ;
 use App\YourVoice\Model\DataObject\Section ;
+use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\Repository\SectionRepository;
 use App\YourVoice\Model\Repository\VotantRepository;
 use App\YourVoice\Model\Repository\UtilisateurRepository;
@@ -75,8 +77,8 @@ class ControllerQuestion {
             //sauvegarde des contributeurs dans la base de donnée
             foreach ($_POST["idContributeur"] as $idUser) {
                 if ($idUser) {
-                    $v3 = new Contributeur($idUser, $id);
-                    (new ContributeurRepository())->sauvegarder($v3);
+                    $v3 = new Reponse(null,$idUser, $id);
+                    (new ReponseRepository())->sauvegarder($v3);
                 }
             }
             foreach ($_POST["titre"] as $i=>$section){
