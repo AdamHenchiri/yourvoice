@@ -34,7 +34,7 @@ class Reponse extends AbstractDataObject
      */
     public function setId(string $id): void
     {
-        $this->id = $id_reponse;
+        $this->id_reponse = $id;
     }
 
     /**

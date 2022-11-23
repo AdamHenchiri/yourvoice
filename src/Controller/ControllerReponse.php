@@ -2,16 +2,17 @@
 
 namespace App\YourVoice\Controller;
 
-use App\YourVoice\Model\DataObject\Contributeur;
+use App\YourVoice\Model\DataObject\Question;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\CoauteurRepository;
+use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\DataObject\Reponse ;
 use App\YourVoice\Model\Repository\VotantRepository;
 use http\Env\Response;
 use App\YourVoice\Model\DataObject\CoAuteur;
-use App\YourVoice\Model\Repository\ContributeurRepository;
+
 
 
 class ControllerReponse
@@ -26,17 +27,22 @@ class ControllerReponse
 
 
     public static function created() : void {
-        $v=new Reponse(null,$_POST["id_utilisateur"],$_POST["id_question"]);
-        $id = (new ReponseRepository())->sauvegarder($v);
-        echo $id;
-        echo "///";
-        echo $_POST["id_utilisateur"];
-        foreach ($_POST["idCoAuteur"] as $idUser) {
-            if ($idUser) {
-                $v3 = new CoAuteur($idUser, $id);
-                (new CoauteurRepository())->sauvegarder($v3);
-            }
-        }
+       $id_question = $_POST["id_question"];
+       $rep = (new ReponseRepository())->selectWhere("id_question", $id_question);
+       foreach ($rep as $reponse){
+
+           if($reponse->getIdUtilisateur() == $_POST["id_utilisateur"]){
+               foreach ($_POST["idCoAuteur"] as $idUser) {
+                   if ($idUser) {
+                       $v3 = new CoAuteur($reponse->getIdRponses(), $idUser );
+                       (new CoauteurRepository())->sauvegarder($v3);
+
+                   }
+               }
+           }
+
+       }
+
 
         self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
             "cheminVueBody" => "reponse/created.php"   //"redirige" vers la vue
