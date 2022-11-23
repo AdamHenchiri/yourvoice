@@ -8,16 +8,16 @@ use App\YourVoice\Model\DataObject;
 class CoAuteur extends AbstractDataObject
 {
     private int $id_reponse;
-    private int $id_utilisateur;
+    private int $id_coauteur ;
 
     /**
      * @param int $id_reponse
-     * @param int $id_utilisateur
+     * @param int $id_coauteur
      */
-    public function __construct(int $id_reponse, int $id_utilisateur)
+    public function __construct(int $id_reponse, int $id_coauteur )
     {
         $this->id_reponse = $id_reponse;
-        $this->id_utilisateur = $id_utilisateur;
+        $this->id_coauteur  = $id_coauteur ;
     }
 
     /**
@@ -41,22 +41,22 @@ class CoAuteur extends AbstractDataObject
      */
     public function getIdUtilisateur(): int
     {
-        return $this->id_utilisateur;
+        return $this->id_coauteur ;
     }
 
     /**
-     * @param int $id_utilisateur
+     * @param int $id_coauteur
      */
-    public function setIdUtilisateur(int $id_utilisateur): void
+    public function setIdUtilisateur(int $id_coauteur ): void
     {
-        $this->id_utilisateur = $id_utilisateur;
+        $this->id_coauteur  = $id_coauteur ;
     }
 
 
     public function formatTableau(): array{
         return array(
             "id_reponseTag" => $this->getIdReponse(),
-            "id_utilisateurTag" => $this->getIdUtilisateur(),
+            "id_coauteurTag" => $this->getIdUtilisateur(),
 
         );
     }

@@ -8,7 +8,7 @@ use App\YourVoice\Model\DataObject\Utilisateur;
 class CoauteurRepository extends AbstractRepository {
 
     public function construire(array $questFormatTableau) : CoAuteur {
-        return new CoAuteur($questFormatTableau['id_reponse'],$questFormatTableau['id_utilisateur']);
+        return new CoAuteur($questFormatTableau['id_reponse'],$questFormatTableau['id_coauteur']);
     }
 
     protected function getNomTable(): string{
@@ -21,10 +21,10 @@ class CoauteurRepository extends AbstractRepository {
     }
     protected function getNomClesPrimaires(): array
     {
-        return ["id_reponse","id_utilisateur"];
+        return ["id_reponse","id_coauteur"];
     }
     protected function getNomsColonnes(): array
     {
-        return ["id_reponse","id_utilisateur"];
+        return ["id_reponse","id_coauteur"];
     }
 }

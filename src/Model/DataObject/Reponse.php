@@ -8,14 +8,14 @@ class Reponse extends AbstractDataObject
 {
 
     private ?int $id_reponse;
-    private int $id_utilisateur;
+    private int $id_responsable;
     private int $id_question;
 
 
-    public function __construct(?int $id_reponse, string $id_utilisateur, int $id_question)
+    public function __construct(?int $id_reponse, string $id_responsable, int $id_question)
     {
         $this->id_reponse = $id_reponse;
-        $this->id_utilisateur = $id_utilisateur;
+        $this->id_responsable = $id_responsable;
         $this->id_question = $id_question;
     }
 
@@ -42,15 +42,15 @@ class Reponse extends AbstractDataObject
      */
     public function getIdUtilisateur(): int
     {
-        return $this->id_utilisateur;
+        return $this->id_responsable;
     }
 
     /**
-     * @param string $id_utilisateur
+     * @param string $id_responsable
      */
-    public function setIdUtilisateur(string $id_utilisateur): void
+    public function setIdUtilisateur(string $id_responsable): void
     {
-        $this->id_utilisateur = $id_utilisateur;
+        $this->id_responsable = $id_responsable;
     }
 
     /**
@@ -73,7 +73,7 @@ class Reponse extends AbstractDataObject
     {
         return array(
             "id_reponseTag" => $this->getIdRponses(),
-            "id_utilisateurTag" => $this->getIdUtilisateur(),
+            "id_responsableTag" => $this->getIdUtilisateur(),
             "id_questionTag" => $this->getIdQuestion(),
         );
     }

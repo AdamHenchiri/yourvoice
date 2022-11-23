@@ -4,20 +4,23 @@ namespace App\YourVoice\Model\DataObject;
 
 class Votant extends AbstractDataObject
 {
-    private int $id_utilisateur ;
+    private int $id_votant ;
     private ?int $vote;
     private string $id_question ;
+    private ?int $id_reponse;
+
 
     /**
-     * @param int $id_utilisateur
+     * @param int $id_votant
      * @param int $vote
      * @param string $id_question
      */
-    public function __construct(int $id_utilisateur, ?int $vote, string $id_question)
+    public function __construct(int $id_votant, ?int $vote, string $id_question, ?int $id_reponse)
     {
-        $this->id_utilisateur = $id_utilisateur;
+        $this->id_votant = $id_votant;
         $this->vote = $vote;
         $this->id_question = $id_question;
+        $this->id_reponse = $id_reponse;
     }
 
     /**
@@ -25,15 +28,15 @@ class Votant extends AbstractDataObject
      */
     public function getIdUtilisateur(): int
     {
-        return $this->id_utilisateur;
+        return $this->id_votant;
     }
 
     /**
-     * @param int $id_utilisateur
+     * @param int $id_votant
      */
-    public function setIdUtilisateur(int $id_utilisateur): void
+    public function setIdUtilisateur(int $id_votant): void
     {
-        $this->id_utilisateur = $id_utilisateur;
+        $this->id_votant = $id_votant;
     }
 
     /**
@@ -68,11 +71,46 @@ class Votant extends AbstractDataObject
         $this->id_question = $id_question;
     }
 
+    /**
+     * @return int
+     */
+    public function getIdVotant(): int
+    {
+        return $this->id_votant;
+    }
+
+    /**
+     * @param int $id_votant
+     */
+    public function setIdVotant(int $id_votant): void
+    {
+        $this->id_votant = $id_votant;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getIdReponse(): ?int
+    {
+        return $this->id_reponse;
+    }
+
+    /**
+     * @param int|null $id_reponse
+     */
+    public function setIdReponse(?int $id_reponse): void
+    {
+        $this->id_reponse = $id_reponse;
+    }
+
+
     public function formatTableau(): array{
         return array(
-            "id_utilisateurTag" => $this->getIdUtilisateur(),
+            "id_votantTag" => $this->getIdUtilisateur(),
             "voteTag" => $this->getVote(),
             "id_questionTag" => $this->getIdQuestion(),
+            "id_reponseTag" => $this->getIdReponse(),
+
         );
     }
 

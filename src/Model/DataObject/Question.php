@@ -13,7 +13,7 @@ class Question extends AbstractDataObject
     private string $dateFin_redaction;
     private string $dateDebut_vote;
     private string $dateFin_vote;
-    private int $id_utilisateur ;
+    private int $id_organisateur  ;
 
     /**
      * @param string $intitule
@@ -22,9 +22,9 @@ class Question extends AbstractDataObject
      * @param string $dateFin_redaction
      * @param string $dateDebut_vote
      * @param string $dateFin_vote
-     * @param Utilisateur $id_utilisateur
+     * @param Utilisateur $id_organisateur
      */
-    public function __construct(?int $id_question,string $intitule, string $explication, string $dateDebut_redaction, string $dateFin_redaction, string $dateDebut_vote, string $dateFin_vote, int $id_utilisateur)
+    public function __construct(?int $id_question,string $intitule, string $explication, string $dateDebut_redaction, string $dateFin_redaction, string $dateDebut_vote, string $dateFin_vote, int $id_organisateur )
     {
         $this->id_question = $id_question;
         $this->intitule = $intitule;
@@ -33,7 +33,7 @@ class Question extends AbstractDataObject
         $this->dateFin_redaction = $dateFin_redaction;
         $this->dateDebut_vote = $dateDebut_vote;
         $this->dateFin_vote = $dateFin_vote;
-        $this->id_utilisateur = $id_utilisateur;
+        $this->id_organisateur  = $id_organisateur ;
     }
 
     /**
@@ -154,15 +154,15 @@ class Question extends AbstractDataObject
     public function getIdUtilisateur(): int
     {
 
-        return $this->id_utilisateur;
+        return $this->id_organisateur ;
     }
 
     /**
-     * @param Utilisateur $id_utilisateur
+     * @param Utilisateur $id_organisateur
      */
-    public function setIdUtilisateur(int $id_utilisateur): void
+    public function setIdUtilisateur(int $id_organisateur ): void
     {
-        $this->id_utilisateur = $id_utilisateur;
+        $this->id_organisateur  = $id_organisateur ;
     }
 
 
@@ -176,7 +176,7 @@ class Question extends AbstractDataObject
             "dateFin_redactionTag" => $this->getDateFinRedaction(),
             "dateDebut_voteTag" => $this->getDateDebutVote(),
             "dateFin_voteTag" => $this->getDateFinVote(),
-            "id_utilisateurTag" => $this->getIdUtilisateur(),
+            "id_organisateur Tag" => $this->getIdUtilisateur(),
         );
     }
 

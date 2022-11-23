@@ -5,4 +5,5 @@ namespace App\YourVoice\Controller;
 class ControllerCoauteur
 {
 
+
 }

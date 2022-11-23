@@ -31,7 +31,7 @@ class ControllerReponse
        $rep = (new ReponseRepository())->selectWhere("id_question", $id_question);
        foreach ($rep as $reponse){
 
-           if($reponse->getIdUtilisateur() == $_POST["id_utilisateur"]){
+           if($reponse->getIdUtilisateur() == $_POST["id_responsable"]){
                foreach ($_POST["idCoAuteur"] as $idUser) {
                    if ($idUser) {
                        $v3 = new CoAuteur($reponse->getIdRponses(), $idUser );
@@ -56,7 +56,7 @@ class ControllerReponse
     }
 
     public static function updated() : void {
-        $reponses=new Response($_POST["id_reponse"],$_POST["id_utilisateur"],$_POST["id_question"]);
+        $reponses=new Response($_POST["id_reponse"],$_POST["id_responsable"],$_POST["id_question"]);
         (new ReponseRepository())->update($reponses);
         self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
             "cheminVueBody" => "reponse/updated.php" ,  //"redirige" vers la vue

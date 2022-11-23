@@ -64,7 +64,7 @@ class ControllerQuestion {
     public static function created() : void {
             $v=new Question( null,$_POST["intitule"],$_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
-            $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
+            $_POST["dateFin_vote"], $_POST["id_organisateur"]);
             //sauvegarde de la question dans la base de donnée
             $id=(new QuestionRepository())->sauvegarder($v);
             //sauvegarde des votants dans la base de donnée
@@ -118,7 +118,7 @@ class ControllerQuestion {
         $id=$_POST['id_question'];
         $v = new Question($_POST['id_question'], $_POST["intitule"], $_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
-            $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
+            $_POST["dateFin_vote"], $_POST["id_organisateur"]);
         (new QuestionRepository())->update($v);
 
 
@@ -132,7 +132,7 @@ class ControllerQuestion {
         //sauvegarde des contributeurs dans la base de donnée
         foreach ($_POST["idContributeur"] as $idUser) {
             if ($idUser) {
-                (new ContributeurRepository())->supprimer([$idUser,$id]);
+                (new ReponseRepository())->supprimer([$idUser,$id]);
                 $v3 = new Contributeur($idUser, $id);
                     (new ContributeurRepository())->sauvegarder($v3);
                 }
