@@ -47,7 +47,7 @@
             ?>
 
         <p>
-            <label for="votants ">Choisissez les co-auteurs</label> :
+            <label for="idCoAuteur ">Choisissez les co-auteurs</label> :
 
             <?php
 

@@ -3,8 +3,9 @@
 namespace App\YourVoice\Model\DataObject;
 use App\YourVoice\Model\DataObject\Reponse;
 use App\YourVoice\Model\DataObject\Section;
+use App\YourVoice\Model\DataObject;
 
-class CoAuteur
+class CoAuteur extends AbstractDataObject
 {
     private int $id_reponse;
     private int $id_utilisateur;
@@ -51,6 +52,14 @@ class CoAuteur
         $this->id_utilisateur = $id_utilisateur;
     }
 
+
+    public function formatTableau(): array{
+        return array(
+            "id_reponseTag" => $this->getIdReponse(),
+            "id_utilisateurTag" => $this->getIdUtilisateur(),
+
+        );
+    }
 
 
 }

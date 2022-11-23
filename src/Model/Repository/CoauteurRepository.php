@@ -1,13 +1,14 @@
 <?php
 
 namespace App\YourVoice\Model\Repository;
+use App\YourVoice\Model\DataObject\CoAuteur;
 use App\YourVoice\Model\DataObject\Contributeur;
 use App\YourVoice\Model\DataObject\Utilisateur;
 
 class CoauteurRepository extends AbstractRepository {
 
-    public function construire(array $questFormatTableau) : Contributeur {
-        return new Contributeur($questFormatTableau['id_reponse'],$questFormatTableau['id_utilisateur']);
+    public function construire(array $questFormatTableau) : CoAuteur {
+        return new CoAuteur($questFormatTableau['id_reponse'],$questFormatTableau['id_utilisateur']);
     }
 
     protected function getNomTable(): string{

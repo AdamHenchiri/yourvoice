@@ -5,6 +5,7 @@ namespace App\YourVoice\Controller;
 use App\YourVoice\Model\DataObject\Contributeur;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
+use App\YourVoice\Model\Repository\CoauteurRepository;
 use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\DataObject\Reponse ;
 use App\YourVoice\Model\Repository\VotantRepository;
@@ -27,10 +28,13 @@ class ControllerReponse
     public static function created() : void {
         $v=new Reponse(null,$_POST["id_utilisateur"],$_POST["id_question"]);
         $id = (new ReponseRepository())->sauvegarder($v);
-        foreach ($_POST["idContributeur"] as $idUser) {
+        echo $id;
+        echo "///";
+        echo $_POST["id_utilisateur"];
+        foreach ($_POST["idCoAuteur"] as $idUser) {
             if ($idUser) {
-                $v3 = new Contributeur($idUser, $id);
-                (new ContributeurRepository())->sauvegarder($v3);
+                $v3 = new CoAuteur($idUser, $id);
+                (new CoauteurRepository())->sauvegarder($v3);
             }
         }
 
