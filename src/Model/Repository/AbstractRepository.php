@@ -149,32 +149,6 @@ abstract class AbstractRepository
         return $tab;
     }
 
-    public function selection(string $valeurClePrimaire, string $nomTable): ?array
-    {
-        $sql = "SELECT * FROM ". $nomTable ." WHERE ".$this->getNomClePrimaire()." = :primaireTag";
-        // Préparation de la requête
-        try {
-            $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
-        } catch (PDOException $exception) {
-            //throw new MyDatabaseException($exception->getMessage(), $exception->getCode());
-            $reponse = false;
-        }
-        $values = array(
-            "primaireTag"=> $valeurClePrimaire,
-        );
-        // On donne les valeurs et on exécute la requête
-        $pdoStatement->execute($values);
-
-        // On récupère les résultats comme précédemment
-        // Note: fetch() renvoie false si pas de Voiture correspondante
-        $acteur = $pdoStatement->fetch();
-        if ($acteur) {
-            return $this->construire($acteur);
-        } else {
-            return null;
-        }
-    }
-
 
     protected abstract function getNomTable(): string;
 

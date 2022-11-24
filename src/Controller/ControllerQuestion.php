@@ -127,25 +127,34 @@ class ControllerQuestion {
         $id=$_POST['id_question'];
         $v = new Question($_POST['id_question'], $_POST["intitule"], $_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
-            $_POST["dateFin_vote"], $_POST["id_organisateur"]);
+            $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
         (new QuestionRepository())->update($v);
 
 
         foreach ($_POST["idVotant"] as $idUser) {
+            //$rep = (new ReponseRepository())->selectWhere("id_votant", $idUser);
+            $votant = (new VotantRepository())->select($idUser);
+            $rep = $votant->getIdReponse();
+            //echo $rep;
+            $reponses = (new ReponseRepository())->select($rep);
+            var_dump($reponses);
             if ($idUser) {
-                (new VotantRepository())->supprimer([$idUser,$id]);
-                $v2 = new Votant($idUser, null, $id);
+                (new VotantRepository())->supprimer($idUser);
+                $v2 = new Votant($idUser, null, $id, $reponses ) ;
                 (new VotantRepository())->sauvegarder($v2);
             }
         }
         //sauvegarde des contributeurs dans la base de donnée
         foreach ($_POST["idContributeur"] as $idUser) {
             if ($idUser) {
-                (new ReponseRepository())->supprimer([$idUser,$id]);
-                $v3 = new Contributeur($idUser, $id);
-                    (new ContributeurRepository())->sauvegarder($v3);
-                }
+                (new ReponseRepository())->supprimer([$idUser, $id]);
+                $v3 = new Reponse(null,$idUser, $id);
+                $reponse =  (new ReponseRepository())->sauvegarder($v3);
+                echo $reponse;
+                $tab[] = $reponse;
+
             }
+        }
         self::afficheVue('/view.php', ["pagetitle" => "modification de la question",
                 "cheminVueBody" => "question/updated.php",  //"redirige" vers la vue
                 "id_question" => htmlspecialchars($_POST['id_question']),

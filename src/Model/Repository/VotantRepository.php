@@ -17,10 +17,11 @@ class VotantRepository extends AbstractRepository {
     {
         return "id_votant";
     }
-    protected function getNomClesPrimaires(): array
+
+    /*protected function getNomClesPrimaires(): array
     {
-        return ["id_votant","id_question"];
-    }
+        return ["id_votant", "id_question"];
+    }*/
     protected function getNomsColonnes(): array
     {
         return ["id_votant","vote","id_question","id_reponse"];
