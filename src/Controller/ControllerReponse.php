@@ -9,6 +9,9 @@ use App\YourVoice\Model\Repository\CoauteurRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\DataObject\Reponse ;
+use App\YourVoice\Model\DataObject\Texte ;
+
+use App\YourVoice\Model\Repository\TexteRepository;
 use App\YourVoice\Model\Repository\VotantRepository;
 use http\Env\Response;
 use App\YourVoice\Model\DataObject\CoAuteur;
@@ -31,14 +34,21 @@ class ControllerReponse
        $rep = (new ReponseRepository())->selectWhere("id_question", $id_question);
        foreach ($rep as $reponse){
 
-           if($reponse->getIdUtilisateur() == $_POST["id_responsable"]){
-               foreach ($_POST["idCoAuteur"] as $idUser) {
+           if($reponse->getIdUtilisateur() == $_POST["id_utilisateur"]){
+               $text=new Texte(null,$_POST["texte"],$reponse->getIdRponses(),$_POST["id_section"]);
+               (new TexteRepository())->sauvegarder($text);
+
+
+
+
+
+              /* foreach ($_POST["idCoAuteur"] as $idUser) {
                    if ($idUser) {
                        $v3 = new CoAuteur($reponse->getIdRponses(), $idUser );
                        (new CoauteurRepository())->sauvegarder($v3);
 
                    }
-               }
+               }*/
            }
 
        }

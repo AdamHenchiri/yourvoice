@@ -17,6 +17,7 @@
         $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
         if ($sections){
         foreach ($sections as $section){ ?>
+            <input type="hidden" value="<?php echo $section->getIdSection()?>" name="id_section" >
             <p>
             <label for="titre">Titre</label> :
 <!--                <input type="text" placeholder="macrone" name="titre" id="titre" required/>-->
