@@ -35,11 +35,13 @@ class ControllerQuestion {
     public static function read() : void {
         $question =(new QuestionRepository())->select($_GET['id_question']);
         $sections = (new SectionRepository())->selectWhere("id_question",$_GET['id_question']);
+        $reponses = (new ReponseRepository())->selectWhere("id_question",$_GET['id_question']);
         if ($question!==null && $sections!==null) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
                 "cheminVueBody" => "question/detail.php",   //"redirige" vers la vue
                 "question"=>$question,
-                "sections"=>$sections]);
+                "sections"=>$sections,
+                "reponses"=>$reponses]);
         }else{
             self::afficheVue('/view.php', ["pagetitle" => "ERROR",
                 "cheminVueBody" => "question/error.php",   //"redirige" vers la vue
