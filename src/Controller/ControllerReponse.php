@@ -24,7 +24,7 @@ class ControllerReponse
     public static function create() : void {
 
         self::afficheVue('/view.php', ["pagetitle" => "Ajouter une réponse",
-            "cheminVueBody" => "reponse/detail.php",   //"redirige" vers la vue
+            "cheminVueBody" => "reponse/create.php",   //"redirige" vers la vue
         ]);
     }
 
