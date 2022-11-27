@@ -138,6 +138,7 @@ abstract class AbstractRepository
         return $tab;
     }
 
+
     public function selectAll(): ?array
     {
         $pdo = DatabaseConnection::getPdo();

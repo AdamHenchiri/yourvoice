@@ -54,45 +54,26 @@
             <label for="organisateurs ">choisissez les organisateurs</label> :
 
             <?php
-
-
-            $reps = (new ReponseRepository())->selectAll();
-            if ($reps){
-            foreach($reps as $rep){
-
-            //$responsable =  (new UtilisateurRepository())->selectWhere("id_reponse", $users );
-            $usersResponsables=(new ReponseRepository())->selectWhere("id_responsable",$rep->getIdUtilisateur());
-            //var_dump($usersResponsables);
-            if ($usersResponsables){
+            $tabOrganisateur =(new ReponseRepository())->selectWhere("id_question",$v->getIdQuestion());
+            $tabUsers = (new UtilisateurRepository())->selectAll();
+            foreach ($tabUsers as $user){
             $aux=false;
-            foreach ($usersResponsables as $usersResponsable){
-            $responsable = $usersResponsable->getIdUtilisateur();
-            $user = (new UtilisateurRepository())->select($responsable);
-            $tab = array();
-
-            if ($usersResponsable->getIdQuestion()==$v->getIdQuestion() and !in_array($user, $tab)){
-
-            //var_dump($tab);
-            ?>
+            foreach ($tabOrganisateur as $organisateur){
+                    if($user->getIdUtilisateur() == $organisateur->getIdUtilisateur()){
+                ?>
         <div>
             <input type="checkbox" name="idOrganisateur[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>" checked>
             <?php $aux=true;?>
             <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
         </div>
-        <?php }}if($aux===false ){ ?>
+        <?php }}
+                if($aux===false ){ ?>
             <div>
                 <input type="checkbox" name="idOrganisateur[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>">
 
                 <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
             </div>
-        <?php }}else{ ?>
-            <div>
-                <input type="checkbox" name="idOrganisateur[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>">
-
-                <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
-            </div>
-        <?php $tab[] = $user; } }} ?>
-
+        <?php }}?>
 
 
 
@@ -102,35 +83,25 @@
             <label for="votants ">choisissez les votants</label> :
 
             <?php
-
-
-            $users = (new UtilisateurRepository())->selectAll();
-            if ($users){
-            foreach($users as $user){
-                $usersVotant=(new VotantRepository())->selectWhere("id_votant",$user->getIdUtilisateur());
-            if ($usersVotant){
+            $tabVotanats =(new VotantRepository())->selectWhere("id_question",$v->getIdQuestion());
+            $tabUsers = (new UtilisateurRepository())->selectAll();
+            foreach ($tabUsers as $user){
             $aux=false;
-            foreach ($usersVotant as $userVotant){
-            if ($userVotant->getIdQuestion()==$v->getIdQuestion()){
+            foreach ($tabVotanats as $votanat){
+            if($user->getIdUtilisateur() == $votanat->getIdUtilisateur()){
             ?>
         <div>
             <input type="checkbox" name="idVotant[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>" checked>
             <?php $aux=true;?>
             <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
         </div>
-        <?php }}if($aux===false){ ?>
+        <?php break;}}if($aux===false){ ?>
         <div>
             <input type="checkbox" name="idVotant[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>">
 
             <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
         </div>
-        <?php }}else{ ?>
-        <div>
-            <input type="checkbox" name="idVotant[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>">
-
-            <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
-        </div>
-        <?php } }} ?>
+        <?php }} ?>
 
         </p>
         <p>

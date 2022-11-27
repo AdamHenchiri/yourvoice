@@ -18,7 +18,7 @@ class ReponseRepository extends AbstractRepository
     {
         return "id_reponse";
     }
-    protected function getNomClesPrimaires(): string
+    protected function getNomClesPrimaires(): array
     {
         return ["id_responsable","id_question"];
     }

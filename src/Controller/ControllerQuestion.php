@@ -68,19 +68,15 @@ class ControllerQuestion {
             $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
         //sauvegarde de la question dans la base de donnée
         $id=(new QuestionRepository())->sauvegarder($v);
-        echo $id;
         //sauvegarde des votants dans la base de donnée
         foreach ($_POST["idContributeur"] as $idUser) {
             if ($idUser) {
                 $v3 = new Reponse(null,$idUser, $id);
                 $reponse =  (new ReponseRepository())->sauvegarder($v3);
-                echo $reponse;
                 $tab[] = $reponse;
 
             }
         }
-        var_dump($tab);
-        print_r($tab);
         foreach ($_POST["idVotant"] as $idUser) {
                 if ($idUser) {
                     foreach ($tab as $rep)
@@ -133,30 +129,67 @@ class ControllerQuestion {
         (new QuestionRepository())->update($v);
 
 
+        $tabVotants=(new VotantRepository())->selectWhere("id_question",$id);
+        foreach ($tabVotants as $vot ) {
+            $aux = true;
+            foreach ($_POST["idVotant"] as $idUser) {
+                if ($idUser == $vot->getIdUtilisateur()) {
+                    break;
+                } else {
+                    $aux = false;
+                }
+            }
+            if ($aux == false) {
+                (new VotantRepository())->supprimer([$vot->getIdUtilisateur(), $id]);
+            }
+        }
         foreach ($_POST["idVotant"] as $idUser) {
-            //$rep = (new ReponseRepository())->selectWhere("id_votant", $idUser);
-            $votant = (new VotantRepository())->select($idUser);
-            $rep = $votant->getIdReponse();
-            //echo $rep;
-            $reponses = (new ReponseRepository())->select($rep);
-            var_dump($reponses);
-            if ($idUser) {
-                (new VotantRepository())->supprimer($idUser);
-                $v2 = new Votant($idUser, null, $id, $reponses ) ;
-                (new VotantRepository())->sauvegarder($v2);
+            $aux = true;
+            foreach ($tabVotants as $vot ) {
+                if ($idUser == $vot->getIdUtilisateur()) {
+                    break;
+                } else {
+                    $aux = false;
+                }
+            }
+            if ($aux == false) {
+                $tabrep= (new ReponseRepository())->selectWhere("id_question",$id);
+                foreach ($tabrep as $rep){
+                    $v3 = new Votant($idUser,null,$id,$rep->getIdRponses());
+                    (new VotantRepository())->sauvegarder($v3);
+                }
             }
         }
-        //sauvegarde des contributeurs dans la base de donnée
-        foreach ($_POST["idContributeur"] as $idUser) {
-            if ($idUser) {
-                (new ReponseRepository())->supprimer([$idUser, $id]);
-                $v3 = new Reponse(null,$idUser, $id);
-                $reponse =  (new ReponseRepository())->sauvegarder($v3);
-                echo $reponse;
-                $tab[] = $reponse;
 
+        //sauvegarde des contributeurs dans la base de donnée
+        $tabOrganisateur=(new ReponseRepository())->selectWhere("id_question",$id);
+            foreach ($tabOrganisateur as $orga ) {
+                $aux = true;
+                foreach ($_POST["idOrganisateur"] as $idUser) {
+                    if ($idUser == $orga->getIdUtilisateur()) {
+                        break;
+                    } else {
+                        $aux = false;
+                    }
+                }
+                if ($aux == false) {
+                    (new ReponseRepository())->supprimer([$orga->getIdUtilisateur(), $id]);
+                }
             }
+             foreach ($_POST["idOrganisateur"] as $idUser) {
+                 $aux = true;
+                foreach ($tabOrganisateur as $orga ) {
+                if ($idUser == $orga->getIdUtilisateur()) {
+                    break;
+                } else {
+                    $aux = false;
+                }
+            }
+            if ($aux == false) {
+                $v3 = new Reponse(null,$idUser, $id);
+                (new ReponseRepository())->sauvegarder($v3);            }
         }
+
         self::afficheVue('/view.php', ["pagetitle" => "modification de la question",
                 "cheminVueBody" => "question/updated.php",  //"redirige" vers la vue
                 "id_question" => htmlspecialchars($_POST['id_question']),

@@ -87,17 +87,64 @@ class ControllerReponse
     }
 
     public static function update() : void {
-        $reponses= (new ReponseRepository())->select($_GET['id_reponse']);
-        self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une réponse","cheminVueBody"=>"reponse/update.php","reponses"=>$reponses]);
-    }
+        $textes= (new TexteRepository())->selectWhere("id_reponse",$_GET['id_reponse']);
+        if ($textes!==null) {
+            self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
+                "cheminVueBody" => "texte/update.php",   //"redirige" vers la vue
+                "textes"=>$textes]);
+        }else{
+            self::afficheVue('/view.php', ["pagetitle" => "ERROR",
+                "cheminVueBody" => "texte/error.php",   //"redirige" vers la vue
+            ]);
+        }    }
 
     public static function updated() : void {
-        $reponses=new Response($_POST["id_reponse"],$_POST["id_responsable"],$_POST["id_question"]);
-        (new ReponseRepository())->update($reponses);
-        self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
-            "cheminVueBody" => "reponse/updated.php" ,  //"redirige" vers la vue
-            "id_reponse"=>htmlspecialchars($reponses->getIdRponses()),
-        ]);
+        $id_question = $_POST["id_question"];
+        $responsables = (new ReponseRepository())->selectWhere("id_question", $id_question);
+        foreach ($_POST["texte"] as $i=>$section) {
+            foreach ($responsables as $responsable) {
+                $coauteurs = (new CoauteurRepository())->selectWhere("id_reponse", $responsable->getIdRponses());
+                $textes = (new TexteRepository())->selectWhere("id_reponse", $responsable->getIdRponses());
+                $verif = false;
+                $update = "";
+                foreach ($textes as $t) {
+                    if ($t->getIdSection() == $_POST["id_section"][$i]) {
+                        $verif = true;
+                        $update = $t->getIdTexte();
+                    }
+                }
+                if ($responsable->getIdUtilisateur() == $_POST["id_utilisateur"]) {
+                    if (!$verif) {
+                        $texte = new Texte(null, $_POST["texte"][$i], $responsable->getIdRponses(), $_POST["id_section"][$i]);
+                        (new TexteRepository())->sauvegarder($texte);
+                    } else {
+                        $texte = new Texte($update, $_POST["texte"][$i], $responsable->getIdRponses(), $_POST["id_section"][$i]);
+                        (new TexteRepository())->update($texte);
+
+                    }
+                    if ($_POST["idCoAuteur"]!=null) {
+                        foreach ($_POST["idCoAuteur"] as $idUser) {
+                            if ($idUser) {
+                                $v3 = new CoAuteur($responsable->getIdRponses(), $idUser);
+                                (new CoauteurRepository())->sauvegarder($v3);
+                            }
+                        }
+                    }
+                } else if ($coauteurs != null) {
+                    foreach ($coauteurs as $coauteur) {
+                        if ($coauteur->getIdUtilisateur() == $_POST["id_utilisateur"]) {
+                            if (!$verif) {
+                                $texte = new Texte(null, $_POST["texte"][$i], $responsable->getIdRponses(), $_POST["id_section"][$i]);
+                                (new TexteRepository())->sauvegarder($texte);
+                            } else {
+                                $texte = new Texte($update, $_POST["texte"][$i], $responsable->getIdRponses(), $_POST["id_section"][$i]);
+                                (new TexteRepository())->update($texte);
+                            }
+                        }
+                    }
+                }
+            }
+        }
         self::readAll();
     }
 
