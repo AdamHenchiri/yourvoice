@@ -88,15 +88,14 @@ class ControllerReponse
 
     public static function update() : void {
         $textes= (new TexteRepository())->selectWhere("id_reponse",$_GET['id_reponse']);
-        if ($textes!==null) {
+        if (!empty($textes)) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
                 "cheminVueBody" => "texte/update.php",   //"redirige" vers la vue
                 "textes"=>$textes]);
         }else{
-            self::afficheVue('/view.php', ["pagetitle" => "ERROR",
-                "cheminVueBody" => "texte/error.php",   //"redirige" vers la vue
-            ]);
-        }    }
+            echo "impossible car pas encore de réponse du responsable";
+        }
+    }
 
     public static function updated() : void {
         $id_question = $_POST["id_question"];
@@ -149,17 +148,8 @@ class ControllerReponse
     }
 
     public static function delete() : void {
-        $v=(new ReponseRepository())->select($_GET['login']);
-        $rep=(new ReponseRepository())->supprimer($_GET['login']);
-        if ($v!=null){
-            self::afficheVue('/view.php', ["pagetitle" => "suppresion de utilisateur",
-                "cheminVueBody" => "utilisateur/deleted.php","nom"=>$v->getnom(),"login"=>$v->getlogin()   //"redirige" vers la vue
-            ]);
-        }else{
-            $s='suppression echoué';
-            self::error($s);
-        }
-        self::readAll();
+        (new ReponseRepository())->supprimer($_GET['id_reponse']);
+        ControllerQuestion::readAll();
     }
 
     public static function readAll() : void {

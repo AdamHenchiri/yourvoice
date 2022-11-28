@@ -28,7 +28,6 @@ class ControllerQuestion {
             "cheminVueBody" => "question/list.php",   //"redirige" vers la vue
             "questions"=>$questions, "nbLigne" => $nbLigne] );
 
-
     }
 
 
@@ -92,9 +91,7 @@ class ControllerQuestion {
                $s= new Section(null,$_POST["titre"][$i],$_POST["texte_explicatif"][$i],$id);
                 (new SectionRepository())->sauvegarder($s);
             }
-            self::readAll();
-
-
+            ControllerQuestion::readAll();
     }
 
     public static function delete() : void {
@@ -190,10 +187,6 @@ class ControllerQuestion {
                 (new ReponseRepository())->sauvegarder($v3);            }
         }
 
-        self::afficheVue('/view.php', ["pagetitle" => "modification de la question",
-                "cheminVueBody" => "question/updated.php",  //"redirige" vers la vue
-                "id_question" => htmlspecialchars($_POST['id_question']),
-            ]);
         self::readAll();
     }
 

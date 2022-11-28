@@ -45,8 +45,9 @@ function validation()
     }
 
     var elementsC = document.getElementsByName("idContributeur[]");
+    var elementsW = document.getElementsByName("idOrganisateur[]");
     var elementsV = document.getElementsByName("idVotant[]");
-
+        countOrganisateur = 0;
         countContributeurs = 0;
         countVotants = 0;
 
@@ -60,6 +61,15 @@ function validation()
             countVotants++;
         }
     }
+   /* for (var l = 0; j < elementsW.length; l++){
+        if (elementsV[l].checked){
+            countOrganisateur++;
+        }
+    }
+    if (countOrganisateur === 0){
+        alert("vous devez choisir au minimum un organisateurs");
+        return false;
+    }*/
     if (countContributeurs === 0){
         alert("vous devez choisir au minimum un contributeurs");
         return false;
