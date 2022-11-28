@@ -8,7 +8,7 @@ use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\UtilisateurRepository;
 
 
-class ControllerUtilisateur
+class ControllerUtilisateur extends GenericController
 {
 
     public static function connexion(): void{
@@ -100,10 +100,10 @@ class ControllerUtilisateur
         }
     }
 
-    private static function afficheVue(string $cheminVue, array $parametres = []) : void {
-        extract($parametres); // Crée des variables à partir du tableau $parametres
-        require "../src/View/$cheminVue"; // Charge la vue
-    }
+//    private static function afficheVue(string $cheminVue, array $parametres = []) : void {
+//        extract($parametres); // Crée des variables à partir du tableau $parametres
+//        require "../src/View/$cheminVue"; // Charge la vue
+//    }
 
 
     public static function error(string $errorMessage):void {
