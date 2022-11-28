@@ -75,10 +75,10 @@ class ControllerReponse
                                 (new TexteRepository())->update($texte);
                             }
                         }
+                        self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
+                            "cheminVueBody" => "reponse/created.php"   //"redirige" vers la vue
+                        ]);
                     }
-                    self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
-                        "cheminVueBody" => "reponse/created.php"   //"redirige" vers la vue
-                    ]);
                 }
                 else{
                     echo "impossible utilisateur non valide ";
