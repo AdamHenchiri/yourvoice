@@ -61,6 +61,9 @@ class ControllerReponse
                             }
                         }
                     }
+                    self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
+                        "cheminVueBody" => "reponse/created.php"   //"redirige" vers la vue
+                    ]);
                 } else if ($coauteurs != null) {
                     foreach ($coauteurs as $coauteur) {
                         if ($coauteur->getIdUtilisateur() == $_POST["id_utilisateur"]) {
@@ -73,17 +76,20 @@ class ControllerReponse
                             }
                         }
                     }
+                    self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
+                        "cheminVueBody" => "reponse/created.php"   //"redirige" vers la vue
+                    ]);
+                }
+                else{
+                    echo "impossible utilisateur non valide ";
+                    break;
                 }
             }
-        }//else{
-                //impossible car utilisateur non valide
-            //}
+        }
 
 
-        self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
-            "cheminVueBody" => "reponse/created.php"   //"redirige" vers la vue
-        ]);
-        //self::readAll();
+
+
     }
 
     public static function update() : void {
