@@ -5,15 +5,11 @@
     <title>Créer Question</title>
 </head>
 <body>
-<form method="post" action="frontController.php?controller=question&action=updated" >
+<form method="post" action="frontController.php?controller=question&action=updated" name="updateQuestion" id="updateQuestion" onsubmit="return validation()">
     <fieldset>
-        <legend>Mettre à jour une question :</legend>
+        <legend> Mettre a jour une question : </legend>
         <p>
-            <input type="hidden" value="<?php use App\YourVoice\Model\Repository\ReponseRepository;
-            use App\YourVoice\Model\Repository\UtilisateurRepository;
-            use App\YourVoice\Model\Repository\VotantRepository;
-
-            echo $v->getIdQuestion(); ?>" name="id_question" id="id_question" />
+        <input type="hidden" name="id_question" id="id_question" value="<?php use App\YourVoice\Model\Repository\ReponseRepository; use App\YourVoice\Model\Repository\UtilisateurRepository; use App\YourVoice\Model\Repository\VotantRepository; echo $v->getIdQuestion(); ?>" />
         </p>
         <p>
             <label for="intitule">Intitulé</label> :
@@ -109,6 +105,8 @@
         </p>
     </fieldset>
 </form>
+<script src="../src/js/app.js"></script>
+
 </body>
 </html>
 
