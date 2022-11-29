@@ -2,12 +2,17 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link href="../src/Style/Style.css" rel="stylesheet" >
+    <link href="../src/Style/connexion.css" rel="stylesheet">
+    <link href="../src/Style/view.css" rel="stylesheet">
+    <link href="../src/Style/inscription.css" rel="stylesheet">
+    <link href="../src/Style/create_question.css" rel="stylesheet">
+    <link href="../src/Style/liste_question.css" rel="stylesheet">
     <title>YourVoice</title>
+    <script src="https://kit.fontawesome.com/26e0d024d1.js" crossorigin="anonymous" defer></script>
     <meta name="description" content="site de vote YourVoice.com">
     <meta name="author" content="Mme.RATHIER Sylia, Mme.BETTINGER Sarah, M.HARRIBAUD Kim, M.HENCHIRI Adam">
     <!-- Mobile Specific Meta -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title><?php echo $pagetitle; ?></title>
     <!-- Favicon and Apple Icons -->
@@ -32,32 +37,34 @@
 <body>
 <header>
     <nav>
-            <div class="col-md-4 col-sm-3">
-            <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php" target="_blank" title="YourVoice" ><h1 class="logo"><img class="logo" src="../img/Logo.png">YourVoice</h1></a>
-          </div>
-          
-        <!-- Votre menu de navigation ici -->
-        <ul>
-            <li><a href="frontController.php?action=readAll&controller=question"> QUESTIONS </a></li>
-            <li><a href="frontController.php?controller=question&action=create"> CRÉER QUESTION </a></li>
-            <li><a href="#"> MES QUESTIONS </a></li>
-            <li><a href="#"> VOTE </a></li>
-            <li><a href="frontController.php?controller=utilisateur&action=connexion"> MON COMPTE </a></li>
-
-
-
+            <!--<div class="col-md-4 col-sm-3">
+            <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php" target="_blank" title="YourVoice" ></a>
+          </div>-->
+        <div class="container_menu">
+        <ul id="menu">
+            <li class="active"><a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php">YourVoice</a></li>
+            <li><a href="frontController.php?action=readAll&controller=question"><i class="fa-sharp fa-solid fa-circle-question"></i> Questions</a></li>
+            <li><a href="frontController.php?controller=utilisateur&action=readAll"><i class="fa-solid fa-person-circle-question"></i> Créer question</a></li>
+            <li><a href="frontController.php?action=create&controller=question"><i class="fa-solid fa-clipboard-question"></i> Mes questions</a></li>
+            <li><a href="frontController.php?controller=utilisateur&action=connexion"><i class="fa-solid fa-check-to-slot"></i> Vote</a></li>
+            <li><a href="frontController.php?controller=question&action=create"><i class="fa-solid fa-user"></i> Mon compte</a></li>
         </ul>
+        </div>
+    
+
     </nav>
 </header>
 <main>
+    <div class="container_main">
     <?php
     require __DIR__ . "/{$cheminVueBody}";
     ?>
+    </div>
 </main>
 <footer>
-    <p>
-        Forum de vote libre créé par l'équipe de choc (Mme.BETTINGER Sarah, M.HARRIBAUD Kim, M.HENCHIRI Adam, Mme.RATHIER Sylia).
-    </p>
+    <div class="foot">
+        Forum de vote libre crée par l'équipe de choc (Mme.RATHIER Sylia, Mme.BETTINGER Sarah, M.HARRIBAUD Kim, M.HENCHIRI Adam).
+    </div>
 </footer>
 </body>
 </html>

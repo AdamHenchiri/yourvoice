@@ -1,0 +1,14 @@
+.cgu{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    width: 60%;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+.cgu p{
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 15px;
+    margin-left: 2px;
+}

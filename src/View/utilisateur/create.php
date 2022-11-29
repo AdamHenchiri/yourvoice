@@ -2,40 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>inscription</title>
+    <title>Inscription - YourVoice</title>
 </head>
 <body>
 <form method="post" action="frontController.php?controller=utilisateur&action=created">
-    <fieldset>
-        <legend>INSCRIPTION</legend>
-        <p>
-            <label for="login_id">Identifiant</label>
-            <input type="text" placeholder="macrone" name="login" id="login_id" required/>
-        </p>
-        <p>
-            <label for="nom">Nom</label>
-            <input type="text" placeholder="macron" name="nom" id="nom" required/>
-        </p>
-        <p>
-            <label for="prenom">Prénom</label>
-            <input type="text" placeholder="emmanuel" name="prenom" id="prenom" required/>
-        </p>
-        <p>
-            <label for="age">Âge</label>
-            <input type="number" placeholder="20" name="age" id="age" required/>
-        </p>
-        <p>
-            <label for="email">Email</label>
-            <input type="email" placeholder="email@amail.com" name="email" id="email" required/>
-        </p>
-        <p>
-            <label for="mdp">Mot de passe</label>
-            <input type="password" placeholder="******" name="mdp" id="mdp" required/>
-        </p>
-        <p>
-            <input type="submit" value="S'inscrire" />
-        </p>
-    </fieldset>
+    <div class="container">
+        <div class="container_connexion">
+            <h1>Inscription</h1>
+            <input class="text" type="text" placeholder="Pseudo*" name="login" id="login_id" required/>
+            <input class="text" type="text" placeholder="Nom*" name="nom" id="nom" required/>
+            <input class="text" type="text" placeholder="Prenom*" name="prenom" id="prenom" required/>
+            <input class="text" type="email" placeholder="Email*" name="email" id="email" required/>
+            <input class="text" type="password" placeholder="Mot de passe*" name="mdp" id="mdp" required/>
+            <div class="champ1">
+                <p id="champsrequis">* champs requis</p>
+            </div>
+            <div class="cgu">
+                <input type="checkbox" required/>
+                <p>En cochant cette case vous acceptez les CGU</p>
+            </div>
+            <input id="envoyer" type="submit" value="S'inscrire" />
+            <div class="separateur">
+
+            </div>
+
+            <?php echo "<a id=\"redirection\" href=\"frontController.php?controller=utilisateur&action=connexion\"> J'ai déjà un compte</a> "; ?>
+
+        </div>
+
+    </div>
+
+
 </form>
 </body>
 </html>
