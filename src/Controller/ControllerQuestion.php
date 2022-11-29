@@ -17,7 +17,7 @@ use Couchbase\View;
 // chargement du modèle
 
 
-class ControllerQuestion {
+class ControllerQuestion extends GenericController {
 
     // Déclaration de type de retour void : la fonction ne retourne pas de valeur
     public static function readAll() : void {
@@ -48,10 +48,10 @@ class ControllerQuestion {
         }
     }
 
-    public static function afficheVue(string $cheminVue, array $parametres = []) : void {
-        extract($parametres); // Crée des variables à partir du tableau $parametres
-        require "../src/View/$cheminVue"; // Charge la vue
-    }
+//    public static function afficheVue(string $cheminVue, array $parametres = []) : void {
+//        extract($parametres); // Crée des variables à partir du tableau $parametres
+//        require "../src/View/$cheminVue"; // Charge la vue
+//    }
 
     public static function create() : void {
         self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
