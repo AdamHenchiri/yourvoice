@@ -10,7 +10,7 @@
     <div class="container_creerquestion">
         <div class="titre">
             <a id="boutonpublic" class="public"><i class="fa-solid fa-eye"></i> Public</a>
-            <h1>Créer une question :</h1>
+            <h1>Créer une question</h1>
         </div>
 
         <div class="question_description">
@@ -113,33 +113,37 @@
         </div>
         </div>
 
-    </fieldset>
-
-    <fieldset id="sections">
-        <legend>Creer une section :</legend>
-        <div id="section">
-        <p>
-            <label for="titre">Titre</label> :
-            <textarea placeholder="Je vais bien " name="titre[]" id="titre[]" required></textarea>
-        </p>
-        <p>
-            <label for="texte_explicatif">Texte explicatif</label> :
-            <textarea placeholder="Pourquoi je vais bien" name="texte_explicatif[]" id="texte_explicatif[]" required></textarea>
-        </p>
+        <div class="separateur2">
         </div>
-    </fieldset>
-        <p>
+
+        <div class="section_main">
+        <div class="soussection" id="sections">
+            <h1>Créer une section</h1>
+            <div class="soussection1" id="section">
+                <div class="container_section">
+                    <label for="titre">Titre</label>
+                    <textarea placeholder="Je vais bien " name="titre[]" id="titre[]" rows="8" required></textarea>
+                </div>
+                <div class="container_section">
+                    <label for="texte_explicatif">Texte explicatif</label>
+                    <textarea placeholder="Pourquoi je vais bien" name="texte_explicatif[]" id="texte_explicatif[]" rows="8" required></textarea>
+                </div>
+            </div>
+
+        </div>
             <script type="text/javascript" src="../src/js/app.js"></script>
-            <input type="button" value="Ajouter une nouvelle section" onclick="ajouterBtn()"/>
-        </p>
+            <a onclick="ajouterBtn()"><i class="fa-solid fa-plus"></i></a>
+        </div>
 
 
-    <p>
-        <input type="submit" value="Créer" name="valider" />
-    </p>
+            <input id="valider" type="submit" value="Créer" name="valider" />
+
 </form>
 <script src="../src/js/app.js"></script>
 
+    </div>
+</div>
+</form>
 <script src="../src/js/app.js"></script>
 <script>
     var public = true;

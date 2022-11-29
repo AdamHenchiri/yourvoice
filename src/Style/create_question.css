@@ -59,7 +59,7 @@
 
 .separateur1{
     border-bottom: solid 1px grey;
-    width: 90%;
+    width: 50%;
     align-self: center;
     margin-bottom: 30px;
     margin-top: 30px;
@@ -237,4 +237,92 @@
     padding-left: 10px;
     margin-right: 5px;
     margin-bottom: 10px;
+}
+
+.soussection h1{
+    margin:0;
+    font-size: 20px;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.separateur2{
+    border-bottom: solid 1px grey;
+    width: 90%;
+    align-self: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.soussection{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    width: 100%;
+}
+
+.soussection1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+
+}
+
+.container_section label{
+    width: 60%;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.container_section textarea{
+    width: 100%;
+    border-radius: 10px;
+}
+
+.container_section{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.section_main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.section_main a{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border: solid 1px black;
+    border-radius: 100px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    transition-duration: 0.2s;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.section_main a:hover{
+    transition-duration: 0.2s;
+    background-color: white;
+    color: black;
+}
+
+.bouttonsupp{
+    border:solid 2px green;
+}
+
+.sectionplus{
+    border: solid 2px yellow;
 }
