@@ -46,7 +46,7 @@ function validation()
 
     var elementsC = document.getElementsByName("idContributeur[]");
     var elementsV = document.getElementsByName("idVotant[]");
-
+        countOrganisateur = 0;
         countContributeurs = 0;
         countVotants = 0;
 
@@ -60,6 +60,7 @@ function validation()
             countVotants++;
         }
     }
+
     if (countContributeurs === 0){
         alert("vous devez choisir au minimum un contributeurs");
         return false;

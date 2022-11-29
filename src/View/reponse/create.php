@@ -8,6 +8,7 @@
 <form method="post" action="frontController.php?controller=reponse&action=created">
     <fieldset>
         <legend>Creéation d'une réponse :</legend>
+        <input type="hidden" value="<?php echo $_GET["id_reponse"]?>" name="id_reponse" >
         <input type="hidden" value="<?php echo $_GET["id_question"]?>" name="id_question" >
 
         <?php
@@ -17,6 +18,7 @@
         $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
         if ($sections){
         foreach ($sections as $section){ ?>
+            <input type="hidden" value="<?php echo $section->getIdSection()?>" name="id_section[]" >
             <p>
             <label for="titre">Titre</label> :
 <!--                <input type="text" placeholder="macrone" name="titre" id="titre" required/>-->
@@ -38,10 +40,10 @@
                 </p>
 
         <p>
-            <label for="texte">Texte</label> :
+            <label for="texte[]">Texte</label> :
 
         </p>
-            <textarea name="texte" id="texte" cols="90"  rows="6"></textarea>;
+            <textarea name="texte[]" id="texte[]" cols="90"  rows="6"></textarea>;
 
                 <?php }}
             ?>

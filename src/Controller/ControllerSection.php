@@ -8,7 +8,7 @@ use App\YourVoice\Model\Repository\SectionRepository;
 use App\YourVoice\Model\DataObject\Section ;
 use App\YourVoice\Model\DataObject\Question;
 
-class ControllerSection
+class ControllerSection extends GenericController
 {
 
     public static function create() : void {
@@ -100,10 +100,10 @@ class ControllerSection
         }
     }
 
-    private static function afficheVue(string $cheminVue, array $parametres = []) : void {
-        extract($parametres); // Crée des variables à partir du tableau $parametres
-        require "../src/View/$cheminVue"; // Charge la vue
-    }
+//    private static function afficheVue(string $cheminVue, array $parametres = []) : void {
+//        extract($parametres); // Crée des variables à partir du tableau $parametres
+//        require "../src/View/$cheminVue"; // Charge la vue
+//    }
 
 
     public static function error(string $errorMessage):void {

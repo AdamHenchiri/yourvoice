@@ -5,11 +5,11 @@
     <title>Créer Question</title>
 </head>
 <body>
-<form method="post" action="frontController.php?controller=question&action=updated" >
+<form method="post" action="frontController.php?controller=question&action=updated" name="creationQuestion" id="creationQuestion" onsubmit="return validation()">
     <fieldset>
-        <legend>Mettre à jour une question :</legend>
+        <legend> Mettre a jour une question : </legend>
         <p>
-            <input type="hidden" value="<?php echo $v->getIdQuestion(); ?>" name="id_question" id="id_question" />
+        <input type="hidden" name="id_question" id="id_question" value="<?php use App\YourVoice\Model\Repository\ReponseRepository; use App\YourVoice\Model\Repository\UtilisateurRepository; use App\YourVoice\Model\Repository\VotantRepository; echo $v->getIdQuestion(); ?>" />
         </p>
         <p>
             <label for="intitule">Intitulé</label> :
@@ -47,39 +47,31 @@
 
 
         <p>
-            <label for="votants ">choisissez les contributeurs</label> :
+            <label for="organisateurs ">choisissez les organisateurs</label> :
 
             <?php
-
-            use App\YourVoice\Model\Repository\UtilisateurRepository;
-            $users = (new UtilisateurRepository())->selectAll();
-            if ($users){
-            foreach($users as $user)
-            {
-            $usersContributeur=(new \App\YourVoice\Model\Repository\ReponseRepository())->selectWhere("id_utilisateur",$user->getIdUtilisateur());
-            if ($usersContributeur){
-                $aux=false;
-            foreach ($usersContributeur as $userContributeur){
-            if ($userContributeur->getIdQuestion()==$v->getIdQuestion()){
-            ?>
+            $tabOrganisateur =(new ReponseRepository())->selectWhere("id_question",$v->getIdQuestion());
+            $tabUsers = (new UtilisateurRepository())->selectAll();
+            foreach ($tabUsers as $user){
+            $aux=false;
+            foreach ($tabOrganisateur as $organisateur){
+                    if($user->getIdUtilisateur() == $organisateur->getIdUtilisateur()){
+                ?>
         <div>
             <input type="checkbox" name="idContributeur[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>" checked>
             <?php $aux=true;?>
             <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
         </div>
-        <?php }}if($aux===false){ ?>
+        <?php }}
+                if($aux===false ){ ?>
             <div>
                 <input type="checkbox" name="idContributeur[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>">
 
                 <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
             </div>
-        <?php }}else{ ?>
-        <div>
-            <input type="checkbox" name="idContributeur[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>">
+        <?php }}?>
 
-            <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
-        </div>
-        <?php } }} ?>
+
 
         </p>
 
@@ -87,42 +79,34 @@
             <label for="votants ">choisissez les votants</label> :
 
             <?php
-
-
-            $users = (new UtilisateurRepository())->selectAll();
-            if ($users){
-            foreach($users as $user){
-                $usersVotant=(new \App\YourVoice\Model\Repository\VotantRepository())->selectWhere("id_utilisateur",$user->getIdUtilisateur());
-            if ($usersVotant){
+            $tabVotanats =(new VotantRepository())->selectWhere("id_question",$v->getIdQuestion());
+            $tabUsers = (new UtilisateurRepository())->selectAll();
+            foreach ($tabUsers as $user){
             $aux=false;
-            foreach ($usersVotant as $userVotant){
-            if ($userVotant->getIdQuestion()==$v->getIdQuestion()){
+            foreach ($tabVotanats as $votanat){
+            if($user->getIdUtilisateur() == $votanat->getIdUtilisateur()){
             ?>
         <div>
             <input type="checkbox" name="idVotant[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>" checked>
             <?php $aux=true;?>
             <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
         </div>
-        <?php }}if($aux===false){ ?>
+        <?php break;}}if($aux===false){ ?>
         <div>
             <input type="checkbox" name="idVotant[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>">
 
             <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
         </div>
-        <?php }}else{ ?>
-        <div>
-            <input type="checkbox" name="idVotant[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>">
-
-            <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
-        </div>
-        <?php } }} ?>
+        <?php }} ?>
 
         </p>
         <p>
-            <input type="submit" value="Envoyer" />
+            <input type="submit" value="valider" name="valider" />
         </p>
     </fieldset>
 </form>
+<script src="../src/js/app.js"></script>
+
 </body>
 </html>
 

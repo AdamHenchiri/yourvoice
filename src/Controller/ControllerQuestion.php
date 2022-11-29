@@ -1,11 +1,9 @@
 <?php
 namespace App\YourVoice\Controller ;
 
-use App\YourVoice\Model\DataObject\Contributeur;
 use App\YourVoice\Model\DataObject\Reponse;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
-use App\YourVoice\Model\Repository\ContributeurRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\DataObject\Question ;
 use App\YourVoice\Model\DataObject\Section ;
@@ -19,7 +17,7 @@ use Couchbase\View;
 // chargement du modèle
 
 
-class ControllerQuestion {
+class ControllerQuestion extends GenericController {
 
     // Déclaration de type de retour void : la fonction ne retourne pas de valeur
     public static function readAll() : void {
@@ -30,18 +28,19 @@ class ControllerQuestion {
             "cheminVueBody" => "question/list.php",   //"redirige" vers la vue
             "questions"=>$questions, "nbLigne" => $nbLigne] );
 
-
     }
 
 
     public static function read() : void {
         $question =(new QuestionRepository())->select($_GET['id_question']);
         $sections = (new SectionRepository())->selectWhere("id_question",$_GET['id_question']);
+        $reponses = (new ReponseRepository())->selectWhere("id_question",$_GET['id_question']);
         if ($question!==null && $sections!==null) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
                 "cheminVueBody" => "question/detail.php",   //"redirige" vers la vue
                 "question"=>$question,
-                "sections"=>$sections]);
+                "sections"=>$sections,
+                "reponses"=>$reponses]);
         }else{
             self::afficheVue('/view.php', ["pagetitle" => "ERROR",
                 "cheminVueBody" => "question/error.php",   //"redirige" vers la vue
@@ -49,10 +48,10 @@ class ControllerQuestion {
         }
     }
 
-    public static function afficheVue(string $cheminVue, array $parametres = []) : void {
-        extract($parametres); // Crée des variables à partir du tableau $parametres
-        require "../src/View/$cheminVue"; // Charge la vue
-    }
+//    public static function afficheVue(string $cheminVue, array $parametres = []) : void {
+//        extract($parametres); // Crée des variables à partir du tableau $parametres
+//        require "../src/View/$cheminVue"; // Charge la vue
+//    }
 
     public static function create() : void {
         self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
@@ -62,32 +61,37 @@ class ControllerQuestion {
 
 
     public static function created() : void {
+            $tab = array();
             $v=new Question( null,$_POST["intitule"],$_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
-            $_POST["dateFin_vote"], $_POST["id_organisateur"]);
-            //sauvegarde de la question dans la base de donnée
-            $id=(new QuestionRepository())->sauvegarder($v);
-            //sauvegarde des votants dans la base de donnée
-            foreach ($_POST["idVotant"] as $idUser) {
+            $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
+        //sauvegarde de la question dans la base de donnée
+        $id=(new QuestionRepository())->sauvegarder($v);
+        //sauvegarde des votants dans la base de donnée
+        foreach ($_POST["idContributeur"] as $idUser) {
+            if ($idUser) {
+                $v3 = new Reponse(null,$idUser, $id);
+                $reponse =  (new ReponseRepository())->sauvegarder($v3);
+                $tab[] = $reponse;
+
+            }
+        }
+        foreach ($_POST["idVotant"] as $idUser) {
                 if ($idUser) {
-                    $v2 = new Votant($idUser, null, $id);
-                    (new VotantRepository())->sauvegarder($v2);
+                    foreach ($tab as $rep)
+                    {
+                        $v2 = new Votant($idUser, null, $id, $rep);
+                        (new VotantRepository())->sauvegarder($v2);
+                    }
+
                 }
             }
-            //sauvegarde des contributeurs dans la base de donnée
-            foreach ($_POST["idContributeur"] as $idUser) {
-                if ($idUser) {
-                    $v3 = new Reponse(null,$idUser, $id);
-                    (new ReponseRepository())->sauvegarder($v3);
-                }
-            }
+        //sauvegarde des contributeurs dans la base de donnée
             foreach ($_POST["titre"] as $i=>$section){
                $s= new Section(null,$_POST["titre"][$i],$_POST["texte_explicatif"][$i],$id);
                 (new SectionRepository())->sauvegarder($s);
             }
-            self::readAll();
-
-
+            ControllerQuestion::readAll();
     }
 
     public static function delete() : void {
@@ -118,30 +122,79 @@ class ControllerQuestion {
         $id=$_POST['id_question'];
         $v = new Question($_POST['id_question'], $_POST["intitule"], $_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
-            $_POST["dateFin_vote"], $_POST["id_organisateur"]);
+            $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
         (new QuestionRepository())->update($v);
 
 
-        foreach ($_POST["idVotant"] as $idUser) {
-            if ($idUser) {
-                (new VotantRepository())->supprimer([$idUser,$id]);
-                $v2 = new Votant($idUser, null, $id);
-                (new VotantRepository())->sauvegarder($v2);
-            }
-        }
-        //sauvegarde des contributeurs dans la base de donnée
-        foreach ($_POST["idContributeur"] as $idUser) {
-            if ($idUser) {
-                (new ReponseRepository())->supprimer([$idUser,$id]);
-                $v3 = new Contributeur($idUser, $id);
-                    (new ContributeurRepository())->sauvegarder($v3);
+        $tabVotants=(new VotantRepository())->selectWhere("id_question",$id);
+        foreach ($tabVotants as $vot ) {
+            $aux = true;
+            foreach ($_POST["idVotant"] as $idUser) {
+                if ($idUser == $vot->getIdUtilisateur()) {
+                    $aux = true;
+                    break;
+                } else {
+                    $aux = false;
                 }
             }
-        /*self::afficheVue('/view.php', ["pagetitle" => "modification de la question",
-                "cheminVueBody" => "question/updated.php",  //"redirige" vers la vue
-                "id_question" => htmlspecialchars($_POST['id_question']),
-            ]);
-        */
+            if ($aux == false) {
+                (new VotantRepository())->supprimer([$vot->getIdUtilisateur(), $id]);
+            }
+        }
+        foreach ($_POST["idVotant"] as $idUser) {
+            $aux = true;
+            foreach ($tabVotants as $vot ) {
+                if ($idUser == $vot->getIdUtilisateur()) {
+                    $aux = true;
+                    break;
+                } else {
+                    $aux = false;
+                }
+            }
+            if ($aux == false) {
+                $tabrep= (new ReponseRepository())->selectWhere("id_question",$id);
+                foreach ($tabrep as $rep){
+                    $v3 = new Votant($idUser,null,$id,$rep->getIdRponses());
+                    (new VotantRepository())->sauvegarder($v3);
+                }
+            }
+        }
+
+        //sauvegarde des contributeurs dans la base de donnée
+        $tabOrganisateur=(new ReponseRepository())->selectWhere("id_question",$id);
+            foreach ($tabOrganisateur as $orga ) {
+                $aux = true;
+                foreach ($_POST["idContributeur"] as $idUser) {
+                    if ($idUser == $orga->getIdUtilisateur()) {
+                        $aux = true;
+                        break;
+                    } else {
+                        $aux = false;
+                    }
+                }
+                if ($aux == false) {
+                    //echo $orga->getIdUtilisateur();
+                    (new ReponseRepository())->supprimer([$orga->getIdUtilisateur(), $id]);
+                }
+            }
+             foreach ($_POST["idContributeur"] as $idUser) {
+                 $aux = true;
+                foreach ($tabOrganisateur as $orga ) {
+                if ($idUser == $orga->getIdUtilisateur()) {
+                    $aux = true;
+                    break;
+                } else {
+                    $aux = false;
+                }
+            } if($tabOrganisateur==null){
+                     $aux=false;
+                }
+            if ($aux == false) {
+                $v3 = new Reponse(null,$idUser, $id);
+                (new ReponseRepository())->sauvegarder($v3);
+            }
+        }
+
         self::readAll();
     }
 

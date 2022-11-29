@@ -8,16 +8,16 @@ class Texte extends AbstractDataObject
 {
     private ?int $id_texte;
     private String $texte;
-    private Reponse $id_reponse;
-    private Section $id_section;
+    private int $id_reponse;
+    private int $id_section;
 
     /**
      * @param int $id_texte
      * @param String $texte
-     * @param Reponse $id_reponse
-     * @param Section $id_section
+     * @param int $id_reponse
+     * @param int $id_section
      */
-    public function __construct(?int $id_texte, string $texte, Reponse $id_reponse, Section $id_section)
+    public function __construct(?int $id_texte, string $texte, int $id_reponse, int $id_section)
     {
         $this->id_texte = $id_texte;
         $this->texte = $texte;
@@ -60,31 +60,31 @@ class Texte extends AbstractDataObject
     /**
      * @return Reponse
      */
-    public function getIdReponse(): Reponse
+    public function getIdReponse(): int
     {
         return $this->id_reponse;
     }
 
     /**
-     * @param Reponse $id_reponse
+     * @param int $id_reponse
      */
-    public function setIdReponse(Reponse $id_reponse): void
+    public function setIdReponse(int $id_reponse): void
     {
         $this->id_reponse = $id_reponse;
     }
 
     /**
-     * @return Section
+     * @return int
      */
-    public function getIdSection(): Section
+    public function getIdSection(): int
     {
         return $this->id_section;
     }
 
     /**
-     * @param Section $id_section
+     * @param int $id_section
      */
-    public function setIdSection(Section $id_section): void
+    public function setIdSection(int $id_section): void
     {
         $this->id_section = $id_section;
     }
