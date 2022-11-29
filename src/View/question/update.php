@@ -5,7 +5,7 @@
     <title>Créer Question</title>
 </head>
 <body>
-<form method="post" action="frontController.php?controller=question&action=updated" name="updateQuestion" id="updateQuestion" onsubmit="return validation()">
+<form method="post" action="frontController.php?controller=question&action=updated" name="creationQuestion" id="creationQuestion" onsubmit="return validation()">
     <fieldset>
         <legend> Mettre a jour une question : </legend>
         <p>
@@ -58,14 +58,14 @@
                     if($user->getIdUtilisateur() == $organisateur->getIdUtilisateur()){
                 ?>
         <div>
-            <input type="checkbox" name="idOrganisateur[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>" checked>
+            <input type="checkbox" name="idContributeur[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>" checked>
             <?php $aux=true;?>
             <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
         </div>
         <?php }}
                 if($aux===false ){ ?>
             <div>
-                <input type="checkbox" name="idOrganisateur[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>">
+                <input type="checkbox" name="idContributeur[]" id="<?php echo $user->getIdUtilisateur()?>" value="<?php echo $user->getIdUtilisateur()?>">
 
                 <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
             </div>
@@ -101,7 +101,7 @@
 
         </p>
         <p>
-            <input type="submit" value="Envoyer" />
+            <input type="submit" value="valider" name="valider" />
         </p>
     </fieldset>
 </form>

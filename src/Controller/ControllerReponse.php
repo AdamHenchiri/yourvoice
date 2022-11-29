@@ -61,6 +61,7 @@ class ControllerReponse extends GenericController
                         $aux = true;
                         foreach ($_POST["idCoAuteur"] as $idUser) {
                             if ($idUser == $coauteur->getIdUtilisateur()) {
+                                $aux = true;
                                 break;
                             } else {
                                 $aux = false;
@@ -74,6 +75,7 @@ class ControllerReponse extends GenericController
                         $aux = true;
                         foreach ($coauteurs as $coauteur ) {
                             if ($idUser == $coauteur->getIdUtilisateur()) {
+                                $aux = true;
                                 break;
                             } else {
                                 $aux = false;
@@ -153,6 +155,7 @@ class ControllerReponse extends GenericController
                         $aux = true;
                             foreach ($_POST["idCoAuteur"] as $idUser) {
                                 if ($idUser == $coauteur->getIdUtilisateur()) {
+                                    $aux = true;
                                     break;
                                 } else {
                                     $aux = false;
@@ -166,6 +169,7 @@ class ControllerReponse extends GenericController
                         $aux = true;
                         foreach ($coauteurs as $coauteur ) {
                             if ($idUser == $coauteur->getIdUtilisateur()) {
+                                $aux = true;
                                 break;
                             } else {
                                 $aux = false;

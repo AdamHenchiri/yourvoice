@@ -131,6 +131,7 @@ class ControllerQuestion extends GenericController {
             $aux = true;
             foreach ($_POST["idVotant"] as $idUser) {
                 if ($idUser == $vot->getIdUtilisateur()) {
+                    $aux = true;
                     break;
                 } else {
                     $aux = false;
@@ -144,6 +145,7 @@ class ControllerQuestion extends GenericController {
             $aux = true;
             foreach ($tabVotants as $vot ) {
                 if ($idUser == $vot->getIdUtilisateur()) {
+                    $aux = true;
                     break;
                 } else {
                     $aux = false;
@@ -162,29 +164,35 @@ class ControllerQuestion extends GenericController {
         $tabOrganisateur=(new ReponseRepository())->selectWhere("id_question",$id);
             foreach ($tabOrganisateur as $orga ) {
                 $aux = true;
-                foreach ($_POST["idOrganisateur"] as $idUser) {
+                foreach ($_POST["idContributeur"] as $idUser) {
                     if ($idUser == $orga->getIdUtilisateur()) {
+                        $aux = true;
                         break;
                     } else {
                         $aux = false;
                     }
                 }
                 if ($aux == false) {
+                    //echo $orga->getIdUtilisateur();
                     (new ReponseRepository())->supprimer([$orga->getIdUtilisateur(), $id]);
                 }
             }
-             foreach ($_POST["idOrganisateur"] as $idUser) {
+             foreach ($_POST["idContributeur"] as $idUser) {
                  $aux = true;
                 foreach ($tabOrganisateur as $orga ) {
                 if ($idUser == $orga->getIdUtilisateur()) {
+                    $aux = true;
                     break;
                 } else {
                     $aux = false;
                 }
-            }
+            } if($tabOrganisateur==null){
+                     $aux=false;
+                }
             if ($aux == false) {
                 $v3 = new Reponse(null,$idUser, $id);
-                (new ReponseRepository())->sauvegarder($v3);            }
+                (new ReponseRepository())->sauvegarder($v3);
+            }
         }
 
         self::readAll();
