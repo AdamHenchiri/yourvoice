@@ -30,8 +30,10 @@ class ControllerReponse
 
 
     public static function created() : void {
+        $test=false;
+        $id_reponse= $_POST["id_reponse"];
         $id_question = $_POST["id_question"];
-        $responsables = (new ReponseRepository())->selectWhere("id_question", $id_question);
+        $responsables = (new ReponseRepository())->selectWhere("id_reponse", $id_reponse);
         foreach ($_POST["texte"] as $i=>$section) {
             foreach ($responsables as $responsable) {
                 $coauteurs = (new CoauteurRepository())->selectWhere("id_reponse", $responsable->getIdRponses());
@@ -45,6 +47,7 @@ class ControllerReponse
                     }
                 }
                 if ($responsable->getIdUtilisateur() == $_POST["id_utilisateur"]) {
+                    $test=true;
                     if (!$verif) {
                         $texte = new Texte(null, $_POST["texte"][$i], $responsable->getIdRponses(), $_POST["id_section"][$i]);
                         (new TexteRepository())->sauvegarder($texte);
@@ -53,20 +56,39 @@ class ControllerReponse
                         (new TexteRepository())->update($texte);
 
                     }
-                    if ($_POST["idCoAuteur"]!=null) {
+                    ////
+                    foreach ($coauteurs as $coauteur ) {
+                        $aux = true;
                         foreach ($_POST["idCoAuteur"] as $idUser) {
-                            if ($idUser) {
-                                $v3 = new CoAuteur($responsable->getIdRponses(), $idUser);
-                                (new CoauteurRepository())->sauvegarder($v3);
+                            if ($idUser == $coauteur->getIdUtilisateur()) {
+                                break;
+                            } else {
+                                $aux = false;
                             }
                         }
+                        if ($aux == false) {
+                            (new CoauteurRepository())->supprimer([ $responsable->getIdRponses(), $coauteur->getIdUtilisateur()]);
+                        }
                     }
-                    self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
-                        "cheminVueBody" => "reponse/created.php"   //"redirige" vers la vue
-                    ]);
-                } else if ($coauteurs != null) {
+                    foreach ($_POST["idCoAuteur"] as $idUser) {
+                        $aux = true;
+                        foreach ($coauteurs as $coauteur ) {
+                            if ($idUser == $coauteur->getIdUtilisateur()) {
+                                break;
+                            } else {
+                                $aux = false;
+                            }
+                        }
+                        if ($aux == false) {
+                            $v3 = new CoAuteur($responsable->getIdRponses(),$idUser);
+                            (new CoauteurRepository())->sauvegarder($v3);
+                        }
+                    }
+                }
+                 else if ($coauteurs != null) {
                     foreach ($coauteurs as $coauteur) {
                         if ($coauteur->getIdUtilisateur() == $_POST["id_utilisateur"]) {
+                            $test=true;
                             if (!$verif) {
                                 $texte = new Texte(null, $_POST["texte"][$i], $responsable->getIdRponses(), $_POST["id_section"][$i]);
                                 (new TexteRepository())->sauvegarder($texte);
@@ -75,21 +97,17 @@ class ControllerReponse
                                 (new TexteRepository())->update($texte);
                             }
                         }
-                        self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
-                            "cheminVueBody" => "reponse/created.php"   //"redirige" vers la vue
-                        ]);
                     }
-                }
-                else{
-                    echo "impossible utilisateur non valide ";
-                    break;
                 }
             }
         }
-
-
-
-
+        if ($test==true){
+            echo "La réponse a bien été créée !";
+            ControllerQuestion::readAll();
+        }else{
+            echo "echec de la création !";
+            ControllerQuestion::readAll();
+        }
     }
 
     public static function update() : void {
@@ -99,7 +117,7 @@ class ControllerReponse
                 "cheminVueBody" => "texte/update.php",   //"redirige" vers la vue
                 "textes"=>$textes]);
         }else{
-            echo "impossible car pas encore de réponse du responsable";
+           self::create();
         }
     }
 
@@ -127,15 +145,37 @@ class ControllerReponse
                         (new TexteRepository())->update($texte);
 
                     }
-                    if ($_POST["idCoAuteur"]!=null) {
-                        foreach ($_POST["idCoAuteur"] as $idUser) {
-                            if ($idUser) {
-                                $v3 = new CoAuteur($responsable->getIdRponses(), $idUser);
+                    //////////////pour mettre a jour les coauteurs seulement si l'utulisateur est le résponsable de la réponse
+                    foreach ($coauteurs as $coauteur ) {
+                        $aux = true;
+                            foreach ($_POST["idCoAuteur"] as $idUser) {
+                                if ($idUser == $coauteur->getIdUtilisateur()) {
+                                    break;
+                                } else {
+                                    $aux = false;
+                                }
+                            }
+                            if ($aux == false) {
+                                (new CoauteurRepository())->supprimer([ $responsable->getIdRponses(), $coauteur->getIdUtilisateur()]);
+                            }
+                    }
+                    foreach ($_POST["idCoAuteur"] as $idUser) {
+                        $aux = true;
+                        foreach ($coauteurs as $coauteur ) {
+                            if ($idUser == $coauteur->getIdUtilisateur()) {
+                                break;
+                            } else {
+                                $aux = false;
+                            }
+                        }
+                        if ($aux == false) {
+                                $v3 = new CoAuteur($responsable->getIdRponses(),$idUser);
                                 (new CoauteurRepository())->sauvegarder($v3);
                             }
                         }
                     }
-                } else if ($coauteurs != null) {
+
+                else if ($coauteurs != null) {
                     foreach ($coauteurs as $coauteur) {
                         if ($coauteur->getIdUtilisateur() == $_POST["id_utilisateur"]) {
                             if (!$verif) {
@@ -150,7 +190,7 @@ class ControllerReponse
                 }
             }
         }
-        self::readAll();
+        ControllerQuestion::readAll();
     }
 
     public static function delete() : void {
@@ -168,14 +208,12 @@ class ControllerReponse
 
     public static function read() : void {
         $textes= (new TexteRepository())->selectWhere("id_reponse",$_GET['id_reponse']);
-        if ($textes!==null) {
+        if (!empty($textes)) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
                 "cheminVueBody" => "texte/detail.php",   //"redirige" vers la vue
                 "textes"=>$textes]);
         }else{
-            self::afficheVue('/view.php', ["pagetitle" => "ERROR",
-                "cheminVueBody" => "texte/error.php",   //"redirige" vers la vue
-            ]);
+           echo "pas encore de réponses";
         }
     }
 

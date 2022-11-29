@@ -8,6 +8,7 @@
 <form method="post" action="frontController.php?controller=reponse&action=created">
     <fieldset>
         <legend>Creéation d'une réponse :</legend>
+        <input type="hidden" value="<?php echo $_GET["id_reponse"]?>" name="id_reponse" >
         <input type="hidden" value="<?php echo $_GET["id_question"]?>" name="id_question" >
 
         <?php
