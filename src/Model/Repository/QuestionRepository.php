@@ -9,7 +9,7 @@ class QuestionRepository extends AbstractRepository
 
 
     public function construire(array $questFormatTableau) : Question {
-        return new Question($questFormatTableau['id_question'],$questFormatTableau['intitule'],$questFormatTableau['explication'],$questFormatTableau['dateDebut_redaction'],$questFormatTableau['dateFin_redaction'],$questFormatTableau['dateDebut_vote'],$questFormatTableau['dateFin_vote'],$questFormatTableau['id_utilisateur']);
+        return new Question($questFormatTableau['id_question'],$questFormatTableau['intitule'],$questFormatTableau['explication'],$questFormatTableau['dateDebut_redaction'],$questFormatTableau['dateFin_redaction'],$questFormatTableau['dateDebut_vote'],$questFormatTableau['dateFin_vote'],$questFormatTableau['id_organisateur']);
     }
 
     protected function getNomTable(): string{

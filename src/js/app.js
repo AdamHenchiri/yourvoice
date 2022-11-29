@@ -88,3 +88,32 @@ function confirmationSection(){
     }
 
 }
+let i = 1;
+function createSectionRemoveButton() {
+    const removeButton = document.createElement("a")
+    //removeButton.setAttribute("type", "button");
+    //removeButton.setAttribute("value", "supprimer cette section");
+    removeButton.setAttribute("class", "bouttonsupp");
+    removeButton.setAttribute("onclick", "removeSection(" + i + ")");
+    removeButton.title = '<i class=\"fa-solid fa-xmark\"></i>';
+    document
+        .getElementById("section-" + i)
+        .appendChild(removeButton);
+}
+
+function removeSection(a) {
+    document.getElementById("section-" + a).remove();
+}
+
+function ajouterBtn(){
+    ++i;
+    const sectionClone = document
+        .getElementById("section")
+        .cloneNode(true);
+    sectionClone.setAttribute("id", "section-"+i );
+    sectionClone.setAttribute("class", "container_section")
+    const sections = document.getElementById("sections");
+    sections.setAttribute("class", "soussection")
+    sections.appendChild(sectionClone);
+    createSectionRemoveButton();
+}

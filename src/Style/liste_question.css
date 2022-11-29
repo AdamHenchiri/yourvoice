@@ -1,0 +1,119 @@
+
+.container_liste_question{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 200px;
+    margin-bottom: 200px;
+}
+
+
+.container_question{
+    width: 60%;
+    background-color: white;
+    border-radius: 50px;
+}
+
+.titrelistequestion{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+
+
+.titrelistequestion h1{
+    text-align: center;
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+#apparait{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 50px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+#apparait a{
+    font-size: 12px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.questions{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#titrequestion{
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+
+.questions a{
+    text-decoration: none;
+    color: black;
+}
+
+.question_update{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.question_update a{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: white;
+    background-color: black;
+    border-radius: 100px;
+    border: solid 1px black;
+    transition-duration: 0.5s;
+    font-family: sans-serif;
+    font-size: 12px;
+
+}
+
+.question_update a:hover{
+    color: black;
+    background-color: white;
+    transition-duration: 0.5s;
+    transform : rotateY(360deg);
+}
+
+.show a{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    border-radius: 100px;
+}
+
+.cacher{
+    transform: rotateX(0deg);
+}
+
+.show{
+    transform: rotateX(360deg);
+}

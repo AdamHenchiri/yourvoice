@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Créer Question</title>
+    <title>Modifier la question</title>
 </head>
 <body>
 <form method="post" action="frontController.php?controller=question&action=updated" >
