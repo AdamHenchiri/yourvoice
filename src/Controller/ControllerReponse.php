@@ -79,6 +79,9 @@ class ControllerReponse
                                 $aux = false;
                             }
                         }
+                        if($coauteurs==null){
+                            $aux=false;
+                        }
                         if ($aux == false) {
                             $v3 = new CoAuteur($responsable->getIdRponses(),$idUser);
                             (new CoauteurRepository())->sauvegarder($v3);
@@ -167,6 +170,9 @@ class ControllerReponse
                             } else {
                                 $aux = false;
                             }
+                        }
+                        if($coauteurs==null){
+                            $aux=false;
                         }
                         if ($aux == false) {
                                 $v3 = new CoAuteur($responsable->getIdRponses(),$idUser);
