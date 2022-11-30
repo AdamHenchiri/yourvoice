@@ -1,13 +1,17 @@
 html{
     margin: 0;
 }
-body{
+body {
     margin: 0;
     width: 100%;
     height: 100%;
-    background-color: #D5CABC;
+    /*background: linear-gradient(132.43deg, rgba(82, 216, 224, 0.304) 0%, rgba(114, 198, 217, 0.4) 13.54%, rgba(143, 142, 227, 0.424) 33.07%, rgba(148, 23, 189, 0.224) 61.48%, rgba(69, 11, 63, 0) 100%);
+    background-blend-mode: darken;
+   background: linear-gradient(132.43deg, rgba(82, 216, 224, 0.51) 0%, rgba(114, 198, 217, 0.90625) 13.54%, rgba(143, 142, 227, 0.651179) 33.07%, rgba(148, 23, 189, 0.28) 61.48%, rgba(69, 11, 63, 0) 100%);
+    */
+    background: linear-gradient(132.43deg, rgba(82, 216, 224, 0.093) 0%, rgba(69, 194, 222, 0.111) 19.1%, rgba(143, 142, 227, 0.147) 41.63%, rgba(148, 23, 189, 0.084) 78.46%, rgba(69, 11, 63, 0) 100%);
+    background-blend-mode: darken;
 }
-
 /* Couleur :
 Couleur 1 : #2e94b9
 Couleur 2 : #475053
@@ -15,18 +19,20 @@ Couleur 3 : #acdcee
 Couleur 4 : #f0fbff
  */
 .container_menu{
-    height: auto;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: #212121;
+    background-color: white;
+    box-shadow: 0.5px 0px 7px darkgrey;
+
 
 }
 
 .container{
-    margin-top: 200px;
-    margin-bottom: 200px;
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
 nav{
     position: fixed;
@@ -51,7 +57,7 @@ nav{
 }
 #menu li a{
     padding: 0.5em 0;
-    color: white;
+    color: black;
     /*#ffffff80*/
     position: relative;
     letter-spacing: 1px;

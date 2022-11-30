@@ -24,6 +24,11 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
         </div>
 
 
+        <div class="separateur1">
+        </div>
+
+
+
         <?php
 //echo date('d-m-Y', strtotime($date));
 //echo date('d-m-Y',htmlspecialchars($question->getDateDebutRedaction()));
@@ -33,13 +38,15 @@ echo '<p> Date de début de la rédaction :  ' . date('d-m-Y', strtotime($dateDe
 echo '<p> Date de fin de la rédaction :  ' .  date('d-m-Y', strtotime($dateFinRedaction)) . '.</p>';
 echo '<p> Date de début des votes :  ' .  date('d-m-Y', strtotime($dateDebutVote)) . '.</p>';
 echo '<p> Date de fin des votes :  ' .  date('d-m-Y', strtotime($dateFinVote)) . '.</p>';
+?>
+
+<div class="separateur1">
+        </div>
 
 
 
 
-
-
-echo '<p> ------------------------------------------------------------------</p>';
+<?php
 
 //require __DIR__. '/../section/list.php';
 $num=0;

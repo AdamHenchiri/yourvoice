@@ -10,7 +10,7 @@
     <div class="container_creerquestion">
         <div class="titre">
             <a id="boutonpublic" class="public"><i class="fa-solid fa-eye"></i> Public</a>
-            <h1>Créer une question</h1>
+            <h1>CRÉER UNE QUESTION</h1>
         </div>
 
         <div class="question_description">
@@ -118,7 +118,7 @@
 
         <div class="section_main">
         <div class="soussection" id="sections">
-            <h1>Créer une section</h1>
+            <h1>CRÉER UNE SECTION</h1>
             <div class="soussection1" id="section">
                 <div class="container_section">
                     <label for="titre">Titre</label>
