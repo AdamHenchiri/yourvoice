@@ -44,7 +44,7 @@ function validation()
         return false;
     }
 
-    var elementsC = document.getElementsByName("idContributeur[]");
+    var elementsC = document.getElementsByName("idResponsable[]");
     var elementsV = document.getElementsByName("idVotant[]");
         countOrganisateur = 0;
         countContributeurs = 0;
@@ -62,7 +62,7 @@ function validation()
     }
 
     if (countContributeurs === 0){
-        alert("vous devez choisir au minimum un contributeurs");
+        alert("vous devez choisir au minimum un responsable");
         return false;
     }
     if (countVotants <= 4){

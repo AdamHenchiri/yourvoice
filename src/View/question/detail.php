@@ -20,7 +20,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
 
         <div class="question_description">
             <label for="explication">Développement de la question</label>
-            <div > <?php  echo '<p> ' . htmlspecialchars($question->getExplication()) . '.</p>'; ?> </div>
+            <div class="container_dev"> <?php  echo '<p> ' . htmlspecialchars($question->getExplication()) . '.</p>'; ?> </div>
         </div>
 
 
