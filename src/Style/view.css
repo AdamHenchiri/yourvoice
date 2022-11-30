@@ -117,3 +117,7 @@ textarea{
     background-color: #212121;
     bottom: 0;
 }
+#id{
+    max-width : 100%;
+    height : auto;
+}
