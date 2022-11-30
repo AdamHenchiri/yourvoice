@@ -65,7 +65,7 @@
 </main>
 <footer>
     <div class="foot">
-        Forum de vote libre crée par l'équipe de choc (Mme.RATHIER Sylia, Mme.BETTINGER Sarah, M.HARRIBAUD Kim, M.HENCHIRI Adam).
+        Forum de vote libre crée par (Mme.RATHIER Sylia, Mme.BETTINGER Sarah, M.HARRIBAUD Kim, M.HENCHIRI Adam)
     </div>
 </footer>
 </body>

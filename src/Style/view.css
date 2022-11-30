@@ -74,7 +74,7 @@ nav{
     bottom: 0;
     height: 3px;
     width: 0%;
-    background-color: #2980b9;
+    background-color: cornflowerblue;
 }
 #menu li a::after{
     content: attr(data-hover);
@@ -114,6 +114,9 @@ textarea{
     padding-top: 10px;
     padding-bottom: 10px;
     color: white;
-    background-color: #212121;
+    background-color: cornflowerblue;
     bottom: 0;
+    font-family: sans-serif;
+
+
 }
