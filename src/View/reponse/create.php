@@ -57,7 +57,7 @@
 
 
                 <div class="container_votant">
-                    <label for="idCoAuteur ">Choisissir les
+                    <label for="idCoAuteur ">Choisissez les
                         co-auteurs</label>
                     <div id="affichevotant">
                     </div>
@@ -86,7 +86,7 @@
             <p>
 
             <p>
-                <input type="submit" value="Envoyer" />
+                    <input id="valider" type="submit" value="Créer" name="valider" />
             </p>
         </div>
     </div>
@@ -94,5 +94,6 @@
 
 
 </form>
+<script src="../src/js/app.js"></script>
 </body>
 </html>

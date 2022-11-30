@@ -58,7 +58,7 @@
 
                 <div class="container_votant_contributeur">
                     <div class="container_contributeur">
-                        <label for="organisateurs ">Choisissez les organisateurs</label>
+                        <label for="organisateurs ">Choisissez les responsables</label>
                         <div id="affichecontributeur">
 
                         </div>
