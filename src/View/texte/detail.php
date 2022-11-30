@@ -9,7 +9,6 @@
     <div class="container">
         <div class="container_creerquestion">
             <div class="titre">
-                <a id="boutonpublic" class="public"><i class="fa-solid fa-eye"></i> Public</a>
                 <h1 class="titre_section">REPONSE</h1>
             </div>
             <div class="question_description">

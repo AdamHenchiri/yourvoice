@@ -133,7 +133,7 @@ boutton.addEventListener("click", ()=>{
 });
 
 const listevotant = document.querySelectorAll("input[type=checkbox][name='idVotant[]']");
-const listecontributeur = document.querySelectorAll("input[type=checkbox][name='idContributeur[]']");
+const listecontributeur = document.querySelectorAll("input[type=checkbox][name='idResponsable[]']");
 
 console.log(listevotant)
 
@@ -157,11 +157,10 @@ function ajoutContributeur(name){
 for(e of listevotant){
     const contient = e;
     contient.addEventListener("change", ()=>{
-        console.log("coucou")
         if(contient.checked){
-            ajoutVotant(contient.value);
+            ajoutVotant(contient.id);
         }else{
-            document.getElementById( 'votant-' + contient.value).remove();
+            document.getElementById( 'votant-' + contient.id).remove();
         }
     });
 }
@@ -169,10 +168,11 @@ for(e of listevotant){
 for(c of listecontributeur){
     const contient1 = c;
     contient1.addEventListener("change", ()=>{
+        console.log("coucou");
         if(contient1.checked){
-            ajoutContributeur(contient1.value);
+            ajoutContributeur(contient1.id);
         }else{
-            document.getElementById('contr' + contient1.value).remove();
+            document.getElementById('contr' + contient1.id).remove();
         }
     });
 }

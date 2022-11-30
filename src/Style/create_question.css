@@ -135,6 +135,7 @@
     overflow: scroll;
     border: solid 1px darkgrey;
     border-radius: 5px;
+    overflow-x: hidden;
 }
 
 

@@ -10,6 +10,7 @@
     <link href="../src/Style/detail_question.css" rel="stylesheet">
     <link href="../src/Style/create_section.css" rel="stylesheet">
     <link href="../src/Style/alert.css" rel="stylesheet">
+    <link href="../src/Style/detail_section.css" rel="stylesheet">
 
     <title>YourVoice</title>
     <script src="https://kit.fontawesome.com/26e0d024d1.js" crossorigin="anonymous" defer></script>
@@ -46,7 +47,7 @@
           </div>-->
         <div class="container_menu">
         <ul id="menu">
-            <li class="active"><a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php"><img id="logo" src="../img/logo.gif"></a></li>
+            <li class="active"><a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php">YourVoice</a></li>
             <li><a href="frontController.php?action=readAll"><i class="fa-sharp fa-solid fa-circle-question"></i> Questions</a></li>
             <li><a href="frontController.php?action=create&controller=question"><i class="fa-solid fa-person-circle-question"></i> Créer question</a></li>
             <li><a href="frontController.php?action=readAll"><i class="fa-solid fa-clipboard-question"></i> Mes questions</a></li>

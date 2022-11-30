@@ -76,13 +76,13 @@
             {
             ?>
         <div class="checkbox">
-            <input type="checkbox" name="idResponsable[]" value="<?php echo $user->getLogin()?>">
+            <input type="checkbox" name="idResponsable[]" value="<?php echo $user->getIdUtilisateur()?>" id="<?php echo $user->getLogin()?>">
             <?php echo $user->getLogin()?>
         </div>
     <?php } }?>
 
             </div>
-                <p id="minimum">Min : 5 contributeurs</p>
+                <p id="minimum">Min : 1 Responsable</p>
             </div>
 
 
@@ -103,7 +103,7 @@
             {
             ?>
         <div class="checkbox">
-            <input type="checkbox"  name="idVotant[]" value="<?php echo $user->getLogin()?>">
+            <input type="checkbox"  name="idVotant[]" value="<?php echo $user->getIdUtilisateur()?>" id="<?php echo $user->getLogin()?>">
             <?php echo $user->getLogin()?>
         </div>
     <?php } }?>
