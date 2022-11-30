@@ -36,18 +36,18 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
   // echo '<p> Développement de la question :  ' . htmlspecialchars($question->getExplication()) . '.</p>';
         echo '<div class="date_redac">';
         echo '<div class="date_all">';
-echo '<input readonly> Date de début de la rédaction :  ' . date('d-m-Y', strtotime($dateDebutRedaction)) . '.</input>';
+echo '<p> Date de début de la rédaction :  ' . '<p id="contour_date">' . date('d/m/Y', strtotime($dateDebutRedaction)) . '</p>' . '</p>';
     echo '</div>';
     echo '<div class="date_all">';
-echo '<p> Date de fin de la rédaction :  ' .  date('d-m-Y', strtotime($dateFinRedaction)) . '.</p>';
+echo '<p> Date de fin de la rédaction :  ' . '<p id="contour_date">' . date('d/m/Y', strtotime($dateFinRedaction)) . '</p>' . '</p>';
     echo '</div>';
 echo '</div>';
 echo '<div class="date_redac">';
 echo '<div class="date_all">';
-echo '<p> Date de début des votes :  ' .  date('d-m-Y', strtotime($dateDebutVote)) . '.</p>';
+echo '<p> Date de début des votes :  ' . '<p id="contour_date">' . date('d/m/Y', strtotime($dateDebutVote)) . '</p>' . '</p>';
 echo '</div>';
 echo '<div class="date_all">';
-echo '<p> Date de fin des votes :  ' .  date('d-m-Y', strtotime($dateFinVote)) . '.</p>';
+echo '<p> Date de fin des votes :  ' . '<p id="contour_date">' . date('d/m/Y', strtotime($dateFinVote)) . '</p>' . '</p>';
 echo '</div>';
 echo '</div>'
 ?>
