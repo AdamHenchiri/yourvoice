@@ -6,10 +6,13 @@
 </head>
 <body>
 <form method="post" action="#Blank">
-    <fieldset>
-
-        <legend>réponse :</legend>
-
+    <div class="container">
+        <div class="container_creerquestion">
+            <div class="titre">
+                <a id="boutonpublic" class="public"><i class="fa-solid fa-eye"></i> Public</a>
+                <h1 class="titre_section">REPONSE</h1>
+            </div>
+            <div class="question_description">
         <?php
 
         use App\YourVoice\Model\Repository\SectionRepository;
@@ -19,33 +22,27 @@
             if ($section){                    ?>
 
                     <input type="hidden" value="<?php echo $section->getIdSection()?>" name="id_section[]" >
-            <p>
-            <label for="titre">Titre</label> :
+
+                <label class="ecart_texte" for="titre">Section : <NOBR class = "texte_des"><?php
+                        echo $section->getTitre();
+                        ?>
+                    </NOBR>
+                </label>
+                <label class="ecart_texte" for="description">Description : <NOBR class = "texte_des"><?php
+                        echo $section->getTexteExplicatif();
+                        ?>
+                    </NOBR>
+                </label>
+                <label for="texte[]">Texte</label>
+
+                <textarea name="texte[]" id="texte[]" cols="90"  rows="6"><?php echo $texte->getTexte() ?></textarea>
+                <p>
+
                 </p>
-                <p id="titre">
-                    <?php
-                echo $section->getTitre();
-                ?>
-                </p>
-        <p>
-            <label for="description">Description</label> :
-
-                <!--<input type="text" placeholder="macron" name="description" id="description" required/>-->
-        </p>
-                <p id="description">
-                <?php
-                echo $section->getTexteExplicatif();
-                ?>
-                </p>
-
-        <p>
-            <label for="texte[]">Texte</label> :
-
-        </p>
-            <textarea name="texte[]" id="texte[]" cols="90"  rows="6" readonly><?php echo $texte->getTexte() ?></textarea>
-
         <?php }} ?>
-    </fieldset>
+            </div>
+        </div>
+
 </form>
 </body>
 </html>
