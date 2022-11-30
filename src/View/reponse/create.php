@@ -10,12 +10,12 @@
         <div class="container_creerquestion">
             <div class="titre">
                 <a id="boutonpublic" class="public"><i class="fa-solid fa-eye"></i> Public</a>
-                <h1>CRÉER UNE REPONSE</h1>
+                <h1 class="titre_section">CRÉER UNE REPONSE</h1>
             </div>
 
             <input type="hidden" value="<?php echo $_GET["id_reponse"]?>" name="id_reponse" >
             <input type="hidden" value="<?php echo $_GET["id_question"]?>" name="id_question" >
-
+            <div class="question_description">
             <?php
 
             use App\YourVoice\Model\Repository\SectionRepository;
@@ -44,17 +44,24 @@
 
 
 
-                    <p>
+
                         <label for="texte[]">Texte</label>
 
-                    </p>
+
                     <textarea name="texte[]" id="texte[]" cols="90"  rows="6"></textarea>
 
                 <?php }}
             ?>
 
-            <p>
-                <label for="idCoAuteur ">Choisissez les co-auteurs</label> :
+                <div class="separateur1"></div>
+
+
+                <div class="container_votant">
+                    <label for="idCoAuteur ">Choisissir les
+                        co-auteurs</label>
+                    <div id="affichevotant">
+                    </div>
+                    <div class="scroll_votant">
 
                 <?php
 
@@ -69,14 +76,13 @@
                 <?php echo $user->getLogin()?>
             </div>
         <?php } }?>
-            </p>
 
+                </div>
+                </div>
 
             <p>
                 <label for="id_utilisateur">Serra rempli automatiquement avec les sessions</label> :
                 <input type="int" placeholder="serra rempli automatiquement avec les sessions" name="id_utilisateur" id="id_utilisateur" required/>
-
-
             <p>
 
             <p>
