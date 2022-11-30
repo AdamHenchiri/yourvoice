@@ -86,7 +86,7 @@
                         </div>
             <?php }}?>
                         </div>
-                        <p id="minimum">Min : 5 contributeurs</p>
+                        <p id="minimum">Min : 1 responsable</p>
                     </div>
 
 

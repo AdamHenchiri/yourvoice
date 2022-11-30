@@ -9,6 +9,7 @@
     <link href="../src/Style/liste_question.css" rel="stylesheet">
     <link href="../src/Style/detail_question.css" rel="stylesheet">
     <link href="../src/Style/create_section.css" rel="stylesheet">
+    <link href="../src/Style/alert.css" rel="stylesheet">
 
     <title>YourVoice</title>
     <script src="https://kit.fontawesome.com/26e0d024d1.js" crossorigin="anonymous" defer></script>
