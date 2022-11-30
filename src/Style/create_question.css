@@ -190,7 +190,7 @@
     border-bottom: solid 1px white;
     padding-bottom: 5px;
     padding-top: 5px;
-    background-color: #acdcee;
+    background-color: #f5efe6;
     color: black;
     font-weight: bold;
 }
@@ -210,7 +210,7 @@
 }
 
 #affichevotant div{
-   background-color: #2980b9;
+   background-color: #f5efe6;
     color: white;
     border-radius: 10px;
     font-size: 13px;
@@ -227,7 +227,7 @@
 }
 
 #affichecontributeur div{
-    background-color: #2980b9;
+    background-color: #f5efe6;
     color: white;
     border-radius: 10px;
     font-size: 13px;
@@ -282,7 +282,7 @@
 
 .container_section textarea{
     width: 100%;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 
 .container_section{

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>detail voiture</title>
+    <title>detail question</title>
 </head>
 <body>
 <?php
@@ -10,10 +10,25 @@ $dateDebutRedaction = htmlspecialchars($question->getDateDebutRedaction());
 $dateFinRedaction = htmlspecialchars($question->getDateFinRedaction());
 $dateDebutVote = htmlspecialchars($question->getDateDebutVote());
 $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
+?>
+
+<div class="container">
+    <div class="container_creerquestion">
+        <div class="titre">
+            <h1><?php  echo htmlspecialchars($question->getIntitule()) ?></h1>
+        </div>
+
+        <div class="question_description">
+            <label for="explication">Développement de la question</label>
+            <div > <?php  echo '<p> ' . htmlspecialchars($question->getExplication()) . '.</p>'; ?> </div>
+        </div>
+
+
+        <?php
 //echo date('d-m-Y', strtotime($date));
 //echo date('d-m-Y',htmlspecialchars($question->getDateDebutRedaction()));
-echo '<p> Intitulé : ' . htmlspecialchars($question->getIntitule()) . '.</p>';
-echo '<p> Développement de la question :  ' . htmlspecialchars($question->getExplication()) . '.</p>';
+//echo '<p> Intitulé : ' . htmlspecialchars($question->getIntitule()) . '.</p>';
+  // echo '<p> Développement de la question :  ' . htmlspecialchars($question->getExplication()) . '.</p>';
 echo '<p> Date de début de la rédaction :  ' . date('d-m-Y', strtotime($dateDebutRedaction)) . '.</p>';
 echo '<p> Date de fin de la rédaction :  ' .  date('d-m-Y', strtotime($dateFinRedaction)) . '.</p>';
 echo '<p> Date de début des votes :  ' .  date('d-m-Y', strtotime($dateDebutVote)) . '.</p>';

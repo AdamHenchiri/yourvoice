@@ -15,10 +15,10 @@
 
         <div class="question_description">
             <label for="intitule">Intitulé</label>
-            <textarea placeholder="Titre de la question" name="intitule" id="intitule" rows="10" required></textarea>
+            <textarea placeholder=" Titre de la question" name="intitule" id="intitule" rows="10" required></textarea>
 
             <label for="explication">Développement de la question</label>
-            <textarea placeholder="Pour aller plus loin..." name="explication" id="explication" cols="10" rows="10" required></textarea>
+            <textarea placeholder=" Pour aller plus loin..." name="explication" id="explication" cols="10" rows="10" required></textarea>
         </div>
 
         <div class="separateur1">
