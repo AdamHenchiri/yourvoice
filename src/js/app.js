@@ -18,7 +18,10 @@ document.getElementById("creationQuestion").addEventListener("focus",function (e
 })
 */
 var d = new Date();
-document.getElementById("dateDebut_redaction").valueAsDate=d;
+console.log(document.getElementById("dateDebut_redaction").valueOf());
+if (document.getElementById("dateDebut_redaction").valueAsDate==null) {
+    document.getElementById("dateDebut_redaction").valueAsDate = d;
+}
 
 function validation()
 {

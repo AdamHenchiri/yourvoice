@@ -15,6 +15,7 @@ use App\YourVoice\Model\Repository\TexteRepository;
 use App\YourVoice\Model\Repository\VotantRepository;
 use http\Env\Response;
 use App\YourVoice\Model\DataObject\CoAuteur;
+use App\YourVoice\Lib\MessageFlash;
 
 
 
@@ -106,12 +107,15 @@ class ControllerReponse extends GenericController
                 }
             }
         }
+        echo $test;
         if ($test==true){
             echo "La réponse a bien été créée !";
             ControllerQuestion::readAll();
         }else{
-            echo "echec de la création !";
-            ControllerQuestion::readAll();
+            MessageFlash::ajouter("warning","la création a échouer");
+            $url ="frontController.php?controller=reponse&action=update&id_reponse=".$id_reponse."&id_question=".$id_question;
+            header("Location: $url");
+            exit();
         }
     }
 
