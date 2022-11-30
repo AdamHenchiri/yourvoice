@@ -91,8 +91,9 @@ function confirmationSection() {
 let i = 1;
 function createSectionRemoveButton() {
     let removeButton = document.createElement("input")
+    removeButton.setAttribute("class", "bouttonsupp")
     removeButton.setAttribute("type", "button");
-    removeButton.setAttribute("value", "supprimer cette section");
+    removeButton.setAttribute("value", "Supprimer cette section");
     removeButton.setAttribute("onclick", "removeSection(" + i + ")");
     document
         .getElementById("section-" + i)
@@ -112,4 +113,66 @@ function ajouterBtn(){
     const sections = document.getElementById("sections");
     sections.appendChild(sectionClone);
    createSectionRemoveButton();
+}
+
+var ispublic = true;
+var boutton = document.getElementById("boutonpublic")
+boutton.addEventListener("click", ()=>{
+    if(ispublic){
+        boutton.classList.add("priver");
+        boutton.classList.remove("ispublic");
+        ispublic = false;
+        boutton.innerHTML = '<i class="fa-solid fa-eye-slash"></i> Privé';
+
+    }else{
+        boutton.classList.add("ispublic");
+        boutton.classList.remove("priver");
+        ispublic = true;
+        boutton.innerHTML = '<i class="fa-solid fa-eye"></i> Public';
+    }
+});
+
+const listevotant = document.querySelectorAll("input[type=checkbox][name='idVotant[]']");
+const listecontributeur = document.querySelectorAll("input[type=checkbox][name='idContributeur[]']");
+
+console.log(listevotant)
+
+function ajoutVotant(name){
+    const div = document.createElement("div");
+    div.innerHTML = name;
+    div.id = name;
+    document.getElementById("affichevotant").appendChild(div);
+
+}
+
+function ajoutContributeur(name){
+    const div = document.createElement("div");
+    div.innerHTML = name;
+    div.id = name;
+    document.getElementById("affichecontributeur").appendChild(div);
+
+}
+
+
+for(e of listevotant){
+    const contient = e;
+    contient.addEventListener("change", ()=>{
+        console.log("coucou")
+        if(contient.checked){
+            ajoutVotant(contient.value);
+        }else{
+            document.getElementById(contient.value).remove();
+        }
+    });
+}
+
+for(c of listecontributeur){
+    const contient1 = c;
+    contient1.addEventListener("change", ()=>{
+        if(contient1.checked){
+            ajoutContributeur(contient1.value);
+        }else{
+            document.getElementById(contient1.value).remove();
+        }
+    });
 }

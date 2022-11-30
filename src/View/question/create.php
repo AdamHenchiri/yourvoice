@@ -137,13 +137,10 @@
 
 
             <input id="valider" type="submit" value="Créer" name="valider" />
-
-</form>
-<script src="../src/js/app.js"></script>
-
     </div>
 </div>
 </form>
+
 <script src="../src/js/app.js"></script>
 <script>
     var public = true;

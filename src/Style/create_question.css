@@ -320,9 +320,17 @@
 }
 
 .bouttonsupp{
-    border:solid 2px green;
+    border: none;
+    background: none;
+    text-decoration: underline;
+    transition-duration: 0.3s;
+    cursor: pointer;
 }
 
+.bouttonsupp:hover{
+    transition-duration: 0.3s;
+    opacity: 0.7;
+}
 .sectionplus{
     border: solid 2px yellow;
 }
