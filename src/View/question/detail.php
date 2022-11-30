@@ -28,18 +28,30 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
         </div>
 
 
-
+    <div class="container_date">
         <?php
 //echo date('d-m-Y', strtotime($date));
 //echo date('d-m-Y',htmlspecialchars($question->getDateDebutRedaction()));
 //echo '<p> Intitulé : ' . htmlspecialchars($question->getIntitule()) . '.</p>';
   // echo '<p> Développement de la question :  ' . htmlspecialchars($question->getExplication()) . '.</p>';
-echo '<p> Date de début de la rédaction :  ' . date('d-m-Y', strtotime($dateDebutRedaction)) . '.</p>';
+        echo '<div class="date_redac">';
+        echo '<div class="date_all">';
+echo '<input readonly> Date de début de la rédaction :  ' . date('d-m-Y', strtotime($dateDebutRedaction)) . '.</input>';
+    echo '</div>';
+    echo '<div class="date_all">';
 echo '<p> Date de fin de la rédaction :  ' .  date('d-m-Y', strtotime($dateFinRedaction)) . '.</p>';
+    echo '</div>';
+echo '</div>';
+echo '<div class="date_redac">';
+echo '<div class="date_all">';
 echo '<p> Date de début des votes :  ' .  date('d-m-Y', strtotime($dateDebutVote)) . '.</p>';
+echo '</div>';
+echo '<div class="date_all">';
 echo '<p> Date de fin des votes :  ' .  date('d-m-Y', strtotime($dateFinVote)) . '.</p>';
+echo '</div>';
+echo '</div>'
 ?>
-
+    </div>
 <div class="separateur1">
         </div>
 

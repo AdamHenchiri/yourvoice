@@ -160,47 +160,6 @@
         }
     });
 
-    const listevotant = document.querySelectorAll("input[type=checkbox][name='idVotant[]']");
-    const listecontributeur = document.querySelectorAll("input[type=checkbox][name='idContributeur[]']");
-
-    function ajoutVotant(name){
-        const div = document.createElement("div");
-        div.innerHTML = name;
-        div.id = name;
-        document.getElementById("affichevotant").appendChild(div);
-
-    }
-
-    function ajoutContributeur(name){
-        const div = document.createElement("div");
-        div.innerHTML = name;
-        div.id = name;
-        document.getElementById("affichecontributeur").appendChild(div);
-
-    }
-
-
-    for(e of listevotant){
-        const contient = e;
-        contient.addEventListener("change", ()=>{
-            if(contient.checked){
-                ajoutVotant(contient.value);
-            }else{
-                document.getElementById(contient.value).remove();
-            }
-        });
-    }
-
-    for(c of listecontributeur){
-        const contient1 = c;
-        contient1.addEventListener("change", ()=>{
-            if(contient1.checked){
-                ajoutContributeur(contient1.value);
-            }else{
-                document.getElementById(contient1.value).remove();
-            }
-        });
-    }
 
 </script>
 

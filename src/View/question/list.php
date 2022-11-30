@@ -10,7 +10,7 @@
 <?php
 echo "<div class='titrelistequestion'>";
 echo "<div id='apparait' class='cacher'>";
-echo "<a id='nombrequestion'>Nombre de questions<a>" ;
+echo "<a id='nombrequestion'>Nombre de questions<a>";
 echo "<a>(clickez !)</a>";
 echo "</div>";
 echo "<h1>Questions</h1>";

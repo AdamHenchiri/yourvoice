@@ -140,7 +140,7 @@ console.log(listevotant)
 function ajoutVotant(name){
     const div = document.createElement("div");
     div.innerHTML = name;
-    div.id = name;
+    div.id = 'votant-' + name;
     document.getElementById("affichevotant").appendChild(div);
 
 }
@@ -148,7 +148,7 @@ function ajoutVotant(name){
 function ajoutContributeur(name){
     const div = document.createElement("div");
     div.innerHTML = name;
-    div.id = name;
+    div.id = 'contr' + name;
     document.getElementById("affichecontributeur").appendChild(div);
 
 }
@@ -161,7 +161,7 @@ for(e of listevotant){
         if(contient.checked){
             ajoutVotant(contient.value);
         }else{
-            document.getElementById(contient.value).remove();
+            document.getElementById( 'votant-' + contient.value).remove();
         }
     });
 }
@@ -172,7 +172,7 @@ for(c of listecontributeur){
         if(contient1.checked){
             ajoutContributeur(contient1.value);
         }else{
-            document.getElementById(contient1.value).remove();
+            document.getElementById('contr' + contient1.value).remove();
         }
     });
 }
