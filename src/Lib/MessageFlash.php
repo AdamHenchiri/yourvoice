@@ -32,22 +32,32 @@ class MessageFlash
     // Attention : la lecture doit détruire le message
     public static function lireMessages(string $type): array
     {
-        if (self::contientMessage($type)) {
-            $tab = Session::getInstance()->lire(static::$cleFlash);
-            $res = $tab[$type];
-            unset($tab[$type]);
-            Session::getInstance()->enregistrer(static::$cleFlash, $tab);
-            return $res;
+        if (!self::contientMessage($type)) {
+            return [];
         }
-        return [];
+
+        // get message from the session
+        $flash_message = Session::getInstance()->lire(static::$cleFlash);
+        $res=$flash_message[$type];
+
+        // delete the flash message
+        unset($flash_message[$type]);
+
+        // pour remettre les autres
+        Session::getInstance()->enregistrer(static::$cleFlash,$flash_message);
+
+        // display the flash message
+        return ($res);
     }
 
     public static function lireTousMessages() : array{
-        $res = [];
-        foreach(static::$type as $k) {
-            $res[$k] = self::lireMessages($k);
-        }
-        return $res;
+        $tab=[
+            "success"=>self::lireMessages("success"),
+            "info"=>self::lireMessages("info"),
+            "warning"=>self::lireMessages("warning"),
+            "danger"=>self::lireMessages("danger")
+        ];
+        return $tab;
     }
 
 

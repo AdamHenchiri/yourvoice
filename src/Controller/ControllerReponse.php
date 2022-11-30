@@ -10,7 +10,6 @@ use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\DataObject\Reponse ;
 use App\YourVoice\Model\DataObject\Texte ;
-
 use App\YourVoice\Model\Repository\TexteRepository;
 use App\YourVoice\Model\Repository\VotantRepository;
 use http\Env\Response;
@@ -227,7 +226,10 @@ class ControllerReponse extends GenericController
                 "cheminVueBody" => "texte/detail.php",   //"redirige" vers la vue
                 "textes"=>$textes]);
         }else{
-           echo "pas encore de réponses";
+            MessageFlash::ajouter("warning","pas encore de réponses");
+            $url ="frontController.php?controller=question&action=readAll";
+            header("Location: $url");
+            exit();
         }
     }
 
