@@ -8,6 +8,8 @@
     <link href="../src/Style/create_question.css" rel="stylesheet">
     <link href="../src/Style/liste_question.css" rel="stylesheet">
     <link href="../src/Style/detail_question.css" rel="stylesheet">
+    <link href="../src/Style/create_section.css" rel="stylesheet">
+    <link href="../src/Style/alert.css" rel="stylesheet">
 
     <title>YourVoice</title>
     <script src="https://kit.fontawesome.com/26e0d024d1.js" crossorigin="anonymous" defer></script>
@@ -57,6 +59,16 @@
     </nav>
 </header>
 <main>
+    <p>
+        <?php
+        foreach ($messageFlash as $type=>$messages){
+            foreach ($messages as $message){
+                echo "<div class='alert alert-$type'>$message</div>";
+            }
+        }
+        ?>
+    </p>
+
     <div class="container_main">
     <?php
     require __DIR__ . "/{$cheminVueBody}";

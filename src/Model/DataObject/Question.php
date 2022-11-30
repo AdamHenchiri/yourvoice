@@ -24,7 +24,7 @@ class Question extends AbstractDataObject
      * @param string $dateFin_vote
      * @param int $id_organisateur
      */
-    public function __construct(?int $id_question,string $intitule, string $explication, string $dateDebut_redaction, string $dateFin_redaction, string $dateDebut_vote, string $dateFin_vote, int $id_organisateur  )
+    public function __construct(?int $id_question,string $intitule, string $explication, string $dateDebut_redaction, string $dateFin_redaction, string $dateDebut_vote, string $dateFin_vote, int $id_organisateur )
     {
         $this->id_question = $id_question;
         $this->intitule = $intitule;

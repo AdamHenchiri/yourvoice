@@ -15,6 +15,7 @@ use App\YourVoice\Model\Repository\TexteRepository;
 use App\YourVoice\Model\Repository\VotantRepository;
 use http\Env\Response;
 use App\YourVoice\Model\DataObject\CoAuteur;
+use App\YourVoice\Lib\MessageFlash;
 
 
 
@@ -223,7 +224,10 @@ class ControllerReponse extends GenericController
                 "cheminVueBody" => "texte/detail.php",   //"redirige" vers la vue
                 "textes"=>$textes]);
         }else{
-           echo "pas encore de réponses";
+            MessageFlash::ajouter("warning","pas encore de réponses");
+            $url ="frontController.php?controller=question&action=readAll";
+            header("Location: $url");
+            exit();
         }
     }
 

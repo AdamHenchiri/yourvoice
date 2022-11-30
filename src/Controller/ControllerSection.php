@@ -2,6 +2,7 @@
 
 namespace App\YourVoice\Controller;
 
+use App\YourVoice\Lib\MessageFlash;
 use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\SectionRepository;
@@ -49,10 +50,14 @@ class ControllerSection extends GenericController
     public static function updated() : void {
         $v=new Section($_POST["id_section"],$_POST["titre"],$_POST["texte_explicatif"],$_POST["id_question"]);
         (new SectionRepository())->update($v);
-        self::afficheVue('/view.php', ["pagetitle" => "modification de section",
+        MessageFlash::ajouter("success","pas encore de réponses");
+        $url ="frontController.php?controller=question&action=read&id_question=" . $_POST["id_question"];
+        header("Location: $url");
+        exit();
+        /*self::afficheVue('/view.php', ["pagetitle" => "modification de section",
             "cheminVueBody" => "section/updated.php" ,  //"redirige" vers la vue
             "v"=>htmlspecialchars($_POST['id_section']),
-        ]);
+        ]);*/
         //self::readAll();
     }
 

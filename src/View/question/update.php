@@ -58,7 +58,7 @@
 
                 <div class="container_votant_contributeur">
                     <div class="container_contributeur">
-                        <label for="organisateurs ">Choisissez les organisateurs</label>
+                        <label for="organisateurs ">Choisissez les responsables</label>
                         <div id="affichecontributeur">
 
                         </div>
@@ -86,7 +86,7 @@
                         </div>
             <?php }}?>
                         </div>
-                        <p id="minimum">Min : 5 contributeurs</p>
+                        <p id="minimum">Min : 1 responsable</p>
                     </div>
 
 
