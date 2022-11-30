@@ -58,6 +58,16 @@
     </nav>
 </header>
 <main>
+    <p>
+        <?php
+        foreach ($messageFlash as $type=>$messages){
+            foreach ($messages as $message){
+                echo "<div class='alert alert-$type'>$message</div>";
+            }
+        }
+        ?>
+    </p>
+
     <div class="container_main">
     <?php
     require __DIR__ . "/{$cheminVueBody}";
