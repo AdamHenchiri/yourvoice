@@ -7,6 +7,11 @@
     <link href="../src/Style/inscription.css" rel="stylesheet">
     <link href="../src/Style/create_question.css" rel="stylesheet">
     <link href="../src/Style/liste_question.css" rel="stylesheet">
+    <link href="../src/Style/detail_question.css" rel="stylesheet">
+    <link href="../src/Style/create_section.css" rel="stylesheet">
+    <link href="../src/Style/alert.css" rel="stylesheet">
+    <link href="../src/Style/detail_section.css" rel="stylesheet">
+
     <title>YourVoice</title>
     <script src="https://kit.fontawesome.com/26e0d024d1.js" crossorigin="anonymous" defer></script>
     <meta name="description" content="site de vote YourVoice.com">
@@ -43,11 +48,11 @@
         <div class="container_menu">
         <ul id="menu">
             <li class="active"><a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php">YourVoice</a></li>
-            <li><a href="frontController.php?action=readAll&controller=question"><i class="fa-sharp fa-solid fa-circle-question"></i> Questions</a></li>
-            <li><a href="frontController.php?controller=utilisateur&action=readAll"><i class="fa-solid fa-person-circle-question"></i> Créer question</a></li>
-            <li><a href="frontController.php?action=create&controller=question"><i class="fa-solid fa-clipboard-question"></i> Mes questions</a></li>
+            <li><a href="frontController.php?action=readAll"><i class="fa-sharp fa-solid fa-circle-question"></i> Questions</a></li>
+            <li><a href="frontController.php?action=create&controller=question"><i class="fa-solid fa-person-circle-question"></i> Créer question</a></li>
+            <li><a href="frontController.php?action=readAll"><i class="fa-solid fa-clipboard-question"></i> Mes questions</a></li>
             <li><a href="frontController.php?controller=utilisateur&action=connexion"><i class="fa-solid fa-check-to-slot"></i> Vote</a></li>
-            <li><a href="frontController.php?controller=question&action=create"><i class="fa-solid fa-user"></i> Mon compte</a></li>
+            <li><a href="frontController.php?controller=utilisateur&action=connexion"><i class="fa-solid fa-user"></i> Mon compte</a></li>
         </ul>
         </div>
     
@@ -73,7 +78,7 @@
 </main>
 <footer>
     <div class="foot">
-        Forum de vote libre crée par l'équipe de choc (Mme.RATHIER Sylia, Mme.BETTINGER Sarah, M.HARRIBAUD Kim, M.HENCHIRI Adam).
+        Forum de vote libre crée par (Mme.RATHIER Sylia, Mme.BETTINGER Sarah, M.HARRIBAUD Kim, M.HENCHIRI Adam)
     </div>
 </footer>
 </body>

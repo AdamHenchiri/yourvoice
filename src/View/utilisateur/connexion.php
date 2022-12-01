@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>connexion</title>
-</head>
+
 
 <form method="post" action="frontController.php?controller=utilisateur&action=connected">
     <div class="container">
@@ -26,6 +21,4 @@
     </div>
 </form>
 
-</div>
-</body>
-</html>
+

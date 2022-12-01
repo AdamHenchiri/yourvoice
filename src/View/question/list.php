@@ -1,21 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Liste des questions</title>
-</head>
-<body>
+
 <div class="container_liste_question">
     <div class="container_question">
 <?php
-echo "<div class='titrelistequestion'>";
-echo "<div id='apparait' class='cacher'>";
-echo "<a id='nombrequestion'>Nombre de questions<a>" ;
-echo "<a>(clickez !)</a>";
+echo "<div class='container_question1'>";
+    echo "<div class='titrelistequestion'>";
+        echo "<div id='apparait' class='cacher'>";
+            echo "<a id='nombrequestion'>Nombre de questions<a>";
+            echo "<a>(clickez !)</a>";
+        echo "</div>";
+        echo "<h1>Questions</h1>";
+    echo "</div>";
 echo "</div>";
-echo "<h1>Questions</h1>";
-echo "</div>";
-
 
 foreach ($questions as $question) {
     $questNonFormater = $question->getIdQuestion();
@@ -27,7 +22,6 @@ foreach ($questions as $question) {
     echo "<a href=\"frontController.php?controller=question&action=update&id_question={$questFormater}\"> <i class='fa-solid fa-pencil'></i> </a>";
     echo "<a id=\"confirmation\" onclick=\"return confirmation()\" href=\"frontController.php?controller=question&action=delete&id_question={$questFormater}\"> <i class='fa-solid fa-trash'></i></a>";
     echo "</div>";
-    echo "<div class='separateur1'></div>";
     echo "</div>";
 //onclick=\"validation()\"
 }
@@ -54,5 +48,4 @@ foreach ($questions as $question) {
         }
     });
 </script>
-</body>
-</html>
+

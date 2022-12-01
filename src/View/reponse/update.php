@@ -1,15 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Réponses</title>
-</head>
-<body>
-<form method="post" action="frontController.php?controller=reponse&action=updated">
-    <fieldset>
-        <legend>Creéation d'une réponse :</legend>
-        <input type="hidden" value="<?php echo $_GET["id_reponse"]?>" name="id_question" >
 
+<form method="post" action="frontController.php?controller=reponse&action=updated">
+
+    <div class="container">
+        <div class="container_creerquestion">
+            <div class="titre">
+                <a id="boutonpublic" class="public"><i class="fa-solid fa-eye"></i> Public</a>
+                <h1 class="titre_section">MODIFIER UNE REPONSE</h1>
+            </div>
+
+        <input type="hidden" value="<?php echo $_GET["id_reponse"]?>" name="id_question" >
+            <div class="question_description">
         <?php
 
         use App\YourVoice\Model\Repository\SectionRepository;
@@ -17,36 +17,32 @@
         $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
         if ($sections){
             foreach ($sections as $section){ ?>
-                <p>
-                    <label for="titre">Titre</label> :
-                </p>
-                <p id="titre">
-                    <?php
-                    echo $section->getTitre();
-                    ?>
-                </p>
-                <p>
-                    <label for="description">Description</label> :
-                </p>
-                <p id="description">
-                    <?php
-                    echo $section->getTexteExplicatif();
-                    ?>
-                </p>
+                <label class="ecart_texte" for="titre">Section : <NOBR class = "texte_des"><?php
+                        echo $section->getTitre();
+                        ?>
+                    </NOBR>
+                </label>
+                <label class="ecart_texte" for="description">Description : <NOBR class = "texte_des"><?php
+                        echo $section->getTexteExplicatif();
+                        ?>
+                    </NOBR>
+                </label>
+                <label for="texte">Texte</label>
+                <textarea name="texte" id="texte" cols="90"  rows="6"></textarea>
 
-                <p>
+               <!-- <p>
                     <label for="texte">Texte</label> :
 
                 </p>
-                <textarea name="texte" id="texte" cols="90"  rows="6"></textarea>;
+                <textarea name="texte" id="texte" cols="90"  rows="6"></textarea>;-->
 
             <?php }}
         ?>
-
+            </div>
         <p>
-            <input type="submit" value="Envoyer" />
+            <input id="valider" type="submit" value="Enregustrer" name="valider" />
         </p>
-    </fieldset>
+
 </form>
-</body>
-</html>
+<script src="../src/js/app.js"></script>
+

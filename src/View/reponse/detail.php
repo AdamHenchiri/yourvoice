@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Reponse </title>
-</head>
-<body>
+
 <?php
 
 
@@ -47,6 +41,4 @@ echo "<li><a href=\"frontController.php?controller=reponse&action=create&id_ques
 
 
 ?>
-</body>
 <script src="../src/js/app.js"></script>
-</html><?php

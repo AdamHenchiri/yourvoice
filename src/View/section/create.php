@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Créer Section</title>
-</head>
-<body>
+
 <form method="post" action="frontController.php?controller=section&action=created">
     <fieldset id="sections">
         <legend>Creer une section :</legend>
@@ -24,6 +18,4 @@
 </form>
 
 
-</body>
-</html>
 

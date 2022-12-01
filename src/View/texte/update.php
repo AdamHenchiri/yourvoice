@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Réponses</title>
-</head>
-<body>
-<form method="post" action="frontController.php?controller=reponse&action=updated">
-    <fieldset>
 
-        <legend>réponse :</legend>
+<form method="post" action="frontController.php?controller=reponse&action=updated">
+    <div class="container">
+        <div class="container_creerquestion">
+            <div class="titre">
+                <a id="boutonpublic" class="public"><i class="fa-solid fa-eye"></i> Public</a>
+                <h1 class="titre_section">MODIFIER UNE REPONSE</h1>
+            </div>
+            <div class="question_description">
         <?php
 
         use App\YourVoice\Model\Repository\SectionRepository;
@@ -20,35 +18,34 @@
                 <input type="hidden" value="<?php echo $section->getIdQuestion()?>" name="id_question" >
 
                 <input type="hidden" value="<?php echo $section->getIdSection()?>" name="id_section[]" >
-                <p>
-                    <label for="titre">Titre</label> :
-                </p>
-                <p id="titre">
-                    <?php
-                    echo $section->getTitre();
-                    ?>
-                </p>
-                <p>
-                    <label for="description">Description</label> :
 
-                    <!--<input type="text" placeholder="macron" name="description" id="description" required/>-->
-                </p>
-                <p id="description">
-                    <?php
-                    echo $section->getTexteExplicatif();
-                    ?>
-                </p>
+                <label class="ecart_texte" for="titre">Section : <NOBR class = "texte_des"><?php
+                        echo $section->getTitre();
+                        ?>
+                    </NOBR>
+                </label>
+                <label class="ecart_texte" for="description">Description : <NOBR class = "texte_des"><?php
+                        echo $section->getTexteExplicatif();
+                        ?>
+                    </NOBR>
+                </label>
+                <label for="texte[]">Texte</label>
 
-                <p>
-                    <label for="texte[]">Texte</label> :
-
-                </p>
                 <textarea name="texte[]" id="texte[]" cols="90"  rows="6" ><?php echo $texte->getTexte() ?></textarea>
             <?php                $coauteurs=(new \App\YourVoice\Model\Repository\CoauteurRepository())->selectWhere("id_reponse",$texte->getIdReponse());
 
             }} ?>
-        <p>
-            <label for="idCoAuteur ">Choisissez les co-auteurs</label> :
+
+                <div class="separateur1"></div>
+
+
+                <div class="container_votant">
+                    <label for="idCoAuteur ">Choisissez les
+                        co-auteurs</label>
+                    <div id="affichevotant">
+                    </div>
+                    <div class="scroll_votant">
+
 
             <?php
 
@@ -71,20 +68,18 @@
         <?php }?>
 
     <?php  }}?>
-        </p>
+                </div>
+            </div>
 
 
         <p>
             <label for="id_utilisateur">Serra rempli automatiquement avec les sessions</label> :
             <input type="int" placeholder="serra rempli automatiquement avec les sessions" name="id_utilisateur" id="id_utilisateur" required/>
-
-
         <p>
 
         <p>
-            <input type="submit" value="Envoyer" />
+                <input id="valider" type="submit" value="Enregistrer" name="valider" />
         </p>
-    </fieldset>
+        </div>
 </form>
-</body>
-</html>
+
