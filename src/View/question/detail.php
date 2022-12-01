@@ -106,10 +106,20 @@ foreach ($reponses as $reponse) {
     $repNonFormater = $reponse->getIdRponses();
     $repFormater = rawurlencode($repNonFormater);
 
-    echo "<li><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> La réponse ".  htmlspecialchars ( $reponse->getIdRponses() ) . " </a></li> ";
-    echo "<li><a href=\"frontController.php?controller=reponse&action=update&id_reponse={$repFormater}&id_question={$idQuestion}\"> ----->Créer/Mettre à jour la réponses<--------- </a></li>      ";
-    echo "<li><a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> ----->Supprimer cette réponse<--------- </a></li>      ";
-    echo "--------------------------------------------------------------------------\n";
+    ?>
+    <div class="titre">
+    <?php echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> La réponse ".  htmlspecialchars ( $reponse->getIdRponses() ) . " </a></h1> "; ?>
+    </div>
+    <?php
+    echo "<div class='question_description'>";
+    echo "<div class='question_update'>";
+    //echo "<a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> La réponse ".  htmlspecialchars ( $reponse->getIdRponses() ) . " </a></> ";
+    echo "<a href=\"frontController.php?controller=reponse&action=update&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
+    echo "<a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
+    //echo "--------------------------------------------------------------------------\n";
+    echo"</div>";
+    echo "<div class='separateur1'></div>";
+    echo "</div>";
 }
 
 
