@@ -70,7 +70,7 @@
             {
             ?>
         <div class="checkbox">
-            <input type="checkbox" name="idResponsable[]" value="<?php echo $user->getIdUtilisateur()?>" id="<?php echo $user->getLogin()?>">
+            <input type="checkbox" name="idContributeur[]" value="<?php echo $user->getIdUtilisateur()?>" id="<?php echo $user->getLogin()?>">
             <?php echo $user->getLogin()?>
         </div>
     <?php } }?>

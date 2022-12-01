@@ -4,8 +4,6 @@ namespace App\YourVoice\Controller;
 use App\YourVoice\Lib\MessageFlash;
 
 
-use App\YourVoice\Lib\MessageFlash;
-
 class GenericController
 {
 

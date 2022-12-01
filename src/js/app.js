@@ -47,7 +47,7 @@ function validation()
         return false;
     }
 
-    var elementsC = document.getElementsByName("idResponsable[]");
+    var elementsC = document.getElementsByName("idContributeur[]");
     var elementsV = document.getElementsByName("idVotant[]");
         countOrganisateur = 0;
         countContributeurs = 0;
