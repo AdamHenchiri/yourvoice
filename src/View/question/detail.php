@@ -56,8 +56,6 @@ echo '</div>'
         </div>
 
 
-
-
 <?php
 
 //require __DIR__. '/../section/list.php';
@@ -69,15 +67,37 @@ foreach ($sections as $section) {
     $titreSection = $section->getTitre();
     $idQuestion = $section->getIdQuestion();
     $sectionFormater = rawurlencode($section->getIdSection());
-    echo "<li> Section: {$num} \n".  htmlspecialchars ( $titreSection ) . " </li> ";
-    echo "<li><a href=\"frontController.php?controller=section&action=read&id_section={$sectionFormater}\"> section :\n".  htmlspecialchars ( $titreSection ) . " </a></li> ";
-    echo "<li><a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> Mettre a jour la section </a></li>      ";
-    echo "<li><a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> Supprimer cette section </a></li>      ";
-    echo "--------------------------------------------------------------------------\n";
-}
-echo "<li><a href=\"frontController.php?controller=section&action=create&id_question={$idQuestion}\"> Ajouter une section </a></li>      ";
+?>
 
-    echo "--------------------------------------------------------------------------\n";
+    <div class="titre">
+    <?php echo "<h1> Section: {$num} \n".  htmlspecialchars ( $titreSection ) . " </h1> "; ?>
+    </div>
+    <div class="question_description">
+        <div > <?php  echo " Titre : " . htmlspecialchars($section->getTitre()); ?> </div>
+        <div > <?php  echo " Description :  " . htmlspecialchars($section->getTexteExplicatif()) ; ?> </div>
+        <?php
+        echo "<div class='question_update'>";
+        echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>";
+        echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-trash'></i></a>";
+        echo "</div>";
+        echo "<div class='separateur1'></div>";
+        echo "</div>";
+
+    //echo "<li><a href=\"frontController.php?controller=section&action=read&id_section={$sectionFormater}\"> section :\n".  htmlspecialchars ( $titreSection ) . " </a></li> ";
+    //echo "<p> Titre : " . htmlspecialchars($section->getTitre())."</p>" ;
+    //echo ' Description :  ' . htmlspecialchars($section->getTexteExplicatif())  ;
+    //echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> Mettre a jour la section </a>      ";
+   // echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> Supprimer cette section </a>     ";
+   // echo "--------------------------------------------------------------------------\n";
+}
+
+
+    echo "<div class='question_description'>";
+    echo "<a href=\"frontController.php?controller=section&action=create&id_question={$idQuestion}\"> Ajouter une section </a> ";
+    echo "</div>";
+
+    //echo "--------------------------------------------------------------------------\n";
+        echo "<div class='separateur1'></div>";
 
 foreach ($reponses as $reponse) {
     $num++;
@@ -93,7 +113,6 @@ foreach ($reponses as $reponse) {
 }
 
 
-?>
-</body>
+?><body>
 <script src="../src/js/app.js"></script>
 </html><?php

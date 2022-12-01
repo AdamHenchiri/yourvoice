@@ -2,7 +2,7 @@
 .container_creerquestion{
     display: flex;
     flex-direction: column;
-    border-radius: 15px;
+    border-radius: 20px;
     background-color: #ffffffe0;
     width: 60%;
     height: 100%;
