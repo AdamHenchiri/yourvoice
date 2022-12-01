@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+
     <form method="post" action="frontController.php?controller=question&action=updated" name="creationQuestion" id="creationQuestion" onsubmit="return validation()">
         <div class="container">
             <div class="container_creerquestion">

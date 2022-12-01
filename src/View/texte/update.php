@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Réponses</title>
-</head>
-<body>
+
 <form method="post" action="frontController.php?controller=reponse&action=updated">
     <div class="container">
         <div class="container_creerquestion">
@@ -88,5 +82,4 @@
         </p>
         </div>
 </form>
-</body>
-</html>
+

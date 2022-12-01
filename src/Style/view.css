@@ -1,13 +1,15 @@
 html{
     margin: 0;
     width: 100%;
-    bottom: 0;
-    top: 0;
+    border : solid 2px green;
+
 }
 body {
     margin: 0;
+    padding-bottom: 100px;
     padding: 0;
     width: 100%;
+    border: solid 2px yellow;
     background: linear-gradient(132.43deg, rgba(82, 216, 224, 0.093) 0%, rgba(69, 194, 222, 0.111) 19.1%, rgba(143, 142, 227, 0.147) 41.63%, rgba(148, 23, 189, 0.084) 78.46%, rgba(69, 11, 63, 0) 100%);
     background-blend-mode: darken;
     background-size: cover;
@@ -112,6 +114,7 @@ textarea{
     resize: none;
 }
 
+
 .foot{
     width: 100%;
     text-align: center;
@@ -121,5 +124,6 @@ textarea{
     color: white;
     background-color: cornflowerblue;
     bottom: 0;
+
     font-family: sans-serif;
 }

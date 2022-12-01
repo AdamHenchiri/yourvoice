@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Liste des questions</title>
-</head>
-<body>
+
 <div class="container_liste_question">
     <div class="container_question">
 <?php
@@ -54,5 +48,4 @@ foreach ($questions as $question) {
         }
     });
 </script>
-</body>
-</html>
+

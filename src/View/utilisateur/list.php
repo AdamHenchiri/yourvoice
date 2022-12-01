@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Liste des utilisateurs</title>
-</head>
-<body>
+
 <?php
 foreach ($utilisateurs as $utilisateur) {
     $userNonFormater = $utilisateur->getLogin();
@@ -17,5 +11,4 @@ foreach ($utilisateurs as $utilisateur) {
 }
 echo "<div><a href=\"frontController.php?controller=utilisateur&action=create\"> ajouter un utilisateur</a></div> ";
 ?>
-</body>
-</html>
+

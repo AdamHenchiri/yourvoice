@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Réponses</title>
-</head>
-<body>
+
 <form method="post" action="frontController.php?controller=reponse&action=created">
     <div class="container">
         <div class="container_creerquestion">
@@ -95,5 +89,4 @@
 
 </form>
 <script src="../src/js/app.js"></script>
-</body>
-</html>
+

@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Mettre à jour une section</title>
-</head>
-<body>
+
 <form method="post" action="frontController.php?controller=section&action=updated">
     <div class="container">
         <div class="container_creerquestion">
@@ -36,5 +30,3 @@
 </form>
 
 
-</body>
-</html>

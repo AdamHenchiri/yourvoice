@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Créer Question</title>
-</head>
-<body>
+
 <form method="post" action="frontController.php?controller=question&action=created" name="creationQuestion" id="creationQuestion" onsubmit="return validation()">
 <div class="container">
     <div class="container_creerquestion">
@@ -163,6 +157,5 @@
 
 </script>
 
-</body>
-</html>
+
 

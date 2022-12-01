@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>detail section</title>
-</head>
-<body>
+
 <div class="container">
     <div class="container_creerquestion">
 <?php
@@ -21,5 +15,3 @@ echo '</div>';
 ?>
     </div>
 </div>
-</body>
-</html>

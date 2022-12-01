@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Liste des utilisateurs</title>
-</head>
-<body>
+
 <?php
 foreach ($reponses as $reponse) {
     $repNonFormater = $reponse->getIdReponses();
@@ -20,5 +14,3 @@ foreach ($reponses as $reponse) {
 }
 
 ?>
-</body>
-</html>

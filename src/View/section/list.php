@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Liste des sections</title>
-</head>
-<body>
+
 <?php
 //echo "Il y a " . $nbLigne . " questions";
 foreach ($sections as $section) {
@@ -22,5 +16,3 @@ foreach ($sections as $section) {
 }
 ?>
 <script src="../src/js/app.js"></script>
-</body>
-</html>

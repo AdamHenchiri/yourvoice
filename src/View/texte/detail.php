@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Réponses</title>
-</head>
-<body>
+
 <form method="post" action="#Blank">
     <div class="container">
         <div class="container_creerquestion">
@@ -43,5 +37,4 @@
         </div>
 
 </form>
-</body>
-</html>
+
