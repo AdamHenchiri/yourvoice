@@ -106,12 +106,13 @@ class ControllerReponse extends GenericController
                 }
             }
         }
-        echo $test;
-        if ($test==true){
-            echo "La réponse a bien été créée !";
-            ControllerQuestion::readAll();
+        if ($test==true) {
+            MessageFlash::ajouter("success","réponse ajouter avec succès");
+            $url ="frontController.php?controller=reponse&action=update&id_reponse=".$id_reponse."&id_question=".$id_question;
+            header("Location: $url");
+            exit();
         }else{
-            MessageFlash::ajouter("warning","la création a échouer");
+            MessageFlash::ajouter("warning","un problème dans s'est produit lors de l'ajout");
             $url ="frontController.php?controller=reponse&action=update&id_reponse=".$id_reponse."&id_question=".$id_question;
             header("Location: $url");
             exit();
@@ -130,6 +131,7 @@ class ControllerReponse extends GenericController
     }
 
     public static function updated() : void {
+        $test=false;
         $id_question = $_POST["id_question"];
         $responsables = (new ReponseRepository())->selectWhere("id_question", $id_question);
         foreach ($_POST["texte"] as $i=>$section) {
@@ -148,10 +150,11 @@ class ControllerReponse extends GenericController
                     if (!$verif) {
                         $texte = new Texte(null, $_POST["texte"][$i], $responsable->getIdRponses(), $_POST["id_section"][$i]);
                         (new TexteRepository())->sauvegarder($texte);
+                        $test=true;
                     } else {
                         $texte = new Texte($update, $_POST["texte"][$i], $responsable->getIdRponses(), $_POST["id_section"][$i]);
                         (new TexteRepository())->update($texte);
-
+                        $test=true;
                     }
                     //////////////pour mettre a jour les coauteurs seulement si l'utulisateur est le résponsable de la réponse
                     foreach ($coauteurs as $coauteur ) {
@@ -166,6 +169,7 @@ class ControllerReponse extends GenericController
                             }
                             if ($aux == false) {
                                 (new CoauteurRepository())->supprimer([ $responsable->getIdRponses(), $coauteur->getIdUtilisateur()]);
+                                $test=true;
                             }
                     }
                     foreach ($_POST["idCoAuteur"] as $idUser) {
@@ -184,7 +188,8 @@ class ControllerReponse extends GenericController
                         if ($aux == false) {
                                 $v3 = new CoAuteur($responsable->getIdRponses(),$idUser);
                                 (new CoauteurRepository())->sauvegarder($v3);
-                            }
+                            $test=true;
+                        }
                         }
                     }
 
@@ -194,21 +199,43 @@ class ControllerReponse extends GenericController
                             if (!$verif) {
                                 $texte = new Texte(null, $_POST["texte"][$i], $responsable->getIdRponses(), $_POST["id_section"][$i]);
                                 (new TexteRepository())->sauvegarder($texte);
+                                $test=true;
                             } else {
                                 $texte = new Texte($update, $_POST["texte"][$i], $responsable->getIdRponses(), $_POST["id_section"][$i]);
                                 (new TexteRepository())->update($texte);
+                                $test=true;
                             }
                         }
                     }
                 }
             }
         }
-        ControllerQuestion::readAll();
+        if ($test==true) {
+            MessageFlash::ajouter("success","mise à jour avec succès");
+            $url ="frontController.php?controller=question&action=readAll";
+            header("Location: $url");
+            exit();
+        }else{
+            MessageFlash::ajouter("warning","un problème dans la mise à jour s'est produit");
+            $url ="frontController.php?controller=question&action=readAll";
+            header("Location: $url");
+            exit();
+        }
     }
 
     public static function delete() : void {
-        (new ReponseRepository())->supprimer($_GET['id_reponse']);
-        ControllerQuestion::readAll();
+        $bol=(new ReponseRepository())->supprimer($_GET['id_reponse']);
+        if ($bol==true) {
+            MessageFlash::ajouter("success","supprimer avec succès");
+            $url ="frontController.php?controller=question&action=readAll";
+            header("Location: $url");
+            exit();
+        }else{
+            MessageFlash::ajouter("warning","un problème s'est produit");
+            $url ="frontController.php?controller=question&action=readAll";
+            header("Location: $url");
+            exit();
+        }
     }
 
     public static function readAll() : void {

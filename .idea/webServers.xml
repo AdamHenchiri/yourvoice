@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="c1bbc4a4-209e-428c-8229-cd95e7d7ca55" name="iut" url="https:///webinfo.iutmontp.univ-montp2.fr/~henchiria/yourvoice">
-        <fileTransfer rootFolder="/home/ann2/henchiria/public_html/yourvoice" accessType="SFTP" host="162.38.222.93" port="6666" sshConfigId="54b57a3b-6083-49c5-a16d-61add75146ff" sshConfig="henchiria@162.38.222.93:6666 password">
+      <webServer id="c1bbc4a4-209e-428c-8229-cd95e7d7ca55" name="iut" url="https://webinfo.iutmontp.univ-montp2.fr/~harribaudk/yourvoice/">
+        <fileTransfer rootFolder="/home/ann2/harribaudk/public_html/yourvoice" accessType="SFTP" host="162.38.222.93" port="6666" sshConfigId="54b57a3b-6083-49c5-a16d-61add75146ff" sshConfig="harribaudk@162.38.222.93:6666 password">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

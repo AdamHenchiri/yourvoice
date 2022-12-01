@@ -2,7 +2,9 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" host="162.38.222.93" id="54b57a3b-6083-49c5-a16d-61add75146ff" port="6666" nameFormat="DESCRIPTIVE" username="henchiria" useOpenSSHConfig="true" />
+      <sshConfig authType="PASSWORD" host="162.38.222.93" id="54b57a3b-6083-49c5-a16d-61add75146ff" port="6666" nameFormat="DESCRIPTIVE" username="harribaudk" useOpenSSHConfig="true" />
+      <sshConfig authType="PASSWORD" host="162.38.222.93" id="dfc22caf-3db8-4b27-b7d2-b46e4c73833e" port="6666" nameFormat="DESCRIPTIVE" username="rathiers" useOpenSSHConfig="true" />
+      <sshConfig authType="PASSWORD" host="162.38.222.93" id="3414822f-f900-461b-9200-478a7c3179ba" port="6666" nameFormat="DESCRIPTIVE" username="henchiria" useOpenSSHConfig="true" />
     </configs>
   </component>
 </project>

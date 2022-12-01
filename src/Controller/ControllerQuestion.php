@@ -1,6 +1,7 @@
 <?php
 namespace App\YourVoice\Controller ;
 
+use App\YourVoice\Lib\MessageFlash;
 use App\YourVoice\Model\DataObject\Reponse;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
@@ -61,7 +62,7 @@ class ControllerQuestion extends GenericController {
 
 
     public static function created() : void {
-            $tab = array();
+        $tab = array();
             $v=new Question( null,$_POST["intitule"],$_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
             $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
@@ -91,17 +92,25 @@ class ControllerQuestion extends GenericController {
                $s= new Section(null,$_POST["titre"][$i],$_POST["texte_explicatif"][$i],$id);
                 (new SectionRepository())->sauvegarder($s);
             }
-            ControllerQuestion::readAll();
+        MessageFlash::ajouter("success","ajout de la question avec succès");
+        $url ="frontController.php?controller=question&action=readAll";
+        header("Location: $url");
+        exit();
     }
 
     public static function delete() : void {
         $v=(new QuestionRepository())->select($_GET['id_question']);
         $rep=(new QuestionRepository())->supprimer($_GET['id_question']);
-        if ($v!=null){
-            self::readAll();
+        if ($rep==true) {
+            MessageFlash::ajouter("success","supprimer avec succès");
+            $url ="frontController.php?controller=question&action=readAll";
+            header("Location: $url");
+            exit();
         }else{
-            $s='suppression echoué';
-            self::error($s);
+            MessageFlash::ajouter("warning","un problème s'est produit");
+            $url ="frontController.php?controller=question&action=readAll";
+            header("Location: $url");
+            exit();
         }
     }
 
@@ -195,7 +204,10 @@ class ControllerQuestion extends GenericController {
             }
         }
 
-        self::readAll();
+        MessageFlash::ajouter("success","question mise à jour avec succès");
+        $url ="frontController.php?controller=question&action=readAll";
+        header("Location: $url");
+        exit();
     }
 
 
