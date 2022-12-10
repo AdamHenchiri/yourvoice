@@ -13,10 +13,19 @@ class ControllerSection extends GenericController
 {
 
     public static function create() : void {
-        $id=$_GET["id_question"];
-        self::afficheVue('/view.php', ["pagetitle" => "Ajouter une section",
-            "cheminVueBody" => "section/create.php", "id_question" => $id  //"redirige" vers la vue
-        ]);
+        $q = (new QuestionRepository())->select($_GET['id_question']);
+        //$dateFin = $q->getDateFinRedaction();
+        $dateDebut = $q->getDateDebutRedaction();
+        if(date('Y-m-d H:i:s') > $dateDebut){
+            MessageFlash::ajouter("warning", "La rédaction des réponses a déjà commencée");
+            header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question'] );
+        }
+        if(date('Y-m-d H:i:s') <= $dateDebut) {
+            $id = $_GET["id_question"];
+            self::afficheVue('/view.php', ["pagetitle" => "Ajouter une section",
+                "cheminVueBody" => "section/create.php", "id_question" => $id  //"redirige" vers la vue
+            ]);
+        }
     }
 
 
@@ -42,8 +51,17 @@ class ControllerSection extends GenericController
 
 
     public static function update() : void {
-        $v= (new SectionRepository())->select($_GET['id_section']);
-        self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une section","cheminVueBody"=>"section/update.php","v"=>$v]);
+        $q = (new QuestionRepository())->select($_GET['id_question']);
+        //$dateFin = $q->getDateFinRedaction();
+        $dateDebut = $q->getDateDebutRedaction();
+        if(date('Y-m-d H:i:s') > $dateDebut){
+            MessageFlash::ajouter("warning", "La rédaction des réponses a déjà commencée");
+            header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question'] );
+        }
+        if(date('Y-m-d H:i:s') <= $dateDebut){
+            $v= (new SectionRepository())->select($_GET['id_section']);
+            self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une section","cheminVueBody"=>"section/update.php","v"=>$v]);
+        }
     }
 
 
@@ -61,17 +79,27 @@ class ControllerSection extends GenericController
         //self::readAll();
     }
 
-    public static function delete() : void {
-        $sections = (new SectionRepository())->selectWhere("id_question",$_GET["id_question"]);
-        $v=(new SectionRepository())->select($_GET['id_section']);
-        $question=(new QuestionRepository())->select($_GET["id_question"]);
-        if ($v!=null && count($sections)>1){
+    public static function delete() : void
+    {
+        $q = (new QuestionRepository())->select($_GET['id_question']);
+        //$dateFin = $q->getDateFinRedaction();
+        $dateDebut = $q->getDateDebutRedaction();
+        if (date('Y-m-d H:i:s') > $dateDebut) {
+            MessageFlash::ajouter("warning", "La rédaction des réponses a déjà commencée");
+            header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
+        }
+        if (date('Y-m-d H:i:s') <= $dateDebut){
+            $sections = (new SectionRepository())->selectWhere("id_question", $_GET["id_question"]);
+        $v = (new SectionRepository())->select($_GET['id_section']);
+        $question = (new QuestionRepository())->select($_GET["id_question"]);
+        if ($v != null && count($sections) > 1) {
             (new SectionRepository())->supprimer($_GET['id_section']);
             (new ControllerQuestion)::read();
-        }else{
-            $s='suppression echoué';
+        } else {
+            $s = 'suppression echoué';
             self::error($s);
         }
+    }
         //self::readAll();
     }
 

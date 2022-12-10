@@ -55,7 +55,8 @@ abstract class AbstractRepository
         }
         $values=$v->formatTableau();
         // On donne les valeurs et on exécute la requête
-        $pdoStatement->execute($values);
+        $n=$pdoStatement->execute($values);
+
     }
 
     public function supprimer(string|array $valeurClePrimaire): bool

@@ -1,6 +1,7 @@
 <?php
 namespace App\YourVoice\Controller ;
 
+use App\YourVoice\Lib\MessageFlash;
 use App\YourVoice\Model\DataObject\Reponse;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
@@ -64,7 +65,7 @@ class ControllerQuestion extends GenericController {
             $tab = array();
             $v=new Question( null,$_POST["intitule"],$_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
-            $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
+            $_POST["dateFin_vote"], $_POST["id_utilisateur"], 0);
         //sauvegarde de la question dans la base de donnée
         $id=(new QuestionRepository())->sauvegarder($v);
         //sauvegarde des votants dans la base de donnée
@@ -96,8 +97,13 @@ class ControllerQuestion extends GenericController {
 
     public static function delete() : void {
         $v=(new QuestionRepository())->select($_GET['id_question']);
-        $rep=(new QuestionRepository())->supprimer($_GET['id_question']);
+        //$rep=(new QuestionRepository())->supprimer($_GET['id_question']);
         if ($v!=null){
+            //$v->setActif(true);
+            $q = new Question($v->getIdQuestion(),$v->getIntitule(),$v->getExplication(),$v->getDateDebutRedaction(),
+                $v->getDateFinRedaction(),$v->getDateDebutVote(),$v->getDateFinVote(),$v->getIdUtilisateur(), 1);
+            var_dump($q);
+            (new QuestionRepository())->update($q);
             self::readAll();
         }else{
             $s='suppression echoué';
@@ -106,15 +112,24 @@ class ControllerQuestion extends GenericController {
     }
 
 
+
     public static function error(string $errorMessage):void {
         self::afficheVue('view.php',["pagetitle"=>"ERROR","cheminVueBody"=>"Question/error.php","s"=>"Problème avec la question : $errorMessage "]);
 
     }
 
     public static function update() : void {
-        $v= (new QuestionRepository())->select($_GET['id_question']);
-        $values=$v->formatTableau();
-        self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une question","cheminVueBody"=>"question/update.php","v"=>$v]);
+        $q= (new QuestionRepository())->select($_GET['id_question']);
+        $dateFin = $q->getDateFinRedaction();
+        $dateDebut = $q->getDateDebutRedaction();
+        if(date('Y-m-d H:i:s') > $dateDebut){
+            MessageFlash::ajouter("warning", "Les rédaction ont déjà commencée");
+            header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question'] );
+        }
+        else {
+            $values = $q->formatTableau();
+            self::afficheVue('/view.php', ["pagetitle" => "mettre à jour une question", "cheminVueBody" => "question/update.php", "v" => $v]);
+        }
     }
 
     public static function updated() : void
@@ -122,7 +137,7 @@ class ControllerQuestion extends GenericController {
         $id=$_POST['id_question'];
         $v = new Question($_POST['id_question'], $_POST["intitule"], $_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
-            $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
+            $_POST["dateFin_vote"], $_POST["id_utilisateur"], 0);
         (new QuestionRepository())->update($v);
 
 
@@ -197,9 +212,5 @@ class ControllerQuestion extends GenericController {
 
         self::readAll();
     }
-
-
-
-
 }
 ?>
