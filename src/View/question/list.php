@@ -19,7 +19,9 @@ foreach ($questions as $question) {
     echo "<div class='questions'>";
     echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=read&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n".  htmlspecialchars ( $question->getIntitule() ) . " </a>";
     echo "<div class='question_update'>";
-    echo "<a href=\"frontController.php?controller=question&action=update&id_question={$questFormater}\"> <i class='fa-solid fa-pencil'></i> </a>";
+    if ($question->getDateDebutRedaction() > date("Y-m-d") ) {
+        echo "<a href=\"frontController.php?controller=question&action=update&id_question={$questFormater}\"> <i class='fa-solid fa-pencil'></i> </a>";
+    }
     echo "<a id=\"confirmation\" onclick=\"return confirmation()\" href=\"frontController.php?controller=question&action=delete&id_question={$questFormater}\"> <i class='fa-solid fa-trash'></i></a>";
     echo "</div>";
     echo "</div>";

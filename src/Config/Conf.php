@@ -44,5 +44,8 @@ class Conf
         return static::$databases['password'];
     }
 
+    static public function getAbsoluteURL():string{
+        return static::getHostname()."/~henchiria/yourvoice/web/frontController.php";
+    }
 }
 

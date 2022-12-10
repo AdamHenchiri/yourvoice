@@ -150,6 +150,30 @@ abstract class AbstractRepository
         return $tab;
     }
 
+    public function selectWhereAnd(string $nomCle1,string $valeurCle1,string $nomCle2,string $valeurCle2):array | bool
+    {
+        $sql = "SELECT * FROM ".$this->getNomTable()." WHERE ".$nomCle1 ."= :valeurCle1Tag "." AND ". $nomCle2. "= :valeurCle2Tag";
+        // Préparation de la requête
+        try {
+            $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
+            $values = array(
+                "valeurCle1Tag"=> $valeurCle1,
+                "valeurCle2Tag"=> $valeurCle2,
+                //nomdutag => valeur, ...
+            );
+            // On donne les valeurs et on exécute la requête
+            $pdoStatement->execute($values);
+            // On récupère les résultats comme précédemment
+            // Note: fetch() renvoie false si pas de Voiture correspondante
+            $tab =array();
+            foreach ($pdoStatement as $acteur) {
+                $tab[] = $this->construire($acteur);
+            }
+            return $tab;
+        } catch (PDOException ) {
+            return false;
+        }
+    }
 
     protected abstract function getNomTable(): string;
 

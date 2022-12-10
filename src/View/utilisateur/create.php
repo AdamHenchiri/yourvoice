@@ -6,8 +6,10 @@
             <input class="text" type="text" placeholder="Pseudo*" name="login" id="login_id" required/>
             <input class="text" type="text" placeholder="Nom*" name="nom" id="nom" required/>
             <input class="text" type="text" placeholder="Prenom*" name="prenom" id="prenom" required/>
+            <input class="text" type="number" placeholder="age*" name="age" id="age" required/>
             <input class="text" type="email" placeholder="Email*" name="email" id="email" required/>
-            <input class="text" type="password" placeholder="Mot de passe*" name="mdp" id="mdp" required/>
+            <input class="text" type="password" placeholder="Mot de passe*" name="mdp" id="mdp_id" required/>
+            <input class="text" type="password" placeholder="Vérification du mot de passe*" name="mdp2" id="mdp2_id" required/>
             <div class="champ1">
                 <p id="champsrequis">* champs requis</p>
             </div>

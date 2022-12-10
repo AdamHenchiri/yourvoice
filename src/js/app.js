@@ -18,10 +18,9 @@ document.getElementById("creationQuestion").addEventListener("focus",function (e
 })
 */
 var d = new Date();
-console.log(document.getElementById("dateDebut_redaction").valueOf());
-if (document.getElementById("dateDebut_redaction").valueAsDate==null) {
+/*if (document.getElementById("dateDebut_redaction").valueAsDate==null) {
     document.getElementById("dateDebut_redaction").valueAsDate = d;
-}
+}*/
 
 function validation()
 {
@@ -31,6 +30,14 @@ function validation()
     var dateDebut_vote = document.forms["creationQuestion"]["dateDebut_vote"];
     var dateFin_vote = document.forms["creationQuestion"]["dateFin_vote"];
 
+    d_deb=new Date(dateDebut_redaction.value);
+    alert(d_deb);
+
+    if (d_deb<d){
+        alert("la date de debut de rédaction doit être postérieur à la date du jour !!");
+        dateDebut_redaction.focus();
+        return false;
+    }
     if (dateFin_redaction.value<dateDebut_redaction.value){
         alert("la date de fin de rédaction doit être postérieur à la date de début de rédaction!!");
         dateFin_redaction.focus();
@@ -68,8 +75,8 @@ function validation()
         alert("vous devez choisir au minimum un responsable");
         return false;
     }
-    if (countVotants <= 4){
-        alert("vous devez choisir au minimum cinq votants");
+    if (countVotants < 2){
+        alert("vous devez choisir au minimum deux votants");
         return false;
     }
 
