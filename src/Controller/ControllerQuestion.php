@@ -98,17 +98,20 @@ class ControllerQuestion extends GenericController {
     public static function delete() : void {
         $v=(new QuestionRepository())->select($_GET['id_question']);
         //$rep=(new QuestionRepository())->supprimer($_GET['id_question']);
+        var_dump($v);
         if ($v!=null){
             //$v->setActif(true);
             $q = new Question($v->getIdQuestion(),$v->getIntitule(),$v->getExplication(),$v->getDateDebutRedaction(),
                 $v->getDateFinRedaction(),$v->getDateDebutVote(),$v->getDateFinVote(),$v->getIdUtilisateur(), 1);
             var_dump($q);
             (new QuestionRepository())->update($q);
-            self::readAll();
+            //$rep=(new QuestionRepository())->supprimer($v->getIdQuestion());
+            MessageFlash::ajouter("success", "Question supprimée");
+            //self::readAll();
         }else{
-            $s='suppression echoué';
-            self::error($s);
+            MessageFlash::ajouter("danger", "Erreur de la suppression");
         }
+        header("Location: frontController.php?controller=question&action=readAll");
     }
 
 

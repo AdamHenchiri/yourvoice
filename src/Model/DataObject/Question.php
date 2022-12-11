@@ -201,6 +201,12 @@ class Question extends AbstractDataObject
 
 
     public function formatTableau(): array{
+       if($this->isActif()){
+            $res = 1;
+        }
+        if(!$this->isActif()){
+            $res = 0;
+        }
 
         return array(
             "id_questionTag" => $this->getIdQuestion(),
@@ -211,7 +217,7 @@ class Question extends AbstractDataObject
             "dateDebut_voteTag" => $this->getDateDebutVote(),
             "dateFin_voteTag" => $this->getDateFinVote(),
             "id_organisateurTag" => $this->getIdUtilisateur(),
-            "actif" => $this->isActif(),
+            "actifTag" => $res
         );
     }
 
