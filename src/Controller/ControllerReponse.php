@@ -22,10 +22,22 @@ class ControllerReponse extends GenericController
 {
 
     public static function create() : void {
-
-        self::afficheVue('/view.php', ["pagetitle" => "Ajouter une réponse",
-            "cheminVueBody" => "reponse/create.php",   //"redirige" vers la vue
-        ]);
+        $q = (new QuestionRepository())->select($_GET['id_question']);
+        $dateFin = $q->getDateFinRedaction();
+        $dateDebut = $q->getDateDebutRedaction();
+        if(date('Y-m-d H:i:s') > $dateFin){
+            MessageFlash::ajouter("warning", "Date de rédaction écoulée");
+            header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question'] );
+        }
+        if(date('Y-m-d H:i:s') < $dateDebut){
+            MessageFlash::ajouter("warning", "Rédaction pas encore commencée");
+            header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question'] );
+        }
+        if(date('Y-m-d H:i:s') <= $dateFin and date('Y-m-d H:i:s') >= $dateDebut) {
+            self::afficheVue('/view.php', ["pagetitle" => "Ajouter une réponse",
+                "cheminVueBody" => "reponse/create.php",   //"redirige" vers la vue
+            ]);
+        }
     }
 
 
@@ -120,13 +132,22 @@ class ControllerReponse extends GenericController
     }
 
     public static function update() : void {
-        $textes= (new TexteRepository())->selectWhere("id_reponse",$_GET['id_reponse']);
-        if (!empty($textes)) {
-            self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
-                "cheminVueBody" => "texte/update.php",   //"redirige" vers la vue
-                "textes"=>$textes]);
-        }else{
-           self::create();
+        $q = (new QuestionRepository())->select($_GET['id_question']);
+        $dateFin = $q->getDateFinRedaction();
+        $dateDebut = $q->getDateDebutRedaction();
+        if(date('Y-m-d H:i:s') > $dateFin) {
+            MessageFlash::ajouter("warning", "Date de rédaction écoulée");
+            header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
+        }
+        if(date('Y-m-d H:i:s') <= $dateFin and date('Y-m-d H:i:s') >= $dateDebut) {
+            $textes = (new TexteRepository())->selectWhere("id_reponse", $_GET['id_reponse']);
+            if (!empty($textes)) {
+                self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
+                    "cheminVueBody" => "texte/update.php",   //"redirige" vers la vue
+                    "textes" => $textes]);
+            } /*else {
+                self::create();
+            }*/
         }
     }
 

@@ -121,19 +121,23 @@ class ControllerQuestion extends GenericController {
 
     public static function delete() : void {
         $v=(new QuestionRepository())->select($_GET['id_question']);
-        $rep=(new QuestionRepository())->supprimer($_GET['id_question']);
-        if ($rep==true) {
-            MessageFlash::ajouter("success","supprimer avec succès");
-            $url ="frontController.php?controller=question&action=readAll";
-            header("Location: $url");
-            exit();
+        //$rep=(new QuestionRepository())->supprimer($_GET['id_question']);
+        var_dump($v);
+        if ($v!=null){
+            //$v->setActif(true);
+            $q = new Question($v->getIdQuestion(),$v->getIntitule(),$v->getExplication(),$v->getDateDebutRedaction(),
+                $v->getDateFinRedaction(),$v->getDateDebutVote(),$v->getDateFinVote(),$v->getIdUtilisateur(), 1);
+            var_dump($q);
+            (new QuestionRepository())->update($q);
+            //$rep=(new QuestionRepository())->supprimer($v->getIdQuestion());
+            MessageFlash::ajouter("success", "Question supprimée");
+            //self::readAll();
         }else{
-            MessageFlash::ajouter("warning","un problème s'est produit");
-            $url ="frontController.php?controller=question&action=readAll";
-            header("Location: $url");
-            exit();
+            MessageFlash::ajouter("danger", "Erreur de la suppression");
         }
+        header("Location: frontController.php?controller=question&action=readAll");
     }
+
 
 
     public static function error(string $errorMessage):void {
@@ -142,9 +146,17 @@ class ControllerQuestion extends GenericController {
     }
 
     public static function update() : void {
-        $v= (new QuestionRepository())->select($_GET['id_question']);
-        $values=$v->formatTableau();
-        self::afficheVue('/view.php',["pagetitle"=>"mettre à jour une question","cheminVueBody"=>"question/update.php","v"=>$v]);
+        $q= (new QuestionRepository())->select($_GET['id_question']);
+        $dateFin = $q->getDateFinRedaction();
+        $dateDebut = $q->getDateDebutRedaction();
+        if(date('Y-m-d H:i:s') > $dateDebut){
+            MessageFlash::ajouter("warning", "Les rédaction ont déjà commencée");
+            header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question'] );
+        }
+        else {
+            $values = $q->formatTableau();
+            self::afficheVue('/view.php', ["pagetitle" => "mettre à jour une question", "cheminVueBody" => "question/update.php", "v" => $v]);
+        }
     }
 
     public static function updated() : void
@@ -152,7 +164,7 @@ class ControllerQuestion extends GenericController {
         $id=$_POST['id_question'];
         $v = new Question($_POST['id_question'], $_POST["intitule"], $_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
-            $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
+            $_POST["dateFin_vote"], $_POST["id_utilisateur"], 0);
         (new QuestionRepository())->update($v);
 
 

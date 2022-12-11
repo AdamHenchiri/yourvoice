@@ -14,6 +14,39 @@ class Question extends AbstractDataObject
     private string $dateDebut_vote;
     private string $dateFin_vote;
     private int $id_organisateur  ;
+    private bool $actif;
+
+    /**
+     * @return int
+     */
+    public function getIdOrganisateur(): int
+    {
+        return $this->id_organisateur;
+    }
+
+    /**
+     * @param int $id_organisateur
+     */
+    public function setIdOrganisateur(int $id_organisateur): void
+    {
+        $this->id_organisateur = $id_organisateur;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActif(): bool
+    {
+        return $this->actif;
+    }
+
+    /**
+     * @param bool $actif
+     */
+    public function setActif(bool $actif): void
+    {
+        $this->actif = $actif;
+    }
 
     /**
      * @param string $intitule
@@ -24,7 +57,7 @@ class Question extends AbstractDataObject
      * @param string $dateFin_vote
      * @param int $id_organisateur
      */
-    public function __construct(?int $id_question,string $intitule, string $explication, string $dateDebut_redaction, string $dateFin_redaction, string $dateDebut_vote, string $dateFin_vote, int $id_organisateur )
+    public function __construct(?int $id_question,string $intitule, string $explication, string $dateDebut_redaction, string $dateFin_redaction, string $dateDebut_vote, string $dateFin_vote, int $id_organisateur, bool $actif )
     {
         $this->id_question = $id_question;
         $this->intitule = $intitule;
@@ -34,6 +67,7 @@ class Question extends AbstractDataObject
         $this->dateDebut_vote = $dateDebut_vote;
         $this->dateFin_vote = $dateFin_vote;
         $this->id_organisateur = $id_organisateur  ;
+        $this->actif=$actif;
     }
 
     /**
@@ -167,6 +201,13 @@ class Question extends AbstractDataObject
 
 
     public function formatTableau(): array{
+       if($this->isActif()){
+            $res = 1;
+        }
+        if(!$this->isActif()){
+            $res = 0;
+        }
+
         return array(
             "id_questionTag" => $this->getIdQuestion(),
             "intituleTag" => $this->getIntitule(),
@@ -176,6 +217,7 @@ class Question extends AbstractDataObject
             "dateDebut_voteTag" => $this->getDateDebutVote(),
             "dateFin_voteTag" => $this->getDateFinVote(),
             "id_organisateurTag" => $this->getIdUtilisateur(),
+            "actifTag" => $res
         );
     }
 

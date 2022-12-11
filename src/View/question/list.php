@@ -15,8 +15,9 @@ echo "<div class='container_question1'>";
 echo "</div>";
 
 foreach ($questions as $question) {
-    $questNonFormater = $question->getIdQuestion();
-    $questFormater = rawurlencode($questNonFormater);
+    if ($question->isActif() == false) {
+        $questNonFormater = $question->getIdQuestion();
+        $questFormater = rawurlencode($questNonFormater);
 
 
     if ($question->getDateFinVote() < date("Y-m-d")) {
