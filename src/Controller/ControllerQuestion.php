@@ -1,6 +1,7 @@
 <?php
 namespace App\YourVoice\Controller ;
 
+use App\YourVoice\Lib\ConnexionUtilisateur;
 use App\YourVoice\Lib\MessageFlash;
 use App\YourVoice\Model\DataObject\Reponse;
 use App\YourVoice\Model\DataObject\Votant;
@@ -31,6 +32,26 @@ class ControllerQuestion extends GenericController {
 
     }
 
+
+    public static function readAllMein() : void {
+        $question =new QuestionRepository();//appel au modèle pour gerer la BD
+        $questions = $question->selectAll();
+        $nbLigne =count($questions);
+        self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
+            "cheminVueBody" => "question/maList.php",   //"redirige" vers la vue
+            "questions"=>$questions, "nbLigne" => $nbLigne] );
+
+    }
+
+    public static function mesVotes() : void {
+        $question =new QuestionRepository();//appel au modèle pour gerer la BD
+        $questions = $question->selectAll();
+        $nbLigne =count($questions);
+        self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
+            "cheminVueBody" => "question/mesVotes.php",   //"redirige" vers la vue
+            "questions"=>$questions, "nbLigne" => $nbLigne] );
+
+    }
 
     public static function read() : void {
         $question =(new QuestionRepository())->select($_GET['id_question']);
@@ -65,7 +86,7 @@ class ControllerQuestion extends GenericController {
         $tab = array();
             $v=new Question( null,$_POST["intitule"],$_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
-            $_POST["dateFin_vote"], $_POST["id_utilisateur"]);
+            $_POST["dateFin_vote"], ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur(),0);
         //sauvegarde de la question dans la base de donnée
         $id=(new QuestionRepository())->sauvegarder($v);
         //sauvegarde des votants dans la base de donnée

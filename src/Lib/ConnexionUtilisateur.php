@@ -35,6 +35,15 @@ class ConnexionUtilisateur
             return Session::getInstance()->lire(static::$cleConnexion);
         }
     }
+    public static function getUtilisateurConnecte(): ?Utilisateur
+    {
+        if (!self::estConnecte()){
+            return null;
+        }else{
+           $tab= (new UtilisateurRepository())->selectWhere("login",Session::getInstance()->lire(static::$cleConnexion)) ;
+           return $tab[0];
+        }
+    }
     //Cette méthode doit renvoyer true si un utilisateur est connecté et qu’il est administrateur. Les informations sur l’utilisateur devront être récupérées de la base de données
     public static function estAdministrateur() : bool{
         $user=Session::getInstance()->lire(static::$cleConnexion);

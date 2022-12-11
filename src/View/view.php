@@ -49,10 +49,20 @@
         <ul id="menu">
             <li class="active"><a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php">YourVoice</a></li>
             <li><a href="frontController.php?action=readAll"><i class="fa-sharp fa-solid fa-circle-question"></i> Questions</a></li>
-            <li><a href="frontController.php?action=create&controller=question"><i class="fa-solid fa-person-circle-question"></i> Créer question</a></li>
-            <li><a href="frontController.php?action=readAll"><i class="fa-solid fa-clipboard-question"></i> Mes questions</a></li>
-            <li><a href="frontController.php?controller=utilisateur&action=connexion"><i class="fa-solid fa-check-to-slot"></i> Vote</a></li>
-            <li><a href="frontController.php?controller=utilisateur&action=connexion"><i class="fa-solid fa-user"></i> Mon compte</a></li>
+            <?php
+            use App\YourVoice\Lib\ConnexionUtilisateur;
+            if (ConnexionUtilisateur::estConnecte()){
+               ?>
+                <li><a href="frontController.php?action=create&controller=question"><i class="fa-solid fa-person-circle-question"></i> Créer question</a></li>
+                <li><a href="frontController.php?action=readAllMein" > <i class="fa-solid fa-clipboard-question"></i> Mes questions</a></li>
+            <li><a href="frontController.php?action=mesVotes"><i class="fa-solid fa-check-to-slot"></i> Vote</a></li>
+                <li><a href="frontController.php?controller=utilisateur&action=monCompte"><i class="fa-solid fa-user"></i> Mon compte</a></li>
+                <li><a href="frontController.php?controller=utilisateur&action=deconnecter"><i class="fa-solid fa-user"></i> Déconnexion </a></li>
+            <?php } else{?>
+            <li><a href="frontController.php?controller=utilisateur&action=connexion"><i class="fa-solid fa-user"></i> Connexion</a></li>
+            <?php
+            }
+            ?>
         </ul>
         </div>
     

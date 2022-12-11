@@ -31,7 +31,6 @@ function validation()
     var dateFin_vote = document.forms["creationQuestion"]["dateFin_vote"];
 
     d_deb=new Date(dateDebut_redaction.value);
-    alert(d_deb);
 
     if (d_deb<d){
         alert("la date de debut de rédaction doit être postérieur à la date du jour !!");

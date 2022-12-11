@@ -50,10 +50,9 @@
         </div>
 
 
-        <label for="id_utilisateur">Serra rempli automatiquement avec les sessions</label> :
+        <!--<label for="id_utilisateur">Serra rempli automatiquement avec les sessions</label> :
         <input type="int" placeholder="serra rempli automatiquement avec les sessions" name="id_utilisateur" id="id_utilisateur" required/>
-
-
+         -->
         <div class="container_votant_contributeur">
             <div class="container_contributeur">
             <label for="contributeurs">Choisissez les responsables</label>

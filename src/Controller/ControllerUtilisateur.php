@@ -51,6 +51,20 @@ class ControllerUtilisateur extends GenericController
         }
     }
 
+    public static function deconnecter(): void
+    {
+        ConnexionUtilisateur::deconnecter();
+        MessageFlash::ajouter("success","vous êtes déconnecté");
+        $url="frontController.php?controller=question&action=readAll";
+        header("Location: ".$url);
+        exit();
+    }
+
+    public static function estUtilisateur($login): bool
+    {
+        return ConnexionUtilisateur::getLoginUtilisateurConnecte()==$login;
+    }
+
     public static function create() : void {
         self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre utilisateur",
             "cheminVueBody" => "utilisateur/create.php"   //"redirige" vers la vue
@@ -112,11 +126,23 @@ class ControllerUtilisateur extends GenericController
     }
 
     public static function read() : void {
-        $user =(new UtilisateurRepository())->select($_GET['login']);
+        $user =(new UtilisateurRepository())->selectWhere("login",$_GET['login']);
         if ($user!==null) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
                 "cheminVueBody" => "utilisateur/detail.php",   //"redirige" vers la vue
-                "user"=>$user]);
+                "user"=>$user[0]]);
+        }else{
+            self::afficheVue('/view.php', ["pagetitle" => "ERROR",
+                "cheminVueBody" => "utilisateur/error.php",   //"redirige" vers la vue
+            ]);
+        }
+    }
+    public static function monCompte() : void {
+        $user =(new UtilisateurRepository())->selectWhere("login",ConnexionUtilisateur::getLoginUtilisateurConnecte());
+        if ($user!==null) {
+            self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
+                "cheminVueBody" => "utilisateur/detail.php",   //"redirige" vers la vue
+                "user"=>$user[0]]);
         }else{
             self::afficheVue('/view.php', ["pagetitle" => "ERROR",
                 "cheminVueBody" => "utilisateur/error.php",   //"redirige" vers la vue
