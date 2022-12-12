@@ -76,14 +76,21 @@ foreach ($sections as $section) {
         <div > <?php  echo " Titre : " . htmlspecialchars($section->getTitre()); ?> </div>
         <div > <?php  echo " Description :  " . htmlspecialchars($section->getTexteExplicatif()) ; ?> </div>
         <?php
-        echo "<div class='question_update'>";
-        echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>";
-        echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-trash'></i></a>";
-        echo "</div>";
+        if(date('Y-m-d H:i:s') < $dateDebutRedaction) {
+            echo "<div class='question_update'>";
+            echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>";
+            echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-trash'></i></a>";
+            echo "</div>";
+            echo "<div class='separateur1'></div>";
+            //echo "</div>";
+        }
         echo "<div class='separateur1'></div>";
         echo "</div>";
 
-    //echo "<li><a href=\"frontController.php?controller=section&action=read&id_section={$sectionFormater}\"> section :\n".  htmlspecialchars ( $titreSection ) . " </a></li> ";
+
+
+
+        //echo "<li><a href=\"frontController.php?controller=section&action=read&id_section={$sectionFormater}\"> section :\n".  htmlspecialchars ( $titreSection ) . " </a></li> ";
     //echo "<p> Titre : " . htmlspecialchars($section->getTitre())."</p>" ;
     //echo ' Description :  ' . htmlspecialchars($section->getTexteExplicatif())  ;
     //echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> Mettre a jour la section </a>      ";
@@ -114,12 +121,21 @@ foreach ($reponses as $reponse) {
     echo "<div class='question_description'>";
     echo "<div class='question_update'>";
     //echo "<a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> La réponse ".  htmlspecialchars ( $reponse->getIdRponses() ) . " </a></> ";
-    echo "<a href=\"frontController.php?controller=reponse&action=update&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
+    if(date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction ) {
+        echo "<a href=\"frontController.php?controller=reponse&action=update&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
+        echo "<a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
+        //echo "--------------------------------------------------------------------------\n";
+        echo"</div>";
+        echo "<div class='separateur1'></div>";
+        echo "</div>";
+    }
+    else{
     echo "<a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
     //echo "--------------------------------------------------------------------------\n";
     echo"</div>";
     echo "<div class='separateur1'></div>";
     echo "</div>";
+}
 }
 
 
