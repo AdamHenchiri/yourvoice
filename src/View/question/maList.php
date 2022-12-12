@@ -15,7 +15,7 @@ echo "<div class='container_question1'>";
         echo "<h1>Questions</h1>";
     echo "</div>";
 echo "</div>";
-
+$nbLigne=0;
 foreach ($questions as $question) {
     $questNonFormater = $question->getIdQuestion();
     $questFormater = rawurlencode($questNonFormater);
@@ -23,24 +23,20 @@ foreach ($questions as $question) {
     foreach ($reponses as $r){
         $existe=(new CoauteurRepository())->selectWhereAnd("id_reponse",$r->getIdRponses(),"id_coauteur",ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur());
         if (count($existe)!=0){
+            $nbLigne++;
                 echo "<div class='questions'>";
                 echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=read&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
-                echo "<div class='question_update'>";
-                if ($question->getDateDebutRedaction() > date("Y-m-d")) {
-                    echo "<a href=\"frontController.php?controller=question&action=update&id_question={$questFormater}\"> <i class='fa-solid fa-pencil'></i> </a>";
-                }
-                echo "<a id=\"confirmation\" onclick=\"return confirmation()\" href=\"frontController.php?controller=question&action=delete&id_question={$questFormater}\"> <i class='fa-solid fa-trash'></i></a>";
-                echo "</div>";
                 echo "</div>";
                 break;
         }
         break;
     }
     if ($question->getIdUtilisateur()==ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur()) {
+        $nbLigne++;
         echo "<div class='questions'>";
         echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=read&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
         echo "<div class='question_update'>";
-        if ($questFormater->getDateDebutRedaction() > date("Y-m-d")) {
+        if ($question->getDateDebutRedaction() > date("Y-m-d")) {
             echo "<a href=\"frontController.php?controller=question&action=update&id_question={$questFormater}\"> <i class='fa-solid fa-pencil'></i> </a>";
         }
         echo "<a id=\"confirmation\" onclick=\"return confirmation()\" href=\"frontController.php?controller=question&action=delete&id_question={$questFormater}\"> <i class='fa-solid fa-trash'></i></a>";

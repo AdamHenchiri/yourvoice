@@ -25,10 +25,9 @@ class ControllerQuestion extends GenericController {
     public static function readAll() : void {
         $question =new QuestionRepository();//appel au modèle pour gerer la BD
         $questions = $question->selectAll();
-        $nbLigne =count($questions);
          self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
             "cheminVueBody" => "question/list.php",   //"redirige" vers la vue
-            "questions"=>$questions, "nbLigne" => $nbLigne] );
+            "questions"=>$questions] );
 
     }
 
@@ -36,20 +35,18 @@ class ControllerQuestion extends GenericController {
     public static function readAllMein() : void {
         $question =new QuestionRepository();//appel au modèle pour gerer la BD
         $questions = $question->selectAll();
-        $nbLigne =count($questions);
         self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
             "cheminVueBody" => "question/maList.php",   //"redirige" vers la vue
-            "questions"=>$questions, "nbLigne" => $nbLigne] );
+            "questions"=>$questions] );
 
     }
 
     public static function mesVotes() : void {
         $question =new QuestionRepository();//appel au modèle pour gerer la BD
         $questions = $question->selectAll();
-        $nbLigne =count($questions);
         self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
             "cheminVueBody" => "question/mesVotes.php",   //"redirige" vers la vue
-            "questions"=>$questions, "nbLigne" => $nbLigne] );
+            "questions"=>$questions] );
 
     }
 

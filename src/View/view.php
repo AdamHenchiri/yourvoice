@@ -47,7 +47,7 @@
           </div>-->
         <div class="container_menu">
         <ul id="menu">
-            <li class="active"><a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php">YourVoice</a></li>
+            <li class="active"><a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/yourvoice/web/frontController.php">YourVoice</a></li>
             <li><a href="frontController.php?action=readAll"><i class="fa-sharp fa-solid fa-circle-question"></i> Questions</a></li>
             <?php
             use App\YourVoice\Lib\ConnexionUtilisateur;
