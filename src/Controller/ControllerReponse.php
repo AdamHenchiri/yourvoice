@@ -232,10 +232,12 @@ class ControllerReponse extends GenericController
 
     public static function readAll() : void {
 
-        $reponses =(new ReponseRepository())->selectAll();//appel au modèle pour gerer la BD
+        //$reponses =(new ReponseRepository())->selectAll();//appel au modèle pour gerer la BD
+        $rep = (new ReponseRepository())->selectWhere("id_question",$_GET['id_question'] );
+
         self::afficheVue('/view.php', ["pagetitle" => "Liste des réponses",
-            "cheminVueBody" => "reponse/detail.php",   //"redirige" vers la vue
-            "reponses"=>$reponses]);
+            "cheminVueBody" => "reponse/list.php",   //"redirige" vers la vue
+            "reponses"=>$rep]);
     }
 
     public static function read() : void {
@@ -261,6 +263,54 @@ class ControllerReponse extends GenericController
     public static function error(string $errorMessage):void {
         self::afficheVue('view.php',["pagetitle"=>"ERROR","cheminVueBody"=>"utilisateur/error.php","s"=>"Problème avec la utilisateur : $errorMessage "]);
 
+    }
+
+    public static function vote(){
+        $v = (new VotantRepository())->select($_GET['id_votant']);
+        $v2 = (new VotantRepository())->selectWhere('id_votant', $_GET['id_votant']);
+        if($v){
+        //var_dump($v);
+        if($_GET['vote']=="positif"){
+            if($v->getVote()==null){
+                $res = 1;
+            }
+            else{
+                $res = $v->getVote() + 1;
+            }
+
+        }
+        if($_GET['vote']=="neutre"){
+            if($v->getVote()==null){
+                $res = 0;
+            }
+            else{
+                $res = $v->getVote() + 0;
+            }
+        }
+        if($_GET['vote']=="negatif"){
+            if($v->getVote()==null){
+                $res = -1;
+            }
+            else{
+                $res = $v->getVote() - 1;
+            }
+        }
+
+        $votant = new Votant($_GET['id_votant'], $res , $v->getIdQuestion(), $_GET['id_reponse']);
+        var_dump($votant);
+        (new VotantRepository())->update2($votant);
+        MessageFlash::ajouter("seccess", "Erreur");
+
+        }
+        else{
+            MessageFlash::ajouter("warning", "Votre choix a été pris en compte");
+        }
+        header("Location: frontController.php?controller=reponse&action=readAll&id_question=" . $_GET['id_question']);
+        //$rep = (new ReponseRepository())->selectWhere("id_question",$_GET['id_question'] );
+
+        /*self::afficheVue('/view.php', ["pagetitle" => "Liste des réponses",
+            "cheminVueBody" => "reponse/list.php",   //"redirige" vers la vue
+            "reponses"=>$rep, "id_question"=>$v->getIdQuestion()]);*/
     }
 
 }

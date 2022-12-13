@@ -59,6 +59,25 @@ abstract class AbstractRepository
 
     }
 
+    public function update2(AbstractDataObject $v)
+    {
+        $sql = "UPDATE ".$this->getNomTable()." SET ";
+        foreach ($this->getNomsColonnes() as $nomChamps){
+            $sql.=$nomChamps." = :".$nomChamps."Tag, ";
+        }
+        $sql=substr($sql,0,-2);
+        $sql.=" WHERE ". $this->getNomClePrimaire1() . "= :".$this->getNomClePrimaire1()."Tag AND ". $this->getNomClePrimaire2() . "= :".$this->getNomClePrimaire2()."Tag";
+        try {
+            $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
+        } catch (PDOException $Exception) {
+            throw new MyDatabaseException($Exception->getMessage(), $Exception->getCode());
+        }
+        $values=$v->formatTableau();
+        // On donne les valeurs et on exécute la requête
+        $n=$pdoStatement->execute($values);
+
+    }
+
     public function supprimer(string|array $valeurClePrimaire): bool
     {
         $rep = true;
