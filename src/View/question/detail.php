@@ -98,14 +98,15 @@ foreach ($sections as $section) {
    // echo "--------------------------------------------------------------------------\n";
 }
 
-
+/*
     echo "<div class='question_description'>";
     echo "<a href=\"frontController.php?controller=section&action=create&id_question={$idQuestion}\"> Ajouter une section </a> ";
     echo "</div>";
 
     //echo "--------------------------------------------------------------------------\n";
         echo "<div class='separateur1'></div>";
-
+*/
+use App\YourVoice\Model\Repository\UtilisateurRepository;
 foreach ($reponses as $reponse) {
     $num++;
     //$questNonFormater = $question->getIdQuestion();
@@ -115,13 +116,15 @@ foreach ($reponses as $reponse) {
 
     ?>
     <div class="titre">
-    <?php echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> La réponse ".  htmlspecialchars ( $reponse->getIdRponses() ) . " </a></h1> "; ?>
+    <?php
+    $user=(new UtilisateurRepository())->select($reponse->getIdUtilisateur());
+    echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de ".  htmlspecialchars ( $user->getLogin() ) . " </a></h1> "; ?>
     </div>
     <?php
     echo "<div class='question_description'>";
     echo "<div class='question_update'>";
     //echo "<a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> La réponse ".  htmlspecialchars ( $reponse->getIdRponses() ) . " </a></> ";
-    if(date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction ) {
+    /*if(date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction ) {
         echo "<a href=\"frontController.php?controller=reponse&action=update&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
         echo "<a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
         //echo "--------------------------------------------------------------------------\n";
@@ -132,10 +135,12 @@ foreach ($reponses as $reponse) {
     else{
     echo "<a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
     //echo "--------------------------------------------------------------------------\n";
+
+
+} */
     echo"</div>";
     echo "<div class='separateur1'></div>";
     echo "</div>";
-}
 }
 
 

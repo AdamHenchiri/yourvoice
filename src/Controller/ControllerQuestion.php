@@ -67,6 +67,23 @@ class ControllerQuestion extends GenericController {
         }
     }
 
+    public static function readMy() : void {
+        $question =(new QuestionRepository())->select($_GET['id_question']);
+        $sections = (new SectionRepository())->selectWhere("id_question",$_GET['id_question']);
+        $reponses = (new ReponseRepository())->selectWhere("id_question",$_GET['id_question']);
+        if ($question!==null && $sections!==null) {
+            self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
+                "cheminVueBody" => "question/detailMaList.php",   //"redirige" vers la vue
+                "question"=>$question,
+                "sections"=>$sections,
+                "reponses"=>$reponses]);
+        }else{
+            self::afficheVue('/view.php', ["pagetitle" => "ERROR",
+                "cheminVueBody" => "question/error.php",   //"redirige" vers la vue
+            ]);
+        }
+    }
+
 //    public static function afficheVue(string $cheminVue, array $parametres = []) : void {
 //        extract($parametres); // Crée des variables à partir du tableau $parametres
 //        require "../src/View/$cheminVue"; // Charge la vue

@@ -25,7 +25,7 @@ foreach ($questions as $question) {
         if (count($existe)!=0){
             $nbLigne++;
                 echo "<div class='questions'>";
-                echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=read&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
+                echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=readMy&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
                 echo "</div>";
                 break;
         }
@@ -34,7 +34,7 @@ foreach ($questions as $question) {
     if ($question->getIdUtilisateur()==ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur()) {
         $nbLigne++;
         echo "<div class='questions'>";
-        echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=read&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
+        echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=readMy&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
         echo "<div class='question_update'>";
         if ($question->getDateDebutRedaction() > date("Y-m-d")) {
             echo "<a href=\"frontController.php?controller=question&action=update&id_question={$questFormater}\"> <i class='fa-solid fa-pencil'></i> </a>";

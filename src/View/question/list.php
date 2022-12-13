@@ -23,24 +23,6 @@ foreach ($questions as $question) {
         $questNonFormater = $question->getIdQuestion();
         $questFormater = rawurlencode($questNonFormater);
 
-        echo "<div class='questions'>";
-        echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=read&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
-        echo "<div class='question_update'>";
-        if(date('Y-m-d H:i:s') < $dateDebut) {
-            echo "<a href=\"frontController.php?controller=question&action=update&id_question={$questFormater}\"> <i class='fa-solid fa-pencil'></i> </a>";
-            echo "<a id=\"confirmation\" onclick=\"return confirmation()\" href=\"frontController.php?controller=question&action=delete&id_question={$questFormater}\"> <i class='fa-solid fa-trash'></i></a>";
-            echo "</div>";
-            echo "</div>";
-        }
-        else{
-            echo "<a id=\"confirmation\" onclick=\"return confirmation()\" href=\"frontController.php?controller=question&action=delete&id_question={$questFormater}\"> <i class='fa-solid fa-trash'></i></a>";
-            echo "</div>";
-            echo "</div>";
-        }
-
-
-//onclick=\"validation()\"
-
         if ($question->getDateFinVote() < date("Y-m-d")) {
             $nbLigne++;
             echo "<div class='questions'>";
