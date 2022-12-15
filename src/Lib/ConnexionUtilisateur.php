@@ -2,8 +2,11 @@
 
 namespace App\YourVoice\Lib;
 
+use App\YourVoice\Model\DataObject\CoAuteur;
 use App\YourVoice\Model\DataObject\Utilisateur;
 use App\YourVoice\Model\HTTP\Session;
+use App\YourVoice\Model\Repository\CoauteurRepository;
+use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\Repository\UtilisateurRepository;
 use mysql_xdevapi\Statement;
@@ -45,8 +48,11 @@ class ConnexionUtilisateur
            return $tab[0];
         }
     }
+
     //Cette méthode doit renvoyer true si un utilisateur est connecté et qu’il est administrateur. Les informations sur l’utilisateur devront être récupérées de la base de données
-    public static function estAdministrateur() : bool{
+
+
+    /*public static function estAdministrateur() : bool{
         $user=Session::getInstance()->lire(static::$cleConnexion);
         if ($user!=null) {
             $userAdmin = (new UtilisateurRepository())->selectWhereAnd("login", $user, "estAdmin", 1);
@@ -54,23 +60,105 @@ class ConnexionUtilisateur
         }else{
             return false;
         }
-    }
+    }*/
 
-    public static function estResponsable() : bool
+    public static function estOrganisateur($question) : bool // Fonctionne ok
     {
         $user = Session::getInstance()->lire(static::$cleConnexion);
         if (self::estConnecte()) {
-            $log = self::getUtilisateurConnecte();
-            $u = (new UtilisateurRepository())->select($log);
-            $rep = (new ReponseRepository())->selectWhere('id_utilisateur', $log);
-            if (empty($rep)) {
-                return false;
-            } else {
+            $log = self::getLoginUtilisateurConnecte();
+            //$q = (new QuestionRepository())->select($question->getIdQuestion());
+            $id = $question->getIdUtilisateur();
+            $utilisateur = (new UtilisateurRepository())->select($id);
+            $exist = $utilisateur->getLogin();
+            //echo "<p> utilisateur ? ". $exist. "// </p>";
+            //echo "<p> connecter : ". $log. "// </p>";
+            if($exist == $log){
+                //echo "<p> yes </p>";
                 return true;
+            }
+            else{
+                //echo "<p> no </p>";
+
+                return false;
             }
         }
         else{
             return false;
         }
     }
+
+    public static function estResponsable($question) : bool //Fonctionne ok
+    {
+        if (self::estConnecte()) {
+            $log = self::getLoginUtilisateurConnecte();
+            $reponseTab = (new ReponseRepository())->selectWhere('id_question', $question->getIdQuestion());
+            foreach ($reponseTab as $reponse){
+                $idUtilisateur = $reponse->getIdUtilisateur();
+                $responsable = (new UtilisateurRepository())->select($idUtilisateur);
+                $loginResponsable = $responsable->getLogin();
+                if($loginResponsable == $log){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+
+            }
+
+        }
+        else{
+            return false;
+        }
+        return false;
+    }
+
+    public static function estCoAuteur($question) : bool
+    {
+        $user = Session::getInstance()->lire(static::$cleConnexion);
+        if (self::estConnecte()) {
+            $log = self::getLoginUtilisateurConnecte();
+            $reponseTab = (new ReponseRepository())->selectWhere('id_question', $question->getIdQuestion());
+            foreach ($reponseTab as $reponse) {
+                $idResponsable = $reponse->getIdRponses();
+                $coAuteurs = (new CoauteurRepository())->selectWhere("id_reponse",$idResponsable);
+                //var_dump($coAuteurs);
+                foreach ($coAuteurs as $coAuteur){
+                    $idCoAuteur =  $coAuteur->getIdUtilisateur();
+                    $utilisateur = (new UtilisateurRepository())->select($idCoAuteur);
+                    $loginCoAuteur = $utilisateur->getLogin();
+                    //echo "<p> utilisateur ? ". $loginCoAuteur. "// </p>";
+                    //echo "<p> connecter : ". $log. "// </p>";
+                    if ($loginCoAuteur == $log) {
+                        return true;
+                    }
+                }
+
+            }
+        }
+        else{
+            return false;
+        }
+        return false;
+    }
+
+    public static function estAdministrateur() : bool
+    {
+        if (self::estConnecte()) {
+            $log = self::getLoginUtilisateurConnecte();
+            $u = (new UtilisateurRepository())->select($log);
+            if ($u->isEstAdmin()) {
+                return true;
+            }
+            else{
+                return false;
+            }
+
+        }
+        else{
+            return false;
+        }
+    }
+
+
 }
