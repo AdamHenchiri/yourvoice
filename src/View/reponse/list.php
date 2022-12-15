@@ -10,10 +10,8 @@
         echo "<div class='container_question1'>";
     echo "<div class='titrelistequestion'>";
         echo "<div id='apparait' class='cacher'>";
-            echo "<a id='nombrequestion'>Nombre de questions<a>";
-            echo "<a>(clickez !)</a>";
         echo "</div>";
-        echo "<h1>Questions " . $_GET['id_question']  ."</h1>";
+        echo "<h1><a href=\"frontController.php?controller=question&action=read&id_question={$_GET['id_question']}\"> Questions " . $_GET['id_question']  ."</a></h1>";
     echo "</div>";
 echo "</div>";
 
@@ -48,8 +46,7 @@ echo "<div class='questions'>";
 
             <input type="radio" name="vote" id="Idnegatif" value="negatif">Aime pas
 
-            <label for="id_votant">Serra rempli automatiquement avec les sessions</label> :
-            <input type="int" placeholder="serra rempli automatiquement avec les sessions" name="id_votant" id="id_votant" required/>
+            <input type="hidden" placeholder="serra rempli automatiquement avec les sessions" name="id_votant" id="id_votant" value="<?php \App\YourVoice\Lib\ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur()?>" required/>
             <input type="hidden" value="vote" name="action">
             <input type="hidden" value="reponse" name="controller">
             <input id="valider" type="submit" value="valider" name="valider" />

@@ -105,6 +105,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
                 //echo "--------------------------------------------------------------------------\n";
                     echo "<div class='separateur1'></div>";
 
+            use App\YourVoice\Lib\ConnexionUtilisateur;
             use App\YourVoice\Model\Repository\UtilisateurRepository;
             foreach ($reponses as $reponse) {
                 $num++;
@@ -123,22 +124,28 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
                 echo "<div class='question_description'>";
                 echo "<div class='question_update'>";
                 //echo "<a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> La réponse ".  htmlspecialchars ( $reponse->getIdRponses() ) . " </a></> ";
-                if(date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction ) {
+                if(date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction && ConnexionUtilisateur::estConnecte() && ConnexionUtilisateur::estResponsable()) {
                     echo "<a href=\"frontController.php?controller=reponse&action=update&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
                     echo "<a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
+
                     //echo "--------------------------------------------------------------------------\n";
                     echo"</div>";
                     echo "<div class='separateur1'></div>";
                     echo "</div>";
                 }
                 else{
-                echo "<a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
+                    echo"</div>";
+                    echo "<div class='separateur1'></div>";
+                    echo "</div>";
+                }
+                //else{
+                //echo "<a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
 
 
-            }
-                echo"</div>";
-                echo "<div class='separateur1'></div>";
-                echo "</div>";
+            //}
+                //echo"</div>";
+                //echo "<div class='separateur1'></div>";
+                //echo "</div>";
             }
 
 

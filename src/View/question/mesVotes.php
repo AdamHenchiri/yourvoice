@@ -23,7 +23,7 @@ foreach ($questions as $question) {
     if(count($existe)!=0) {
         $nbLigne++;
         echo "<div class='questions'>";
-        echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=read&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
+        echo "<a id='titrequestion' href=\"frontController.php?controller=reponse&action=readAll&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
         echo "</div>";
 //onclick=\"validation()\"
     }

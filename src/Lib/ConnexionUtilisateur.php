@@ -4,6 +4,7 @@ namespace App\YourVoice\Lib;
 
 use App\YourVoice\Model\DataObject\Utilisateur;
 use App\YourVoice\Model\HTTP\Session;
+use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\Repository\UtilisateurRepository;
 use mysql_xdevapi\Statement;
 
@@ -51,6 +52,24 @@ class ConnexionUtilisateur
             $userAdmin = (new UtilisateurRepository())->selectWhereAnd("login", $user, "estAdmin", 1);
             return ($userAdmin == null) ? false : true;
         }else{
+            return false;
+        }
+    }
+
+    public static function estResponsable() : bool
+    {
+        $user = Session::getInstance()->lire(static::$cleConnexion);
+        if (self::estConnecte()) {
+            $log = self::getUtilisateurConnecte();
+            $u = (new UtilisateurRepository())->select($log);
+            $rep = (new ReponseRepository())->selectWhere('id_utilisateur', $log);
+            if (empty($rep)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        else{
             return false;
         }
     }
