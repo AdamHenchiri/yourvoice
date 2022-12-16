@@ -38,10 +38,11 @@
 
             <?php }}
         ?>
+                <p>
+                    <input id="valider" type="submit" value="Enregistrer" name="valider" />
+                </p>
             </div>
-        <p>
-            <input id="valider" type="submit" value="Enregustrer" name="valider" />
-        </p>
+
 
 </form>
 <script src="../src/js/app.js"></script>

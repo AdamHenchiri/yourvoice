@@ -135,7 +135,11 @@ class ControllerReponse extends GenericController
         $q = (new QuestionRepository())->select($_GET['id_question']);
         $dateFin = $q->getDateFinRedaction();
         $dateDebut = $q->getDateDebutRedaction();
-        if(date('Y-m-d H:i:s') > $dateFin) {
+        $textes = (new TexteRepository())->selectWhere("id_reponse", $_GET['id_reponse']);
+        self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
+            "cheminVueBody" => "reponse/update.php",   //"redirige" vers la vue
+            "textes" => $textes]);
+        /*if(date('Y-m-d H:i:s') > $dateFin) {
             MessageFlash::ajouter("warning", "Date de rédaction écoulée");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         }
@@ -148,7 +152,7 @@ class ControllerReponse extends GenericController
             } /*else {
                 self::create();
             }*/
-        }
+
     }
 
     public static function updated() : void {

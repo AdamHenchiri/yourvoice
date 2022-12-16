@@ -31,7 +31,7 @@ class ControllerSection extends GenericController
 
     public static function created() : void {
         $id=$_POST["id_question"];
-        $v=new Section(null,$_POST["titre"],$_POST["texte_explicatif"],$id);
+        $v=new Section(null,$_POST["titre"],$_POST["texte_explicatif"],$id, 0);
         (new SectionRepository())->sauvegarder($v);
         (new ControllerQuestion())::readAll();
        /* $sections = (new SectionRepository())->selectWhere("id_question", $id);
@@ -66,7 +66,7 @@ class ControllerSection extends GenericController
 
 
     public static function updated() : void {
-        $v=new Section($_POST["id_section"],$_POST["titre"],$_POST["texte_explicatif"],$_POST["id_question"]);
+        $v=new Section($_POST["id_section"],$_POST["titre"],$_POST["texte_explicatif"],$_POST["id_question"], 0);
         (new SectionRepository())->update($v);
         MessageFlash::ajouter("success","section créée");
         $url ="frontController.php?controller=question&action=read&id_question=" . $_POST["id_question"];
@@ -88,19 +88,20 @@ class ControllerSection extends GenericController
             MessageFlash::ajouter("warning", "La rédaction des réponses a déjà commencée");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         }
-        if (date('Y-m-d H:i:s') <= $dateDebut){
+        if (date('Y-m-d H:i:s') <= $dateDebut) {
             $sections = (new SectionRepository())->selectWhere("id_question", $_GET["id_question"]);
-        $v = (new SectionRepository())->select($_GET['id_section']);
-        $question = (new QuestionRepository())->select($_GET["id_question"]);
-        if ($v != null && count($sections) > 1) {
-            (new SectionRepository())->supprimer($_GET['id_section']);
-            (new ControllerQuestion)::read();
-        } else {
-            $s = 'suppression echoué';
-            self::error($s);
+            $v = (new SectionRepository())->select($_GET['id_section']);
+            //$question = (new QuestionRepository())->select($_GET["id_question"]);
+            if ($v != null && count($sections) > 1) {
+                $s = new Section($v->getIdSection(), $v->getTitre(), $v->getTexteExplicatif(), $v->getIdQuestion(), 1);
+                (new SectionRepository())->update($s);
+                MessageFlash::ajouter("success", "Question supprimée");
+            } else {
+                MessageFlash::ajouter("danger", "Erreur de la suppression");
+            }
+            header("Location: frontController.php?controller=question&action=read&id_question=" . rawurlencode($v->getIdQuestion()));
+
         }
-    }
-        //self::readAll();
     }
 
 

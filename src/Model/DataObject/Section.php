@@ -10,6 +10,7 @@ class Section extends AbstractDataObject
     private string $titre;
     private string $texte_explicatif;
     private int $id_question;
+    private bool $actif;
 
     /**
      * @param string $id_section
@@ -17,12 +18,13 @@ class Section extends AbstractDataObject
      * @param string $texte_explicatif
      * @param int $id_question
      */
-    public function __construct(?int $id_section, string $titre, string $texte_explicatif, int $id_question)
+    public function __construct(?int $id_section, string $titre, string $texte_explicatif, int $id_question, bool $actif)
     {
         $this->id_section = $id_section;
         $this->titre = $titre;
         $this->texte_explicatif = $texte_explicatif;
         $this->id_question = $id_question;
+        $this->actif = $actif;
     }
 
     /**
@@ -89,14 +91,38 @@ class Section extends AbstractDataObject
         $this->id_question = $id_question;
     }
 
+    /**
+     * @return bool
+     */
+    public function isActif(): bool
+    {
+        return $this->actif;
+    }
+
+    /**
+     * @param bool $actif
+     */
+    public function setActif(bool $actif): void
+    {
+        $this->actif = $actif;
+    }
+
+
 
     public function formatTableau(): array
     {
+        if($this->isActif()){
+            $res = 1;
+        }
+        if(!$this->isActif()){
+            $res = 0;
+        }
         return array(
             "id_sectionTag" => $this->getIdSection(),
             "titreTag" => $this->getTitre(),
             "texte_explicatifTag" => $this->getTexteExplicatif(),
             "id_questionTag" => $this->getIdQuestion(),
+            "actifTag" => $res
         );
     }
 }

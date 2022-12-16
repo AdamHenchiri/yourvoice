@@ -57,9 +57,10 @@ class ControllerQuestion extends GenericController {
         if ($question!==null && $sections!==null) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
                 "cheminVueBody" => "question/detail.php",   //"redirige" vers la vue
-                "question"=>$question,
-                "sections"=>$sections,
-                "reponses"=>$reponses]);
+                "question" => $question,
+                "sections" => $sections,
+                "reponses" => $reponses]);
+
         }else{
             self::afficheVue('/view.php', ["pagetitle" => "ERROR",
                 "cheminVueBody" => "question/error.php",   //"redirige" vers la vue
@@ -124,7 +125,7 @@ class ControllerQuestion extends GenericController {
             }
         //sauvegarde des contributeurs dans la base de donnée
             foreach ($_POST["titre"] as $i=>$section){
-               $s= new Section(null,$_POST["titre"][$i],$_POST["texte_explicatif"][$i],$id);
+               $s= new Section(null,$_POST["titre"][$i],$_POST["texte_explicatif"][$i],$id, 0);
                 (new SectionRepository())->sauvegarder($s);
             }
         MessageFlash::ajouter("success","ajout de la question avec succès");
@@ -141,7 +142,7 @@ class ControllerQuestion extends GenericController {
             //$v->setActif(true);
             $q = new Question($v->getIdQuestion(),$v->getIntitule(),$v->getExplication(),$v->getDateDebutRedaction(),
                 $v->getDateFinRedaction(),$v->getDateDebutVote(),$v->getDateFinVote(),$v->getIdUtilisateur(), 1);
-            var_dump($q);
+            //var_dump($q);
             (new QuestionRepository())->update($q);
             //$rep=(new QuestionRepository())->supprimer($v->getIdQuestion());
             MessageFlash::ajouter("success", "Question supprimée");
