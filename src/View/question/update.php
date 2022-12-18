@@ -7,8 +7,15 @@
                     <a id="boutonpublic" class="public"><i class="fa-solid fa-eye"></i> Public</a>
                     <h1>Modifier une question</h1>
                 </div>
+                <?php
 
-            <input type="hidden" name="id_question" id="id_question" value="<?php use App\YourVoice\Model\Repository\ReponseRepository; use App\YourVoice\Model\Repository\UtilisateurRepository; use App\YourVoice\Model\Repository\VotantRepository; echo $v->getIdQuestion(); ?>" />
+                use App\YourVoice\Lib\ConnexionUtilisateur;
+                use App\YourVoice\Model\Repository\ReponseRepository;
+                use App\YourVoice\Model\Repository\UtilisateurRepository;
+                use App\YourVoice\Model\Repository\VotantRepository;
+
+                ?>
+                <input type="hidden" name="id_question" id="id_question" value="<?php echo $v->getIdQuestion(); ?>" />
 
                 <div class="question_description">
                     <label for="intitule">Intitulé</label>
@@ -26,11 +33,12 @@
                     <div class="date_redac">
                         <div class="date_all">
                             <label for="dateDebut_redaction">Début de la rédaction</label> :
-                            <input type="date" value=<?php echo $v->getDateDebutRedaction(); ?> name="dateDebut_redaction" id="dateDebut_redaction" required/>
+                            <input type="date" value=<?php echo $v->getDateDebutRedaction(); ?> name="dateDebut_redaction"  required/>
                         </div>
                         <div class="date_all">
                             <label for="dateFin_redaction">Fin de la rédaction</label> :
                             <input type="date" value=<?php echo $v->getDateFinRedaction(); ?> name="dateFin_redaction" id="dateFin_redaction" required/>
+
 
                         </div>
                     </div>
@@ -49,12 +57,12 @@
                 <div class="separateur1">
                 </div>
 
-                <label for="id_utilisateur">Serra rempli automatiquement avec les sessions</label>
-                <input type="int" value=<?php echo $v->getIdUtilisateur(); ?> name="id_utilisateur" id="id_utilisateur" readonly/>
+                <!--<label for="id_utilisateur">Serra rempli automatiquement avec les sessions</label>
+                <input type="int" value=<?php /*echo $v->getIdUtilisateur(); */?> name="id_utilisateur" id="id_utilisateur" readonly/>
+-->             <?php $u =  (ConnexionUtilisateur::getUtilisateurConnecte())->getIdUtilisateur() ?>
+                <input type="hidden" name="id_utilisateur" id="id_utilisateur" value="<?php $u ?>" />
 
 
-                <div class="separateur1">
-                </div>
 
                 <div class="container_votant_contributeur">
                     <div class="container_contributeur">

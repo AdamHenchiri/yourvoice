@@ -117,6 +117,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
                 ?>
                 <div class="titre">
                     <?php
+                    if((ConnexionUtilisateur::getUtilisateurConnecte())->getIdUtilisateur() == $reponse->getIdUtilisateur() ){
                     $user=(new UtilisateurRepository())->select($reponse->getIdUtilisateur());
                     echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de ".  htmlspecialchars ( $user->getLogin() ) . " </a></h1> "; ?>
                 </div>
@@ -124,7 +125,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
                 echo "<div class='question_description'>";
                 echo "<div class='question_update'>";
                 //echo "<a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> La réponse ".  htmlspecialchars ( $reponse->getIdRponses() ) . " </a></> ";
-                if(date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction && ConnexionUtilisateur::estConnecte() && ConnexionUtilisateur::estResponsable()) {
+                if(date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction && ConnexionUtilisateur::estConnecte()) {
                     echo "<a href=\"frontController.php?controller=reponse&action=update&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
                     echo "<a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
 
@@ -138,6 +139,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
                     echo "<div class='separateur1'></div>";
                     echo "</div>";
                 }
+                    }
                 //else{
                 //echo "<a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
 

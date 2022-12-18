@@ -22,17 +22,27 @@ foreach ($questions as $question) {
     $reponses=(new ReponseRepository())->selectWhere("id_question",$questNonFormater);
 
 
-    if(ConnexionUtilisateur::estCoAuteur($question) || ConnexionUtilisateur::estResponsable($question) ){
+    if((ConnexionUtilisateur::estCoAuteur($question) || ConnexionUtilisateur::estResponsable($question) || ConnexionUtilisateur::estOrganisateur($question)) and !$question->isActif()){
+        if(ConnexionUtilisateur::estCoAuteur($question)){
+            echo "Co-auteur d'une réponse";
+        }
+        if(ConnexionUtilisateur::estResponsable($question)){
+            echo "Responsable d'une réponse";
+        }
+        if(ConnexionUtilisateur::estOrganisateur($question)){
+            echo "Organisateur de la question";
+        }
 
         echo "<div class='questions'>";
         echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=readMy&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
         echo "<div class='question_update'>";
         if( ConnexionUtilisateur::estOrganisateur($question)){
-            if($question->getDateDebutRedaction() < date("Y-m-d")){
+            if($question->getDateDebutRedaction() > date("Y-m-d")){
                 echo "<a href=\"frontController.php?controller=question&action=update&id_question={$questFormater}\"> <i class='fa-solid fa-pencil'></i> </a>";
+                echo "<a id=\"confirmation\" onclick=\"return confirmation()\" href=\"frontController.php?controller=question&action=delete&id_question={$questFormater}\"> <i class='fa-solid fa-trash'></i></a>";
+
             }
         }
-        echo "<a id=\"confirmation\" onclick=\"return confirmation()\" href=\"frontController.php?controller=question&action=delete&id_question={$questFormater}\"> <i class='fa-solid fa-trash'></i></a>";
         echo "</div>";
         echo "</div>";
 

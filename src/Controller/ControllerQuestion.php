@@ -162,24 +162,27 @@ class ControllerQuestion extends GenericController {
 
     public static function update() : void {
         $q= (new QuestionRepository())->select($_GET['id_question']);
-        $dateFin = $q->getDateFinRedaction();
-        $dateDebut = $q->getDateDebutRedaction();
-        if(date('Y-m-d H:i:s') > $dateDebut){
+
+        //echo $dateDebut;
+        /*if(date('Y-m-d H:i:s') > $dateDebut){
             MessageFlash::ajouter("warning", "Les rédaction ont déjà commencée");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question'] );
         }
-        else {
-            $values = $q->formatTableau();
-            self::afficheVue('/view.php', ["pagetitle" => "mettre à jour une question", "cheminVueBody" => "question/update.php", "v" => $v]);
-        }
+        else {*/
+            //$v = $q->formatTableau();
+            self::afficheVue('/view.php', ["pagetitle" => "mettre à jour une question", "cheminVueBody" => "question/update.php", "v" => $q, ]);
+        //}
     }
 
     public static function updated() : void
     {
+        //$u =  intval($_POST["id_utilisateur"]);
         $id=$_POST['id_question'];
+        $q =(new QuestionRepository())->select($id);
+        $u = $q->getIdUtilisateur();
         $v = new Question($_POST['id_question'], $_POST["intitule"], $_POST["explication"],
             $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
-            $_POST["dateFin_vote"], $_POST["id_utilisateur"], 0);
+            $_POST["dateFin_vote"], $u, 0);
         (new QuestionRepository())->update($v);
 
 
