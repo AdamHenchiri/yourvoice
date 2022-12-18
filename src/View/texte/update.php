@@ -8,6 +8,7 @@
             </div>
             <div class="question_description">
         <?php
+        var_dump($textes);
 
         use App\YourVoice\Model\Repository\SectionRepository;
         use App\YourVoice\Model\Repository\UtilisateurRepository;

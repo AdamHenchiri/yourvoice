@@ -12,6 +12,7 @@
             <div class="question_description">
             <?php
 
+            use App\YourVoice\Lib\ConnexionUtilisateur;
             use App\YourVoice\Model\Repository\SectionRepository;
             use App\YourVoice\Model\Repository\UtilisateurRepository;
             $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
@@ -74,12 +75,14 @@
                 </div>
                 </div>
 
-            <p>
+            <!--<p>
                 <label for="id_utilisateur">Serra rempli automatiquement avec les sessions</label> :
                 <input type="int" placeholder="serra rempli automatiquement avec les sessions" name="id_utilisateur" id="id_utilisateur" required/>
-            <p>
+            <p>-->
+                <input type="hidden" value="<?php echo (ConnexionUtilisateur::getUtilisateurConnecte())->getIdUtilisateur()?>" name="id_reponse" >
 
-            <p>
+
+                <p>
                     <input id="valider" type="submit" value="Créer" name="valider" />
             </p>
         </div>

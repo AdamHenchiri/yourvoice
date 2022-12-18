@@ -137,7 +137,7 @@ class ControllerReponse extends GenericController
         $dateDebut = $q->getDateDebutRedaction();
         $textes = (new TexteRepository())->selectWhere("id_reponse", $_GET['id_reponse']);
         self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
-            "cheminVueBody" => "reponse/update.php",   //"redirige" vers la vue
+            "cheminVueBody" => "texte/update.php",   //"redirige" vers la vue
             "textes" => $textes]);
         /*if(date('Y-m-d H:i:s') > $dateFin) {
             MessageFlash::ajouter("warning", "Date de rédaction écoulée");
