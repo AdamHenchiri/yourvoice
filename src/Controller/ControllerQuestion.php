@@ -3,12 +3,13 @@ namespace App\YourVoice\Controller ;
 
 use App\YourVoice\Lib\ConnexionUtilisateur;
 use App\YourVoice\Lib\MessageFlash;
+use App\YourVoice\Lib\MotDePasse;
 use App\YourVoice\Model\DataObject\Reponse;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
-use App\YourVoice\Model\DataObject\Question ;
-use App\YourVoice\Model\DataObject\Section ;
+use App\YourVoice\Model\DataObject\Question;
+use App\YourVoice\Model\DataObject\Section;
 use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\Repository\SectionRepository;
 use App\YourVoice\Model\Repository\VotantRepository;
@@ -19,42 +20,61 @@ use Couchbase\View;
 // chargement du modèle
 
 
-class ControllerQuestion extends GenericController {
+class ControllerQuestion extends GenericController
+{
 
     // Déclaration de type de retour void : la fonction ne retourne pas de valeur
-    public static function readAll() : void {
-        $question =new QuestionRepository();//appel au modèle pour gerer la BD
+    public static function readAll(): void
+    {
+        $question = new QuestionRepository();//appel au modèle pour gerer la BD
         $questions = $question->selectAll();
-         self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
+        self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
             "cheminVueBody" => "question/list.php",   //"redirige" vers la vue
-            "questions"=>$questions] );
+            "questions" => $questions]);
 
     }
 
 
-    public static function readAllMein() : void {
-        $question =new QuestionRepository();//appel au modèle pour gerer la BD
+    public static function readAllMein(): void
+    {
+        if (ConnexionUtilisateur::getUtilisateurConnecte()!=null) {
+            $question = new QuestionRepository();//appel au modèle pour gerer la BD
         $questions = $question->selectAll();
         self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
             "cheminVueBody" => "question/maList.php",   //"redirige" vers la vue
-            "questions"=>$questions] );
+            "questions" => $questions]);
+        }else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
+        }
 
     }
 
-    public static function mesVotes() : void {
-        $question =new QuestionRepository();//appel au modèle pour gerer la BD
+    public static function mesVotes(): void
+    {
+        if (ConnexionUtilisateur::getUtilisateurConnecte()!=null) {
+            $question = new QuestionRepository();//appel au modèle pour gerer la BD
         $questions = $question->selectAll();
         self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
             "cheminVueBody" => "question/mesVotes.php",   //"redirige" vers la vue
-            "questions"=>$questions] );
+            "questions" => $questions]);
+        }else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
+        }
 
     }
 
-    public static function read() : void {
-        $question =(new QuestionRepository())->select($_GET['id_question']);
-        $sections = (new SectionRepository())->selectWhere("id_question",$_GET['id_question']);
-        $reponses = (new ReponseRepository())->selectWhere("id_question",$_GET['id_question']);
-        if ($question!==null && $sections!==null) {
+    public static function read(): void
+    {
+        $question = (new QuestionRepository())->select($_GET['id_question']);
+        $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
+        $reponses = (new ReponseRepository())->selectWhere("id_question", $_GET['id_question']);
+        if ($question !== null && $sections !== null) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
                 "cheminVueBody" => "question/detail.php",   //"redirige" vers la vue
                 "question" => $question,
@@ -64,24 +84,32 @@ class ControllerQuestion extends GenericController {
         }else{
             self::afficheVue('/view.php', ["pagetitle" => "ERROR",
                 "cheminVueBody" => "question/error.php",   //"redirige" vers la vue
-               ]);
+            ]);
         }
     }
 
-    public static function readMy() : void {
-        $question =(new QuestionRepository())->select($_GET['id_question']);
-        $sections = (new SectionRepository())->selectWhere("id_question",$_GET['id_question']);
-        $reponses = (new ReponseRepository())->selectWhere("id_question",$_GET['id_question']);
-        if ($question!==null && $sections!==null) {
-            self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
-                "cheminVueBody" => "question/detailMaList.php",   //"redirige" vers la vue
-                "question"=>$question,
-                "sections"=>$sections,
-                "reponses"=>$reponses]);
-        }else{
-            self::afficheVue('/view.php', ["pagetitle" => "ERROR",
-                "cheminVueBody" => "question/error.php",   //"redirige" vers la vue
-            ]);
+    public static function readMy(): void
+    {
+        if (ConnexionUtilisateur::getUtilisateurConnecte() != null) {
+            $question = (new QuestionRepository())->select($_GET['id_question']);
+            $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
+            $reponses = (new ReponseRepository())->selectWhere("id_question", $_GET['id_question']);
+            if ($question !== null && $sections !== null) {
+                self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
+                    "cheminVueBody" => "question/detailMaList.php",   //"redirige" vers la vue
+                    "question" => $question,
+                    "sections" => $sections,
+                    "reponses" => $reponses]);
+            } else {
+                self::afficheVue('/view.php', ["pagetitle" => "ERROR",
+                    "cheminVueBody" => "question/error.php",   //"redirige" vers la vue
+                ]);
+            }
+        } else {
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
         }
     }
 
@@ -90,33 +118,42 @@ class ControllerQuestion extends GenericController {
 //        require "../src/View/$cheminVue"; // Charge la vue
 //    }
 
-    public static function create() : void {
-        self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
-            "cheminVueBody" => "question/create.php"   //"redirige" vers la vue
+    public static function create(): void
+    {
+        if (ConnexionUtilisateur::getUtilisateurConnecte() != null) {
+            self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
+                "cheminVueBody" => "question/create.php"   //"redirige" vers la vue
             ]);
+        } else {
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
+        }
     }
 
 
-    public static function created() : void {
-        $tab = array();
-            $v=new Question( null,$_POST["intitule"],$_POST["explication"],
-            $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
-            $_POST["dateFin_vote"], ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur(),0);
-        //sauvegarde de la question dans la base de donnée
-        $id=(new QuestionRepository())->sauvegarder($v);
-        //sauvegarde des votants dans la base de donnée
-        foreach ($_POST["idContributeur"] as $idUser) {
-            if ($idUser) {
-                $v3 = new Reponse(null,$idUser, $id);
-                $reponse =  (new ReponseRepository())->sauvegarder($v3);
-                $tab[] = $reponse;
-
-            }
-        }
-        foreach ($_POST["idVotant"] as $idUser) {
+    public static function created(): void
+    {
+        if (ConnexionUtilisateur::getUtilisateurConnecte() != null) {
+            $tab = array();
+            $v = new Question(null, $_POST["intitule"], $_POST["explication"],
+                $_POST["dateDebut_redaction"], $_POST["dateFin_redaction"], $_POST["dateDebut_vote"],
+                $_POST["dateFin_vote"], ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur(), 0);
+            //sauvegarde de la question dans la base de donnée
+            $id = (new QuestionRepository())->sauvegarder($v);
+            //sauvegarde des votants dans la base de donnée
+            foreach ($_POST["idContributeur"] as $idUser) {
                 if ($idUser) {
-                    foreach ($tab as $rep)
-                    {
+                    $v3 = new Reponse(null, $idUser, $id);
+                    $reponse = (new ReponseRepository())->sauvegarder($v3);
+                    $tab[] = $reponse;
+
+                }
+            }
+            foreach ($_POST["idVotant"] as $idUser) {
+                if ($idUser) {
+                    foreach ($tab as $rep) {
                         $v2 = new Votant($idUser, null, $id, $rep);
                         (new VotantRepository())->sauvegarder($v2);
                     }
@@ -128,14 +165,45 @@ class ControllerQuestion extends GenericController {
                $s= new Section(null,$_POST["titre"][$i],$_POST["texte_explicatif"][$i],$id, 0);
                 (new SectionRepository())->sauvegarder($s);
             }
-        MessageFlash::ajouter("success","ajout de la question avec succès");
-        $url ="frontController.php?controller=question&action=readAll";
-        header("Location: $url");
-        exit();
+            MessageFlash::ajouter("success", "ajout de la question avec succès");
+            $url = "frontController.php?controller=question&action=readAll";
+            header("Location: $url");
+            exit();
+        } else {
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
+        }
     }
 
-    public static function delete() : void {
-        $v=(new QuestionRepository())->select($_GET['id_question']);
+    public static function delete(): void{
+        $question=(new QuestionRepository())->select($_GET['id_question']);
+        if (ConnexionUtilisateur::getUtilisateurConnecte()!=null ) {
+            if (ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur()==$question->getIdUtilisateur()) {
+                self::afficheVue('/view.php', ["pagetitle" => "SUPPRIMER",
+                    "cheminVueBody" => "question/deleted.php",   //"redirige" vers la vue
+                ]);
+            }else{
+                MessageFlash::ajouter("warning", "Autorisation déniée");
+                $url = "frontController.php";
+                header("Location: $url");
+                exit();
+
+            }
+        } else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
+            }
+    }
+
+
+    public static function deleted(): void
+    {
+        if (ConnexionUtilisateur::getUtilisateurConnecte()!=null && MotDePasse::verifier($_POST["mdp"],ConnexionUtilisateur::getUtilisateurConnecte()->getMdpHache())) {
+            $v = (new QuestionRepository())->select($_GET['id_question']);
         //$rep=(new QuestionRepository())->supprimer($_GET['id_question']);
         var_dump($v);
         if ($v!=null){
@@ -151,31 +219,47 @@ class ControllerQuestion extends GenericController {
             MessageFlash::ajouter("danger", "Erreur de la suppression");
         }
         header("Location: frontController.php?controller=question&action=readAll");
-    }
-
-
-
-    public static function error(string $errorMessage):void {
-        self::afficheVue('view.php',["pagetitle"=>"ERROR","cheminVueBody"=>"Question/error.php","s"=>"Problème avec la question : $errorMessage "]);
-
-    }
-
-    public static function update() : void {
-        $q= (new QuestionRepository())->select($_GET['id_question']);
-
-        //echo $dateDebut;
-        /*if(date('Y-m-d H:i:s') > $dateDebut){
-            MessageFlash::ajouter("warning", "Les rédaction ont déjà commencée");
-            header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question'] );
+        }else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
         }
-        else {*/
-            //$v = $q->formatTableau();
-            self::afficheVue('/view.php', ["pagetitle" => "mettre à jour une question", "cheminVueBody" => "question/update.php", "v" => $q, ]);
-        //}
     }
 
-    public static function updated() : void
+
+
+    public static function error(string $errorMessage): void
     {
+        self::afficheVue('view.php', ["pagetitle" => "ERROR", "cheminVueBody" => "Question/error.php", "s" => "Problème avec la question : $errorMessage "]);
+
+    }
+
+    public static function update(): void
+    {
+        if (ConnexionUtilisateur::getUtilisateurConnecte()!=null) {
+            $q = (new QuestionRepository())->select($_GET['id_question']);
+        $dateFin = $q->getDateFinRedaction();
+        $dateDebut = $q->getDateDebutRedaction();
+        if (date('Y-m-d H:i:s') > $dateDebut) {
+            MessageFlash::ajouter("warning", "Les rédaction ont déjà commencée");
+            header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
+        } else {
+            $values = $q->formatTableau();
+            self::afficheVue('/view.php', ["pagetitle" => "mettre à jour une question", "cheminVueBody" => "question/update.php", "v" => $v]);
+        }}else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
+        }
+    }
+
+    public static function updated(): void
+    {
+        if (ConnexionUtilisateur::getUtilisateurConnecte()!=null) {
+
+            $id = $_POST['id_question'];
         //$u =  intval($_POST["id_utilisateur"]);
         $id=$_POST['id_question'];
         $q =(new QuestionRepository())->select($id);
@@ -186,8 +270,8 @@ class ControllerQuestion extends GenericController {
         (new QuestionRepository())->update($v);
 
 
-        $tabVotants=(new VotantRepository())->selectWhere("id_question",$id);
-        foreach ($tabVotants as $vot ) {
+        $tabVotants = (new VotantRepository())->selectWhere("id_question", $id);
+        foreach ($tabVotants as $vot) {
             $aux = true;
             foreach ($_POST["idVotant"] as $idUser) {
                 if ($idUser == $vot->getIdUtilisateur()) {
@@ -203,7 +287,7 @@ class ControllerQuestion extends GenericController {
         }
         foreach ($_POST["idVotant"] as $idUser) {
             $aux = true;
-            foreach ($tabVotants as $vot ) {
+            foreach ($tabVotants as $vot) {
                 if ($idUser == $vot->getIdUtilisateur()) {
                     $aux = true;
                     break;
@@ -212,57 +296,62 @@ class ControllerQuestion extends GenericController {
                 }
             }
             if ($aux == false) {
-                $tabrep= (new ReponseRepository())->selectWhere("id_question",$id);
-                foreach ($tabrep as $rep){
-                    $v3 = new Votant($idUser,null,$id,$rep->getIdRponses());
+                $tabrep = (new ReponseRepository())->selectWhere("id_question", $id);
+                foreach ($tabrep as $rep) {
+                    $v3 = new Votant($idUser, null, $id, $rep->getIdRponses());
                     (new VotantRepository())->sauvegarder($v3);
                 }
             }
         }
 
         //sauvegarde des contributeurs dans la base de donnée
-        $tabOrganisateur=(new ReponseRepository())->selectWhere("id_question",$id);
-            foreach ($tabOrganisateur as $orga ) {
-                $aux = true;
-                foreach ($_POST["idContributeur"] as $idUser) {
-                    if ($idUser == $orga->getIdUtilisateur()) {
-                        $aux = true;
-                        break;
-                    } else {
-                        $aux = false;
-                    }
-                }
-                if ($aux == false) {
-                    //echo $orga->getIdUtilisateur();
-                    (new ReponseRepository())->supprimer([$orga->getIdUtilisateur(), $id]);
-                }
-            }
-             foreach ($_POST["idContributeur"] as $idUser) {
-                 $aux = true;
-                foreach ($tabOrganisateur as $orga ) {
+        $tabOrganisateur = (new ReponseRepository())->selectWhere("id_question", $id);
+        foreach ($tabOrganisateur as $orga) {
+            $aux = true;
+            foreach ($_POST["idContributeur"] as $idUser) {
                 if ($idUser == $orga->getIdUtilisateur()) {
                     $aux = true;
                     break;
                 } else {
                     $aux = false;
                 }
-            } if($tabOrganisateur==null){
-                     $aux=false;
-                }
+            }
             if ($aux == false) {
-                $v3 = new Reponse(null,$idUser, $id);
+                //echo $orga->getIdUtilisateur();
+                (new ReponseRepository())->supprimer([$orga->getIdUtilisateur(), $id]);
+            }
+        }
+        foreach ($_POST["idContributeur"] as $idUser) {
+            $aux = true;
+            foreach ($tabOrganisateur as $orga) {
+                if ($idUser == $orga->getIdUtilisateur()) {
+                    $aux = true;
+                    break;
+                } else {
+                    $aux = false;
+                }
+            }
+            if ($tabOrganisateur == null) {
+                $aux = false;
+            }
+            if ($aux == false) {
+                $v3 = new Reponse(null, $idUser, $id);
                 (new ReponseRepository())->sauvegarder($v3);
             }
         }
 
-        MessageFlash::ajouter("success","question mise à jour avec succès");
-        $url ="frontController.php?controller=question&action=readAll";
+        MessageFlash::ajouter("success", "question mise à jour avec succès");
+        $url = "frontController.php?controller=question&action=readAll";
         header("Location: $url");
         exit();
+        }else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
+        }
     }
 
 
-
-
 }
-?>
+

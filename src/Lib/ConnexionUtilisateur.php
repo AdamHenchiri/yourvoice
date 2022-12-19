@@ -39,6 +39,7 @@ class ConnexionUtilisateur
             return Session::getInstance()->lire(static::$cleConnexion);
         }
     }
+
     public static function getUtilisateurConnecte(): ?Utilisateur
     {
         if (!self::estConnecte()){

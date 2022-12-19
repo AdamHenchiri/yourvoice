@@ -19,13 +19,14 @@ foreach ($questions as $question) {
     $questNonFormater = $question->getIdQuestion();
     $questFormater = rawurlencode($questNonFormater);
     $existe=(new VotantRepository())->selectWhereAnd("id_question",$questNonFormater,"id_votant",ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur());
-
-    if(count($existe)!=0) {
-        $nbLigne++;
-        echo "<div class='questions'>";
-        echo "<a id='titrequestion' href=\"frontController.php?controller=reponse&action=readAll&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
-        echo "</div>";
-//onclick=\"validation()\"
+    $dateLocale=date('Y-m-d', time());
+    if ($question->getDateDebutVote() <= $dateLocale && $question->getDateFinVote() > $dateLocale) {
+        if (count($existe) != 0) {
+            $nbLigne++;
+            echo "<div class='questions'>";
+            echo "<a id='titrequestion' href=\"frontController.php?controller=reponse&action=readAll&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
+            echo "</div>";
+        }
     }
 }
 ?>
