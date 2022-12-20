@@ -124,7 +124,7 @@
             </div>
             <?php }} ?>
                         </div>
-                        <p id="minimum">Min : 5 votants</p>
+                        <p id="minimum">Min : 2 votants</p>
                     </div>
                 </div>
                 <div class='separateur1'></div>
