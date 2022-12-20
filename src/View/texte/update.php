@@ -8,8 +8,9 @@
             </div>
             <div class="question_description">
         <?php
-        var_dump($textes);
+        //var_dump($textes);
 
+        use App\YourVoice\Lib\ConnexionUtilisateur;
         use App\YourVoice\Model\Repository\SectionRepository;
         use App\YourVoice\Model\Repository\UtilisateurRepository;
         foreach ($textes as $texte){
@@ -73,12 +74,14 @@
             </div>
 
 
-        <p>
+        <!--<p>
             <label for="id_utilisateur">Serra rempli automatiquement avec les sessions</label> :
             <input type="int" placeholder="serra rempli automatiquement avec les sessions" name="id_utilisateur" id="id_utilisateur" required/>
-        <p>
+        <p>-->
+                <input type="hidden" value="<?php echo (ConnexionUtilisateur::getUtilisateurConnecte())->getIdUtilisateur()?>" name="id_question" >
 
-        <p>
+
+                <p>
                 <input id="valider" type="submit" value="Enregistrer" name="valider" />
         </p>
         </div>

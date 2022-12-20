@@ -14,7 +14,7 @@
             </div>
             <input type="hidden" name="id_question" id="id_question" value="<?php echo $v->getIdQuestion(); ?>" />
 
-            <?php echo "<a id=\"redirection\" href=\"frontController.php?controller=utilisateur&action=create\"> Je n'ai pas encore de compte</a> "; ?>
+            <?php  //"<a id=\"redirection\" href=\"frontController.php?controller=utilisateur&action=create\"> Je n'ai pas encore de compte</a> "; ?>
 
         </div>
     </div>

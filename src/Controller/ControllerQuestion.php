@@ -187,7 +187,7 @@ class ControllerQuestion extends GenericController
     public static function delete() : void {
         if (!isset($_POST["login"]) && !isset($_POST["mdp"])){
             MessageFlash::ajouter("danger","veuillez remplir le formulaire");
-            $url="frontController.php?controller=utilisateur&action=connexion";
+            $url="frontController.php?controller=question&action=check&id_question=" . $_POST['id_question'];
             header("Location: ".$url);
             exit();
         }else {
@@ -195,12 +195,12 @@ class ControllerQuestion extends GenericController
             //$user = (new UtilisateurRepository())->selectWhere("login", $_POST["login"]);
             if ($user == null) {
                 MessageFlash::ajouter("warning", "utilisateur inconnue");
-                $url = "frontController.php?controller=utilisateur&action=connexion";
+                $url = "frontController.php?controller=question&action=check&id_question=" . $_POST['id_question'];
                 header("Location: " . $url);
                 exit();
             } else if (!MotDePasse::verifier($_POST["mdp"], $user->getMdpHache())) {
                 MessageFlash::ajouter("warning", "mot de passe erroné");
-                $url = "frontController.php?controller=utilisateur&action=connexion";
+                $url = "frontController.php?controller=question&action=check&id_question=" . $_POST['id_question'];
                 header("Location: " . $url);
                 exit();
             } else {
