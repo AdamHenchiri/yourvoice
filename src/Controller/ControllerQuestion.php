@@ -177,7 +177,58 @@ class ControllerQuestion extends GenericController
         }
     }
 
-    public static function delete(): void{
+    public  static function check(){
+        $v= (new QuestionRepository())->select($_GET['id_question']);
+        self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
+            "cheminVueBody" => "question/supprimerQuestion.php", "v" => $v   //"redirige" vers la vue
+        ]);
+    }
+
+    public static function delete() : void {
+        if (!isset($_POST["login"]) && !isset($_POST["mdp"])){
+            MessageFlash::ajouter("danger","veuillez remplir le formulaire");
+            $url="frontController.php?controller=utilisateur&action=connexion";
+            header("Location: ".$url);
+            exit();
+        }else {
+            $user = ConnexionUtilisateur::getUtilisateurConnecte();
+            //$user = (new UtilisateurRepository())->selectWhere("login", $_POST["login"]);
+            if ($user == null) {
+                MessageFlash::ajouter("warning", "utilisateur inconnue");
+                $url = "frontController.php?controller=utilisateur&action=connexion";
+                header("Location: " . $url);
+                exit();
+            } else if (!MotDePasse::verifier($_POST["mdp"], $user->getMdpHache())) {
+                MessageFlash::ajouter("warning", "mot de passe erroné");
+                $url = "frontController.php?controller=utilisateur&action=connexion";
+                header("Location: " . $url);
+                exit();
+            } else {
+                //ConnexionUtilisateur::connecter($_POST["login"]);
+                $v = (new QuestionRepository())->select($_POST['id_question']);
+                //$rep=(new QuestionRepository())->supprimer($_GET['id_question']);
+                var_dump($v);
+                if ($v != null) {
+                    //$v->setActif(true);
+                    $q = new Question($v->getIdQuestion(), $v->getIntitule(), $v->getExplication(), $v->getDateDebutRedaction(),
+                        $v->getDateFinRedaction(), $v->getDateDebutVote(), $v->getDateFinVote(), $v->getIdUtilisateur(), 1);
+                    //var_dump($q);
+                    (new QuestionRepository())->update($q);
+                    //$rep=(new QuestionRepository())->supprimer($v->getIdQuestion());
+                    MessageFlash::ajouter("success", "Question supprimée");
+                    header("Location: frontController.php?controller=question&action=readAll");
+                    //
+                    //MessageFlash::ajouter("success", "bienvenue " . $_POST["login"]);
+                    //$url = "frontController.php?controller=utilisateur&action=read&login=" . $_POST["login"];
+                    //header("Location: " . $url);
+                    exit();
+                }
+            }
+        }
+        header("Location: frontController.php?controller=question&action=readAll");
+    }
+
+    /*public static function delete(): void{
         $question=(new QuestionRepository())->select($_GET['id_question']);
         if (ConnexionUtilisateur::getUtilisateurConnecte()!=null ) {
             if (ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur()==$question->getIdUtilisateur()) {
@@ -197,7 +248,7 @@ class ControllerQuestion extends GenericController
             header("Location: $url");
             exit();
             }
-    }
+    }*/
 
 
     public static function deleted(): void
@@ -237,22 +288,23 @@ class ControllerQuestion extends GenericController
 
     public static function update(): void
     {
-        if (ConnexionUtilisateur::getUtilisateurConnecte()!=null) {
+        /*if (ConnexionUtilisateur::getUtilisateurConnecte()!=null) {
             $q = (new QuestionRepository())->select($_GET['id_question']);
         $dateFin = $q->getDateFinRedaction();
         $dateDebut = $q->getDateDebutRedaction();
         if (date('Y-m-d H:i:s') > $dateDebut) {
             MessageFlash::ajouter("warning", "Les rédaction ont déjà commencée");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
-        } else {
-            $values = $q->formatTableau();
+        } else {*/
+            //$values = $q->formatTableau();
+            $v = (new QuestionRepository())->select($_GET['id_question']);
             self::afficheVue('/view.php', ["pagetitle" => "mettre à jour une question", "cheminVueBody" => "question/update.php", "v" => $v]);
-        }}else{
+        /*}}else{
             MessageFlash::ajouter("warning", "Autorisation déniée");
             $url = "frontController.php";
             header("Location: $url");
             exit();
-        }
+        }*/
     }
 
     public static function updated(): void
