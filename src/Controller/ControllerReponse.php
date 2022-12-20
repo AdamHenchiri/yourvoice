@@ -126,7 +126,7 @@ class ControllerReponse extends GenericController
         }
         if ($test == true) {
             MessageFlash::ajouter("success", "réponse ajouter avec succès");
-            $url = "frontController.php?controller=reponse&action=update&id_reponse=" . $id_reponse . "&id_question=" . $id_question;
+            $url = "frontController.php?controller=reponse&controller=reponse&action=read&id_reponse=" . $id_reponse . "&id_question=" . $id_question;
             header("Location: $url");
             exit();
         } else {
