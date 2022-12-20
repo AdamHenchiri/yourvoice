@@ -17,28 +17,24 @@ echo "<div class='container_question1'>";
 echo "</div>";
 $nbLigne=0;
 foreach ($questions as $question) {
-if(ConnexionUtilisateur::estOrganisateur($question)){
+    if(ConnexionUtilisateur::estResponsable($question) || ConnexionUtilisateur::estCoAuteur($question)){
 
-    $questNonFormater = $question->getIdQuestion();
+        $questNonFormater = $question->getIdQuestion();
     $questFormater = rawurlencode($questNonFormater);
     $reponses=(new ReponseRepository())->selectWhere("id_question",$questNonFormater);
 
 
     if((ConnexionUtilisateur::estCoAuteur($question) || ConnexionUtilisateur::estResponsable($question) || ConnexionUtilisateur::estOrganisateur($question)) and !$question->isActif()) {
 
-
         echo "<div class='questions'>";
         echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=readMy&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
         echo "<div class='question_update'>";
-        /*if (ConnexionUtilisateur::estCoAuteur($question)) {
+        if (ConnexionUtilisateur::estCoAuteur($question)) {
             echo "(Co-auteur d'une réponse)";
         }
         if (ConnexionUtilisateur::estResponsable($question)) {
             echo "(Responsable d'une réponse)";
         }
-        if (ConnexionUtilisateur::estOrganisateur($question)) {
-            echo "(Organisateur de la question)";
-        }*/
         if (ConnexionUtilisateur::estOrganisateur($question)) {
             if ($question->getDateDebutRedaction() > date("Y-m-d")) {
                 echo "<a href=\"frontController.php?controller=question&action=update&id_question={$questFormater}\"> <i class='fa-solid fa-pencil'></i> </a>";
