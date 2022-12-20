@@ -233,7 +233,7 @@ class ControllerQuestion extends GenericController
         if (ConnexionUtilisateur::getUtilisateurConnecte()!=null ) {
             if (ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur()==$question->getIdUtilisateur()) {
                 self::afficheVue('/view.php', ["pagetitle" => "SUPPRIMER",
-                    "cheminVueBody" => "question/deleted.php",   //"redirige" vers la vue
+                    "cheminVueBody" => "question/deleted.php",  "id_question"=>$_GET['id_question'] //"redirige" vers la vue
                 ]);
             }else{
                 MessageFlash::ajouter("warning", "Autorisation déniée");
@@ -254,13 +254,13 @@ class ControllerQuestion extends GenericController
     public static function deleted(): void
     {
         if (ConnexionUtilisateur::getUtilisateurConnecte()!=null && MotDePasse::verifier($_POST["mdp"],ConnexionUtilisateur::getUtilisateurConnecte()->getMdpHache())) {
-            $v = (new QuestionRepository())->select($_GET['id_question']);
-        //$rep=(new QuestionRepository())->supprimer($_GET['id_question']);
-        var_dump($v);
+            $v = (new QuestionRepository())->select($_POST['id_question']);
+         //$rep=(new QuestionRepository())->supprimer($_GET['id_question']);
+         var_dump($v);
         if ($v!=null){
             //$v->setActif(true);
             $q = new Question($v->getIdQuestion(),$v->getIntitule(),$v->getExplication(),$v->getDateDebutRedaction(),
-                $v->getDateFinRedaction(),$v->getDateDebutVote(),$v->getDateFinVote(),$v->getIdUtilisateur(), 1);
+            $v->getDateFinRedaction(),$v->getDateDebutVote(),$v->getDateFinVote(),$v->getIdUtilisateur(), 1);
             //var_dump($q);
             (new QuestionRepository())->update($q);
             //$rep=(new QuestionRepository())->supprimer($v->getIdQuestion());

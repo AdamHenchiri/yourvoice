@@ -8,7 +8,6 @@
             </div>
             <div class="question_description">
         <?php
-        //var_dump($textes);
 
         use App\YourVoice\Lib\ConnexionUtilisateur;
         use App\YourVoice\Model\Repository\SectionRepository;
@@ -18,7 +17,7 @@
             if ($section){                    ?>
 
                 <input type="hidden" value="<?php echo $section->getIdQuestion()?>" name="id_question" >
-
+                <input type="hidden" value="<?php echo $_GET["id_reponse"]?>" name="id_reponse" >
                 <input type="hidden" value="<?php echo $section->getIdSection()?>" name="id_section[]" >
 
                 <label class="ecart_texte" for="titre">Section : <NOBR class = "texte_des"><?php
@@ -74,14 +73,7 @@
             </div>
 
 
-        <!--<p>
-            <label for="id_utilisateur">Serra rempli automatiquement avec les sessions</label> :
-            <input type="int" placeholder="serra rempli automatiquement avec les sessions" name="id_utilisateur" id="id_utilisateur" required/>
-        <p>-->
-                <input type="hidden" value="<?php echo (ConnexionUtilisateur::getUtilisateurConnecte())->getIdUtilisateur()?>" name="id_question" >
-
-
-                <p>
+        <p>
                 <input id="valider" type="submit" value="Enregistrer" name="valider" />
         </p>
         </div>

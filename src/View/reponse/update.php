@@ -8,7 +8,8 @@
                 <h1 class="titre_section">MODIFIER UNE REPONSE</h1>
             </div>
 
-        <input type="hidden" value="<?php echo $_GET["id_reponse"]?>" name="id_question" >
+        <input type="hidden" value="<?php echo $_GET["id_reponse"]?>" name="id_reponse" >
+        <input type="hidden" value="<?php echo $_GET["id_question"]?>" name="id_question" >
             <div class="question_description">
         <?php
 
