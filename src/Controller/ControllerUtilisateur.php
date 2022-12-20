@@ -23,27 +23,27 @@ class ControllerUtilisateur extends GenericController
 
     public static function connected() : void {
         if (!isset($_POST["login"]) && !isset($_POST["mdp"])){
-            MessageFlash::ajouter("danger","veuillez remplir le formulaire");
+            MessageFlash::ajouter("danger","Veuillez remplir le formulaire");
             $url="frontController.php?controller=utilisateur&action=connexion";
             header("Location: ".$url);
             exit();
         }else{
             $user=(new UtilisateurRepository())->selectWhere("login",$_POST["login"]);
             if ($user==null){
-                MessageFlash::ajouter("warning","utilisateur inconnue");
+                MessageFlash::ajouter("warning","Utilisateur inconnu");
                 $url="frontController.php?controller=utilisateur&action=connexion";
                 header("Location: ".$url);
                 exit();
             }
             else if (!MotDePasse::verifier($_POST["mdp"],$user[0]->getMdpHache())){
-                MessageFlash::ajouter("warning","mot de passe erroné");
+                MessageFlash::ajouter("warning","Mot de passe erroné");
                 $url="frontController.php?controller=utilisateur&action=connexion";
                 header("Location: ".$url);
                 exit();
             }
             else{
                 ConnexionUtilisateur::connecter($_POST["login"]);
-                MessageFlash::ajouter("success","bienvenue ".$_POST["login"]);
+                MessageFlash::ajouter("success","Bienvenue ".$_POST["login"]);
                 $url="frontController.php?controller=utilisateur&action=read&login=".$_POST["login"];
                 header("Location: ".$url);
                 exit();
@@ -54,7 +54,7 @@ class ControllerUtilisateur extends GenericController
     public static function deconnecter(): void
     {
         ConnexionUtilisateur::deconnecter();
-        MessageFlash::ajouter("success","vous êtes déconnecté");
+        MessageFlash::ajouter("success","Vous êtes déconnecté(e)");
         $url="frontController.php?controller=question&action=readAll";
         header("Location: ".$url);
         exit();
@@ -76,7 +76,7 @@ class ControllerUtilisateur extends GenericController
         if ($_POST["mdp"] == $_POST["mdp2"]) {
             $v = Utilisateur::construireDepuisFormulaire(["login" => $_POST["login"], "nom" => $_POST["nom"], "prenom" => $_POST["prenom"], "age" => $_POST["age"], "email" => $_POST["email"], "mdp" => $_POST["mdp"]]);
             (new UtilisateurRepository())->sauvegarder($v);
-            MessageFlash::ajouter("success", "merci de confirmer votre email");
+            MessageFlash::ajouter("success", "Merci de confirmer votre email");
             $url = "frontController.php?controller=utilisateur&action=connexion";
             header("Location: $url");
             exit();
@@ -164,18 +164,18 @@ class ControllerUtilisateur extends GenericController
     public static function validerEmail ():void {
         if (isset($_GET["login"])&& isset($_GET["nonce"])){
             if ( VerificationEmail::traiterEmailValidation($_GET["login"],$_GET["nonce"])){
-                MessageFlash::ajouter("success","bravo! vous aves valider votre email");
+                MessageFlash::ajouter("success","Bravo! vous avez validé votre email");
                 $url="frontController.php?controller=utilisateur&action=read&login=".$_GET["login"];
                 header("Location: ".$url);
                 exit();
             }else{
-                MessageFlash::ajouter("warning","error :: email non valide");
+                MessageFlash::ajouter("warning","Error :: email non valide");
                 $url="frontController.php?controller=utilisateur&action=readAll";
                 header("Location: ".$url);
                 exit();
             }
         }else{
-            MessageFlash::ajouter("warning","login ou nonce introuvable");
+            MessageFlash::ajouter("warning","Login ou nonce introuvable");
             $url="frontController.php?controller=utilisateur&action=readAll";
             header("Location: ".$url);
             exit();

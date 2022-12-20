@@ -75,7 +75,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
             <div > <?php  echo " Titre : " . htmlspecialchars($section->getTitre()); ?> </div>
             <div > <?php  echo " Description :  " . htmlspecialchars($section->getTexteExplicatif()) ; ?> </div>
             <?php
-            //if(date('Y-m-d H:i:s') < $dateDebutRedaction) {
+            //if(date('Y-m-d H:i:s') < $dateDebutRedaction){
                 //echo "<div class='question_update'>";
                 //echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>";
                 //echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-trash'></i></a>";
