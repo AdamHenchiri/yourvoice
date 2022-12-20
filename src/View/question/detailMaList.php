@@ -98,12 +98,12 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
             }
 
 
-                echo "<div class='question_description'>";
+                /*echo "<div class='question_description'>";
                 echo "<a href=\"frontController.php?controller=section&action=create&id_question={$idQuestion}\"> Ajouter une section </a> ";
-                echo "</div>";
+                echo "</div>";*/
 
                 //echo "--------------------------------------------------------------------------\n";
-                    echo "<div class='separateur1'></div>";
+                    //echo "<div class='separateur1'></div>";
 
             use App\YourVoice\Lib\ConnexionUtilisateur;
             use App\YourVoice\Model\Repository\TexteRepository;
