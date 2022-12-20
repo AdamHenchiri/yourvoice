@@ -120,7 +120,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
                 ?>
                 <div class="titre">
                     <?php
-                    if((ConnexionUtilisateur::getUtilisateurConnecte())->getIdUtilisateur() == $reponse->getIdUtilisateur() ){
+                    if((ConnexionUtilisateur::getUtilisateurConnecte())->getIdUtilisateur() == $reponse->getIdUtilisateur() && $reponse->isActif() == false ){
                     $user=(new UtilisateurRepository())->select($reponse->getIdUtilisateur());
                     echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de ".  htmlspecialchars ( $user->getLogin() ) . " </a></h1> "; ?>
                 </div>
@@ -131,12 +131,12 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
                 if(date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction && ConnexionUtilisateur::estConnecte()) {
                     if(empty($t)){
                         echo "<a href=\"frontController.php?controller=reponse&action=create&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
-                        echo "<a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
+                        echo "<a href=\"frontController.php?controller=reponse&action=check&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
 
                     }
                     else{
                         echo "<a href=\"frontController.php?controller=reponse&action=update&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
-                        echo "<a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
+                        echo "<a href=\"frontController.php?controller=reponse&action=check&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
                     }
 
                     //echo "--------------------------------------------------------------------------\n";

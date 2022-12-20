@@ -10,13 +10,15 @@ class Reponse extends AbstractDataObject
     private ?int $id_reponse;
     private int $id_responsable;
     private int $id_question;
+    private bool $actif;
 
 
-    public function __construct(?int $id_reponse, string $id_responsable, int $id_question)
+    public function __construct(?int $id_reponse, string $id_responsable, int $id_question, bool $actif)
     {
         $this->id_reponse = $id_reponse;
         $this->id_responsable = $id_responsable;
         $this->id_question = $id_question;
+        $this->actif= $actif;
     }
 
 
@@ -69,12 +71,37 @@ class Reponse extends AbstractDataObject
         $this->id_question = $id_question;
     }
 
+    /**
+     * @return bool
+     */
+    public function isActif(): bool
+    {
+        return $this->actif;
+    }
+
+    /**
+     * @param bool $actif
+     */
+    public function setActif(bool $actif): void
+    {
+        $this->actif = $actif;
+    }
+
+
+
     public function formatTableau(): array
     {
+        if($this->isActif()){
+            $res = 1;
+        }
+        if(!$this->isActif()){
+            $res = 0;
+        }
         return array(
             "id_reponseTag" => $this->getIdRponses(),
             "id_responsableTag" => $this->getIdUtilisateur(),
             "id_questionTag" => $this->getIdQuestion(),
+            "actifTag" => $res
         );
     }
 

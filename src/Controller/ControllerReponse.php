@@ -3,6 +3,7 @@
 namespace App\YourVoice\Controller;
 
 use App\YourVoice\Lib\ConnexionUtilisateur;
+use App\YourVoice\Lib\MotDePasse;
 use App\YourVoice\Model\DataObject\Question;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
@@ -257,21 +258,48 @@ class ControllerReponse extends GenericController
         }
     }
 
-    public static function delete(): void
-    {
-        $bol = (new ReponseRepository())->supprimer($_GET['id_reponse']);
-        if ($bol == true) {
-            MessageFlash::ajouter("success", "supprimer avec succès");
-            $url = "frontController.php?controller=question&action=readAll";
-            header("Location: $url");
-            exit();
-        } else {
-            MessageFlash::ajouter("warning", "un problème s'est produit");
-            $url = "frontController.php?controller=question&action=readAll";
-            header("Location: $url");
-            exit();
-        }
+    public  static function check(){
+        $v= (new ReponseRepository())->select($_GET['id_reponse']);
+        self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
+            "cheminVueBody" => "reponse/deleted.php", "v" => $v   //"redirige" vers la vue
+        ]);
     }
+
+    public static function delete() : void {
+        if (!isset($_POST["mdp"])){
+            MessageFlash::ajouter("danger","veuillez remplir le formulaire");
+            $url="frontController.php?controller=reponse&action=check&id_reponse=" . $_POST['id_reponse'];
+            header("Location: ".$url);
+            exit();
+        }else {
+            $user = ConnexionUtilisateur::getUtilisateurConnecte();
+            //$user = (new UtilisateurRepository())->selectWhere("login", $_POST["login"]);
+            if (!MotDePasse::verifier($_POST["mdp"], $user->getMdpHache())) {
+                MessageFlash::ajouter("warning", "mot de passe erroné");
+                $url = "frontController.php?controller=reponse&action=check&id_reponse=" . $_POST['id_reponse'];
+                header("Location: " . $url);
+                exit();
+            } else {
+                $bol = (new ReponseRepository())->select($_POST['id_reponse']);
+                if ($bol != null) {
+                    $rep = new Reponse($bol->getIdRponses(), $bol->getIdUtilisateur(), $bol->getIdQuestion(), 1);
+                    (new ReponseRepository())->update($rep);
+                    MessageFlash::ajouter("success", "supprimer avec succès");
+                    $url = "frontController.php?controller=question&action=readAll";
+                    header("Location: $url");
+                    exit();
+                } else {
+                    MessageFlash::ajouter("warning", "un problème s'est produit");
+                    $url = "frontController.php?controller=question&action=readAll";
+                    header("Location: $url");
+                    exit();
+                }
+
+            }
+        }
+        //header("Location: frontController.php?controller=question&action=readAll");
+    }
+
 
     public static function readAll(): void
     {

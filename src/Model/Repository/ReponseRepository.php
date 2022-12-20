@@ -7,7 +7,7 @@ use App\YourVoice\Model\DataObject\Reponse;
 class ReponseRepository extends AbstractRepository
 {
     public function construire(array $reponseFormatTableau) : Reponse {
-        return new Reponse($reponseFormatTableau['id_reponse'],$reponseFormatTableau['id_responsable'],$reponseFormatTableau['id_question']);
+        return new Reponse($reponseFormatTableau['id_reponse'],$reponseFormatTableau['id_responsable'],$reponseFormatTableau['id_question'], $reponseFormatTableau['actif']);
     }
 
     protected function getNomTable(): string{
@@ -24,7 +24,7 @@ class ReponseRepository extends AbstractRepository
     }
     protected function getNomsColonnes(): array
     {
-        return ["id_reponse","id_responsable","id_question"];
+        return ["id_reponse","id_responsable","id_question", "actif"];
     }
 
 }

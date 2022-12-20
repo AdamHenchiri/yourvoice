@@ -180,12 +180,12 @@ class ControllerQuestion extends GenericController
     public  static function check(){
         $v= (new QuestionRepository())->select($_GET['id_question']);
         self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
-            "cheminVueBody" => "question/supprimerQuestion.php", "v" => $v   //"redirige" vers la vue
+            "cheminVueBody" => "question/deleted.php", "v" => $v   //"redirige" vers la vue
         ]);
     }
 
     public static function delete() : void {
-        if (!isset($_POST["login"]) && !isset($_POST["mdp"])){
+        if (!isset($_POST["mdp"])){
             MessageFlash::ajouter("danger","veuillez remplir le formulaire");
             $url="frontController.php?controller=question&action=check&id_question=" . $_POST['id_question'];
             header("Location: ".$url);
@@ -193,12 +193,7 @@ class ControllerQuestion extends GenericController
         }else {
             $user = ConnexionUtilisateur::getUtilisateurConnecte();
             //$user = (new UtilisateurRepository())->selectWhere("login", $_POST["login"]);
-            if ($user == null) {
-                MessageFlash::ajouter("warning", "utilisateur inconnue");
-                $url = "frontController.php?controller=question&action=check&id_question=" . $_POST['id_question'];
-                header("Location: " . $url);
-                exit();
-            } else if (!MotDePasse::verifier($_POST["mdp"], $user->getMdpHache())) {
+            if (!MotDePasse::verifier($_POST["mdp"], $user->getMdpHache())) {
                 MessageFlash::ajouter("warning", "mot de passe erroné");
                 $url = "frontController.php?controller=question&action=check&id_question=" . $_POST['id_question'];
                 header("Location: " . $url);
@@ -228,27 +223,6 @@ class ControllerQuestion extends GenericController
         header("Location: frontController.php?controller=question&action=readAll");
     }
 
-    /*public static function delete(): void{
-        $question=(new QuestionRepository())->select($_GET['id_question']);
-        if (ConnexionUtilisateur::getUtilisateurConnecte()!=null ) {
-            if (ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur()==$question->getIdUtilisateur()) {
-                self::afficheVue('/view.php', ["pagetitle" => "SUPPRIMER",
-                    "cheminVueBody" => "question/deleted.php",  "id_question"=>$_GET['id_question'] //"redirige" vers la vue
-                ]);
-            }else{
-                MessageFlash::ajouter("warning", "Autorisation déniée");
-                $url = "frontController.php";
-                header("Location: $url");
-                exit();
-
-            }
-        } else{
-            MessageFlash::ajouter("warning", "Autorisation déniée");
-            $url = "frontController.php";
-            header("Location: $url");
-            exit();
-            }
-    }*/
 
 
     public static function deleted(): void

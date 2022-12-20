@@ -33,7 +33,7 @@
                     <div class="date_redac">
                         <div class="date_all">
                             <label for="dateDebut_redaction">Début de la rédaction</label> :
-                            <input type="date" value=<?php echo $v->getDateDebutRedaction(); ?> name="dateDebut_redaction"  required/>
+                            <input type="date" value=<?php echo $v->getDateDebutRedaction(); ?> name="dateDebut_redaction"  readonly/>
                         </div>
                         <div class="date_all">
                             <label for="dateFin_redaction">Fin de la rédaction</label> :
