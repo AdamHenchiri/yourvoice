@@ -127,7 +127,47 @@
                         <p id="minimum">Min : 5 votants</p>
                     </div>
                 </div>
+                <div class='separateur1'></div>
+                <div>
 
+
+
+                    <?php
+
+
+                    //var_dump($question);
+                    $dateDebutRedaction = htmlspecialchars($v->getDateDebutRedaction());
+
+                    $num=0;
+                    //var_dump($sections);
+                    foreach ($sections as $section) {
+                    $num++;
+                    //$questNonFormater = $question->getIdQuestion();
+                    //$questFormater = rawurlencode($questNonFormater);
+                    $titreSection = $section->getTitre();
+                    $idQuestion = $section->getIdQuestion();
+                    $sectionFormater = rawurlencode($section->getIdSection());}
+                    ?>
+
+                    <div class="titre">
+                        <?php echo "<h1> Section: {$num} \n".  htmlspecialchars ( $titreSection ) . " </h1> "; ?>
+                    </div>
+                    <div class="question_description">
+                        <div > <?php  echo " Titre : " . htmlspecialchars($section->getTitre()); ?> </div>
+                        <div > <?php  echo " Description :  " . htmlspecialchars($section->getTexteExplicatif()) ; ?> </div>
+                    <?php
+                    if(date('Y-m-d H:i:s') < $dateDebutRedaction) {
+                        echo "<div class='question_update'>";
+                        echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>";
+                        echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-trash'></i></a>";
+                        echo "</div>";
+                        echo "<div class='separateur1'></div>";
+                    }
+                    echo "</div>";
+
+                    ?>
+
+                </div>
                 <input id="valider" type="submit" value="valider" name="valider" />
             </div>
         </div>

@@ -298,7 +298,8 @@ class ControllerQuestion extends GenericController
         } else {*/
             //$values = $q->formatTableau();
             $v = (new QuestionRepository())->select($_GET['id_question']);
-            self::afficheVue('/view.php', ["pagetitle" => "mettre à jour une question", "cheminVueBody" => "question/update.php", "v" => $v]);
+            $sections= (new SectionRepository())->selectWhere('id_question', $v->getIdQuestion());
+            self::afficheVue('/view.php', ["pagetitle" => "mettre à jour une question", "cheminVueBody" => "question/update.php", "v" => $v,"sections" => $sections ]);
         /*}}else{
             MessageFlash::ajouter("warning", "Autorisation déniée");
             $url = "frontController.php";
