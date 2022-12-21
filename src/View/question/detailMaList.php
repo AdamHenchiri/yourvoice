@@ -115,7 +115,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                 ?>
                 <div class="titre">
                 <?php
-                if (ConnexionUtilisateur::estResponsable($question) || ConnexionUtilisateur::estCoAuteur($question) && $reponse->isActif() == false) {
+                if (ConnexionUtilisateur::estResponsableReponse($reponse) || ConnexionUtilisateur::estCoAuteurReponse($reponse) && $reponse->isActif() == false) {
                     $user = (new UtilisateurRepository())->select($reponse->getIdUtilisateur());
                     echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de " . htmlspecialchars($user->getLogin()) . " </a></h1> "; ?>
                     </div>
@@ -134,7 +134,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                         echo "</div>";
                         echo "<div class='separateur1'></div>";
                         echo "</div>";  
-                    } else if (date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction && ConnexionUtilisateur::estCoAuteur($question)) {
+                    } else if (date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction && ConnexionUtilisateur::estCoAuteurReponse($reponse)) {
                         if (empty($t)) {
                             echo "<a href=\"frontController.php?controller=reponse&action=create&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
                         } else {

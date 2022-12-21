@@ -168,6 +168,35 @@ class ConnexionUtilisateur
         return false;
     }
 
+    public static function estCoAuteurReponse($reponse) : bool
+    {
+        $user = Session::getInstance()->lire(static::$cleConnexion);
+        if (self::estConnecte()) {
+            $log = self::getLoginUtilisateurConnecte();
+            $reponseTab = (new ReponseRepository())->selectWhere('id_reponse', $reponse->getIdRponses());
+            foreach ($reponseTab as $reponse) {
+                $idResponsable = $reponse->getIdRponses();
+                $coAuteurs = (new CoauteurRepository())->selectWhere("id_reponse",$idResponsable);
+                //var_dump($coAuteurs);
+                foreach ($coAuteurs as $coAuteur){
+                    $idCoAuteur =  $coAuteur->getIdUtilisateur();
+                    $utilisateur = (new UtilisateurRepository())->select($idCoAuteur);
+                    $loginCoAuteur = $utilisateur->getLogin();
+                    //echo "<p> utilisateur ? ". $loginCoAuteur. "// </p>";
+                    //echo "<p> connecter : ". $log. "// </p>";
+                    if ($loginCoAuteur == $log) {
+                        return true;
+                    }
+                }
+
+            }
+        }
+        else{
+            return false;
+        }
+        return false;
+    }
+
     public static function estAdministrateur() : bool
     {
         if (self::estConnecte()) {
