@@ -32,9 +32,9 @@
                     echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=read&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
                     echo "<div class='question_update'>";
                     if (ConnexionUtilisateur::estOrganisateur($question)) {
-                        if (date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction) {
+                        echo "<a id=\"confirmation\" href=\"frontController.php?controller=question&action=check&id_question={$questFormater}\"> <i class='fa-solid fa-trash'></i></a>";
+                        if (date('Y-m-d H:i:s') < $dateDebutRedaction ) {
                             echo "<a href=\"frontController.php?controller=question&action=update&id_question={$questFormater}\"> <i class='fa-solid fa-pencil'></i> </a>";
-                            echo "<a id=\"confirmation\" href=\"frontController.php?controller=question&action=check&id_question={$questFormater}\"> <i class='fa-solid fa-trash'></i></a>";
                         }
                     }
                     echo "</div>";
