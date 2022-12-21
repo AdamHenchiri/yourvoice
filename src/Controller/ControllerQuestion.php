@@ -41,7 +41,7 @@ class ControllerQuestion extends GenericController
             $question = new QuestionRepository();//appel au modèle pour gerer la BD
         $questions = $question->selectAll();
         self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
-            "cheminVueBody" => "question/maList.php",   //"redirige" vers la vue
+                "cheminVueBody" => "question/maList.php",   //"redirige" vers la vue
             "questions" => $questions]);
         }else{
             MessageFlash::ajouter("warning", "Autorisation déniée");
@@ -101,9 +101,10 @@ class ControllerQuestion extends GenericController
                     "sections" => $sections,
                     "reponses" => $reponses]);
             } else {
-                self::afficheVue('/view.php', ["pagetitle" => "ERROR",
-                    "cheminVueBody" => "question/error.php",   //"redirige" vers la vue
-                ]);
+                MessageFlash::ajouter("warning", "ERROR::");
+                $url = "frontController.php";
+                header("Location: $url");
+                exit();
             }
         } else {
             MessageFlash::ajouter("warning", "Autorisation déniée");
@@ -262,24 +263,22 @@ class ControllerQuestion extends GenericController
 
     public static function update(): void
     {
-        /*if (ConnexionUtilisateur::getUtilisateurConnecte()!=null) {
-            $q = (new QuestionRepository())->select($_GET['id_question']);
+        $q = (new QuestionRepository())->select($_GET['id_question']);
+        if (ConnexionUtilisateur::estOrganisateur($q)) {
         $dateFin = $q->getDateFinRedaction();
         $dateDebut = $q->getDateDebutRedaction();
-        if (date('Y-m-d H:i:s') > $dateDebut) {
-            MessageFlash::ajouter("warning", "Les rédaction ont déjà commencée");
+        if (date('Y-m-d H:i:s') < $dateDebut || date('Y-m-d H:i:s') > $dateFin) {
+            MessageFlash::ajouter("warning", "Les rédaction ont déjà commencée ou est déja fini");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
-        } else {*/
-            //$values = $q->formatTableau();
-            $v = (new QuestionRepository())->select($_GET['id_question']);
-            $sections= (new SectionRepository())->selectWhere('id_question', $v->getIdQuestion());
-            self::afficheVue('/view.php', ["pagetitle" => "mettre à jour une question", "cheminVueBody" => "question/update.php", "v" => $v,"sections" => $sections ]);
-        /*}}else{
+        } else {
+            $sections= (new SectionRepository())->selectWhere('id_question', $q->getIdQuestion());
+            self::afficheVue('/view.php', ["pagetitle" => "mettre à jour une question", "cheminVueBody" => "question/update.php", "v" => $q,"sections" => $sections ]);
+        }}else{
             MessageFlash::ajouter("warning", "Autorisation déniée");
             $url = "frontController.php";
             header("Location: $url");
             exit();
-        }*/
+        }
     }
 
     public static function updated(): void

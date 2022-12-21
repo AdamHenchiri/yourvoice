@@ -166,6 +166,7 @@
 
 
                     echo "<div class='question_description'>";
+                    echo "<div class='separateur1'></div>";
                     echo "<a href=\"frontController.php?controller=section&action=create&id_question={$idQuestion}\"> Ajouter une section </a> ";
                     echo "</div>";
                     echo "<div class='separateur1'></div>";

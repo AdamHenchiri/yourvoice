@@ -152,10 +152,11 @@ class ControllerReponse extends GenericController
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         }
         if (date('Y-m-d H:i:s') <= $dateFin and date('Y-m-d H:i:s') >= $dateDebut) {
-            if (ConnexionUtilisateur::estResponsable($q) || ConnexionUtilisateur::estCoAuteur($_GET['id_question'])) {
+            if (ConnexionUtilisateur::estResponsable($q) || ConnexionUtilisateur::estCoAuteur($q)) {
                 self::afficheVue('/view.php', ["pagetitle" => "Update d'une réponse",
                     "cheminVueBody" => "texte/update.php",   //"redirige" vers la
-                    "textes" => $textes
+                    "textes" => $textes,
+                    "q" => $q
                 ]);
             } else {
                 MessageFlash::ajouter("warning", "Autorisation déniée");
@@ -233,7 +234,7 @@ class ControllerReponse extends GenericController
                     }
                 }
                 //Sinon si l'utilisateur est coAuteurs
-                else if (ConnexionUtilisateur::estCoAuteur($id_question)) {
+                 else if (ConnexionUtilisateur::estCoAuteur($q)) {
                             if (!$verif) {
                                 $texte = new Texte(null, $_POST["texte"][$i], $id_reponse, $_POST["id_section"][$i]);
                                 (new TexteRepository())->sauvegarder($texte);
@@ -335,7 +336,7 @@ class ControllerReponse extends GenericController
                 "cheminVueBody" => "texte/detail.php",   //"redirige" vers la vue
                 "textes" => $textes]);
         } else {
-            MessageFlash::ajouter("warning", "pas encore de réponses");
+            MessageFlash::ajouter("warning", "pas encore de réponses du Résponsable");
             $url = "frontController.php?controller=question&action=readAll";
             header("Location: $url");
             exit();

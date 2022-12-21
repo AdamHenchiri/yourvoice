@@ -114,6 +114,31 @@ class ConnexionUtilisateur
         return false;
     }
 
+    public static function estResponsableReponse($reponse) : bool //Fonctionne ok
+    {
+        if (self::estConnecte()) {
+            $log = self::getLoginUtilisateurConnecte();
+            $reponseTab = (new ReponseRepository())->selectWhere('id_reponse', $reponse->getIdRponses());
+            foreach ($reponseTab as $reponse){
+                $idUtilisateur = $reponse->getIdUtilisateur();
+                $responsable = (new UtilisateurRepository())->select($idUtilisateur);
+                $loginResponsable = $responsable->getLogin();
+                if($loginResponsable == $log){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+
+            }
+
+        }
+        else{
+            return false;
+        }
+        return false;
+    }
+
     public static function estCoAuteur($question) : bool
     {
         $user = Session::getInstance()->lire(static::$cleConnexion);
