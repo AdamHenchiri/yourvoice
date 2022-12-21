@@ -200,36 +200,43 @@ class ControllerReponse extends GenericController
                     //////////////pour mettre a jour les coauteurs seulement si l'utulisateur est le résponsable de la réponse
                     foreach ($coauteurs as $coauteur) {
                         $aux = true;
-                        foreach ($_POST["idCoAuteur"] as $idUser) {
-                            if ($idUser == $coauteur->getIdUtilisateur()) {
-                                $aux = true;
-                                break;
-                            } else {
-                                $aux = false;
+                        if (!empty($_POST["idCoAuteur"])) {
+                            foreach ($_POST["idCoAuteur"] as $idUser) {
+                                if ($idUser == $coauteur->getIdUtilisateur()) {
+                                    $aux = true;
+                                    break;
+                                } else {
+                                    $aux = false;
+                                }
                             }
+                        }else{
+                            $aux=false;
                         }
                         if ($aux == false) {
                             (new CoauteurRepository())->supprimer([$id_reponse, $coauteur->getIdUtilisateur()]);
                             $test = true;
+                            echo $test;
                         }
                     }
-                    foreach ($_POST["idCoAuteur"] as $idUser) {
-                        $aux = true;
-                        foreach ($coauteurs as $coauteur) {
-                            if ($idUser == $coauteur->getIdUtilisateur()) {
-                                $aux = true;
-                                break;
-                            } else {
+                    if (!empty($_POST["idCoAuteur"])) {
+                        foreach ($_POST["idCoAuteur"] as $idUser) {
+                            $aux = true;
+                            foreach ($coauteurs as $coauteur) {
+                                if ($idUser == $coauteur->getIdUtilisateur()) {
+                                    $aux = true;
+                                    break;
+                                } else {
+                                    $aux = false;
+                                }
+                            }
+                            if ($coauteurs == null) {
                                 $aux = false;
                             }
-                        }
-                        if ($coauteurs == null) {
-                            $aux = false;
-                        }
-                        if ($aux == false) {
-                            $v3 = new CoAuteur($id_reponse, $idUser);
-                            (new CoauteurRepository())->sauvegarder($v3);
-                            $test = true;
+                            if ($aux == false) {
+                                $v3 = new CoAuteur($id_reponse, $idUser);
+                                (new CoauteurRepository())->sauvegarder($v3);
+                                $test = true;
+                            }
                         }
                     }
                 }
