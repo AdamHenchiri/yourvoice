@@ -267,8 +267,8 @@ class ControllerQuestion extends GenericController
         if (ConnexionUtilisateur::estOrganisateur($q)) {
         $dateFin = $q->getDateFinRedaction();
         $dateDebut = $q->getDateDebutRedaction();
-        if (date('Y-m-d H:i:s') < $dateDebut ) {
-            MessageFlash::ajouter("warning", "Les rédaction ont déjà commencée ou est déja fini");
+        if (date('Y-m-d H:i:s') >= $dateDebut ) {
+            MessageFlash::ajouter("warning", "Les rédaction ont déjà commencée ");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         } else {
             $sections= (new SectionRepository())->selectWhere('id_question', $q->getIdQuestion());
