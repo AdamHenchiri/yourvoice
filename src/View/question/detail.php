@@ -6,6 +6,9 @@
 </head>
 <body>
 <?php
+
+use App\YourVoice\Model\Repository\UtilisateurRepository;
+
 $dateDebutRedaction = htmlspecialchars($question->getDateDebutRedaction());
 $dateFinRedaction = htmlspecialchars($question->getDateFinRedaction());
 $dateDebutVote = htmlspecialchars($question->getDateDebutVote());
@@ -88,8 +91,6 @@ foreach ($sections as $section) {
         echo "</div>";
 
 
-
-
         //echo "<li><a href=\"frontController.php?controller=section&action=read&id_section={$sectionFormater}\"> section :\n".  htmlspecialchars ( $titreSection ) . " </a></li> ";
     //echo "<p> Titre : " . htmlspecialchars($section->getTitre())."</p>" ;
     //echo ' Description :  ' . htmlspecialchars($section->getTexteExplicatif())  ;
@@ -106,8 +107,9 @@ foreach ($sections as $section) {
     //echo "--------------------------------------------------------------------------\n";
         echo "<div class='separateur1'></div>";
 */
-use App\YourVoice\Model\Repository\UtilisateurRepository;
-foreach ($reponses as $reponse) {
+
+//echo $cle;
+//foreach ($reponses as $reponse) {
     $num++;
     //$questNonFormater = $question->getIdQuestion();
     //$questFormater = rawurlencode($questNonFormater);
@@ -138,10 +140,13 @@ foreach ($reponses as $reponse) {
 
 
 } */
+
     echo"</div>";
     echo "<div class='separateur1'></div>";
     echo "</div>";
-}
+//}
+
+
 
 
 ?><body>

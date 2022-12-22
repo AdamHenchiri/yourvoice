@@ -8,10 +8,6 @@
             use App\YourVoice\Lib\ConnexionUtilisateur;
             use App\YourVoice\Lib\MotDePasse;
 
-
-            echo 'login ' . ConnexionUtilisateur::getLoginUtilisateurConnecte();
-            echo $m = (ConnexionUtilisateur::getUtilisateurConnecte())->getMdpHache();
-            //echo MotDePasse::verifier($_POST['mdp'],$m );
             ?>
             <input class="text" type="password" placeholder="Mot de passe*" name="mdp" id="mdp" required/>
             <div class="champ1">
