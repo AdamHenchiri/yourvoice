@@ -15,7 +15,7 @@
 
 
 /*echo "///////////////////////////////////////////////////////////////////////////////////////////////////";
-
+QSDF
 foreach ($tab as $v){
 
     echo "<p> votant : ". $v->getIdUtilisateur() . " // vote  : ". $v->getVote() . "// reponse : ". $v->getIdReponse() . "</p>";

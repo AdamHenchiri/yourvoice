@@ -49,6 +49,7 @@ foreach ($questions as $question) {
             boutton.innerHTML = '<?php echo "<a> $nbLigne </a>"; ?>';
 
         }else{
+            //qs
             boutton.classList.add("cacher");
             boutton.classList.remove("show");
             public = true;

@@ -43,7 +43,7 @@
 <header>
     <nav>
             <!--<div class="col-md-4 col-sm-3">
-            <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php" target="_blank" title="YourVoice" ></a>
+          QS  <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php" target="_blank" title="YourVoice" ></a>
           </div>-->
         <div class="container_menu">
         <ul id="menu">
