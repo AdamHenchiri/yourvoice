@@ -51,6 +51,8 @@
             <li><a href="frontController.php?action=readAll"><i class="fa-sharp fa-solid fa-circle-question"></i> Questions</a></li>
             <?php
             use App\YourVoice\Lib\ConnexionUtilisateur;
+            use \App\YourVoice\Lib\ConnexionAdmin;
+
             if (ConnexionUtilisateur::estConnecte()){
                ?>
                 <li><a href="frontController.php?action=create&controller=question"><i class="fa-solid fa-person-circle-question"></i> Créer question</a></li>
@@ -59,7 +61,14 @@
                 <li><a href="frontController.php?action=mesVotes"><i class="fa-solid fa-check-to-slot"></i> Vote</a></li>
                 <li><a href="frontController.php?controller=utilisateur&action=monCompte"><i class="fa-solid fa-user"></i> Mon compte</a></li>
                 <li><a href="frontController.php?controller=utilisateur&action=deconnecter"><i class="fa-solid fa-user"></i> Déconnexion </a></li>
-            <?php } else{?>
+            <?php }
+            else if (ConnexionAdmin::estConnecte()) {
+            ?>
+            <li><a href="frontController.php?controller=admin&action=readAllQuest" > <i class="fa-solid fa-clipboard-question"></i> Les Questions</a></li>
+            <li><a href="frontController.php?controller=admin&action=readAllUsers" > <i class="fa-solid fa-clipboard-question"></i> Les Utilisateurs</a></li>
+            <li><a href="frontController.php?controller=admin&action=deconnecter"><i class="fa-solid fa-user"></i> Déconnexion </a></li>
+
+            <?php }else{ ?>
             <li><a href="frontController.php?controller=utilisateur&action=connexion"><i class="fa-solid fa-user"></i> Connexion</a></li>
             <?php
             }

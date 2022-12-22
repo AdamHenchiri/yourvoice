@@ -18,6 +18,8 @@ class Utilisateur extends AbstractDataObject
     private string $mdpHache;
     private string $emailAValider;
     private string $nonce;
+    private bool $estOrganisateur;
+    private bool $demandeOrga;
 
     /**
      * @param int|null $id_utilisateur
@@ -29,8 +31,10 @@ class Utilisateur extends AbstractDataObject
      * @param string $mdpHache
      * @param string $emailAValider
      * @param string $nonce
+     * @param bool $estOrganisateur
+     * @param bool $demandeOrga
      */
-    public function __construct(?int $id_utilisateur, string $login, string $nom, string $prenom, int $age, string $email, string $mdpHache, string $emailAValider, string $nonce)
+    public function __construct(?int $id_utilisateur, string $login, string $nom, string $prenom, int $age, string $email, string $mdpHache, string $emailAValider, string $nonce, bool $estOrganisateur, bool $demandeOrga)
     {
         $this->id_utilisateur = $id_utilisateur;
         $this->login = $login;
@@ -41,6 +45,8 @@ class Utilisateur extends AbstractDataObject
         $this->mdpHache = $mdpHache;
         $this->emailAValider = $emailAValider;
         $this->nonce = $nonce;
+        $this->estOrganisateur = $estOrganisateur;
+        $this->demandeOrga = $demandeOrga;
     }
 
 
@@ -188,14 +194,59 @@ class Utilisateur extends AbstractDataObject
         $this->prenom = $prenom;
     }
 
+    /**
+     * @return bool
+     */
+    public function isEstOrganisateur(): bool
+    {
+        return $this->estOrganisateur;
+    }
+
+    /**
+     * @param bool $estOrganisateur
+     */
+    public function setEstOrganisateur(bool $estOrganisateur): void
+    {
+        $this->estOrganisateur = $estOrganisateur;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDemandeOrga(): bool
+    {
+        return $this->demandeOrga;
+    }
+
+    /**
+     * @param bool $demandeOrga
+     */
+    public function setDemandeOrga(bool $demandeOrga): void
+    {
+        $this->demandeOrga = $demandeOrga;
+    }
+
+
     public static function construireDepuisFormulaire (array $tableauFormulaire) : Utilisateur{
         $mdpClair=$tableauFormulaire["mdp"];
         $mdpHashe=MotDePasse::hacher($mdpClair);
-        $utilisateur= new Utilisateur(null,$tableauFormulaire["login"],$tableauFormulaire["nom"],$tableauFormulaire["prenom"],$tableauFormulaire["age"],"", $mdpHashe, $tableauFormulaire["email"],MotDePasse::genererChaineAleatoire());
+        $utilisateur= new Utilisateur(null,$tableauFormulaire["login"],$tableauFormulaire["nom"],$tableauFormulaire["prenom"],$tableauFormulaire["age"],"", $mdpHashe, $tableauFormulaire["email"],MotDePasse::genererChaineAleatoire(),0,0);
         VerificationEmail::envoiEmailValidation($utilisateur);
         return $utilisateur;
     }
     public function formatTableau(): array{
+        if($this->isEstOrganisateur()){
+            $res = 1;
+        }else{
+            $res=0;
+        }
+
+        if($this->isDemandeOrga()){
+            $res2 = 1;
+        }else{
+            $res2=0;
+        }
+
         return array(
             "id_utilisateurTag"=>$this->getIdUtilisateur(),
             "loginTag" => $this->getLogin(),
@@ -205,7 +256,9 @@ class Utilisateur extends AbstractDataObject
             "emailTag" => $this->getEmail(),
             "mdpHacheTag"=> $this->getMdpHache(),
             "emailAValiderTag"=>$this->getEmailAValider(),
-            "nonceTag"=>$this->getNonce()
+            "nonceTag"=>$this->getNonce(),
+            "estOrganisateurTag" => $res,
+            "demandeOrgaTag"=>$res2
         );
     }
 

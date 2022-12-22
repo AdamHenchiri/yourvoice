@@ -11,10 +11,10 @@ use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\Repository\UtilisateurRepository;
 use mysql_xdevapi\Statement;
 
-class ConnexionUtilisateur
+class ConnexionAdmin
 {
     // L'utilisateur connecté sera enregistré en session associé à la clé suivante
-    private static string $cleConnexion = "_utilisateurConnecte";
+    private static string $cleConnexion = "_adminConnecte";
 
     public static function connecter(string $loginUtilisateur): void
     {
