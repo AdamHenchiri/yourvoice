@@ -8,7 +8,7 @@
             use App\YourVoice\Lib\ConnexionUtilisateur;
             use App\YourVoice\Lib\MotDePasse;
 
-            var_dump($v);
+
             echo 'login ' . ConnexionUtilisateur::getLoginUtilisateurConnecte();
             echo $m = (ConnexionUtilisateur::getUtilisateurConnecte())->getMdpHache();
             //echo MotDePasse::verifier($_POST['mdp'],$m );

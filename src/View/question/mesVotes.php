@@ -25,7 +25,7 @@ foreach ($questions as $question) {
             $nbLigne++;
             echo "<div class='questions'>";
             echo "<a id='titrequestion' href=\"frontController.php?controller=reponse&action=readAll&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
-            echo "<a id='valider' href=\"frontController.php?controller=reponse&action=readAll&id_question={$questFormater}\"> Voir Réponse  </a>";
+            echo "<a id='valider' href=\"frontController.php?controller=reponse&action=readAll&id_question={$questFormater}\"> Voir Réponses  </a>";
             echo "</div>";
         }
     }
