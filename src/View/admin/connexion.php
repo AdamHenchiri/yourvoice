@@ -1,6 +1,6 @@
 
 
-<form method="post" action="frontController.php?controller=utilisateur&action=connected">
+<form method="post" action="frontController.php?controller=admin&action=connected">
     <div class="container">
         <div class="container_connexion">
                 <h1>Connexion</h1>
@@ -15,9 +15,6 @@
 
                 </div>
 
-            <?php echo "<a id=\"redirection\" href=\"frontController.php?controller=utilisateur&action=create\"> Je n'ai pas encore de compte</a> "; ?>
-
-            <?php echo "<a id=\"redirection\" href=\"frontController.php?controller=admin&action=connexion\"> Je suis un administrateur </a> "; ?>
 
         </div>
     </div>

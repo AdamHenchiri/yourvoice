@@ -3,10 +3,20 @@
 foreach ($utilisateurs as $utilisateur) {
     $userNonFormater = $utilisateur->getLogin();
     $userFormater = rawurlencode($userNonFormater);
+    $userIdFormater = rawurlencode($utilisateur->getIdUtilisateur());
 
-    echo "<li><a href=\"frontController.php?controller=utilisateur&action=read&login={$userFormater}\"> l'utilisateur ".  htmlspecialchars ( $utilisateur->getLogin() ) . " </a></li> ";
-    echo "<li><a href=\"frontController.php?controller=utilisateur&action=update&login={$userFormater}\"> ----->Mettre a jour les info de l'utilisateur<--------- </a></li>      ";
+    echo "<li><a href=\"frontController.php?controller=utilisateur&action=read&login={$userFormater}\"> l'utilisateur ".  htmlspecialchars ( $utilisateur->getLogin() ) ;
+    if ($utilisateur->isDemandeOrga()){
+        echo ">>>>>👋". " </a></li> ";
+    }
+    echo " </a></li> <li><a href=\"frontController.php?controller=utilisateur&action=update&login={$userFormater}\"> ----->Mettre a jour les info de l'utilisateur<--------- </a></li>      ";
     echo "<li><a href=\"frontController.php?controller=utilisateur&action=delete&login={$userFormater}\"> ----->Supprimer cette utilisateur<--------- </a></li>      ";
+    if ($utilisateur->isEstOrganisateur()){
+        echo "<li><a href=\"frontController.php?controller=admin&action=neplusdevenirOrga&login={$userIdFormater}\"> ----->🟩<--------- </a></li>      ";
+    }else{
+        echo "<li><a href=\"frontController.php?controller=admin&action=devenirOrga&login={$userIdFormater}\"> ----->🟥<--------- </a></li>      ";
+
+    }
     echo "--------------------------------------------------------------------------\n";
 }
 echo "<div><a href=\"frontController.php?controller=utilisateur&action=create\"> ajouter un utilisateur</a></div> ";

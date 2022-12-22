@@ -1,13 +1,14 @@
 <?php
 namespace App\YourVoice\Lib;
 
+use App\YourVoice\Model\DataObject\Admin;
 use App\YourVoice\Model\DataObject\Utilisateur;
 use App\YourVoice\Model\Repository\UtilisateurRepository;
 use App\YourVoice\Config\Conf;
 
 class VerificationEmail
 {
-    public static function envoiEmailValidation(Utilisateur $utilisateur): void
+    public static function envoiEmailValidation(Utilisateur | Admin $utilisateur): void
     {
 
         $loginURL = rawurlencode($utilisateur->getLogin());

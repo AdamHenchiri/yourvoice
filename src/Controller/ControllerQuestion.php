@@ -5,6 +5,7 @@ use App\YourVoice\Lib\ConnexionUtilisateur;
 use App\YourVoice\Lib\MessageFlash;
 use App\YourVoice\Lib\MotDePasse;
 use App\YourVoice\Model\DataObject\Reponse;
+use App\YourVoice\Model\DataObject\Utilisateur;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
@@ -122,9 +123,15 @@ class ControllerQuestion extends GenericController
     public static function create(): void
     {
         if (ConnexionUtilisateur::getUtilisateurConnecte() != null) {
-            self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
-                "cheminVueBody" => "question/create.php"   //"redirige" vers la vue
-            ]);
+            if (ConnexionUtilisateur::getUtilisateurConnecte()->isEstOrganisateur()) {
+                self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
+                    "cheminVueBody" => "question/create.php"   //"redirige" vers la vue
+                ]);
+            }else{
+                self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
+                    "cheminVueBody" => "question/demande.php"   //"redirige" vers la vue
+                ]);
+            }
         } else {
             MessageFlash::ajouter("warning", "Autorisation déniée");
             $url = "frontController.php";
@@ -183,6 +190,23 @@ class ControllerQuestion extends GenericController
         self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
             "cheminVueBody" => "question/deleted.php", "v" => $v   //"redirige" vers la vue
         ]);
+    }
+
+    public  static function demande(){
+        if (ConnexionUtilisateur::estConnecte() && !ConnexionUtilisateur::getUtilisateurConnecte()->isDemandeOrga()){
+            $user = ConnexionUtilisateur::getUtilisateurConnecte();
+            $u = new Utilisateur($user->getIdUtilisateur(),$user->getLogin(),$user->getNom(),$user->getPrenom(),$user->getAge(),$user->getEmail(),$user->getMdpHache(),$user->getEmailAValider(),$user->getNonce(),0,1);
+            (new UtilisateurRepository())->update($u);
+            MessageFlash::ajouter("success", "Votre demande a bien été transmise à l'administrateur");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
+        }else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
+        }
     }
 
     public static function delete() : void {
