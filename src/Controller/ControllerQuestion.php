@@ -173,7 +173,7 @@ class ControllerQuestion extends GenericController
                $s= new Section(null,$_POST["titre"][$i],$_POST["texte_explicatif"][$i],$id, 0);
                 (new SectionRepository())->sauvegarder($s);
             }
-            MessageFlash::ajouter("success", "ajout de la question avec succès");
+            MessageFlash::ajouter("success", "Ajout de la question avec succès");
             $url = "frontController.php?controller=question&action=readAll";
             header("Location: $url");
             exit();
@@ -211,7 +211,7 @@ class ControllerQuestion extends GenericController
 
     public static function delete() : void {
         if (!isset($_POST["mdp"])){
-            MessageFlash::ajouter("danger","veuillez remplir le formulaire");
+            MessageFlash::ajouter("danger","Veuillez remplir le formulaire");
             $url="frontController.php?controller=question&action=check&id_question=" . $_POST['id_question'];
             header("Location: ".$url);
             exit();
@@ -219,7 +219,7 @@ class ControllerQuestion extends GenericController
             $user = ConnexionUtilisateur::getUtilisateurConnecte();
             //$user = (new UtilisateurRepository())->selectWhere("login", $_POST["login"]);
             if (!MotDePasse::verifier($_POST["mdp"], $user->getMdpHache())) {
-                MessageFlash::ajouter("warning", "mot de passe erroné");
+                MessageFlash::ajouter("warning", "Mot de passe erroné");
                 $url = "frontController.php?controller=question&action=check&id_question=" . $_POST['id_question'];
                 header("Location: " . $url);
                 exit();
@@ -292,7 +292,7 @@ class ControllerQuestion extends GenericController
         $dateFin = $q->getDateFinRedaction();
         $dateDebut = $q->getDateDebutRedaction();
         if (date('Y-m-d H:i:s') >= $dateDebut ) {
-            MessageFlash::ajouter("warning", "Les rédaction ont déjà commencée ");
+            MessageFlash::ajouter("warning", "Les rédactions ont déjà commencée ");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         } else {
             $sections= (new SectionRepository())->selectWhere('id_question', $q->getIdQuestion());
@@ -390,7 +390,7 @@ class ControllerQuestion extends GenericController
             }
         }
 
-        MessageFlash::ajouter("success", "question mise à jour avec succès");
+        MessageFlash::ajouter("success", "Question mise à jour avec succès");
         $url = "frontController.php?controller=question&action=readAll";
         header("Location: $url");
         exit();

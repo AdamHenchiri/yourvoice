@@ -59,9 +59,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
         <?php
 
         $num = 0;
-        foreach ($sections
-
-        as $section) {
+        foreach ($sections as $section) {
         $num++;
         //$questNonFormater = $question->getIdQuestion();
         //$questFormater = rawurlencode($questNonFormater);
@@ -83,10 +81,11 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
             //echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-trash'></i></a>";
             //echo "</div>";
             //echo "<div class='separateur1'></div>";
-            //echo "</div>";
+
             //}
             echo "<div class='separateur1'></div>";
             echo "</div>";
+            }
 
 
             //echo "<li><a href=\"frontController.php?controller=section&action=read&id_section={$sectionFormater}\"> section :\n".  htmlspecialchars ( $titreSection ) . " </a></li> ";
@@ -95,7 +94,9 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
             //echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> Mettre a jour la section </a>      ";
             // echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> Supprimer cette section </a>     ";
             // echo "--------------------------------------------------------------------------\n";
-            }
+            //}
+
+
 
 
             //echo "--------------------------------------------------------------------------\n";

@@ -85,7 +85,7 @@ foreach ($sections as $section) {
            // echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-trash'></i></a>";
             echo "</div>";
             echo "<div class='separateur1'></div>";
-            //echo "</div>";
+
         }
         echo "<div class='separateur1'></div>";
         echo "</div>";

@@ -68,8 +68,8 @@ class ControllerSection extends GenericController
     public static function updated() : void {
         $v=new Section($_POST["id_section"],$_POST["titre"],$_POST["texte_explicatif"],$_POST["id_question"], 0);
         (new SectionRepository())->update($v);
-        MessageFlash::ajouter("success","section créée");
-        $url ="frontController.php?controller=question&action=read&id_question=" . $_POST["id_question"];
+        MessageFlash::ajouter("success","Section modifiée");
+        $url ="frontController.php?controller=question&action=readMy&id_question=" . $_POST["id_question"];
         header("Location: $url");
         exit();
         /*self::afficheVue('/view.php', ["pagetitle" => "modification de section",
