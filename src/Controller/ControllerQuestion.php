@@ -153,7 +153,7 @@ class ControllerQuestion extends GenericController
             //sauvegarde des votants dans la base de donnée
             foreach ($_POST["idContributeur"] as $idUser) {
                 if ($idUser) {
-                    $v3 = new Reponse(null, $idUser, $id);
+                    $v3 = new Reponse(null, $idUser, $id, 0);
                     $reponse = (new ReponseRepository())->sauvegarder($v3);
                     $tab[] = $reponse;
 
@@ -385,7 +385,7 @@ class ControllerQuestion extends GenericController
                 $aux = false;
             }
             if ($aux == false) {
-                $v3 = new Reponse(null, $idUser, $id);
+                $v3 = new Reponse(null, $idUser, $id, 0);
                 (new ReponseRepository())->sauvegarder($v3);
             }
         }

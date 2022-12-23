@@ -89,20 +89,23 @@ class ConnexionUtilisateur
         }
     }
 
-    public static function estResponsable($question) : bool //Fonctionne ok
+    public static function estResponsable($question)  //Fonctionne ok
     {
         if (self::estConnecte()) {
-            $log = self::getLoginUtilisateurConnecte();
+            $u = (self::getUtilisateurConnecte())->getIdUtilisateur();
+            //$reponseTab = (new ReponseRepository())->selectWhere('id_question', 75);
             $reponseTab = (new ReponseRepository())->selectWhere('id_question', $question->getIdQuestion());
-            foreach ($reponseTab as $reponse){
-                $idUtilisateur = $reponse->getIdUtilisateur();
-                $responsable = (new UtilisateurRepository())->select($idUtilisateur);
-                $loginResponsable = $responsable->getLogin();
-                if($loginResponsable == $log){
+            //echo "question : " . $question->getIdQuestion();
+            //var_dump($reponseTab);
+            foreach ($reponseTab as $reponse) {
+                /*echo "<p>------------------------------------------------------- </p>";
+                echo "<p> id question : " . $reponse->getIdQuestion() . "// </p>";
+                echo "<p> id rep : " . $reponse->getIdRponses() . "// </p>";
+                echo "<p> utilisateur ? ". $reponse->getIdUtilisateur(). "// </p>";
+                echo "<p> connecter : ". $u. "// </p>";*/
+                if ($reponse->getIdUtilisateur() == $u){
+                   // echo 'true';
                     return true;
-                }
-                else{
-                    return false;
                 }
 
             }
@@ -112,6 +115,9 @@ class ConnexionUtilisateur
             return false;
         }
         return false;
+
+
+
     }
 
     public static function estResponsableReponse($reponse) : bool //Fonctionne ok
