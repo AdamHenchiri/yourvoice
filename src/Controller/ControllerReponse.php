@@ -326,13 +326,12 @@ class ControllerReponse extends GenericController
 
     public static function readAll(): void
     {
-
-        //$reponses =(new ReponseRepository())->selectAll();//appel au modèle pour gerer la BD
-        $rep = (new ReponseRepository())->selectWhere("id_question", $_GET['id_question']);
+        $u = (ConnexionUtilisateur::getUtilisateurConnecte())->getIdUtilisateur();
+        $votants = (new VotantRepository())->selectWhere("id_votant", $u);
 
         self::afficheVue('/view.php', ["pagetitle" => "Liste des réponses",
             "cheminVueBody" => "reponse/list.php",   //"redirige" vers la vue
-            "reponses" => $rep]);
+             "votants" => $votants, "id_question" => $_GET["id_question"]]);
     }
 
     public static function read(): void
@@ -364,55 +363,54 @@ class ControllerReponse extends GenericController
 
     public static function vote()
     {
-        $v = (new VotantRepository())->select($_GET['id']);
-        $v2 = (new VotantRepository())->selectWhere('id_votant', $_GET['id_votant']);
-        if($v->getVote() == null) {
-            if ($v) {
-                //var_dump($v);
-                if ($_GET['vote'] == "positif") {
-                    if ($v->getVote() == null) {
-                        $res = 1;
-                    } else {
-                        $res = $v->getVote() + 1;
-                    }
+        $trouve = false;
+        $rep = (new ReponseRepository())->select($_GET["id_reponse"]);
+        if (isset($_GET['id_reponse']) && $rep) {
 
-                }
-                if ($_GET['vote'] == "neutre") {
-                    if ($v->getVote() == null) {
-                        $res = 0;
-                    } else {
-                        $res = $v->getVote() + 0;
-                    }
-                }
-                if ($_GET['vote'] == "negatif") {
-                    if ($v->getVote() == null) {
-                        $res = -1;
-                    } else {
-                        $res = $v->getVote() - 1;
-                    }
-                }
+            $v = (new VotantRepository())->select($_GET['id']);
+            $votants = (new VotantRepository())->selectWhere('id_reponse', $_GET["id_reponse"]);
+            foreach ($votants as $v) {
+                if($v->getIdReponse() == $_GET["id_reponse"]){
+                if (is_null($v->getVote())) {
+                    if ($v) {
+                        //var_dump($v);
+                        if ($_GET['vote'] == "positif") {
+                            if ($v->getVote() == null) {
+                                $res = 1;
+                            }
 
-                $votant = new Votant($_GET['id'], $res, $v->getIdQuestion(), $_GET['id_reponse']);
-                //var_dump($votant);
-                (new VotantRepository())->update2($votant);
-                MessageFlash::ajouter("success", "Votre choix a été pris en compte");
-                header("Location: frontController.php?reponse&action=readAll&id_question=" . $_GET['id_question']);
+                        }
+                        if ($_GET['vote'] == "neutre") {
+                            if ($v->getVote() == null) {
+                                $res = 0;
+                            }
+                        }
+                        if ($_GET['vote'] == "negatif") {
+                            if ($v->getVote() == null) {
+                                $res = -1;
+                            }
+                        }
+
+                        $votant = new Votant($_GET['id'], $res, $v->getIdQuestion(), $_GET['id_reponse']);
+                        var_dump($votant);
+                        (new VotantRepository())->update2($votant);
+                        $trouve = true;
+                    }
+                }
 
             }
 
-            else {
-                    MessageFlash::ajouter("warning", "Erreur");
-                header("Location: frontController.php?controller=reponse&action=readAll&id_question=" . $_GET['id_question']);
-
-
-            }
         }
-        else{
-            MessageFlash::ajouter("warning", "Vous avez déjà voté");
-            header("Location: frontController.php?reponse&action=readAll&id_question=" . $_GET['id_question']);
+    }if($trouve == true){
+        MessageFlash::ajouter("success", "Votre choix a été pris en compte");
+        header("Location: frontController.php?controller=reponse&action=readAll&id_question=" . $_GET['id_question']);
+
+    }
+        else {
+            MessageFlash::ajouter("warning", "Erreur");
+            header("Location: frontController.php?controller=reponse&action=readAll&id_question=" . $_GET['id_question']);
 
         }
-
     }
 
 }
