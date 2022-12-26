@@ -84,8 +84,8 @@ class ControllerVotant extends GenericController
                     //echo "<p> reponse : ". $unique . " // vote  : ". $vote . "// note : ". $note . "</p>";
                 }
 
-                    $tabNote[$unique] = $note;
-                    $i = $i + 1;
+                $tabNote[$unique] = $note;
+                $i = $i + 1;
             }
         }
         return $tabNote;
@@ -132,28 +132,32 @@ class ControllerVotant extends GenericController
         //var_dump($newTab);
 
         if(count($newTab) > 1){
+            $trouve = true;
             echo "Il y a une égalité ";
             $cle = array_keys($newTab);
             $reponse = array();
             foreach ($cle as $c){
                 array_push($reponse, $c);
             }
+
             $question = (new QuestionRepository())->select($_GET['id_question']);
             $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
             if ($question !== null && $sections !== null) {
                 self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
                     "cheminVueBody" => "question/detail.php",
                     //"redirige" vers la vue
-                    "trouve" => "true",
+                    "trouve" => $trouve,
                     "question" => $question,
                     "sections" => $sections,
                     "reponse" => $reponse,
 
                 ]);
 
+
             }
         }
         else {
+            $trouve = false;
             $cle = array_search(max($tableauNote), $tableauNote);
             $reponse = (new ReponseRepository())->select($cle);
             $question = (new QuestionRepository())->select($_GET['id_question']);
@@ -161,7 +165,9 @@ class ControllerVotant extends GenericController
 
             if ($question !== null && $sections !== null) {
                 self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
-                    "cheminVueBody" => "question/detail.php",   //"redirige" vers la vue
+                    "cheminVueBody" => "question/detail.php",
+                    //"redirige" vers la vue
+                    "trouve" => $trouve,
                     "question" => $question,
                     "sections" => $sections,
                     "reponse" => $reponse,

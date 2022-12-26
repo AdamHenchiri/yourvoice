@@ -75,31 +75,11 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
             <div> <?php echo " Titre : " . htmlspecialchars($section->getTitre()); ?> </div>
             <div> <?php echo " Description :  " . htmlspecialchars($section->getTexteExplicatif()); ?> </div>
             <?php
-            //if(date('Y-m-d H:i:s') < $dateDebutRedaction){
-            //echo "<div class='question_update'>";
-            //echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>";
-            //echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-trash'></i></a>";
-            //echo "</div>";
-            //echo "<div class='separateur1'></div>";
 
-            //}
             echo "<div class='separateur1'></div>";
             echo "</div>";
             }
 
-
-            //echo "<li><a href=\"frontController.php?controller=section&action=read&id_section={$sectionFormater}\"> section :\n".  htmlspecialchars ( $titreSection ) . " </a></li> ";
-            //echo "<p> Titre : " . htmlspecialchars($section->getTitre())."</p>" ;
-            //echo ' Description :  ' . htmlspecialchars($section->getTexteExplicatif())  ;
-            //echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> Mettre a jour la section </a>      ";
-            // echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> Supprimer cette section </a>     ";
-            // echo "--------------------------------------------------------------------------\n";
-            //}
-
-
-
-
-            //echo "--------------------------------------------------------------------------\n";
 
             use App\YourVoice\Lib\ConnexionUtilisateur;
             use App\YourVoice\Model\Repository\TexteRepository;
