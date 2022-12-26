@@ -93,41 +93,85 @@ class ControllerVotant extends GenericController
 
     }
 
+    public static function recopie($tab){
+        $newTab = $tab;
+        $max = max($tab);
+        foreach ($tab as $t) {
+            if ($t != $max) {
+                unset($newTab);
+            }
+        }
+        return $newTab;
+    }
+
+
 
     public static function systemeVote():void
     {
         //voire pour un système de vote plus précis et gérer les égalitées
 
         $tableauNote = self::aux3();
-        /*var_dump($tableauNote);
+        //var_dump($tableauNote);
         asort($tableauNote);
-        var_dump($tableauNote);
+        //var_dump($tableauNote);
         echo count($tableauNote) . "//";
-        echo max($tableauNote) . "///";*/
+        echo max($tableauNote) . "///";
         asort($tableauNote);
 
-        $cle = array_search(max($tableauNote), $tableauNote);
+        $newTab = $tableauNote;
+        //var_dump($newTab);
+        $max = max($tableauNote);
+        //echo $max;
+        foreach ($newTab as $key => $value) {
+            //echo $key;
+            if ($newTab[$key] != $max) {
+                //echo "<p>". $newTab[$key]. "!=" . $max .  "</p>";
+                unset($newTab[$key]);
+            }
+        }
+        //var_dump($newTab);
 
-        $question = (new QuestionRepository())->select($_GET['id_question']);
-        $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
-        //$reponses = (new ReponseRepository())->select($cle);
-        $reponse = (new ReponseRepository())->select($cle);
-        //$reponses = (new ReponseRepository())->select($cle);
-        if ($question !== null && $sections !== null) {
-            self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
-                "cheminVueBody" => "question/detail.php",   //"redirige" vers la vue
-                "question" => $question,
-                "sections" => $sections,
-                "reponse" => $reponse,
-                "cle" => $cle
-            ]);
+        if(count($newTab) > 1){
+            echo "Il y a une égalité ";
+            $cle = array_keys($newTab);
+            $reponse = array();
+            foreach ($cle as $c){
+                array_push($reponse, $c);
+            }
+            $question = (new QuestionRepository())->select($_GET['id_question']);
+            $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
+            if ($question !== null && $sections !== null) {
+                self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
+                    "cheminVueBody" => "question/detail.php",
+                    //"redirige" vers la vue
+                    "trouve" => "true",
+                    "question" => $question,
+                    "sections" => $sections,
+                    "reponse" => $reponse,
+
+                ]);
+
+            }
+        }
+        else {
+            $cle = array_search(max($tableauNote), $tableauNote);
+            $reponse = (new ReponseRepository())->select($cle);
+            $question = (new QuestionRepository())->select($_GET['id_question']);
+            $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
+
+            if ($question !== null && $sections !== null) {
+                self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
+                    "cheminVueBody" => "question/detail.php",   //"redirige" vers la vue
+                    "question" => $question,
+                    "sections" => $sections,
+                    "reponse" => $reponse,
+                    "cle" => $cle
+                ]);
 
 
-
+            }
         }
     }
-
-
 
 }
 
@@ -183,5 +227,44 @@ QSDF
 
 
     }
+
+
+
+    public static function systemeVote():void
+    {
+        //voire pour un système de vote plus précis et gérer les égalitées
+
+        $tableauNote = self::aux3();
+        var_dump($tableauNote);
+        asort($tableauNote);
+        var_dump($tableauNote);
+        echo count($tableauNote) . "//";
+        echo max($tableauNote) . "///";
+        asort($tableauNote);
+
+
+        $cle = array_search(max($tableauNote), $tableauNote);
+
+        $question = (new QuestionRepository())->select($_GET['id_question']);
+        $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
+        //$reponses = (new ReponseRepository())->select($cle);
+        $reponse = (new ReponseRepository())->select($cle);
+        //$reponses = (new ReponseRepository())->select($cle);
+        if ($question !== null && $sections !== null) {
+            self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
+                "cheminVueBody" => "question/detailTest.php",   //"redirige" vers la vue
+                "question" => $question,
+                "sections" => $sections,
+                "reponse" => $reponse,
+                "cle" => $cle
+            ]);
+
+
+
+        }
+    }
+
+
+
 
 }*/

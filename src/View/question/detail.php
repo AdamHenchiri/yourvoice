@@ -113,6 +113,10 @@ foreach ($sections as $section) {
     $num++;
     //$questNonFormater = $question->getIdQuestion();
     //$questFormater = rawurlencode($questNonFormater);
+        if($trouve == true){
+            echo "<p>Il y a une égalité. En attente de la décision finale</p>";
+        }
+        else{
     $repNonFormater = $reponse->getIdRponses();
     $repFormater = rawurlencode($repNonFormater);
 
@@ -149,6 +153,8 @@ foreach ($sections as $section) {
 
 
 
+
 ?><body>
 <script src="../src/js/app.js"></script>
 </html><?php
+}
