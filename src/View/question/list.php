@@ -26,7 +26,7 @@ foreach ($questions as $question) {
         if ($question->getDateFinVote() < date("Y-m-d")) {
             $nbLigne++;
             echo "<div class='questions'>";
-            echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=read&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
+            echo "<a id='titrequestion' href=\"frontController.php?controller=votant&action=systemeVote&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
             echo "<div class='question_update'>";
             echo "</div>";
             echo "</div>";
@@ -49,6 +49,7 @@ foreach ($questions as $question) {
             boutton.innerHTML = '<?php echo "<a> $nbLigne </a>"; ?>';
 
         }else{
+            //qs
             boutton.classList.add("cacher");
             boutton.classList.remove("show");
             public = true;

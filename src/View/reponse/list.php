@@ -5,6 +5,7 @@
 
 
         use App\YourVoice\Lib\ConnexionUtilisateur;
+        use App\YourVoice\Model\Repository\ReponseRepository;
         use App\YourVoice\Model\Repository\UtilisateurRepository;
         use App\YourVoice\Model\Repository\VotantRepository;
 
@@ -16,28 +17,30 @@
     echo "</div>";
 echo "</div>";
 
-foreach ($reponses as $reponse) {
+
+foreach ($votants as $votant){
+    $reponse =(new ReponseRepository())->select($votant->getIdReponse());
+
+    if($reponse->getIdQuestion() == $id_question){
+
     $repNonFormater = $reponse->getIdRponses();
     $repFormater = rawurlencode($repNonFormater);
     $questionNonFormater = $reponse->getIdQuestion();
     $questionFormater = rawurlencode($repNonFormater);
-    //$utilisateur = (new UtilisateurRepository())->select($reponse->getIdUtilisateur());
-    //$login = $utilisateur->getLogin();
+    if(is_null($votant->getVote())){
+        echo "null";
+    }
+    else{
+        echo $votant->getVote();
+    }
 
-    $u = (ConnexionUtilisateur::getUtilisateurConnecte())->getIdUtilisateur();
-    $votant = (new VotantRepository())->select($u);
-?>
 
-
-        <?php
 echo "<div class='questions'>";
         echo "<a id='titrequestion' href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse {$repNonFormater} :\n" . htmlspecialchars("") . " </a>";
+
         echo "<div class='question_update'>";
 
-        //echo "<a href=\"frontController.php?controller=reponse&action=update&id_reponse={$repFormater}&id_question={$questionFormater}\"> <i class='fa-solid fa-pencil'></i> </a>";
-        //echo "<a id=\"confirmation\" onclick=\"return confirmation()\" href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>";
-        //echo "<div class='classement'> hey<div>";
-        if($votant->getVote() == null){
+        if(is_null($votant->getVote()) ){
     ?>
 
         <form method="get" action="frontController.php">
@@ -46,8 +49,9 @@ echo "<div class='questions'>";
             <input type="hidden" value="<?php echo $repNonFormater; ?>" name="id_reponse" >
             <input type="hidden" value="<?php echo $questionNonFormater; ?>" name="id_question" >
             <input type="hidden" value="<?php echo $votant->getIdUtilisateur(); ?>" name="id" >
+            <?php echo $repNonFormater . "// " . $questionNonFormater . "/// " . $votant->getIdUtilisateur() ;
 
-
+            ?>
 
             <p>&#128540;
             <input type="radio" name="vote" id="Idpositif" value="positif">Aime
@@ -63,7 +67,8 @@ echo "<div class='questions'>";
 
             <input id="valider" type="submit" value="valider" name="valider" />
             <?php
-            }
+
+        }
         else{
             if($votant->getVote() == 1) {
                 echo "Vous avez voté &#128540; : Aime ";
@@ -75,6 +80,7 @@ echo "<div class='questions'>";
                 echo "Vous avez voté &#128577; : Aime pas ";
             }
         }
+
         ?>
         </form>
 
@@ -90,20 +96,7 @@ echo "<div class='questions'>";
 echo"</div>";
 echo"</div>";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//onclick=\"validation()\"
+}
 }
 ?>
 <!--        script src="../src/js/vote.js"></script>-->

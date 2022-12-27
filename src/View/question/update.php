@@ -146,7 +146,7 @@
                     //$questFormater = rawurlencode($questNonFormater);
                     $titreSection = $section->getTitre();
                     $idQuestion = $section->getIdQuestion();
-                    $sectionFormater = rawurlencode($section->getIdSection());}
+                    $sectionFormater = rawurlencode($section->getIdSection());
                     ?>
 
                     <div class="titre">
@@ -161,23 +161,29 @@
                         echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>";
                         echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-trash'></i></a>";
                         echo "</div>";
-                        echo "<div class='separateur1'></div>";
+                        //echo "<div class='separateur1'></div>";
+                    }
+
+                    echo "<div class='separateur1'></div>";
+                    echo "</div>";
                     }
 
 
                     echo "<div class='question_description'>";
-                    echo "<div class='separateur1'></div>";
+                    //echo "<div class='separateur1'></div>";
                     echo "<a href=\"frontController.php?controller=section&action=create&id_question={$idQuestion}\"> Ajouter une section </a> ";
-                    echo "</div>";
                     echo "<div class='separateur1'></div>";
+                    echo "</div>";
+
 
                     echo "</div>";
 
 
                     ?>
+                        <input id="valider" type="submit" value="valider" name="valider" />
 
                 </div>
-                <input id="valider" type="submit" value="valider" name="valider" />
+
             </div>
         </div>
     </form>

@@ -17,6 +17,8 @@ echo "<div class='container_question1'>";
 echo "</div>";
 $nbLigne=0;
 foreach ($questions as $question) {
+
+
     if(ConnexionUtilisateur::estResponsable($question) || ConnexionUtilisateur::estCoAuteur($question)){
 
         $questNonFormater = $question->getIdQuestion();
@@ -24,7 +26,8 @@ foreach ($questions as $question) {
     $reponses=(new ReponseRepository())->selectWhere("id_question",$questNonFormater);
 
 
-    if((ConnexionUtilisateur::estCoAuteur($question) || ConnexionUtilisateur::estResponsable($question) || ConnexionUtilisateur::estOrganisateur($question)) and !$question->isActif()) {
+
+        if((ConnexionUtilisateur::estCoAuteur($question) || ConnexionUtilisateur::estResponsable($question) || ConnexionUtilisateur::estOrganisateur($question)) and !$question->isActif()) {
 
         echo "<div class='questions'>";
         echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=readMy&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
@@ -47,7 +50,7 @@ foreach ($questions as $question) {
     }
 
 //onclick=\"return confirmation()\
-    }
+   }
 }
 
 

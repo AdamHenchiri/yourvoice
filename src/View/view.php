@@ -43,7 +43,7 @@
 <header>
     <nav>
             <!--<div class="col-md-4 col-sm-3">
-            <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php" target="_blank" title="YourVoice" ></a>
+          QS  <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php" target="_blank" title="YourVoice" ></a>
           </div>-->
         <div class="container_menu">
         <ul id="menu">
@@ -56,8 +56,14 @@
             if (ConnexionUtilisateur::estConnecte()){
                ?>
                 <li><a href="frontController.php?action=create&controller=question"><i class="fa-solid fa-person-circle-question"></i> Créer question</a></li>
-                <li><a href="frontController.php?action=readAllMein" > <i class="fa-solid fa-clipboard-question"></i> Mes Questions</a></li>
-                <li><a href="frontController.php?controller=reponse&action=readMyResponse" > <i class="fa-solid fa-clipboard-question"></i> Mes Réponses</a></li>
+                <?php
+                if(false) {
+                    echo "<li><a href='frontController.php?action=readAllMein' > <i class='fa-solid fa-clipboard-question'></i> Mes Questions &#128308;</a></li>";
+                }else{
+                    echo "<li><a href='frontController.php?action=readAllMein' > <i class='fa-solid fa-clipboard-question'></i> Mes Questions</a></li>";
+                }
+                ?>
+                <li><a href="frontController.php?controller=reponse&action=readMyReponse" > <i class="fa-solid fa-clipboard-question"></i> Mes Réponses </a></li>
                 <li><a href="frontController.php?action=mesVotes"><i class="fa-solid fa-check-to-slot"></i> Vote</a></li>
                 <li><a href="frontController.php?controller=utilisateur&action=monCompte"><i class="fa-solid fa-user"></i> Mon compte</a></li>
                 <li><a href="frontController.php?controller=utilisateur&action=deconnecter"><i class="fa-solid fa-user"></i> Déconnexion </a></li>
