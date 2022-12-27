@@ -64,11 +64,11 @@ class ControllerAdmin extends GenericController
         exit();
     }
 
-    public static function estUtilisateur($login): bool
+   /* public static function estUtilisateur($login): bool
     {
         return  ConnexionAdmin::getLoginUtilisateurConnecte()==$login;
     }
-
+    */
     public static function create() : void {
         self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre utilisateur",
             "cheminVueBody" => "admin/create.php"   //"redirige" vers la vue
@@ -138,7 +138,7 @@ class ControllerAdmin extends GenericController
         if (ConnexionAdmin::estConnecte()) {
             $questions = (new QuestionRepository())->selectAll();//appel au modèle pour gerer la BD
             self::afficheVue('/view.php', ["pagetitle" => "Liste des utilisateurs",
-                "cheminVueBody" => "question/list.php",   //"redirige" vers la vue
+                "cheminVueBody" => "admin/listQuestions.php",   //"redirige" vers la vue
                 "questions" => $questions]);
         }else{
             MessageFlash::ajouter("warning","autorisation dénié ");

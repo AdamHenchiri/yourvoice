@@ -1,6 +1,7 @@
 <?php
 namespace App\YourVoice\Controller ;
 
+use App\YourVoice\Lib\ConnexionAdmin;
 use App\YourVoice\Lib\ConnexionUtilisateur;
 use App\YourVoice\Lib\MessageFlash;
 use App\YourVoice\Lib\MotDePasse;
@@ -210,6 +211,15 @@ class ControllerQuestion extends GenericController
     }
 
     public static function delete() : void {
+        if (ConnexionAdmin::estConnecte()){
+            $v = (new QuestionRepository())->select($_GET['id_question']);
+            $q = new Question($v->getIdQuestion(), $v->getIntitule(), $v->getExplication(), $v->getDateDebutRedaction(),
+                $v->getDateFinRedaction(), $v->getDateDebutVote(), $v->getDateFinVote(), $v->getIdUtilisateur(), 1);
+            (new QuestionRepository())->update($q);
+            MessageFlash::ajouter("success", "Question supprimée");
+            header("Location: frontController.php?controller=admin&action=readAllQuest");
+            exit();
+        }
         if (!isset($_POST["mdp"])){
             MessageFlash::ajouter("danger","veuillez remplir le formulaire");
             $url="frontController.php?controller=question&action=check&id_question=" . $_POST['id_question'];
@@ -248,6 +258,22 @@ class ControllerQuestion extends GenericController
         header("Location: frontController.php?controller=question&action=readAll");
     }
 
+    public static function restaurer() : void {
+
+            if (!ConnexionAdmin::estConnecte()) {
+                MessageFlash::ajouter("warning", "Autorisation déniée");
+                header("Location: frontController.php?controller=question&action=readAll");
+            } else {
+                $v = (new QuestionRepository())->select($_GET['id_question']);
+                if ($v != null) {
+                    $q = new Question($v->getIdQuestion(), $v->getIntitule(), $v->getExplication(), $v->getDateDebutRedaction(),
+                        $v->getDateFinRedaction(), $v->getDateDebutVote(), $v->getDateFinVote(), $v->getIdUtilisateur(), 0);
+                    (new QuestionRepository())->update($q);
+                    MessageFlash::ajouter("success", "Question réstaurée");
+                }
+                header("Location: frontController.php?controller=admin&action=readAllQuest");
+            }
+    }
 
 
     public static function deleted(): void
