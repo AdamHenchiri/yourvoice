@@ -3,6 +3,7 @@
 namespace App\YourVoice\Controller;
 
 use App\YourVoice\Lib\ConnexionUtilisateur;
+use App\YourVoice\Model\HTTP\Cookie;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\Repository\SectionRepository;
@@ -14,9 +15,8 @@ class ControllerVotant extends GenericController
 
     public static function winner(): void
     {
-        //$idQuestion = $_GET["id_question"];
-        //$idReponse = $_GET["id_reponse"];
-        $question = new QuestionRepository();//appel au modèle pour gerer la BD
+
+        $question = new QuestionRepository();
         $questions = $question->selectAll();
         $tab = array();
         foreach ($questions as $question){
@@ -32,7 +32,6 @@ class ControllerVotant extends GenericController
 
     public static function aux()
     {
-
         $tableauReponse = (new ReponseRepository())->selectWhere("id_question", $_GET["id_question"]);
         $tableau = array();
         $vote = array();
@@ -94,23 +93,9 @@ class ControllerVotant extends GenericController
 
     }
 
-    public static function recopie($tab){
-        $newTab = $tab;
-        $max = max($tab);
-        foreach ($tab as $t) {
-            if ($t != $max) {
-                unset($newTab);
-            }
-        }
-        return $newTab;
-    }
-
-
 
     public static function aux4()
     {
-        //voire pour un système de vote plus précis et gérer les égalitées
-
         $tableauNote = self::aux3();
         asort($tableauNote);
         asort($tableauNote);
@@ -141,11 +126,13 @@ class ControllerVotant extends GenericController
         else if(count($newTab) == 0){
             $trouve = 0;
             $reponse = "Il n'y a pas de réponse pour cette question.";
+
         }
         else{
             $cle = array_search(max($tableauNote), $tableauNote);
             $reponse = (new ReponseRepository())->select($cle);
             $trouve = 1;
+
         }
 
         $question = (new QuestionRepository())->select($_GET['id_question']);
@@ -178,6 +165,9 @@ class ControllerVotant extends GenericController
         return false;
     }
 
+    public static function notifier(){
+
+    }
 }
 
 /*public static function systemeVote(): void

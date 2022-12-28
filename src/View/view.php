@@ -54,18 +54,17 @@
             use App\YourVoice\Controller\ControllerVotant;
             use App\YourVoice\Lib\ConnexionUtilisateur;
             use \App\YourVoice\Lib\ConnexionAdmin;
+            use App\YourVoice\Model\HTTP\Cookie;
 
             if (ConnexionUtilisateur::estConnecte()){
                ?>
                 <li><a href="frontController.php?action=create&controller=question"><i class="fa-solid fa-person-circle-question"></i> Créer question</a></li>
                 <?php
-                if(false) {
-                    echo "<li><a href='frontController.php?action=readAllMein' > <i class='fa-solid fa-clipboard-question'></i> Mes Questions &#128308;</a></li>";
-                }else{
+
                     echo "<li><a href='frontController.php?action=readAllMein' > <i class='fa-solid fa-clipboard-question'></i> Mes Questions</a></li>";
-                }
+
                 ?>
-                <li><a href="frontController.php?controller=reponse&action=readMyReponse" > <i class="fa-solid fa-clipboard-question"></i> Mes Réponses </a></li>
+                <li><a href="frontController.php?controller=reponse&action=readMyResponse" > <i class="fa-solid fa-clipboard-question"></i> Mes Réponses </a></li>
                 <li><a href="frontController.php?action=mesVotes"><i class="fa-solid fa-check-to-slot"></i> Vote</a></li>
                 <li><a href="frontController.php?controller=utilisateur&action=monCompte"><i class="fa-solid fa-user"></i> Mon compte</a></li>
                 <li><a href="frontController.php?controller=utilisateur&action=deconnecter"><i class="fa-solid fa-user"></i> Déconnexion </a></li>

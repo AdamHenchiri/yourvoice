@@ -14,13 +14,18 @@ class Cookie
 
     public static function lire(string $cle): mixed
     {
-        $c1 = unserialize($_COOKIE[$cle]);
-        echo $c1;
-        return $c1;
+        if(self::contient($cle)){
+            $c1 = unserialize($_COOKIE[$cle]);
+            //echo $c1;
+            return $c1;
+        }
+        else{
+            return null;
+        }
     }
 
     public static function contient(string $cle) : bool{
-        var_dump(isset($_COOKIE[$cle]));
+        //var_dump(isset($_COOKIE[$cle]));
         return isset($_COOKIE[$cle]);
     }
 
