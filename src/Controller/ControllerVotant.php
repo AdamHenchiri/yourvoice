@@ -2,6 +2,7 @@
 
 namespace App\YourVoice\Controller;
 
+use App\YourVoice\Lib\ConnexionUtilisateur;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\Repository\SectionRepository;
@@ -106,77 +107,75 @@ class ControllerVotant extends GenericController
 
 
 
-    public static function systemeVote():void
+    public static function aux4()
     {
         //voire pour un système de vote plus précis et gérer les égalitées
 
         $tableauNote = self::aux3();
-        //var_dump($tableauNote);
         asort($tableauNote);
-        //var_dump($tableauNote);
-        echo count($tableauNote) . "//";
-        echo max($tableauNote) . "///";
         asort($tableauNote);
-
         $newTab = $tableauNote;
-        //var_dump($newTab);
-        $max = max($tableauNote);
-        //echo $max;
-        foreach ($newTab as $key => $value) {
-            //echo $key;
-            if ($newTab[$key] != $max) {
-                //echo "<p>". $newTab[$key]. "!=" . $max .  "</p>";
-                unset($newTab[$key]);
+        if(empty($tableauNote)){
+            $newTab = array();
+        }
+        else{
+            $max = max($tableauNote);
+            foreach ($newTab as $key => $value) {
+                if ($newTab[$key] != $max) {
+                    unset($newTab[$key]);
+                }
             }
         }
-        //var_dump($newTab);
 
+       return $newTab;
+
+    }
+
+    public static function systemeVote():void{
+        $tableauNote = self::aux3();
+        $newTab = self::aux4();
         if(count($newTab) > 1){
-            $trouve = true;
-            echo "Il y a une égalité ";
-            $cle = array_keys($newTab);
-            $reponse = array();
-            foreach ($cle as $c){
-                array_push($reponse, $c);
-            }
-
-            $question = (new QuestionRepository())->select($_GET['id_question']);
-            $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
-            if ($question !== null && $sections !== null) {
-                self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
-                    "cheminVueBody" => "question/detail.php",
-                    //"redirige" vers la vue
-                    "trouve" => $trouve,
-                    "question" => $question,
-                    "sections" => $sections,
-                    "reponse" => $reponse,
-
-                ]);
-
-
-            }
+            $trouve = 2;
+            $reponse = "";
         }
-        else {
-            $trouve = false;
+        else if(count($newTab) == 0){
+            $trouve = 0;
+            $reponse = "Il n'y a pas de réponse pour cette question.";
+        }
+        else{
             $cle = array_search(max($tableauNote), $tableauNote);
             $reponse = (new ReponseRepository())->select($cle);
-            $question = (new QuestionRepository())->select($_GET['id_question']);
-            $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
+            $trouve = 1;
+        }
 
-            if ($question !== null && $sections !== null) {
-                self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
-                    "cheminVueBody" => "question/detail.php",
+        $question = (new QuestionRepository())->select($_GET['id_question']);
+        $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
+        if ($question !== null && $sections !== null) {
+            self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
+            "cheminVueBody" => "question/detail.php",
                     //"redirige" vers la vue
                     "trouve" => $trouve,
                     "question" => $question,
                     "sections" => $sections,
-                    "reponse" => $reponse,
-                    "cle" => $cle
-                ]);
+                    "reponse" => $reponse
+            ]);
 
+        }
 
+    }
+
+    public static function egailte(){
+        $newTab = self::aux4();
+        if(!empty($newTab)) {
+            $question = (new QuestionRepository())->select(max($newTab));
+            if (count($newTab) > 1 && ConnexionUtilisateur::estOrganisateur($question)){
+                return true & $question;
+            }
+            else{
+                return false;
             }
         }
+        return false;
     }
 
 }

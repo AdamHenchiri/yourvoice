@@ -50,6 +50,8 @@
             <li class="active"><a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/yourvoice/web/frontController.php">YourVoice</a></li>
             <li><a href="frontController.php?action=readAll"><i class="fa-sharp fa-solid fa-circle-question"></i> Questions</a></li>
             <?php
+
+            use App\YourVoice\Controller\ControllerVotant;
             use App\YourVoice\Lib\ConnexionUtilisateur;
             use \App\YourVoice\Lib\ConnexionAdmin;
 

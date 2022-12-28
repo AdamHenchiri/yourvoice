@@ -78,19 +78,58 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
 
             echo "<div class='separateur1'></div>";
             echo "</div>";
-            }
+        }
 
 
+            use App\YourVoice\Controller\ControllerVotant;
             use App\YourVoice\Lib\ConnexionUtilisateur;
             use App\YourVoice\Model\Repository\TexteRepository;
             use App\YourVoice\Model\Repository\UtilisateurRepository;
             foreach ($reponses as $reponse) {
+                if(count(ControllerVotant::aux4()) > 1) {
+                    $liste = ControllerVotant::aux4();
+                    foreach ($liste as $key => $value) {
+                        $cle = $key;
+                        if ($cle == $reponse->getIdRponses()) {
+                            echo "<div class='titre'>";
+                            if ($reponse->isActif() == false) {
+                                $user = (new UtilisateurRepository())->select($reponse->getIdUtilisateur());
+                                echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de " . htmlspecialchars($user->getLogin()) . " </a></h1> ";
+                                ?>
+            <?php echo $cle; ?>
+
+                                <div class='question_update'>
+                                <form method="get" action="frontController.php">
+                                    <input type="hidden" value="voteFinal" name="action">
+                                    <input type="hidden" value="reponse" name="controller">
+                                    <input type="hidden" value="<?php echo $cle; ?>" name="id_reponse" >
+                                    <input type="hidden" value="<?php echo $idQuestion; ?>" name="id_question" >
+
+                                <input id="valider" type="submit" value="&#x1F451;" name="valider" />
+
+                                </form>
+            <?php
+
+                            }
+
+
+                        }
+
+            echo "</div>";
+
+
+                    }
+                }
+
                 $num++;
                 //$questNonFormater = $question->getIdQuestion();
                 //$questFormater = rawurlencode($questNonFormater);
                 $repNonFormater = $reponse->getIdRponses();
                 $repFormater = rawurlencode($repNonFormater);
                 $t = (new TexteRepository())->selectWhere("id_reponse", $repNonFormater);
+                if(ControllerVotant::egailte()){
+                    echo "true";
+                }
 
 
                 ?>
@@ -131,6 +170,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                     }
                 }
             }
+
             ?>
 </body>
 <script src="../src/js/app.js"></script>

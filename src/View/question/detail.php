@@ -113,9 +113,14 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
             $num++;
             //$questNonFormater = $question->getIdQuestion();
             //$questFormater = rawurlencode($questNonFormater);
-            if($trouve == true){
+            if($trouve == 2){
                 echo "<div class='titre'>";
                 echo "<p>Il y a une égalité. En attente de la décision finale</p>";
+                echo "</div>";
+            }
+            else if($trouve == 0){
+                echo "<div class='titre'>";
+                echo "<p>Il n'y a pas de réponse pour cette question.</p>";
                 echo "</div>";
             }
             else{
