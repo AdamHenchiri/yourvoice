@@ -151,7 +151,7 @@ class ControllerVotant extends GenericController
 
     }
 
-    public static function egailte(){
+    /*public static function egailte(){
         $newTab = self::aux4();
         if(!empty($newTab)) {
             $question = (new QuestionRepository())->select(max($newTab));
@@ -163,7 +163,7 @@ class ControllerVotant extends GenericController
             }
         }
         return false;
-    }
+    }*/
 
     public static function notifier(){
 

@@ -91,6 +91,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                     foreach ($liste as $key => $value) {
                         $cle = $key;
                         if ($cle == $reponse->getIdRponses()) {
+                            $repFormater = rawurlencode($reponse->getIdRponses());
                             echo "<div class='titre'>";
                             if ($reponse->isActif() == false) {
                                 $user = (new UtilisateurRepository())->select($reponse->getIdUtilisateur());
@@ -127,9 +128,6 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                 $repNonFormater = $reponse->getIdRponses();
                 $repFormater = rawurlencode($repNonFormater);
                 $t = (new TexteRepository())->selectWhere("id_reponse", $repNonFormater);
-                if(ControllerVotant::egailte()){
-                    echo "true";
-                }
 
 
                 ?>
