@@ -2,9 +2,11 @@
 
 namespace App\YourVoice\Lib;
 
+use App\YourVoice\Model\DataObject\Admin;
 use App\YourVoice\Model\DataObject\CoAuteur;
 use App\YourVoice\Model\DataObject\Utilisateur;
 use App\YourVoice\Model\HTTP\Session;
+use App\YourVoice\Model\Repository\AdminRepository;
 use App\YourVoice\Model\Repository\CoauteurRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\ReponseRepository;
@@ -40,12 +42,12 @@ class ConnexionAdmin
         }
     }
 
-    public static function getUtilisateurConnecte(): ?Utilisateur
+    public static function getUtilisateurConnecte(): ?Admin
     {
         if (!self::estConnecte()){
             return null;
         }else{
-           $tab= (new UtilisateurRepository())->selectWhere("login",Session::getInstance()->lire(static::$cleConnexion)) ;
+           $tab= (new AdminRepository())->selectWhere("login",Session::getInstance()->lire(static::$cleConnexion)) ;
            return $tab[0];
         }
     }
