@@ -31,6 +31,12 @@ class ControllerQuestion extends GenericController {
 
     }
 
+    public static function home() : void {
+        self::afficheVue('/view.php', ["pagetitle" => "A propos de nous",
+            "cheminVueBody" => "propos/propos.php", ]);
+
+    }
+
 
     public static function readAllMein() : void {
         $question =new QuestionRepository();//appel au modèle pour gerer la BD

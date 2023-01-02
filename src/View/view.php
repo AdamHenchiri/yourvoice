@@ -11,6 +11,8 @@
     <link href="../src/Style/create_section.css" rel="stylesheet">
     <link href="../src/Style/alert.css" rel="stylesheet">
     <link href="../src/Style/detail_section.css" rel="stylesheet">
+    <link href="../src/Style/detail_user.css" rel="stylesheet">
+    <link href="../src/Style/propos.css" rel="stylesheet">
 
     <title>YourVoice</title>
     <script src="https://kit.fontawesome.com/26e0d024d1.js" crossorigin="anonymous" defer></script>
@@ -45,27 +47,31 @@
             <!--<div class="col-md-4 col-sm-3">
             <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php" target="_blank" title="YourVoice" ></a>
           </div>-->
-        <div class="container_menu">
+        <div class="container_menu" id="myTopnav">
+            <div class="relative"><a href="https://webinfo.iutmontp.univ-montp2.fr/~harribaudk/yourvoice/web/frontController.php?action=home"><img id="logo" src="../img/logo.gif"></a></div>
         <ul id="menu">
-            <li class="active"><a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/yourvoice/web/frontController.php">YourVoice</a></li>
-            <li><a href="frontController.php?action=readAll"><i class="fa-sharp fa-solid fa-circle-question"></i> Questions</a></li>
+
+           <!-- <li class="active"><a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/yourvoice/web/frontController.php">YourVoice</a></li>-->
+            <li class="<?php if($_GET['action'] == "readAll") {echo "active";} ?>"><a id="anim" href="frontController.php?action=readAll"><i class="fa-sharp fa-solid fa-circle-question"></i> Questions Publiées</a></li>
             <?php
             use App\YourVoice\Lib\ConnexionUtilisateur;
             if (ConnexionUtilisateur::estConnecte()){
                ?>
-                <li><a href="frontController.php?action=create&controller=question"><i class="fa-solid fa-person-circle-question"></i> Créer question</a></li>
-                <li><a href="frontController.php?action=readAllMein" > <i class="fa-solid fa-clipboard-question"></i> Mes questions</a></li>
-            <li><a href="frontController.php?action=mesVotes"><i class="fa-solid fa-check-to-slot"></i> Vote</a></li>
-                <li><a href="frontController.php?controller=utilisateur&action=monCompte"><i class="fa-solid fa-user"></i> Mon compte</a></li>
-                <li><a href="frontController.php?controller=utilisateur&action=deconnecter"><i class="fa-solid fa-user"></i> Déconnexion </a></li>
+                <li class="<?php if($_GET['action'] == "create") {echo "active";} ?>"><a id="anim" href="frontController.php?action=create&controller=question"><i class="fa-solid fa-person-circle-question"></i> Posez une question</a></li>
+                <li class="<?php if($_GET['action'] == "readAllMein") {echo "active";} ?>"><a id="anim" href="frontController.php?action=readAllMein" > <i class="fa-solid fa-clipboard-question"></i> Mes questions</a></li>
+                <li class="<?php if($_GET['action'] == "mesVotes") {echo "active";} ?>"><a id="anim" href="frontController.php?action=mesVotes"><i class="fa-solid fa-check-to-slot"></i> Vote</a></li>
+                <li class="<?php if($_GET['action'] == "monCompte") {echo "active";} ?>"><a id="anim" href="frontController.php?controller=utilisateur&action=monCompte"><i class="fa-solid fa-user"></i> <?php echo ConnexionUtilisateur::getUtilisateurConnecte()->getLogin(); ?></a></li>
+                <li><a href="frontController.php?controller=utilisateur&action=deconnecter"><i class="fa-solid fa-right-from-bracket"></i></a></li>
             <?php } else{?>
-            <li><a href="frontController.php?controller=utilisateur&action=connexion"><i class="fa-solid fa-user"></i> Connexion</a></li>
+            <li class="<?php if($_GET['action'] == "connexion") {echo "active";} ?>"><a id="anim" href="frontController.php?controller=utilisateur&action=connexion"><i class="fa-solid fa-user"></i> Connexion</a></li>
             <?php
             }
             ?>
+
         </ul>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
         </div>
-    
+
 
     </nav>
 </header>
@@ -92,4 +98,15 @@
     </div>
 </footer>
 </body>
+
+<script>
+    function myFunction() {
+        const x = document.getElementById("myTopnav");
+        if (x.className === "container_menu") {
+            x.className += " responsive";
+        } else {
+            x.className = "container_menu";
+        }
+    }
+</script>
 </html>

@@ -1,0 +1,57 @@
+#login{
+    font-size: 17px;
+    font-family: sans-serif;
+    margin: 0;
+    margin-bottom: 5px;
+}
+
+.login_contain{
+    font-family: sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    color: black;
+    transition-duration: 0.5s;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#login_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.container_creerquestion{
+    padding-bottom: 20px;
+}
+
+#moncompte{
+    font-size: 20px;
+    font-family: sans-serif;
+    font-weight: bold;
+    align-self: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.moncompte_description{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.separateur_user{
+    background-color: #8b3dff;
+    width: 10px;
+    height: 10px;
+    border-radius: 100px;
+    margin: 0;
+    opacity: 1;
+    transition-duration: 0.5s;
+    margin-bottom: 40px;
+    margin-top: 10px;
+}

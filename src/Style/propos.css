@@ -1,0 +1,50 @@
+#titre_propos{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.propos_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container1_propos{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.container2_propos{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.separateur_propos{
+    width: 80%;
+    border-bottom: solid 1px #8b3dff;
+}
+
+#soustitre_propos{
+    font-size: 17px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin: 0;
+}
+
+#paragraphe_propos{
+    font-size: 15px;
+    font-family: sans-serif;
+    margin: 0;
+    margin-top: 15px;
+    text-align: justify;
+}
