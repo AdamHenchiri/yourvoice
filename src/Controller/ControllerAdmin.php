@@ -142,7 +142,7 @@ class ControllerAdmin extends GenericController
                 "questions" => $questions]);
         }else{
             MessageFlash::ajouter("warning","autorisation dénié ");
-            $url="frontController.php?";
+            $url="frontController.php?controller=admin&action=readAllQuest";
             header("Location: ".$url);
             exit();
         }

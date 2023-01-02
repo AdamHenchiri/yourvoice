@@ -85,6 +85,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
             use App\YourVoice\Lib\ConnexionUtilisateur;
             use App\YourVoice\Model\Repository\TexteRepository;
             use App\YourVoice\Model\Repository\UtilisateurRepository;
+            use \App\YourVoice\Lib\ConnexionAdmin;
             foreach ($reponses as $reponse) {
                 if(count(ControllerVotant::aux4()) > 1) {
                     $liste = ControllerVotant::aux4();
@@ -133,7 +134,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                 ?>
                 <div class="titre">
                 <?php
-                if (ConnexionUtilisateur::estResponsableReponse($reponse) || ConnexionUtilisateur::estCoAuteurReponse($reponse) && $reponse->isActif() == false) {
+                if (ConnexionUtilisateur::estResponsableReponse($reponse) || ConnexionUtilisateur::estCoAuteurReponse($reponse) || ConnexionAdmin::estConnecte() && $reponse->isActif() == false) {
                     $user = (new UtilisateurRepository())->select($reponse->getIdUtilisateur());
                     echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de " . htmlspecialchars($user->getLogin()) . " </a></h1> "; ?>
                     </div>
@@ -141,7 +142,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                     echo "<div class='question_description'>";
                     echo "<div class='question_update'>";
                     //echo "<a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> La réponse ".  htmlspecialchars ( $reponse->getIdRponses() ) . " </a></> ";
-                    if (date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction && ConnexionUtilisateur::estResponsableReponse($reponse)) {
+                    if (date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction && ConnexionUtilisateur::estResponsableReponse($reponse) || ConnexionAdmin::estConnecte() ) {
                         if (empty($t)) {
                             echo "<a href=\"frontController.php?controller=reponse&action=create&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
                             echo "<a href=\"frontController.php?controller=reponse&action=check&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";

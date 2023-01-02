@@ -92,7 +92,7 @@ class ControllerQuestion extends GenericController
 
     public static function readMy(): void
     {
-        if (ConnexionUtilisateur::getUtilisateurConnecte() != null) {
+        if (ConnexionUtilisateur::getUtilisateurConnecte()  || ConnexionAdmin::estConnecte()) {
             $question = (new QuestionRepository())->select($_GET['id_question']);
             $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
             $reponses = (new ReponseRepository())->selectWhere("id_question", $_GET['id_question']);
@@ -314,15 +314,17 @@ class ControllerQuestion extends GenericController
     public static function update(): void
     {
         $q = (new QuestionRepository())->select($_GET['id_question']);
-        if (ConnexionUtilisateur::estOrganisateur($q)) {
+        if (ConnexionUtilisateur::estOrganisateur($q) || ConnexionAdmin::estConnecte() ) {
         $dateFin = $q->getDateFinRedaction();
         $dateDebut = $q->getDateDebutRedaction();
-        if (date('Y-m-d H:i:s') >= $dateDebut ) {
-            MessageFlash::ajouter("warning", "Les rédactions ont déjà commencée ");
-            header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
-        } else {
+        if (date('Y-m-d H:i:s') < $dateDebut || ConnexionAdmin::estConnecte()){
             $sections= (new SectionRepository())->selectWhere('id_question', $q->getIdQuestion());
             self::afficheVue('/view.php', ["pagetitle" => "mettre à jour une question", "cheminVueBody" => "question/update.php", "v" => $q,"sections" => $sections ]);
+        } else {
+
+            MessageFlash::ajouter("warning", "Les rédactions ont déjà commencée ");
+            header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
+
         }}else{
             MessageFlash::ajouter("warning", "Autorisation déniée");
             $url = "frontController.php";
@@ -333,7 +335,7 @@ class ControllerQuestion extends GenericController
 
     public static function updated(): void
     {
-        if (ConnexionUtilisateur::getUtilisateurConnecte()!=null) {
+        if (ConnexionUtilisateur::getUtilisateurConnecte()!=null || ConnexionAdmin::estConnecte()) {
 
             $id = $_POST['id_question'];
         //$u =  intval($_POST["id_utilisateur"]);

@@ -2,6 +2,7 @@
 
 namespace App\YourVoice\Controller;
 
+use App\YourVoice\Lib\ConnexionAdmin;
 use App\YourVoice\Lib\MessageFlash;
 use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
@@ -16,11 +17,11 @@ class ControllerSection extends GenericController
         $q = (new QuestionRepository())->select($_GET['id_question']);
         //$dateFin = $q->getDateFinRedaction();
         $dateDebut = $q->getDateDebutRedaction();
-        if(date('Y-m-d H:i:s') > $dateDebut){
+        if(date('Y-m-d H:i:s') > $dateDebut && !ConnexionAdmin::estConnecte()){
             MessageFlash::ajouter("warning", "La rédaction des réponses a déjà commencée");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question'] );
         }
-        if(date('Y-m-d H:i:s') <= $dateDebut) {
+        if(date('Y-m-d H:i:s') <= $dateDebut || ConnexionAdmin::estConnecte()) {
             $id = $_GET["id_question"];
             self::afficheVue('/view.php', ["pagetitle" => "Ajouter une section",
                 "cheminVueBody" => "section/create.php", "id_question" => $id  //"redirige" vers la vue
@@ -34,6 +35,9 @@ class ControllerSection extends GenericController
         $v=new Section(null,$_POST["titre"],$_POST["texte_explicatif"],$id, 0);
         (new SectionRepository())->sauvegarder($v);
         (new ControllerQuestion())::readAll();
+        if (ConnexionAdmin::estConnecte()){
+            (new ControllerAdmin())::readAllQuest();
+        }
        /* $sections = (new SectionRepository())->selectWhere("id_question", $id);
         $question =(new QuestionRepository())->select($id);
         if (isset($_POST['ajouterBtn'])) {

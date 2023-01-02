@@ -9,7 +9,7 @@ foreach ($utilisateurs as $utilisateur) {
     if ($utilisateur->isDemandeOrga()){
         echo ">>>>>👋". " </a></li> ";
     }
-    echo " </a></li> <li><a href=\"frontController.php?controller=utilisateur&action=update&login={$userFormater}\"> ----->Mettre a jour les info de l'utilisateur<--------- </a></li>      ";
+    echo " </a></li> <li><a href=\"frontController.php?controller=utilisateur&action=update&login={$userIdFormater}\"> ----->Mettre a jour les info de l'utilisateur<--------- </a></li>      ";
     echo "<li><a href=\"frontController.php?controller=utilisateur&action=delete&login={$userFormater}\"> ----->Supprimer cette utilisateur<--------- </a></li>      ";
     if ($utilisateur->isEstOrganisateur()){
         echo "<li><a href=\"frontController.php?controller=admin&action=neplusdevenirOrga&login={$userIdFormater}\"> ----->🟩<--------- </a></li>      ";
@@ -20,5 +20,7 @@ foreach ($utilisateurs as $utilisateur) {
     echo "--------------------------------------------------------------------------\n";
 }
 echo "<div><a href=\"frontController.php?controller=utilisateur&action=create\"> ajouter un utilisateur</a></div> ";
+echo "<div><a href=\"frontController.php?controller=admin&action=create\"> ajouter un administrateur</a></div> ";
+
 ?>
 
