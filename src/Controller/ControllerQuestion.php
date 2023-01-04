@@ -24,7 +24,11 @@ use Couchbase\View;
 
 class ControllerQuestion extends GenericController
 {
+    public static function home() : void {
+        self::afficheVue('/view.php', ["pagetitle" => "A propos de nous",
+            "cheminVueBody" => "propos/propos.php", ]);
 
+    }
     // Déclaration de type de retour void : la fonction ne retourne pas de valeur
     public static function readAll(): void
     {

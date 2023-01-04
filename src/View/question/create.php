@@ -21,7 +21,7 @@
         <div class="container_date">
             <div class="date_redac">
                 <div class="date_all">
-                <label for="dateDebut_redaction">Début de la rédaction :</label>
+                <label for="dateDebut_redaction">Début de la rédaction de la réponse :</label>
                 <input type="date" placeholder="" name="dateDebut_redaction" id="dateDebut_redaction" required/>
                 <?php  if(isset($_POST["message_11"] )){ echo $_POST["message_11"]; }
                    if(isset($_POST["message_12"] )){ echo $_POST["message_12"]; }
@@ -29,7 +29,7 @@
                 ?>
                 </div>
                 <div class="date_all">
-                <label for="dateFin_redaction">Fin de la rédaction :</label>
+                <label for="dateFin_redaction">Fin de la rédaction de la réponse :</label>
                 <input type="date" placeholder="" name="dateFin_redaction" id="dateFin_redaction" required/>
                 </div>
             </div>
@@ -57,7 +57,9 @@
             <div class="container_contributeur">
             <label for="contributeurs">Choisissez les responsables</label>
             <div id="affichecontributeur">
+                <div id="surpluscontributeur">
 
+                </div>
             </div>
             <div class="scroll_votant">
 
@@ -83,6 +85,9 @@
         <div class="container_votant">
         <label for="votants ">Choisissez les votants</label>
         <div id="affichevotant">
+            <div id="surplusvotant">
+
+            </div>
         </div>
         <div class="scroll_votant">
 
@@ -102,7 +107,7 @@
     <?php } }?>
 
         </div>
-            <p id="minimum">Min : 5 votants</p>
+            <p id="minimum">Min : 2 votants</p>
         </div>
         </div>
 

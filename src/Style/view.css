@@ -1,7 +1,8 @@
 html{
     margin: 0;
     width: 100%;
-
+    height: auto;
+    position: relative;
 }
 body {
     margin: 0;
@@ -12,6 +13,7 @@ body {
     background-blend-mode: darken;
     background-size: cover;
     background-repeat: no-repeat;
+    min-height: calc(100vh);
     /*background: linear-gradient(132.43deg, rgba(82, 216, 224, 0.304) 0%, rgba(114, 198, 217, 0.4) 13.54%, rgba(143, 142, 227, 0.424) 33.07%, rgba(148, 23, 189, 0.224) 61.48%, rgba(69, 11, 63, 0) 100%);
     background-blend-mode: darken;
    background: linear-gradient(132.43deg, rgba(82, 216, 224, 0.51) 0%, rgba(114, 198, 217, 0.90625) 13.54%, rgba(143, 142, 227, 0.651179) 33.07%, rgba(148, 23, 189, 0.28) 61.48%, rgba(69, 11, 63, 0) 100%);
@@ -23,6 +25,10 @@ Couleur 2 : #475053
 Couleur 3 : #acdcee
 Couleur 4 : #f0fbff
  */
+main {
+    margin-top: 80px;
+}
+
 .container_menu{
     height: 80px;
     display: flex;
@@ -48,64 +54,69 @@ nav{
 }
 
 #menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     text-align: center;
     text-transform: uppercase;
     font-weight: 500;
     font-family:'Raleway', Arial, sans-serif ;
     font-size: 15px;
+    width: 100%;
+    gap: 50px;
 }
 #menu li{
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
     list-style: none;
-    margin: 0 1.5em;
     padding: 0;
 }
+
 #menu li a{
-    padding: 0.5em 0;
     color: black;
     /*#ffffff80*/
     position: relative;
     letter-spacing: 1px;
     text-decoration: none;
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: 7px;
 }
-#menu li a::before,
-#menu li a::after{
+#menu li #anim::before,
+#menu li #anim::after{
     position: absolute;
     transition: all 0.35s ease;
 }
-#menu li a::before{
+#menu li #anim::before{
     content: "";
     display: block;
     bottom: 0;
     height: 3px;
     width: 0%;
-    background-color: cornflowerblue;
+    background-color: #8b3dff;
 }
-#menu li a::after{
+#menu li #anim::after{
     content: attr(data-hover);
     left: 0;
     top: 0;
-    padding: 0.5em 0;
     color:#ffffff;
     white-space: nowrap;
     max-width: 0%;
     position: absolute;
     overflow: hidden;
 }
-#menu  a:hover::before,
-#menu .active a::before{
+#menu  #anim:hover::before,
+#menu  #anim::before{
     opacity: 1;
     width: 100%;
 }
-#menu li a:hover::after,
-#menu .active a::after{
-    max-width: 100%;
+#menu li #anim:hover::before,
+#menu .active #anim::before{
+    width: 100%;
 }
 
-#logo{
-    aspect-ratio: 1/1;
-    height: 30px;
-
+.active{
+    left: 5px;
 }
 
 textarea{
@@ -121,8 +132,86 @@ textarea{
     padding-top: 10px;
     padding-bottom: 10px;
     color: white;
-    background-color: cornflowerblue;
-    bottom: 0;
+    background-color: #8b3dff;
+    /*
+cornflowerblue
+*/
+    position: absolute;
+    bottom: 0px;
 
     font-family: sans-serif;
 }
+
+ul {
+    padding: 0;
+}
+
+.relative {
+    position: absolute;
+    height: 80px;
+    width: auto;
+    left: 20px;
+    top: 0;
+}
+
+#logo{
+    aspect-ratio: 1/1;
+    height: 80px;
+    width: 100%;
+}
+
+@media screen and (max-width: 1250px) {
+    .container_menu a {display: none;}
+    .container_menu a.icon {
+        float: right;
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 1250px) {
+    .container_menu.responsive {position: relative;}
+    .container_menu.responsive .icon {
+        float : right;
+    }
+    .container_menu.responsive a {
+        float: none;
+        display: flex;
+    }
+
+    .container_menu.responsive #menu {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        right: 0px;
+        top: 80px;
+        width: auto;
+        gap : 20px;
+        background-color: white;
+        margin: 0;
+        padding: 15px;
+    }
+
+    .relative{
+        position: static;
+    }
+
+    .relative a{
+        display: flex;
+    }
+    .container_menu{
+        justify-content: space-between;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .container_menu #menu {display: none;}
+}
+
+
+.container_menu .icon {
+    display: none;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+}
+

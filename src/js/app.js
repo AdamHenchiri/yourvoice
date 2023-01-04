@@ -18,7 +18,9 @@ document.getElementById("creationQuestion").addEventListener("focus",function (e
 })
 */
 var d = new Date();
-document.getElementById("dateDebut_redaction").valueAsDate=d;
+/*if (document.getElementById("dateDebut_redaction").valueAsDate==null) {
+    document.getElementById("dateDebut_redaction").valueAsDate = d;
+}*/
 
 function validation()
 {
@@ -28,6 +30,13 @@ function validation()
     var dateDebut_vote = document.forms["creationQuestion"]["dateDebut_vote"];
     var dateFin_vote = document.forms["creationQuestion"]["dateFin_vote"];
 
+    d_deb=new Date(dateDebut_redaction.value);
+
+    if (d_deb<d){
+        alert("la date de debut de rédaction doit être postérieur à la date du jour !!");
+        dateDebut_redaction.focus();
+        return false;
+    }
     if (dateFin_redaction.value<dateDebut_redaction.value){
         alert("la date de fin de rédaction doit être postérieur à la date de début de rédaction!!");
         dateFin_redaction.focus();
@@ -45,7 +54,6 @@ function validation()
     }
 
     var elementsC = document.getElementsByName("idContributeur[]");
-    var elementsW = document.getElementsByName("idOrganisateur[]");
     var elementsV = document.getElementsByName("idVotant[]");
         countOrganisateur = 0;
         countContributeurs = 0;
@@ -61,17 +69,9 @@ function validation()
             countVotants++;
         }
     }
-   /* for (var l = 0; j < elementsW.length; l++){
-        if (elementsV[l].checked){
-            countOrganisateur++;
-        }
-    }
-    if (countOrganisateur === 0){
-        alert("vous devez choisir au minimum un organisateurs");
-        return false;
-    }*/
+
     if (countContributeurs === 0){
-        alert("vous devez choisir au minimum un contributeurs");
+        alert("vous devez choisir au minimum un responsable");
         return false;
     }
     if (countVotants < 2){
@@ -100,8 +100,9 @@ function confirmationSection() {
 let i = 1;
 function createSectionRemoveButton() {
     let removeButton = document.createElement("input")
+    removeButton.setAttribute("class", "bouttonsupp")
     removeButton.setAttribute("type", "button");
-    removeButton.setAttribute("value", "supprimer cette section");
+    removeButton.setAttribute("value", "Supprimer cette section");
     removeButton.setAttribute("onclick", "removeSection(" + i + ")");
     document
         .getElementById("section-" + i)
@@ -122,3 +123,91 @@ function ajouterBtn(){
     sections.appendChild(sectionClone);
    createSectionRemoveButton();
 }
+
+var ispublic = true;
+var boutton = document.getElementById("boutonpublic")
+boutton.addEventListener("click", ()=>{
+    if(ispublic){
+        boutton.classList.add("priver");
+        boutton.classList.remove("ispublic");
+        ispublic = false;
+        boutton.innerHTML = '<i class="fa-solid fa-eye-slash"></i> Privé';
+
+    }else{
+        boutton.classList.add("ispublic");
+        boutton.classList.remove("priver");
+        ispublic = true;
+        boutton.innerHTML = '<i class="fa-solid fa-eye"></i> Public';
+    }
+});
+
+const listevotant = document.querySelectorAll("input[type=checkbox][name='idVotant[]']");
+const listecontributeur = document.querySelectorAll("input[type=checkbox][name='idResponsable[]']");
+
+
+
+function ajoutVotant(name){
+    const div = document.createElement("div");
+    div.innerHTML = name;
+    div.id = 'votant-' + name;
+    document.getElementById("affichevotant").appendChild(div);
+
+}
+
+function ajoutContributeur(name){
+    const div = document.createElement("div");
+    div.innerHTML = name;
+    div.id = 'contr-' + name;
+    document.getElementById("affichecontributeur").appendChild(div);
+
+}
+
+console.log(listevotant);
+for(e of listevotant){
+    const contient = e;
+    contient.addEventListener("change", ()=>{
+        console.log("coucou1");
+        if(contient.checked){
+            ajoutVotant(contient.id);
+        }else{
+            document.getElementById( 'votant-' + contient.id).remove();
+        }
+    });
+}
+console.log(listecontributeur);
+for(c of listecontributeur){
+    const contient1 = c;
+    contient1.addEventListener("change", ()=>{
+        console.log("coucou2");
+        if(contient1.checked){
+            ajoutContributeur(contient1.id);
+        }else{
+            document.getElementById('contr-' + contient1.id).remove();
+        }
+    });
+}
+
+function surplusvotant(name){
+    const p = document.createElement("p");
+    p.innerHTML = "(" + name + ")";
+    document.getElementById("surplusvotant").appendChild(p);
+}
+
+for(d of listevotant){
+    let count = d;
+    if(count >= 3){
+        surplusvotant(count-2);
+    }
+}
+
+const mouse = document.querySelectorAll(".login_container");
+const border = document.querySelectorAll(".separateur_user");
+
+mouse.addEventListener("mouseover", (event)=>{
+    border.style.opacity = 1;
+    console.log("caca");
+});
+
+mouse.addEventListener("mouseout", (event)=>{
+    border.style.opacity = 0;
+});

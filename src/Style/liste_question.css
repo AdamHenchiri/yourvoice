@@ -77,7 +77,8 @@
     font-family: sans-serif;
     font-weight: bold;
     font-size: 17px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .questions a{
