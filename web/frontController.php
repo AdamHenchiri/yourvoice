@@ -29,7 +29,7 @@ if (class_exists($controllerClassName)){
         }
     }
     else{
-        $controllerClassName::readAll();
+        $controllerClassName::home();
     }
 
 }else{

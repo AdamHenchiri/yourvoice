@@ -32,7 +32,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="../img/icons/apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="../img/icons/apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="../img/icons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../img/icons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../img/icons/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../img/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="../img/icons/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../img/icons/favicon-16x16.png">
@@ -44,44 +44,65 @@
 <body>
 <header>
     <nav>
-            <!--<div class="col-md-4 col-sm-3">
-            <a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/sae/web/frontController.php" target="_blank" title="YourVoice" ></a>
-          </div>-->
         <div class="container_menu" id="myTopnav">
-            <div class="relative"><a href="frontController.php?action=home"><img id="logo" src="../img/logo.gif"></a></div>
-        <ul id="menu">
+            <div class="relative"><a href="frontController.php?action=home"><img id="logo" src="../img/logo.gif"></a>
+            </div>
+            <ul id="menu">
+                <li class="<?php if (isset($_GET['action']) && $_GET['action']!=null) { if ($_GET['action'] == "readAll") {
+                    echo "active";
+                } }?>"><a id="anim" href="frontController.php?action=readAll"><i
+                                class="fa-sharp fa-solid fa-circle-question"></i> Questions Publiées</a></li>
+                <?php
 
-           <!-- <li class="active"><a href="https://webinfo.iutmontp.univ-montp2.fr/~henchiria/yourvoice/web/frontController.php">YourVoice</a></li>-->
-            <li class="<?php if($_GET['action'] == "readAll") {echo "active";} ?>"><a id="anim" href="frontController.php?action=readAll"><i class="fa-sharp fa-solid fa-circle-question"></i> Questions Publiées</a></li>
-            <?php
+                use App\YourVoice\Controller\ControllerVotant;
+                use App\YourVoice\Lib\ConnexionUtilisateur;
+                use \App\YourVoice\Lib\ConnexionAdmin;
+                use App\YourVoice\Model\HTTP\Cookie;
 
-            use App\YourVoice\Controller\ControllerVotant;
-            use App\YourVoice\Lib\ConnexionUtilisateur;
-            use \App\YourVoice\Lib\ConnexionAdmin;
-            use App\YourVoice\Model\HTTP\Cookie;
+                if (ConnexionUtilisateur::estConnecte()) {
+                    ?>
+                    <li class="<?php if ($_GET['action'] == "create") {
+                        echo "active";
+                    } ?>"><a id="anim" href="frontController.php?action=create&controller=question"><i
+                                    class="fa-solid fa-person-circle-question"></i> Posez une question</a></li>
+                    <li class="<?php if ($_GET['action'] == "readAllMein") {
+                        echo "active";
+                    } ?>"><a id="anim" href='frontController.php?action=readAllMein'> <i
+                                    class='fa-solid fa-clipboard-question'></i> Mes Questions</a></li>
+                    <li class="<?php if ($_GET['action'] == "readAllMein") {
+                        echo "active";
+                    } ?>"><a id="anim" href="frontController.php?controller=reponse&action=readMyResponse"> <i
+                                    class="fa-solid fa-clipboard-question"></i> Mes Réponses </a></li>
+                    <li class="<?php if ($_GET['action'] == "mesVotes") {
+                        echo "active";
+                    } ?>"><a id="anim" href="frontController.php?action=mesVotes"><i
+                                    class="fa-solid fa-check-to-slot"></i> Vote</a></li>
+                    <li class="<?php if ($_GET['action'] == "monCompte") {
+                        echo "active";
+                    } ?>"><a id="anim" href="frontController.php?controller=utilisateur&action=monCompte"><i
+                                    class="fa-solid fa-user"></i> <?php echo ConnexionUtilisateur::getUtilisateurConnecte()->getLogin(); ?>
+                        </a></li>
+                    <li><a href="frontController.php?controller=utilisateur&action=deconnecter"><i
+                                    class="fa-solid fa-user"></i> Déconnexion </a></li>
+                <?php } else if (ConnexionAdmin::estConnecte()) {
+                    ?>
+                    <li><a href="frontController.php?controller=admin&action=readAllQuest"> <i
+                                    class="fa-solid fa-clipboard-question"></i> Les Questions</a></li>
+                    <li><a href="frontController.php?controller=admin&action=readAllUsers"> <i
+                                    class="fa-solid fa-clipboard-question"></i> Les Utilisateurs</a></li>
+                    <li><a href="frontController.php?controller=admin&action=deconnecter"><i
+                                    class="fa-solid fa-user"></i> Déconnexion </a></li>
 
-            if (ConnexionUtilisateur::estConnecte()){
-               ?>
-                <li class="<?php if($_GET['action'] == "create") {echo "active";} ?>" ><a id="anim" href="frontController.php?action=create&controller=question"><i class="fa-solid fa-person-circle-question"></i> Posez une question</a></li>
-                <li class="<?php if($_GET['action'] == "readAllMein") {echo "active";} ?>"><a id="anim" href='frontController.php?action=readAllMein' > <i class='fa-solid fa-clipboard-question'></i> Mes Questions</a></li>
-                <li class="<?php if($_GET['action'] == "readAllMein") {echo "active";} ?>"><a id="anim" href="frontController.php?controller=reponse&action=readMyResponse" > <i class="fa-solid fa-clipboard-question"></i> Mes Réponses </a></li>
-                <li class="<?php if($_GET['action'] == "mesVotes") {echo "active";} ?>"><a id="anim" href="frontController.php?action=mesVotes"><i class="fa-solid fa-check-to-slot"></i> Vote</a></li>
-                <li class="<?php if($_GET['action'] == "monCompte") {echo "active";} ?>"><a id="anim" href="frontController.php?controller=utilisateur&action=monCompte"><i class="fa-solid fa-user"></i> <?php echo ConnexionUtilisateur::getUtilisateurConnecte()->getLogin(); ?></a></li>
-                <li><a href="frontController.php?controller=utilisateur&action=deconnecter"><i class="fa-solid fa-user"></i> Déconnexion </a></li>
-            <?php }
-            else if (ConnexionAdmin::estConnecte()) {
-            ?>
-            <li><a href="frontController.php?controller=admin&action=readAllQuest" > <i class="fa-solid fa-clipboard-question"></i> Les Questions</a></li>
-            <li><a href="frontController.php?controller=admin&action=readAllUsers" > <i class="fa-solid fa-clipboard-question"></i> Les Utilisateurs</a></li>
-            <li><a href="frontController.php?controller=admin&action=deconnecter"><i class="fa-solid fa-user"></i> Déconnexion </a></li>
+                <?php } else { ?>
+                    <li class="<?php if (isset($_GET['action']) && $_GET['action']!=null) { if ($_GET['action'] == "connexion") {
+                        echo "active";
+                    } }?>"><a id="anim" href="frontController.php?controller=utilisateur&action=connexion"><i
+                                    class="fa-solid fa-user"></i> Connexion</a></li>
+                    <?php
+                }
+                ?>
 
-            <?php }else{ ?>
-            <li class="<?php if($_GET['action'] == "connexion") {echo "active";} ?>"><a id="anim" href="frontController.php?controller=utilisateur&action=connexion"><i class="fa-solid fa-user"></i> Connexion</a></li>
-            <?php
-            }
-            ?>
-
-        </ul>
+            </ul>
             <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
         </div>
 
@@ -91,8 +112,8 @@
 <main>
     <p>
         <?php
-        foreach ($messageFlash as $type=>$messages){
-            foreach ($messages as $message){
+        foreach ($messageFlash as $type => $messages) {
+            foreach ($messages as $message) {
                 echo "<div class='alert alert-$type'>$message</div>";
             }
         }
@@ -100,9 +121,9 @@
     </p>
 
     <div class="container_main">
-    <?php
-    require __DIR__ . "/{$cheminVueBody}";
-    ?>
+        <?php
+        require __DIR__ . "/{$cheminVueBody}";
+        ?>
     </div>
 </main>
 <footer>
