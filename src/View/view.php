@@ -48,17 +48,17 @@
             <div class="relative"><a href="frontController.php?action=home"><img id="logo" src="../img/logo.gif"></a>
             </div>
             <ul id="menu">
-                <li class="<?php if (isset($_GET['action']) && $_GET['action']!=null) { if ($_GET['action'] == "readAll") {
-                    echo "active";
-                } }?>"><a id="anim" href="frontController.php?action=readAll"><i
-                                class="fa-sharp fa-solid fa-circle-question"></i> Questions Publiées</a></li>
-                <?php
-
+                <li class="<?php
                 use App\YourVoice\Controller\ControllerVotant;
                 use App\YourVoice\Lib\ConnexionUtilisateur;
                 use \App\YourVoice\Lib\ConnexionAdmin;
                 use App\YourVoice\Model\HTTP\Cookie;
 
+                if (!isset($_GET['action']) || $_GET['action']==null) { $_GET['action']="home";} if ($_GET['action'] == "readAll") {
+                    echo "active";
+                } ?>"><a id="anim" href="frontController.php?action=readAll"><i
+                                class="fa-sharp fa-solid fa-circle-question"></i> Questions Publiées</a></li>
+                <?php
                 if (ConnexionUtilisateur::estConnecte()) {
                     ?>
                     <li class="<?php if ($_GET['action'] == "create") {
@@ -94,9 +94,9 @@
                                     class="fa-solid fa-user"></i> Déconnexion </a></li>
 
                 <?php } else { ?>
-                    <li class="<?php if (isset($_GET['action']) && $_GET['action']!=null) { if ($_GET['action'] == "connexion") {
+                    <li class="<?php if ($_GET['action'] == "connexion") {
                         echo "active";
-                    } }?>"><a id="anim" href="frontController.php?controller=utilisateur&action=connexion"><i
+                    } ?>"><a id="anim" href="frontController.php?controller=utilisateur&action=connexion"><i
                                     class="fa-solid fa-user"></i> Connexion</a></li>
                     <?php
                 }
