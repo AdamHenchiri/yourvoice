@@ -23,7 +23,7 @@
             $reponses = (new ReponseRepository())->selectWhere("id_question", $questNonFormater);
             $dateDebutRedaction = htmlspecialchars($question->getDateDebutRedaction());
             $dateFinRedaction = htmlspecialchars($question->getDateFinRedaction());
-
+            $nbLigne++;
             echo "<div class='questions'>";
             echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=readMy&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
             echo "<div class='question_update'>";

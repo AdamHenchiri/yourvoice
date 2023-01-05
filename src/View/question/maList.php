@@ -26,7 +26,7 @@
                 $dateFinRedaction = htmlspecialchars($question->getDateFinRedaction());
 
                 if ((ConnexionUtilisateur::estOrganisateur($question)) and !$question->isActif()) {
-
+                    $nbLigne++;
 
                     echo "<div class='questions'>";
                     echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=readMy&id_question={$questFormater}\"> " . htmlspecialchars($question->getIntitule()) . " </a>";
