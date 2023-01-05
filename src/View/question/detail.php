@@ -113,17 +113,19 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
             $num++;
             //$questNonFormater = $question->getIdQuestion();
             //$questFormater = rawurlencode($questNonFormater);
-            if($trouve == 2){
+            if(isset($trouve) && $trouve == 2){
                 echo "<div class='titre'>";
                 echo "<p>Il y a une égalité. En attente de la décision finale</p>";
                 echo "</div>";
             }
-            else if($trouve == 0){
+            else if(isset($trouve) && $trouve == 0){
                 echo "<div class='titre'>";
                 echo "<p>Il n'y a pas de réponse pour cette question.</p>";
                 echo "</div>";
             }
             else{
+            foreach ($reponses as $reponse) {
+                echo "znvjlevljnezvn";
             $repNonFormater = $reponse->getIdRponses();
             $repFormater = rawurlencode($repNonFormater);
 
@@ -135,6 +137,9 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
             </div>
             <?php
             echo "<div class='question_description'>";
+            }
+            echo "<div class='separateur1'></div>";
+
             echo "<div class='question_update'>";
             //echo "<a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> La réponse ".  htmlspecialchars ( $reponse->getIdRponses() ) . " </a></> ";
             /*if(date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction ) {
@@ -155,6 +160,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
             echo"</div>";
             echo "<div class='separateur1'></div>";
             echo "</div>";
+            }
             //}
 
 
@@ -163,5 +169,4 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
 
             ?><body>
             <script src="../src/js/app.js"></script>
-</html><?php
-}
+</html>

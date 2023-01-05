@@ -144,7 +144,7 @@ class ControllerVotant extends GenericController
                     "trouve" => $trouve,
                     "question" => $question,
                     "sections" => $sections,
-                    "reponse" => $reponse
+                    "reponses" => $reponse
             ]);
 
         }

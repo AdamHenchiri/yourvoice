@@ -87,7 +87,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
             use App\YourVoice\Model\Repository\UtilisateurRepository;
             use \App\YourVoice\Lib\ConnexionAdmin;
             foreach ($reponses as $reponse) {
-                if(count(ControllerVotant::aux4()) > 1 && ConnexionUtilisateur::estOrganisateur($question)) {
+                if(count(ControllerVotant::aux4()) > 1 && ConnexionUtilisateur::estOrganisateur($question) && $question->getDateFinVote() < date("Y-m-d")) {
                     $liste = ControllerVotant::aux4();
                     foreach ($liste as $key => $value) {
                         $cle = $key;
