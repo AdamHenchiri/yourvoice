@@ -49,10 +49,11 @@
 }
 
 .container_dev{
-    width: 474px;
-    height: 50px;
+    width: 60%;
+    height: auto;
     border-radius: 12px;
     border: 1px solid black;
+    text-align: center;
 
 }
 

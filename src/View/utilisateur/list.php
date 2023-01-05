@@ -1,5 +1,8 @@
 
 <?php
+echo '<div class="container">';
+echo '<div class="container_creerquestion">';
+echo '<h1 class="titre-liste-utilisateur">Liste des utilisateurs</h1>';
 foreach ($utilisateurs as $utilisateur) {
     $userNonFormater = $utilisateur->getLogin();
     $userFormater = rawurlencode($userNonFormater);
@@ -21,6 +24,7 @@ foreach ($utilisateurs as $utilisateur) {
 }
 echo "<div><a href=\"frontController.php?controller=utilisateur&action=create\"> ajouter un utilisateur</a></div> ";
 echo "<div><a href=\"frontController.php?controller=admin&action=create\"> ajouter un administrateur</a></div> ";
-
+echo '</div>';
+echo '</div>';
 ?>
 
