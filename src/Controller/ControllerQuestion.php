@@ -107,7 +107,7 @@ class ControllerQuestion extends GenericController
             $question = (new QuestionRepository())->select($_GET['id_question']);
             $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
             $reponses = (new ReponseRepository())->selectWhere("id_question", $_GET['id_question']);
-            if ($question !== null && $sections !== null) {
+            if ($question !== null && $sections !== null && !$question->isActif()) {
                 self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
                     "cheminVueBody" => "question/detailMaList.php",   //"redirige" vers la vue
                     "question" => $question,

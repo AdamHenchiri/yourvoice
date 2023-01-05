@@ -103,14 +103,14 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
 
             $num++;
 
-            if(isset($trouve) && $trouve == 2){
-                echo "<div class='titre'>";
-                echo "<p>Il y a une égalité. En attente de la décision finale</p>";
-                echo "</div>";
-            }
-            else if(isset($trouve) && $trouve == 0){
+            if(isset($trouve) && $trouve == 0){
                 echo "<div class='titre'>";
                 echo "<p>Il n'y a pas de réponse pour cette question.</p>";
+                echo "</div>";
+            }
+            else if(isset($trouve) && $trouve == 2){
+                echo "<div class='titre'>";
+                echo "<p>Il y a une égalité. En attente de la décision finale</p>";
                 echo "</div>";
             }
             else{

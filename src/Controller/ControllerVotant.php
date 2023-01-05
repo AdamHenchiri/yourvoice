@@ -3,6 +3,7 @@
 namespace App\YourVoice\Controller;
 
 use App\YourVoice\Lib\ConnexionUtilisateur;
+use App\YourVoice\Lib\MessageFlash;
 use App\YourVoice\Model\HTTP\Cookie;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\ReponseRepository;
@@ -126,7 +127,10 @@ class ControllerVotant extends GenericController
             $rep = (new ReponseRepository())->select($cle);
             $reponse = $rep;
             $trouve = 2;
-
+            $textes = (new TexteRepository())->selectWhere("id_reponse",$cle);
+            if (empty($textes)) {
+                $trouve = 0;
+            }
         }
         else if(count($newTab) == 0){
             $trouve = 0;
@@ -145,7 +149,7 @@ class ControllerVotant extends GenericController
 
         $question = (new QuestionRepository())->select($_GET['id_question']);
         $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
-        if ($question !== null && $sections !== null ) {
+        if ($question !== null && $sections !== null && !$question->isActif()) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
             "cheminVueBody" => "question/detail.php",
                     //"redirige" vers la vue
@@ -155,6 +159,11 @@ class ControllerVotant extends GenericController
                     "reponses" => $reponses
             ]);
 
+        }else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
         }
 
     }

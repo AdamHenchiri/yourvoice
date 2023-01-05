@@ -35,105 +35,117 @@ class ControllerReponse extends GenericController
             MessageFlash::ajouter("warning", "La rédaction n'a pas encore commencée");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         }
-        if (date('Y-m-d H:i:s') <= $dateFin and date('Y-m-d H:i:s') >= $dateDebut) {
+        if (date('Y-m-d H:i:s') <= $dateFin and date('Y-m-d H:i:s') >= $dateDebut && !$q->isActif()) {
             self::afficheVue('/view.php', ["pagetitle" => "Ajouter une réponse",
                 "cheminVueBody" => "reponse/create.php",   //"redirige" vers la vue
             ]);
+        }else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
         }
     }
 
 
     public static function created(): void
     {
-        $test = false;
-        $id_reponse = $_POST["id_reponse"];
-        $id_question = $_POST["id_question"];
-        $reponses = (new ReponseRepository())->selectWhere("id_reponse", $id_reponse);
-        foreach ($_POST["texte"] as $i => $section) {
-            foreach ($reponses as $reponse) {
-                $coauteurs = (new CoauteurRepository())->selectWhere("id_reponse", $reponse->getIdRponses());
-                $textes = (new TexteRepository())->selectWhere("id_reponse", $reponse->getIdRponses());
-                $verif = false;
-                $update = "";
-                foreach ($textes as $t) {
-                    if ($t->getIdSection() == $_POST["id_section"][$i]) {
-                        $verif = true;
-                        $update = $t->getIdTexte();
+        if (!isset($_POST["id_reponse"]) || !isset($_POST["id_question"]) || !isset($_POST["texte"] )){
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
+        }else {
+            $test = false;
+            $id_reponse = $_POST["id_reponse"];
+            $id_question = $_POST["id_question"];
+            $reponses = (new ReponseRepository())->selectWhere("id_reponse", $id_reponse);
+            foreach ($_POST["texte"] as $i => $section) {
+                foreach ($reponses as $reponse) {
+                    $coauteurs = (new CoauteurRepository())->selectWhere("id_reponse", $reponse->getIdRponses());
+                    $textes = (new TexteRepository())->selectWhere("id_reponse", $reponse->getIdRponses());
+                    $verif = false;
+                    $update = "";
+                    foreach ($textes as $t) {
+                        if ($t->getIdSection() == $_POST["id_section"][$i]) {
+                            $verif = true;
+                            $update = $t->getIdTexte();
+                        }
                     }
-                }
-                if ($reponse->getIdUtilisateur() == ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur()) {
-                    $test = true;
-                    if (!$verif) {
-                        $texte = new Texte(null, $_POST["texte"][$i], $reponse->getIdRponses(), $_POST["id_section"][$i]);
-                        (new TexteRepository())->sauvegarder($texte);
-                    } else {
-                        $texte = new Texte($update, $_POST["texte"][$i], $reponse->getIdRponses(), $_POST["id_section"][$i]);
-                        (new TexteRepository())->update($texte);
+                    if ($reponse->getIdUtilisateur() == ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur()) {
+                        $test = true;
+                        if (!$verif) {
+                            $texte = new Texte(null, $_POST["texte"][$i], $reponse->getIdRponses(), $_POST["id_section"][$i]);
+                            (new TexteRepository())->sauvegarder($texte);
+                        } else {
+                            $texte = new Texte($update, $_POST["texte"][$i], $reponse->getIdRponses(), $_POST["id_section"][$i]);
+                            (new TexteRepository())->update($texte);
 
-                    }
-                    ////
-                    if ($coauteurs != null) {
-                        foreach ($coauteurs as $coauteur) {
-                            $aux = true;
-                            foreach ($_POST["idCoAuteur"] as $idUser) {
-                                if ($idUser == $coauteur->getIdUtilisateur()) {
-                                    $aux = true;
-                                    break;
-                                } else {
-                                    $aux = false;
-                                }
-                            }
-                            if ($aux == false) {
-                                (new CoauteurRepository())->supprimer([$reponse->getIdRponses(), $coauteur->getIdUtilisateur()]);
-                            }
                         }
-                    }
-                    if ($_POST["idCoAuteur"] != null) {
-                        foreach ($_POST["idCoAuteur"] as $idUser) {
-                            $aux = true;
+                        ////
+                        if ($coauteurs != null) {
                             foreach ($coauteurs as $coauteur) {
-                                if ($idUser == $coauteur->getIdUtilisateur()) {
-                                    $aux = true;
-                                    break;
-                                } else {
-                                    $aux = false;
+                                $aux = true;
+                                foreach ($_POST["idCoAuteur"] as $idUser) {
+                                    if ($idUser == $coauteur->getIdUtilisateur()) {
+                                        $aux = true;
+                                        break;
+                                    } else {
+                                        $aux = false;
+                                    }
+                                }
+                                if ($aux == false) {
+                                    (new CoauteurRepository())->supprimer([$reponse->getIdRponses(), $coauteur->getIdUtilisateur()]);
                                 }
                             }
-                            if ($coauteurs == null) {
-                                $aux = false;
-                            }
-                            if ($aux == false) {
-                                $v3 = new CoAuteur($reponse->getIdRponses(), $idUser);
-                                (new CoauteurRepository())->sauvegarder($v3);
+                        }
+                        if ($_POST["idCoAuteur"] != null) {
+                            foreach ($_POST["idCoAuteur"] as $idUser) {
+                                $aux = true;
+                                foreach ($coauteurs as $coauteur) {
+                                    if ($idUser == $coauteur->getIdUtilisateur()) {
+                                        $aux = true;
+                                        break;
+                                    } else {
+                                        $aux = false;
+                                    }
+                                }
+                                if ($coauteurs == null) {
+                                    $aux = false;
+                                }
+                                if ($aux == false) {
+                                    $v3 = new CoAuteur($reponse->getIdRponses(), $idUser);
+                                    (new CoauteurRepository())->sauvegarder($v3);
+                                }
                             }
                         }
-                    }
-                } else if ($coauteurs != null) {
-                    foreach ($coauteurs as $coauteur) {
-                        if ($coauteur->getIdUtilisateur() == ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur()) {
-                            $test = true;
-                            if (!$verif) {
-                                $texte = new Texte(null, $_POST["texte"][$i], $reponse->getIdRponses(), $_POST["id_section"][$i]);
-                                (new TexteRepository())->sauvegarder($texte);
-                            } else {
-                                $texte = new Texte($update, $_POST["texte"][$i], $reponse->getIdRponses(), $_POST["id_section"][$i]);
-                                (new TexteRepository())->update($texte);
+                    } else if ($coauteurs != null) {
+                        foreach ($coauteurs as $coauteur) {
+                            if ($coauteur->getIdUtilisateur() == ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur()) {
+                                $test = true;
+                                if (!$verif) {
+                                    $texte = new Texte(null, $_POST["texte"][$i], $reponse->getIdRponses(), $_POST["id_section"][$i]);
+                                    (new TexteRepository())->sauvegarder($texte);
+                                } else {
+                                    $texte = new Texte($update, $_POST["texte"][$i], $reponse->getIdRponses(), $_POST["id_section"][$i]);
+                                    (new TexteRepository())->update($texte);
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-        if ($test == true) {
-            MessageFlash::ajouter("success", "Réponse ajoutée avec succès");
-            $url = "frontController.php?controller=reponse&controller=reponse&action=read&id_reponse=" . $id_reponse . "&id_question=" . $id_question;
-            header("Location: $url");
-            exit();
-        } else {
-            MessageFlash::ajouter("warning", "Un problème s'est produit lors de l'ajout");
-            $url = "frontController.php?controller=reponse&action=update&id_reponse=" . $id_reponse . "&id_question=" . $id_question;
-            header("Location: $url");
-            exit();
+            if ($test == true) {
+                MessageFlash::ajouter("success", "Réponse ajoutée avec succès");
+                $url = "frontController.php?controller=reponse&controller=reponse&action=read&id_reponse=" . $id_reponse . "&id_question=" . $id_question;
+                header("Location: $url");
+                exit();
+            } else {
+                MessageFlash::ajouter("warning", "Un problème s'est produit lors de l'ajout");
+                $url = "frontController.php?controller=reponse&action=update&id_reponse=" . $id_reponse . "&id_question=" . $id_question;
+                header("Location: $url");
+                exit();
+            }
         }
     }
 
@@ -151,7 +163,7 @@ class ControllerReponse extends GenericController
             MessageFlash::ajouter("warning", "La rédaction n'a pas encore commencée");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         }
-        if (date('Y-m-d H:i:s') <= $dateFin and date('Y-m-d H:i:s') >= $dateDebut) {
+        if (date('Y-m-d H:i:s') <= $dateFin and date('Y-m-d H:i:s') >= $dateDebut && !$q->isActif()) {
             if (ConnexionUtilisateur::estResponsable($q) || ConnexionUtilisateur::estCoAuteur($q)) {
                 self::afficheVue('/view.php', ["pagetitle" => "Update d'une réponse",
                     "cheminVueBody" => "texte/update.php",   //"redirige" vers la
@@ -164,6 +176,11 @@ class ControllerReponse extends GenericController
                 header("Location: $url");
                 exit();
             }
+        }else {
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
         }
 
     }
