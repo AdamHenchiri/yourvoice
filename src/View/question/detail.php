@@ -124,7 +124,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
                 echo "</div>";
             }
             else{
-            $reponse=$reponses;
+            foreach ($reponses as $reponse) {
             $repNonFormater = $reponse->getIdRponses();
             $repFormater = rawurlencode($repNonFormater);
 
@@ -136,7 +136,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
             </div>
             <?php
             echo "<div class='question_description'>";
-            }
+            }}
             echo "<div class='separateur1'></div>";
 
             echo "<div class='question_update'>";

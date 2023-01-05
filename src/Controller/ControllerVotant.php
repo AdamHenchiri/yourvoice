@@ -134,7 +134,7 @@ class ControllerVotant extends GenericController
             $trouve = 1;
 
         }
-
+        $reponses[0]=$reponse;
         $question = (new QuestionRepository())->select($_GET['id_question']);
         $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
         if ($question !== null && $sections !== null) {
@@ -144,7 +144,7 @@ class ControllerVotant extends GenericController
                     "trouve" => $trouve,
                     "question" => $question,
                     "sections" => $sections,
-                    "reponses" => $reponse
+                    "reponses" => $reponses
             ]);
 
         }
