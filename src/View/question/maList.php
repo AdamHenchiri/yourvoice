@@ -29,7 +29,7 @@
 
 
                     echo "<div class='questions'>";
-                    echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=readMy&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
+                    echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=readMy&id_question={$questFormater}\"> " . htmlspecialchars($question->getIntitule()) . " </a>";
                     echo "<div class='question_update'>";
                     if (ConnexionUtilisateur::estOrganisateur($question)) {
                         echo "<a id=\"confirmation\" href=\"frontController.php?controller=question&action=check&id_question={$questFormater}\"> <i class='fa-solid fa-trash'></i></a>";

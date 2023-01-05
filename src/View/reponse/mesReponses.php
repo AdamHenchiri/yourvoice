@@ -30,7 +30,7 @@ foreach ($questions as $question) {
         if((ConnexionUtilisateur::estCoAuteur($question) || ConnexionUtilisateur::estResponsable($question) || ConnexionUtilisateur::estOrganisateur($question)) and !$question->isActif()) {
 
         echo "<div class='questions'>";
-        echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=readMy&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
+        echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=readMy&id_question={$questFormater}\"> " . htmlspecialchars($question->getIntitule()) . " </a>";
         echo "<div class='question_update'>";
         if (ConnexionUtilisateur::estCoAuteur($question)) {
             echo "(Co-auteur d'une réponse)";
