@@ -103,7 +103,7 @@
                 ?>
 
             </ul>
-            <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+            <a id="responsiveicon" href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars" id="menu-bar"></i></a>
         </div>
 
 
@@ -142,5 +142,27 @@
             x.className = "container_menu";
         }
     }
+
+    const click = document.getElementById("responsiveicon");
+    const bar = document.getElementById("menu-bar");
+    const bool = false;
+
+    click.addEventListener("click", () => {
+        if(bar.className === "fa fa-bars"){
+            bar.classList.remove("fa");
+            bar.classList.remove("fa-bars");
+            bar.classList.add("fa-solid");
+            bar.classList.add("fa-xmark");
+        }else{
+            bar.classList.remove("fa-solid");
+            bar.classList.remove("fa-xmark");
+            bar.classList.add("fa");
+            bar.classList.add("fa-bars");
+        }
+
+
+
+    });
+
 </script>
 </html>
