@@ -109,7 +109,7 @@
                 </div>
             </div>
 
-            <div class="separateur2">
+            <div class="separateur1">
             </div>
 
             <div class="question_description">
