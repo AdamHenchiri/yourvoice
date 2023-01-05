@@ -24,8 +24,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
         </div>
 
 
-        <div class="separateur1">
-        </div>
+        <div class="separateur1"></div>
 
 
         <div class="container_date">
@@ -35,25 +34,25 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
             //echo '<p> Intitulé : ' . htmlspecialchars($question->getIntitule()) . '.</p>';
             // echo '<p> Développement de la question :  ' . htmlspecialchars($question->getExplication()) . '.</p>';
             echo '<div class="date_redac">';
-            echo '<div class="date_all">';
-            echo '<p> Date de début de la rédaction :  ' . '<p id="contour_date">' . date('d/m/Y', strtotime($dateDebutRedaction)) . '</p>' . '</p>';
+                echo '<div class="date_all">';
+                echo '<p> Date de début de la rédaction :  ' . '<p id="contour_date">' . date('d/m/Y', strtotime($dateDebutRedaction)) . '</p>' . '</p>';
+                echo '</div>';
+                echo '<div class="date_all">';
+                echo '<p> Date de fin de la rédaction :  ' . '<p id="contour_date">' . date('d/m/Y', strtotime($dateFinRedaction)) . '</p>' . '</p>';
+                echo '</div>';
             echo '</div>';
-            echo '<div class="date_all">';
-            echo '<p> Date de fin de la rédaction :  ' . '<p id="contour_date">' . date('d/m/Y', strtotime($dateFinRedaction)) . '</p>' . '</p>';
-            echo '</div>';
-            echo '</div>';
+
             echo '<div class="date_redac">';
-            echo '<div class="date_all">';
-            echo '<p> Date de début des votes :  ' . '<p id="contour_date">' . date('d/m/Y', strtotime($dateDebutVote)) . '</p>' . '</p>';
-            echo '</div>';
-            echo '<div class="date_all">';
-            echo '<p> Date de fin des votes :  ' . '<p id="contour_date">' . date('d/m/Y', strtotime($dateFinVote)) . '</p>' . '</p>';
-            echo '</div>';
+                echo '<div class="date_all">';
+                echo '<p> Date de début des votes :  ' . '<p id="contour_date">' . date('d/m/Y', strtotime($dateDebutVote)) . '</p>' . '</p>';
+                echo '</div>';
+                echo '<div class="date_all">';
+                echo '<p> Date de fin des votes :  ' . '<p id="contour_date">' . date('d/m/Y', strtotime($dateFinVote)) . '</p>' . '</p>';
+                echo '</div>';
             echo '</div>'
             ?>
         </div>
-        <div class="separateur1">
-        </div>
+        <div class="separateur1"></div>
 
 
         <?php
@@ -76,9 +75,9 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
             <div> <?php echo " Description :  " . htmlspecialchars($section->getTexteExplicatif()); ?> </div>
             <?php
 
-            echo "<div class='separateur1'></div>";
-            echo "</div>";
-        }
+            echo "<div class='separateur1'>";
+
+            }
 
 
             use App\YourVoice\Controller\ControllerVotant;
@@ -169,7 +168,6 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                     }
                 }
             }
-
             ?>
 </body>
 <script src="../src/js/app.js"></script>
