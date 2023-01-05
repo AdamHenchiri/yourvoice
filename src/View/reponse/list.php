@@ -6,6 +6,7 @@
 
         use App\YourVoice\Lib\ConnexionUtilisateur;
         use App\YourVoice\Model\Repository\ReponseRepository;
+        use App\YourVoice\Model\Repository\TexteRepository;
         use App\YourVoice\Model\Repository\UtilisateurRepository;
         use App\YourVoice\Model\Repository\VotantRepository;
 
@@ -27,13 +28,9 @@ foreach ($votants as $votant){
     $repFormater = rawurlencode($repNonFormater);
     $questionNonFormater = $reponse->getIdQuestion();
     $questionFormater = rawurlencode($repNonFormater);
-    if(is_null($votant->getVote())){
-        echo "null";
-    }
-    else{
-        echo $votant->getVote();
-    }
-
+    $allTexte = (new TexteRepository())->selectWhere('id_reponse', $repNonFormater);
+    if(!empty($allTexte)){
+        echo "pas de texte";
 
 echo "<div class='questions'>";
         echo "<a id='titrequestion' href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse {$repNonFormater} :\n" . htmlspecialchars("") . " </a>";
@@ -86,6 +83,7 @@ echo "<div class='questions'>";
 
 
             <?php
+    }
                 /*echo "<div class='classement' style='display: contents;'>";
                 echo"<p>&#128540;</p>";
                 echo"<p>&#128528;</p>";
