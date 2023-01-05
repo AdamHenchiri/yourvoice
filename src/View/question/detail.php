@@ -61,12 +61,11 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
 
         <?php
 
-        //require __DIR__. '/../section/list.php';
+
         $num=0;
         foreach ($sections as $section) {
         $num++;
-        //$questNonFormater = $question->getIdQuestion();
-        //$questFormater = rawurlencode($questNonFormater);
+
         $titreSection = $section->getTitre();
         $idQuestion = $section->getIdQuestion();
         $sectionFormater = rawurlencode($section->getIdSection());
@@ -80,9 +79,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
             <div > <?php  echo " Description :  " . htmlspecialchars($section->getTexteExplicatif()) ; ?> </div>
             <?php
             if(date('Y-m-d H:i:s') < $dateDebutRedaction) {
-                // echo "<div class='question_update'>";
-                // echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>";
-                // echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-trash'></i></a>";
+
                 echo "</div>";
                 echo "<div class='separateur1'></div>";
 
@@ -91,28 +88,12 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
             echo "</div>";
 
 
-            //echo "<li><a href=\"frontController.php?controller=section&action=read&id_section={$sectionFormater}\"> section :\n".  htmlspecialchars ( $titreSection ) . " </a></li> ";
-            //echo "<p> Titre : " . htmlspecialchars($section->getTitre())."</p>" ;
-            //echo ' Description :  ' . htmlspecialchars($section->getTexteExplicatif())  ;
-            //echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> Mettre a jour la section </a>      ";
-            // echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> Supprimer cette section </a>     ";
-            // echo "--------------------------------------------------------------------------\n";
+
             }
 
-            /*
-                echo "<div class='question_description'>";
-                echo "<a href=\"frontController.php?controller=section&action=create&id_question={$idQuestion}\"> Ajouter une section </a> ";
-                echo "</div>";
 
-                //echo "--------------------------------------------------------------------------\n";
-                    echo "<div class='separateur1'></div>";
-            */
-
-            //echo $cle;
-            //foreach ($reponses as $reponse) {
             $num++;
-            //$questNonFormater = $question->getIdQuestion();
-            //$questFormater = rawurlencode($questNonFormater);
+
             if(isset($trouve) && $trouve == 2){
                 echo "<div class='titre'>";
                 echo "<p>Il y a une égalité. En attente de la décision finale</p>";
@@ -140,24 +121,10 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
             echo "<div class='separateur1'></div>";
 
             echo "<div class='question_update'>";
-            //echo "<a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> La réponse ".  htmlspecialchars ( $reponse->getIdRponses() ) . " </a></> ";
-            /*if(date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction ) {
-                echo "<a href=\"frontController.php?controller=reponse&action=update&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
-              QSZ  echo "<a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
-                //echo "--------------------------------------------------------------------------\n";
-                echo"</div>";
-                echo "<div class='separateur1'></div>";
-                echo "</div>";
-            }
-            else{
-            echo "<a href=\"frontController.php?controller=reponse&action=delete&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
-            //echo "--------------------------------------------------------------------------\n";
 
 
-        } */
 
 
-            //}
 
 
 

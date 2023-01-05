@@ -120,10 +120,7 @@ class ControllerQuestion extends GenericController
         }
     }
 
-//    public static function afficheVue(string $cheminVue, array $parametres = []) : void {
-//        extract($parametres); // Crée des variables à partir du tableau $parametres
-//        require "../src/View/$cheminVue"; // Charge la vue
-//    }
+//
 
     public static function create(): void
     {
@@ -231,30 +228,27 @@ class ControllerQuestion extends GenericController
             exit();
         }else {
             $user = ConnexionUtilisateur::getUtilisateurConnecte();
-            //$user = (new UtilisateurRepository())->selectWhere("login", $_POST["login"]);
+
             if (!MotDePasse::verifier($_POST["mdp"], $user->getMdpHache())) {
                 MessageFlash::ajouter("warning", "Mot de passe erroné");
                 $url = "frontController.php?controller=question&action=check&id_question=" . $_POST['id_question'];
                 header("Location: " . $url);
                 exit();
             } else {
-                //ConnexionUtilisateur::connecter($_POST["login"]);
+
                 $v = (new QuestionRepository())->select($_POST['id_question']);
-                //$rep=(new QuestionRepository())->supprimer($_GET['id_question']);
+
                 var_dump($v);
                 if ($v != null) {
-                    //$v->setActif(true);
+
                     $q = new Question($v->getIdQuestion(), $v->getIntitule(), $v->getExplication(), $v->getDateDebutRedaction(),
                         $v->getDateFinRedaction(), $v->getDateDebutVote(), $v->getDateFinVote(), $v->getIdUtilisateur(), 1);
-                    //var_dump($q);
+
                     (new QuestionRepository())->update($q);
-                    //$rep=(new QuestionRepository())->supprimer($v->getIdQuestion());
+
                     MessageFlash::ajouter("success", "Question supprimée");
                     header("Location: frontController.php?controller=question&action=readAll");
-                    //
-                    //MessageFlash::ajouter("success", "bienvenue " . $_POST["login"]);
-                    //$url = "frontController.php?controller=utilisateur&action=read&login=" . $_POST["login"];
-                    //header("Location: " . $url);
+
                     exit();
                 }
             }
@@ -273,7 +267,7 @@ class ControllerQuestion extends GenericController
                     $q = new Question($v->getIdQuestion(), $v->getIntitule(), $v->getExplication(), $v->getDateDebutRedaction(),
                         $v->getDateFinRedaction(), $v->getDateDebutVote(), $v->getDateFinVote(), $v->getIdUtilisateur(), 0);
                     (new QuestionRepository())->update($q);
-                    MessageFlash::ajouter("success", "Question réstaurée");
+                    MessageFlash::ajouter("success", "Question restaurée");
                 }
                 header("Location: frontController.php?controller=admin&action=readAllQuest");
             }
@@ -284,17 +278,17 @@ class ControllerQuestion extends GenericController
     {
         if (ConnexionUtilisateur::getUtilisateurConnecte()!=null && MotDePasse::verifier($_POST["mdp"],ConnexionUtilisateur::getUtilisateurConnecte()->getMdpHache())) {
             $v = (new QuestionRepository())->select($_POST['id_question']);
-         //$rep=(new QuestionRepository())->supprimer($_GET['id_question']);
+
          var_dump($v);
         if ($v!=null){
-            //$v->setActif(true);
+
             $q = new Question($v->getIdQuestion(),$v->getIntitule(),$v->getExplication(),$v->getDateDebutRedaction(),
             $v->getDateFinRedaction(),$v->getDateDebutVote(),$v->getDateFinVote(),$v->getIdUtilisateur(), 1);
-            //var_dump($q);
+
             (new QuestionRepository())->update($q);
-            //$rep=(new QuestionRepository())->supprimer($v->getIdQuestion());
+
             MessageFlash::ajouter("success", "Question supprimée");
-            //self::readAll();
+
         }else{
             MessageFlash::ajouter("danger", "Erreur de la suppression");
         }
@@ -342,7 +336,7 @@ class ControllerQuestion extends GenericController
         if (ConnexionUtilisateur::getUtilisateurConnecte()!=null || ConnexionAdmin::estConnecte()) {
 
             $id = $_POST['id_question'];
-        //$u =  intval($_POST["id_utilisateur"]);
+
         $id=$_POST['id_question'];
         $q =(new QuestionRepository())->select($id);
         $u = $q->getIdUtilisateur();
@@ -386,7 +380,7 @@ class ControllerQuestion extends GenericController
             }
         }
 
-        //sauvegarde des contributeurs dans la base de donnée
+
         $tabOrganisateur = (new ReponseRepository())->selectWhere("id_question", $id);
         foreach ($tabOrganisateur as $orga) {
             $aux = true;
@@ -399,7 +393,7 @@ class ControllerQuestion extends GenericController
                 }
             }
             if ($aux == false) {
-                //echo $orga->getIdUtilisateur();
+
                 (new ReponseRepository())->supprimer([$orga->getIdUtilisateur(), $id]);
             }
         }

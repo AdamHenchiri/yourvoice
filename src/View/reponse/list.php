@@ -84,11 +84,7 @@ echo "<div class='questions'>";
 
             <?php
     }
-                /*echo "<div class='classement' style='display: contents;'>";
-                echo"<p>&#128540;</p>";
-                echo"<p>&#128528;</p>";
-                echo"<p>&#128577;</p>";
-                echo"</div>";*/
+
 
 
 echo"</div>";
@@ -97,7 +93,7 @@ echo"</div>";
 }
 }
 ?>
-<!--        script src="../src/js/vote.js"></script>-->
+
 
     </div>
 </div>

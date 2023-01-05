@@ -5,12 +5,11 @@
 
 echo '<p> ------------------------------------------------------------------</p>';
 
-//require __DIR__. '/../section/list.php';
+
 $num=0;
 foreach ($sections as $section) {
     $num++;
-    //$questNonFormater = $question->getIdQuestion();
-    //$questFormater = rawurlencode($questNonFormater);
+
     $idSection = $section->getIdSection();
     $titreSection = $section->getTitre();
     $idQuestion = $section->getIdQuestion();

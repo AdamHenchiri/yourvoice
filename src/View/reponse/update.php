@@ -31,11 +31,7 @@
                 <label for="texte">Texte</label>
                 <textarea name="texte" id="texte" cols="90"  rows="6"></textarea>
 
-               <!-- <p>
-                    <label for="texte">Texte</label> :
 
-                </p>
-                <textarea name="texte" id="texte" cols="90"  rows="6"></textarea>;-->
 
             <?php }}
         ?>

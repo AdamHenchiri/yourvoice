@@ -49,45 +49,13 @@ foreach ($questions as $question) {
         echo "</div>";
     }
 
-//onclick=\"return confirmation()\
+
    }
 }
 
 
 
-/*
-|| ConnexionUtilisateur::estCoAuteur() ||
-        ConnexionUtilisateur::estOrganisateur() || ConnexionUtilisateur::estAdministrateur()
 
-
-foreach ($reponses as $r){
-        $existe=(new CoauteurRepository())->selectWhereAnd("id_reponse",$r->getIdRponses(),"id_coauteur",ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur());
-
-        if (count($existe)!=0){
-
-            $nbLigne++;
-                echo "<div class='questions'>";
-                echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=readMy&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
-                echo "</div>";
-                break;
-        }
-        break;
-    }
-    if(ConnexionUtilisateur::estResponsable()){
-    //if ($question->getIdUtilisateur()==ConnexionUtilisation::getUtilisateurConnecte()->getIdUtilisateur()) {
-        $nbLigne++;
-        echo "<div class='questions'>";
-        echo "<a id='titrequestion' href=\"frontController.php?controller=question&action=readMy&id_question={$questFormater}\"> Question {$question->getIdQuestion()} :\n" . htmlspecialchars($question->getIntitule()) . " </a>";
-        echo "<div class='question_update'>";
-        if ($question->getDateDebutRedaction() > date("Y-m-d")) {
-            echo "<a href=\"frontController.php?controller=question&action=update&id_question={$questFormater}\"> <i class='fa-solid fa-pencil'></i> </a>";
-        }
-        echo "<a id=\"confirmation\" onclick=\"return confirmation()\" href=\"frontController.php?controller=question&action=delete&id_question={$questFormater}\"> <i class='fa-solid fa-trash'></i></a>";
-        echo "</div>";
-        echo "</div>";
-    }
-
-}*/
 ?>
     </div>
 </div>

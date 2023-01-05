@@ -101,14 +101,14 @@ class ControllerUtilisateur extends GenericController
                 if($_POST["mdp2"]==$_POST["mdp3"] && $_POST["mdp2"]!=null && $_POST["mdp3"]!=null){
                     $v =new Utilisateur($_POST["id"],$_POST["login"],$_POST["nom"],$_POST["prenom"], $_POST["age"],"",MotDePasse::hacher($_POST["mdp3"]),$_POST["email"],$u->getNonce(),$u->isEstOrganisateur(),$u->isDemandeOrga() );
                     (new UtilisateurRepository())->update($v);
-                    MessageFlash::ajouter("success","L'utilisateur a été mise à jour ! ");
+                    MessageFlash::ajouter("success","L'utilisateur a été mise à jour! ");
                     $url="frontController.php?controller=admin&action=readAllUsers";
                     header("Location: ".$url);
                     exit();
                 }else if ($_POST["mdp2"]==null && $_POST["mdp3"]==null){
                     $v =new Utilisateur($_POST["id"],$_POST["login"],$_POST["nom"],$_POST["prenom"], $_POST["age"],"",$u->getMdpHache(),$_POST["email"],$u->getNonce(),$u->isEstOrganisateur(),$u->isDemandeOrga() );
                     (new UtilisateurRepository())->update($v);
-                    MessageFlash::ajouter("success","L'utilisateur a été mise à jour ! ");
+                    MessageFlash::ajouter("success","L'utilisateur a été mise à jour! ");
                     $url="frontController.php?controller=admin&action=readAllUsers";
                     header("Location: ".$url);
                 }
@@ -117,28 +117,20 @@ class ControllerUtilisateur extends GenericController
                 if($_POST["mdp2"]==$_POST["mdp3"] && $_POST["mdp2"]!=null && $_POST["mdp3"]!=null){
                     $v =new Utilisateur($_POST["id"],$_POST["login"],$_POST["nom"],$_POST["prenom"], $_POST["age"],"",MotDePasse::hacher($_POST["mdp3"]),$_POST["email"],$u->getNonce(),$u->isEstOrganisateur(),$u->isDemandeOrga() );
                     (new UtilisateurRepository())->update($v);
-                    MessageFlash::ajouter("success","Vos informations personnelles ont été mise à jour ! ");
+                    MessageFlash::ajouter("success","Vos informations personnelles ont été mise à jour! ");
                     $url="frontController.php?controller=Utilisateur&action=monCompte";
                     header("Location: ".$url);
                     exit();
                 }else if ($_POST["mdp2"]==null && $_POST["mdp3"]==null){
                     $v =new Utilisateur($_POST["id"],$_POST["login"],$_POST["nom"],$_POST["prenom"], $_POST["age"],"",$u->getMdpHache(),$_POST["email"],$u->getNonce(),$u->isEstOrganisateur(),$u->isDemandeOrga() );
                     (new UtilisateurRepository())->update($v);
-                    MessageFlash::ajouter("success","L'utilisateur a été mise à jour ! ");
+                    MessageFlash::ajouter("success","L'utilisateur a été mise à jour! ");
                     $url="frontController.php?controller=Utilisateur&action=monCompte";
                     header("Location: ".$url);
                 }
             }
         }
-/*
-            $v=new Utilisateur($_POST["login"],$_POST["nom"],$_POST["prenom"]);
-        (new UtilisateurRepository())->update($v);
-        self::afficheVue('/view.php', ["pagetitle" => "creation de utilisateur",
-            "cheminVueBody" => "utilisateur/updated.php" ,  //"redirige" vers la vue
-            "login"=>htmlspecialchars($v->getLogin()),
-        ]);
-        self::readAll();
-*/
+
     }
 
     public static function delete() : void {
@@ -202,7 +194,7 @@ class ControllerUtilisateur extends GenericController
     public static function validerEmail ():void {
         if (isset($_GET["login"])&& isset($_GET["nonce"])){
             if ( VerificationEmail::traiterEmailValidation($_GET["login"],$_GET["nonce"])){
-                MessageFlash::ajouter("success","Bravo! vous avez validé votre email");
+                MessageFlash::ajouter("success","Bravo! Vous avez validé votre email");
                 $url="frontController.php?controller=utilisateur&action=read&login=".$_GET["login"];
                 header("Location: ".$url);
                 exit();

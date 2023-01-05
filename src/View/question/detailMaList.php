@@ -60,8 +60,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
         $num = 0;
         foreach ($sections as $section) {
         $num++;
-        //$questNonFormater = $question->getIdQuestion();
-        //$questFormater = rawurlencode($questNonFormater);
+
         $titreSection = $section->getTitre();
         $idQuestion = $section->getIdQuestion();
         $sectionFormater = rawurlencode($section->getIdSection());
@@ -123,8 +122,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                 }
 
                 $num++;
-                //$questNonFormater = $question->getIdQuestion();
-                //$questFormater = rawurlencode($questNonFormater);
+
                 $repNonFormater = $reponse->getIdRponses();
                 $repFormater = rawurlencode($repNonFormater);
                 $t = (new TexteRepository())->selectWhere("id_reponse", $repNonFormater);
@@ -140,7 +138,6 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                     <?php
                     echo "<div class='question_description'>";
                     echo "<div class='question_update'>";
-                    //echo "<a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> La réponse ".  htmlspecialchars ( $reponse->getIdRponses() ) . " </a></> ";
                     if (date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction && ConnexionUtilisateur::estResponsableReponse($reponse) || ConnexionAdmin::estConnecte() ) {
                         if (empty($t)) {
                             echo "<a href=\"frontController.php?controller=reponse&action=create&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
@@ -151,7 +148,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                         }
                         echo "</div>";
                         echo "<div class='separateur1'></div>";
-                        echo "</div>";  
+                        echo "</div>";
                     } else if (date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction && ConnexionUtilisateur::estCoAuteurReponse($reponse)) {
                         if (empty($t)) {
                             echo "<a href=\"frontController.php?controller=reponse&action=create&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";

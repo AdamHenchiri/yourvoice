@@ -151,115 +151,13 @@ class ControllerVotant extends GenericController
 
     }
 
-    /*public static function egailte(){
-        $newTab = self::aux4();
-        if(!empty($newTab)) {
-            $question = (new QuestionRepository())->select(max($newTab));
-            if (count($newTab) > 1 && ConnexionUtilisateur::estOrganisateur($question)){
-                return true & $question;
-            }
-            else{
-                return false;
-            }
-        }
-        return false;
-    }*/
+
 
     public static function notifier(){
 
     }
 }
 
-/*public static function systemeVote(): void
-    {
-
-QSDF
 
 
 
-        $tableauVotants = (new VotantRepository())->selectWhere("id_question", $_GET["id_question"]);
-        $tableau = array();
-        $vote = array();
-        foreach ($tableauVotants as $tableauVotant) {
-            array_push($tableau, $tableauVotant->getIdReponse());
-            foreach ($tableau as $tab){
-                //array_push($vote, $tab->getVote());
-            }
-            //$tableaureponse = (new ReponseRepository())->selectWhere("id_reponse", $tableauVotant->getIdReponse());
-        }
-
-
-        self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
-            "cheminVueBody" => "question/detailTest.php", "res" => $vote , "tab" => $tableauVotants //"redirige" vers la vue
-            ]);
-
-    }*/
-
-
-    /*public static function systemeVote(): void
-    {
-
-        $tableauReponse = (new ReponseRepository())->selectWhere("id_question", $_GET["id_question"]);
-        $tableau = array();
-        $vote = array();
-        foreach ($tableauReponse as $reponse){
-            $tableauVotant = (new VotantRepository())->selectWhere("id_reponse", $reponse->getIdRponses());
-            array_push($tableau, $tableauVotant);
-            foreach ($tableau as $votants){
-                foreach ($votants as $votant){
-                    $note = $votant->getVote();
-                }
-                //$note = $votant->getVote();
-
-            }
-
-        }
-
-        self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
-            "cheminVueBody" => "question/detailTest.php", "res" => $tableau , "tab" => $votant , "note" => $note//"redirige" vers la vue
-        ]);
-
-
-
-    }
-
-
-
-    public static function systemeVote():void
-    {
-        //voire pour un système de vote plus précis et gérer les égalitées
-
-        $tableauNote = self::aux3();
-        var_dump($tableauNote);
-        asort($tableauNote);
-        var_dump($tableauNote);
-        echo count($tableauNote) . "//";
-        echo max($tableauNote) . "///";
-        asort($tableauNote);
-
-
-        $cle = array_search(max($tableauNote), $tableauNote);
-
-        $question = (new QuestionRepository())->select($_GET['id_question']);
-        $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
-        //$reponses = (new ReponseRepository())->select($cle);
-        $reponse = (new ReponseRepository())->select($cle);
-        //$reponses = (new ReponseRepository())->select($cle);
-        if ($question !== null && $sections !== null) {
-            self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
-                "cheminVueBody" => "question/detailTest.php",   //"redirige" vers la vue
-                "question" => $question,
-                "sections" => $sections,
-                "reponse" => $reponse,
-                "cle" => $cle
-            ]);
-
-
-
-        }
-    }
-
-
-
-
-}*/

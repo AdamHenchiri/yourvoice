@@ -127,7 +127,7 @@ class ControllerAdmin extends GenericController
                 "cheminVueBody" => "utilisateur/list.php",   //"redirige" vers la vue
                 "utilisateurs" => $utilisateurs]);
         }else{
-            MessageFlash::ajouter("warning","autorisation dénié ");
+            MessageFlash::ajouter("warning","Autorisation dénié ");
             $url="frontController.php?";
             header("Location: ".$url);
             exit();
@@ -140,7 +140,7 @@ class ControllerAdmin extends GenericController
                 "cheminVueBody" => "admin/listQuestions.php",   //"redirige" vers la vue
                 "questions" => $questions]);
         }else{
-            MessageFlash::ajouter("warning","autorisation dénié ");
+            MessageFlash::ajouter("warning","Autorisation dénié ");
             $url="frontController.php?controller=admin&action=readAllQuest";
             header("Location: ".$url);
             exit();
@@ -152,12 +152,12 @@ class ControllerAdmin extends GenericController
         if (ConnexionAdmin::estConnecte() && !$demandeur->isEstOrganisateur()) {
             $u = new Utilisateur( $demandeur->getIdUtilisateur(), $demandeur->getLogin(), $demandeur->getNom(), $demandeur->getPrenom(), $demandeur->getAge(), $demandeur->getEmail(), $demandeur->getMdpHache(), $demandeur->getEmailAValider(), $demandeur->getNonce(),1,0);
             (new UtilisateurRepository())->update($u);
-            MessageFlash::ajouter("success", "l'utilisateur est maintenant organisateur");
+            MessageFlash::ajouter("success", "L'utilisateur est maintenant organisateur");
             $url = "frontController.php?controller=admin&action=readAllUsers";
             header("Location: $url");
             exit();
         }else{
-            MessageFlash::ajouter("warning","autorisation dénié ");
+            MessageFlash::ajouter("warning","Autorisation dénié ");
             $url="frontController.php?";
             header("Location: ".$url);
             exit();
@@ -169,12 +169,12 @@ class ControllerAdmin extends GenericController
         if (ConnexionAdmin::estConnecte() && $demandeur->isEstOrganisateur()) {
             $u = new Utilisateur( $demandeur->getIdUtilisateur(), $demandeur->getLogin(), $demandeur->getNom(), $demandeur->getPrenom(), $demandeur->getAge(), $demandeur->getEmail(), $demandeur->getMdpHache(), $demandeur->getEmailAValider(), $demandeur->getNonce(),0,0);
             (new UtilisateurRepository())->update($u);
-            MessageFlash::ajouter("success", "l'utilisateur n'est maintenant plus organisateur");
+            MessageFlash::ajouter("success", "L'utilisateur n'est maintenant plus organisateur");
             $url = "frontController.php?controller=admin&action=readAllUsers";
             header("Location: $url");
             exit();
         }else{
-            MessageFlash::ajouter("warning","autorisation dénié ");
+            MessageFlash::ajouter("warning","Autorisation dénié ");
             $url="frontController.php?";
             header("Location: ".$url);
             exit();
@@ -216,7 +216,7 @@ class ControllerAdmin extends GenericController
     public static function validerEmail ():void {
         if (isset($_GET["login"])&& isset($_GET["nonce"])){
             if ( VerificationEmail::traiterEmailValidation($_GET["login"],$_GET["nonce"])){
-                MessageFlash::ajouter("success","Bravo! vous avez validé votre email");
+                MessageFlash::ajouter("success","Bravo! Vous avez validé votre email");
                 $url="frontController.php?controller=utilisateur&action=read&login=".$_GET["login"];
                 header("Location: ".$url);
                 exit();

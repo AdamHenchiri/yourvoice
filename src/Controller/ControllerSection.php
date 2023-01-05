@@ -38,18 +38,7 @@ class ControllerSection extends GenericController
         if (ConnexionAdmin::estConnecte()){
             (new ControllerAdmin())::readAllQuest();
         }
-       /* $sections = (new SectionRepository())->selectWhere("id_question", $id);
-        $question =(new QuestionRepository())->select($id);
-        if (isset($_POST['ajouterBtn'])) {
-            self::afficheVue('/view.php', ["pagetitle" => "ajouter section",
-                "cheminVueBody" => "section/create.php", "id_question"=>$id  //"redirige" vers la vue
-            ]);
-        }
-        else{
-            self::afficheVue('/view.php', ["pagetitle" => "Finir section",
-                "cheminVueBody" => "question/detail.php", "question"=>$question,
-                "sections"=>$sections ]);  //"redirige" vers la vue
-        }*/
+
     }
 
 
@@ -76,11 +65,7 @@ class ControllerSection extends GenericController
         $url ="frontController.php?controller=question&action=readMy&id_question=" . $_POST["id_question"];
         header("Location: $url");
         exit();
-        /*self::afficheVue('/view.php', ["pagetitle" => "modification de section",
-            "cheminVueBody" => "section/updated.php" ,  //"redirige" vers la vue
-            "v"=>htmlspecialchars($_POST['id_section']),
-        ]);*/
-        //self::readAll();
+
     }
 
     public static function delete() : void
@@ -113,10 +98,7 @@ class ControllerSection extends GenericController
     public static function readAll() : void {
 
         $sections =(new SectionRepository())->selectAll();
-        ;//appel au modèle pour gerer la BD
-        /*self::afficheVue('/view.php', ["pagetitle" => "Liste des sections",
-            "cheminVueBody" => "section/list.php",   //"redirige" vers la vue
-            "sections"=>$sections]);*/
+
         self::afficheVue('/view.php', ["pagetitle" => "Liste des sections",
             "cheminVueBody" => "question/detail.php",   //"redirige" vers la vue
             "sections"=>$sections]);
@@ -138,14 +120,11 @@ class ControllerSection extends GenericController
         }
     }
 
-//    private static function afficheVue(string $cheminVue, array $parametres = []) : void {
-//        extract($parametres); // Crée des variables à partir du tableau $parametres
-//        require "../src/View/$cheminVue"; // Charge la vue
-//    }
+
 
 
     public static function error(string $errorMessage):void {
-        self::afficheVue('view.php',["pagetitle"=>"ERROR","cheminVueBody"=>"utilisateur/error.php","s"=>"Problème avec la utilisateur : $errorMessage "]);
+        self::afficheVue('view.php',["pagetitle"=>"ERROR","cheminVueBody"=>"utilisateur/error.php","s"=>"Problème avec l' utilisateur : $errorMessage "]);
 
     }
 

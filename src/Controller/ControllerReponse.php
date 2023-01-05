@@ -32,7 +32,7 @@ class ControllerReponse extends GenericController
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         }
         if (date('Y-m-d H:i:s') < $dateDebut) {
-            MessageFlash::ajouter("warning", "Rédaction pas encore commencée");
+            MessageFlash::ajouter("warning", "La rédaction n'a pas encore commencée");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         }
         if (date('Y-m-d H:i:s') <= $dateFin and date('Y-m-d H:i:s') >= $dateDebut) {
@@ -125,12 +125,12 @@ class ControllerReponse extends GenericController
             }
         }
         if ($test == true) {
-            MessageFlash::ajouter("success", "réponse ajouter avec succès");
+            MessageFlash::ajouter("success", "Réponse ajoutée avec succès");
             $url = "frontController.php?controller=reponse&controller=reponse&action=read&id_reponse=" . $id_reponse . "&id_question=" . $id_question;
             header("Location: $url");
             exit();
         } else {
-            MessageFlash::ajouter("warning", "un problème dans s'est produit lors de l'ajout");
+            MessageFlash::ajouter("warning", "Un problème s'est produit lors de l'ajout");
             $url = "frontController.php?controller=reponse&action=update&id_reponse=" . $id_reponse . "&id_question=" . $id_question;
             header("Location: $url");
             exit();
@@ -148,7 +148,7 @@ class ControllerReponse extends GenericController
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         }
         if (date('Y-m-d H:i:s') < $dateDebut) {
-            MessageFlash::ajouter("warning", "Rédaction pas encore commencée");
+            MessageFlash::ajouter("warning", "La rédaction n'a pas encore commencée");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         }
         if (date('Y-m-d H:i:s') <= $dateFin and date('Y-m-d H:i:s') >= $dateDebut) {
@@ -254,12 +254,12 @@ class ControllerReponse extends GenericController
                 }
         }
         if ($test == true) {
-            MessageFlash::ajouter("success", "mise à jour avec succès");
+            MessageFlash::ajouter("success", "Mise à jour avec succès");
             $url = "frontController.php?controller=question&action=readAll";
             header("Location: $url");
             exit();
         } else {
-            MessageFlash::ajouter("warning", "un problème s'est produit lors de la mise à jour ");
+            MessageFlash::ajouter("warning", "Un problème s'est produit lors de la mise à jour ");
             $url = "frontController.php?controller=question&action=readAll";
             header("Location: $url");
             exit();
@@ -275,7 +275,7 @@ class ControllerReponse extends GenericController
 
     public static function delete() : void {
         if (!isset($_POST["mdp"])){
-            MessageFlash::ajouter("danger","veuillez remplir le formulaire");
+            MessageFlash::ajouter("danger","Veuillez remplir le formulaire");
             $url="frontController.php?controller=reponse&action=check&id_reponse=" . $_POST['id_reponse'];
             header("Location: ".$url);
             exit();
@@ -292,12 +292,12 @@ class ControllerReponse extends GenericController
                 if ($bol != null) {
                     $rep = new Reponse($bol->getIdRponses(), $bol->getIdUtilisateur(), $bol->getIdQuestion(), 1);
                     (new ReponseRepository())->update($rep);
-                    MessageFlash::ajouter("success", "supprimer avec succès");
+                    MessageFlash::ajouter("success", "Supprimée avec succès");
                     $url = "frontController.php?controller=question&action=readAll";
                     header("Location: $url");
                     exit();
                 } else {
-                    MessageFlash::ajouter("warning", "un problème s'est produit");
+                    MessageFlash::ajouter("warning", "Un problème s'est produit");
                     $url = "frontController.php?controller=question&action=readAll";
                     header("Location: $url");
                     exit();
@@ -305,7 +305,7 @@ class ControllerReponse extends GenericController
 
             }
         }
-        //header("Location: frontController.php?controller=question&action=readAll");
+
     }
 
     public static function readMyResponse() : void{
@@ -342,17 +342,14 @@ class ControllerReponse extends GenericController
                 "cheminVueBody" => "texte/detail.php",   //"redirige" vers la vue
                 "textes" => $textes]);
         } else {
-            MessageFlash::ajouter("warning", "pas encore de réponses du Résponsable");
+            MessageFlash::ajouter("warning", "Pas encore de réponse du responsable");
             $url = "frontController.php?controller=question&action=readAll";
             header("Location: $url");
             exit();
         }
     }
 
-//    private static function afficheVue(string $cheminVue, array $parametres = []) : void {
-//        extract($parametres); // Crée des variables à partir du tableau $parametres
-//        require "../src/View/$cheminVue"; // Charge la vue
-//    }
+
 
 
     public static function error(string $errorMessage): void
