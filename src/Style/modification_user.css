@@ -1,0 +1,40 @@
+.container-modification-user{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: white;
+    border-radius: 20px;
+    width: 50%;
+}
+
+#titre_modification_user{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: black;
+    margin-bottom: 25px;
+}
+
+.boutton-modifier-2{
+    color: white;
+    background-color: #8b3dff;
+    font-size: 15px;
+    font-family: sans-serif;
+    font-weight: bold;
+    border: solid 1px #8b3dff;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition-duration: 0.2s;
+    margin-top: 20px;
+}
+
+.boutton-modifier-2:hover{
+    transition-duration: 0.2s;
+    background-color: white;
+    color: #8b3dff;
+    border: solid 1px #8b3dff;
+}
