@@ -73,11 +73,9 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
             <div> <?php echo " Titre : " . htmlspecialchars($section->getTitre()); ?> </div>
             <div> <?php echo " Description :  " . htmlspecialchars($section->getTexteExplicatif()); ?> </div>
             <?php
-
-            echo "<div class='separateur1'>";
-
+            echo "qsdfg";
+            echo "<div class='separateur1'></div>";
             }
-
 
             use App\YourVoice\Controller\ControllerVotant;
             use App\YourVoice\Lib\ConnexionUtilisateur;
@@ -116,7 +114,9 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
 
                         }
 
+
             echo "</div>";
+
 
 
                     }
@@ -166,13 +166,17 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                     }
                 }
                 if(ConnexionUtilisateur::estOrganisateur($question)){
-                    ?>
-                    <div class="titre">
-                <?php
-                    $user=(new UtilisateurRepository())->select($reponse->getIdUtilisateur());
-                    echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de ".  htmlspecialchars ( $user->getLogin() ) . " </a></h1> ";
+                    $repNonFormater = $reponse->getIdRponses();
+                    $repFormater = rawurlencode($repNonFormater);
 
-                echo "</div>";
+                    ?>
+
+                        <?php
+                        $user=(new UtilisateurRepository())->select($reponse->getIdUtilisateur());
+                        echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de ".  htmlspecialchars ( $user->getLogin() ) . " </a></h1> "; ?>
+                    </div>
+                    <?php
+
                 }
 
             }
