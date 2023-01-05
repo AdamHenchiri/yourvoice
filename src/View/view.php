@@ -83,7 +83,7 @@
                                     class="fa-solid fa-user"></i> <?php echo ConnexionUtilisateur::getUtilisateurConnecte()->getLogin(); ?>
                         </a></li>
                     <li><a href="frontController.php?controller=utilisateur&action=deconnecter"><i
-                                    class="fa-solid fa-user"></i> Déconnexion </a></li>
+                                    class="fa-solid fa-right-from-bracket"></i></a></li>
                 <?php } else if (ConnexionAdmin::estConnecte()) {
                     ?>
                     <li><a href="frontController.php?controller=admin&action=readAllQuest"> <i
@@ -91,7 +91,7 @@
                     <li><a href="frontController.php?controller=admin&action=readAllUsers"> <i
                                     class="fa-solid fa-clipboard-question"></i> Les Utilisateurs</a></li>
                     <li><a href="frontController.php?controller=admin&action=deconnecter"><i
-                                    class="fa-solid fa-user"></i> Déconnexion </a></li>
+                                    class="fa-solid fa-right-from-bracket"></i></a></li>
 
                 <?php } else { ?>
                     <li class="<?php if ($_GET['action'] == "connexion") {
