@@ -94,7 +94,6 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
 
             $num++;
 
-
             if(isset($trouve) && $trouve == 2){
                 echo "<div class='titre'>";
                 echo "<p>Il y a une égalité. En attente de la décision finale</p>";
@@ -106,28 +105,20 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
                 echo "</div>";
             }
             else{
-            foreach ($reponses as $reponse) {
-            $repNonFormater = $reponse->getIdRponses();
-            $repFormater = rawurlencode($repNonFormater);
+                foreach ($reponses as $reponse) {
+                    $repNonFormater = $reponse->getIdRponses();
+                    $repFormater = rawurlencode($repNonFormater);
 
-            ?>
-            <div class="titre">
-                <?php
-                $user=(new UtilisateurRepository())->select($reponse->getIdUtilisateur());
-                echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de ".  htmlspecialchars ( $user->getLogin() ) . " </a></h1> "; ?>
-            </div>
-            <?php
-            echo "<div class='question_description'>";
-            }}
+                    ?>
+                    <div class="titre">
+                        <?php
+                        $user=(new UtilisateurRepository())->select($reponse->getIdUtilisateur());
+                        echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de ".  htmlspecialchars ( $user->getLogin() ) . " </a></h1> "; ?>
+                    </div>
+                    <?php
+
+                }}
             echo "<div class='separateur1'></div>";
-
-            echo "<div class='question_update'>";
-
-
-
-
-
-
 
 
 
