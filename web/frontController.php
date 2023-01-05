@@ -25,7 +25,7 @@ if (class_exists($controllerClassName)){
             // Appel de la méthode statique $action de ControllerQuestion
             $controllerClassName::$action();
         }else{
-            ControllerQuestion::error("l'action ".htmlspecialchars($action)." n'existe pas !!");
+            ControllerQuestion::home();
         }
     }
     else{

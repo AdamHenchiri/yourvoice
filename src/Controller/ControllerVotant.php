@@ -7,6 +7,7 @@ use App\YourVoice\Model\HTTP\Cookie;
 use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\Repository\SectionRepository;
+use App\YourVoice\Model\Repository\TexteRepository;
 use App\YourVoice\Model\Repository\VotantRepository;
 
 class ControllerVotant extends GenericController
@@ -128,19 +129,22 @@ class ControllerVotant extends GenericController
         }
         else if(count($newTab) == 0){
             $trouve = 0;
-            $reponse = "Il n'y a pas de réponse pour cette question.";
-
         }
         else{
             $cle = array_search(max($tableauNote), $tableauNote);
             $reponse = (new ReponseRepository())->select($cle);
             $trouve = 1;
-
+            $textes = (new TexteRepository())->selectWhere("id_reponse",$cle);
+            if (empty($textes)) {
+                $trouve = 0;
+            }else{
+                $reponses[0] = $reponse;
+            }
         }
-        $reponses[0]=$reponse;
+
         $question = (new QuestionRepository())->select($_GET['id_question']);
         $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
-        if ($question !== null && $sections !== null) {
+        if ($question !== null && $sections !== null ) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
             "cheminVueBody" => "question/detail.php",
                     //"redirige" vers la vue
