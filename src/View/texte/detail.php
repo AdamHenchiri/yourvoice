@@ -28,7 +28,7 @@
                 </label>
                 <label for="texte[]">Texte</label>
 
-                <textarea name="texte[]" id="texte[]" cols="90"  rows="6"><?php echo $texte->getTexte() ?></textarea>
+                <textarea name="texte[]" id="texte[]" cols="90"  rows="6" readonly><?php echo $texte->getTexte() ?></textarea>
                 <p>
 
                 </p>

@@ -1,54 +1,51 @@
 <form method="post" action="frontController.php?controller=utilisateur&action=updated">
-    <fieldset>
-        <legend>Mon formulaire :</legend>
+    <div class="container">
+        <div class="container-modification-user">
+        <h1 id="titre_modification_user">Modifier mes informations</h1>
         <input type="hidden" name="id" id="id" value="<?php echo htmlspecialchars($v->getIdUtilisateur()); ?>"
                required/>
-        <p>
-            <label for="login_id">login</label> :
-            <input type="text" name="login" id="login_id" value="<?php echo htmlspecialchars($v->getLogin()); ?>"
+
+
+            <input class="text" placeholder="Login*" type="text" name="login" id="login_id" value="<?php echo htmlspecialchars($v->getLogin()); ?>"
                    required/>
-        </p>
-        <p>
-            <label for="nom">nom</label> :
-            <input value="<?php echo htmlspecialchars($v->getNom()) ?>" type="text" name="nom" id="nom" required/>
-        </p>
-        <p>
-            <label for="prenom">prenom</label> :
-            <input value="<?php echo htmlspecialchars($v->getPrenom()) ?>" type="text" name="prenom" id="prenom"
+
+
+
+            <input class="text" placeholder="Nom*" value="<?php echo htmlspecialchars($v->getNom()) ?>" type="text" name="nom" id="nom" required/>
+
+
+            <input class="text" placeholder="Prénom*" value="<?php echo htmlspecialchars($v->getPrenom()) ?>" type="text" name="prenom" id="prenom"
                    required/>
-        </p>
-        <p>
-            <label for="age">age</label> :
-            <input value="<?php echo htmlspecialchars($v->getAge()) ?>" type="number" name="age" id="age" required/>
-        </p>
-        <p>
-            <label for="email">email</label> :
-            <input value="<?php echo htmlspecialchars($v->getEmailAValider()) ?>" type="text" name="email" id="email"
+
+
+            <input class="text" placeholder="Age" value="<?php echo htmlspecialchars($v->getAge()) ?>" type="number" name="age" id="age" required/>
+
+
+            <input class="text" placeholder="Email*" value="<?php echo htmlspecialchars($v->getEmailAValider()) ?>" type="text" name="email" id="email"
                    required/>
-        </p>
+
         <?php if (\App\YourVoice\Lib\ConnexionUtilisateur::estConnecte()) { ?>
-            <p>
-                <label for="mdp_id">Ancien mot de passe</label>
-                <input type="password" value="" placeholder="" name="mdp1" id="mdp_id" required>
-            </p>
+
+
+                <input class="text" type="password" value="" placeholder="Ancien mot de passe" name="mdp1" id="mdp_id" required>
+
         <?php } else if (\App\YourVoice\Lib\ConnexionAdmin::estConnecte()) { ?>
-            <p>
-                <label for="mdp_id">Pass admin</label>
-                <input type="password" value="" placeholder="" name="mdp1" id="mdp_id" required>
-            </p>
+
+
+                <input class="text" type="password" value="" placeholder="Mot de passe admin" name="mdp1" id="mdp_id" required>
+
 
         <?php } ?>
-        <p>
-            <label for="mdp_id">Nouveau mot de passe</label>
-            <input type="password" value="" placeholder="" name="mdp2" id="mdp_id">
-        </p>
-        <p>
-            <label for="mdp2_id">Vérification du nouveau mot de passe</label>
-            <input type="password" value="" placeholder="" name="mdp3" id="mdp2_id">
-        </p>
-        <p>
-            <input type="submit" value="Envoyer"/>
-        </p>
-    </fieldset>
+
+
+            <input class="text" type="password" value="" placeholder="Nouveau mot de passe" name="mdp2" id="mdp_id">
+
+
+
+            <input class="text" type="password" value="" placeholder="Tapez à nouveau votre mot de passe" name="mdp3" id="mdp2_id">
+
+            <input class="boutton-modifier-2" type="submit" value="Modifier mes informations"/>
+        </div>
+    </div>
 </form>
 

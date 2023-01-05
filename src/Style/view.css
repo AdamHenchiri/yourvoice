@@ -160,7 +160,7 @@ ul {
     width: 100%;
 }
 
-@media screen and (max-width: 1250px) {
+@media screen and (max-width: 1420px) {
     .container_menu a {display: none;}
     .container_menu a.icon {
         float: right;
@@ -168,7 +168,7 @@ ul {
     }
 }
 
-@media screen and (max-width: 1250px) {
+@media screen and (max-width: 1420px) {
     .container_menu.responsive {position: relative;}
     .container_menu.responsive .icon {
         float : right;

@@ -13,6 +13,8 @@
     <link href="../src/Style/detail_section.css" rel="stylesheet">
     <link href="../src/Style/detail_user.css" rel="stylesheet">
     <link href="../src/Style/propos.css" rel="stylesheet">
+    <link href="../src/Style/modification_user.css" rel="stylesheet">
+    <link href="../src/Style/liste-utilisateur.css" rel="stylesheet">
 
     <title>YourVoice</title>
     <script src="https://kit.fontawesome.com/26e0d024d1.js" crossorigin="anonymous" defer></script>
@@ -69,7 +71,7 @@
                         echo "active";
                     } ?>"><a id="anim" href='frontController.php?action=readAllMein'> <i
                                     class='fa-solid fa-clipboard-question'></i> Mes Questions</a></li>
-                    <li class="<?php if ($_GET['action'] == "readAllMein") {
+                    <li class="<?php if ($_GET['action'] == "readMyResponse") {
                         echo "active";
                     } ?>"><a id="anim" href="frontController.php?controller=reponse&action=readMyResponse"> <i
                                     class="fa-solid fa-clipboard-question"></i> Mes Réponses </a></li>
@@ -86,10 +88,13 @@
                                     class="fa-solid fa-right-from-bracket"></i></a></li>
                 <?php } else if (ConnexionAdmin::estConnecte()) {
                     ?>
-                    <li><a href="frontController.php?controller=admin&action=readAllQuest"> <i
+                    <li class="<?php if ($_GET['action'] == "readAllQuest") {
+                        echo "active";
+                    } ?>"><a id="anim" href="frontController.php?controller=admin&action=readAllQuest"> <i
                                     class="fa-solid fa-clipboard-question"></i> Les Questions</a></li>
-                    <li><a href="frontController.php?controller=admin&action=readAllUsers"> <i
-                                    class="fa-solid fa-clipboard-question"></i> Les Utilisateurs</a></li>
+                    <li class="<?php if ($_GET['action'] == "readAllUsers") {
+                        echo "active";
+                    } ?>"><a id="anim" href="frontController.php?controller=admin&action=readAllUsers"> <i class="fa-solid fa-user-group"></i> Les Utilisateurs</a></li>
                     <li><a href="frontController.php?controller=admin&action=deconnecter"><i
                                     class="fa-solid fa-right-from-bracket"></i></a></li>
 

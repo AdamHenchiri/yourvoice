@@ -2,7 +2,9 @@
 <?php
 echo '<div class="container">';
 echo '<div class="container_creerquestion">';
+echo '<div class="container-detail-user">';
 echo '<h1 id="moncompte">Mon Compte</h1>';
+echo '</div>';
 echo '<div class="moncompte_description">';
 echo '<div class="login_container1" id="login_container"><p id="login"> Login </p>' . '<p id="login_contain1" class="login_contain">' . htmlspecialchars($user->getLogin()) . '</p></div>';
 echo '<div class="separateur_user" id="separateur_user1"></div>';
@@ -12,7 +14,7 @@ echo '<div class="login_container3" id="login_container"><p id="login"> Prénom 
 echo '<div class="separateur_user" id="separateur_user3" ></div>';
 echo '<div class="login_container4" id="login_container"><p id="login"> Email  </p>' . '<p id="login_contain4" class="login_contain">' . htmlspecialchars($user->getEmailAValider()) . '</p></div>';
 echo '<div class="separateur_user" id="separateur_user4" ></div>';
-echo '<div><a href="frontController.php?controller=utilisateur&action=update&login= '.rawurldecode($user->getIdUtilisateur()). '"> <input type="button" value="modifier"> </a></div>';
+echo '<a href="frontController.php?controller=utilisateur&action=update&login= '.rawurldecode($user->getIdUtilisateur()). ' "> <input class="boutton-modifier" type="button" value="Modifier"> </a>';
 echo '</div>';
 echo '</div>';
 echo '</div>';
