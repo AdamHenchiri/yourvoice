@@ -63,9 +63,16 @@ class ControllerQuestion extends GenericController
         if (ConnexionUtilisateur::getUtilisateurConnecte()!=null) {
             $question = new QuestionRepository();//appel au modèle pour gerer la BD
         $questions = $question->selectAll();
+        $questionss =[];
+        foreach ($questions as $q){
+            $existe = (new VotantRepository())->selectWhereAnd("id_question",$q->getIdQuestion(),"id_votant",ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur());
+            if (count ($existe)>0) {
+                array_push($questionss, $q);
+            }
+        }
         self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
             "cheminVueBody" => "question/mesVotes.php",   //"redirige" vers la vue
-            "questions" => $questions]);
+            "questions" => $questionss]);
         }else{
             MessageFlash::ajouter("warning", "Autorisation déniée");
             $url = "frontController.php";
