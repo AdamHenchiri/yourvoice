@@ -120,6 +120,7 @@ class ControllerVotant extends GenericController
     public static function systemeVote():void{
         $tableauNote = self::aux3();
         $newTab = self::aux4();
+        $reponses = [];
         if(count($newTab) > 1){
             $cle = array_search(max($tableauNote), $tableauNote);
             $rep = (new ReponseRepository())->select($cle);
