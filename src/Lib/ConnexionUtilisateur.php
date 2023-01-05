@@ -2,23 +2,21 @@
 
 namespace App\YourVoice\Lib;
 
-use App\YourVoice\Model\DataObject\CoAuteur;
 use App\YourVoice\Model\DataObject\Utilisateur;
 use App\YourVoice\Model\HTTP\Session;
 use App\YourVoice\Model\Repository\CoauteurRepository;
-use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\Repository\UtilisateurRepository;
-use mysql_xdevapi\Statement;
 
 class ConnexionUtilisateur
 {
+
     // L'utilisateur connecté sera enregistré en session associé à la clé suivante
     private static string $cleConnexion = "_utilisateurConnecte";
 
     public static function connecter(string $loginUtilisateur): void
     {
-        Session::getInstance()->enregistrer(static::$cleConnexion,$loginUtilisateur);
+        Session::getInstance()->enregistrer(static::$cleConnexion, $loginUtilisateur);
     }
 
     public static function estConnecte(): bool
@@ -33,20 +31,20 @@ class ConnexionUtilisateur
 
     public static function getLoginUtilisateurConnecte(): ?string
     {
-        if (!self::estConnecte()){
+        if (!self::estConnecte()) {
             return null;
-        }else{
+        } else {
             return Session::getInstance()->lire(static::$cleConnexion);
         }
     }
 
     public static function getUtilisateurConnecte(): ?Utilisateur
     {
-        if (!self::estConnecte()){
+        if (!self::estConnecte()) {
             return null;
-        }else{
-           $tab= (new UtilisateurRepository())->selectWhere("login",Session::getInstance()->lire(static::$cleConnexion)) ;
-           return $tab[0];
+        } else {
+            $tab = (new UtilisateurRepository())->selectWhere("login", Session::getInstance()->lire(static::$cleConnexion));
+            return $tab[0];
         }
     }
 
@@ -63,7 +61,7 @@ class ConnexionUtilisateur
         }
     }*/
 
-    public static function estOrganisateur($question) : bool // Fonctionne ok
+    public static function estOrganisateur($question): bool // Fonctionne ok
     {
         $user = Session::getInstance()->lire(static::$cleConnexion);
         if (self::estConnecte()) {
@@ -74,17 +72,15 @@ class ConnexionUtilisateur
             $exist = $utilisateur->getLogin();
             //echo "<p> utilisateur ? ". $exist. "// </p>";
             //echo "<p> connecter : ". $log. "// </p>";
-            if($exist == $log){
+            if ($exist == $log) {
                 //echo "<p> yes </p>";
                 return true;
-            }
-            else{
+            } else {
                 //echo "<p> no </p>";
 
                 return false;
             }
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -103,49 +99,45 @@ class ConnexionUtilisateur
                 echo "<p> id rep : " . $reponse->getIdRponses() . "// </p>";
                 echo "<p> utilisateur ? ". $reponse->getIdUtilisateur(). "// </p>";
                 echo "<p> connecter : ". $u. "// </p>";*/
-                if ($reponse->getIdUtilisateur() == $u){
-                   // echo 'true';
+                if ($reponse->getIdUtilisateur() == $u) {
+                    // echo 'true';
                     return true;
                 }
 
             }
 
-        }
-        else{
+        } else {
             return false;
         }
         return false;
 
 
-
     }
 
-    public static function estResponsableReponse($reponse) : bool //Fonctionne ok
+    public static function estResponsableReponse($reponse): bool //Fonctionne ok
     {
         if (self::estConnecte()) {
             $log = self::getLoginUtilisateurConnecte();
             $reponseTab = (new ReponseRepository())->selectWhere('id_reponse', $reponse->getIdRponses());
-            foreach ($reponseTab as $reponse){
+            foreach ($reponseTab as $reponse) {
                 $idUtilisateur = $reponse->getIdUtilisateur();
                 $responsable = (new UtilisateurRepository())->select($idUtilisateur);
                 $loginResponsable = $responsable->getLogin();
-                if($loginResponsable == $log){
+                if ($loginResponsable == $log) {
                     return true;
-                }
-                else{
+                } else {
                     return false;
                 }
 
             }
 
-        }
-        else{
+        } else {
             return false;
         }
         return false;
     }
 
-    public static function estCoAuteur($question) : bool
+    public static function estCoAuteur($question): bool
     {
         $user = Session::getInstance()->lire(static::$cleConnexion);
         if (self::estConnecte()) {
@@ -153,10 +145,10 @@ class ConnexionUtilisateur
             $reponseTab = (new ReponseRepository())->selectWhere('id_question', $question->getIdQuestion());
             foreach ($reponseTab as $reponse) {
                 $idResponsable = $reponse->getIdRponses();
-                $coAuteurs = (new CoauteurRepository())->selectWhere("id_reponse",$idResponsable);
+                $coAuteurs = (new CoauteurRepository())->selectWhere("id_reponse", $idResponsable);
                 //var_dump($coAuteurs);
-                foreach ($coAuteurs as $coAuteur){
-                    $idCoAuteur =  $coAuteur->getIdUtilisateur();
+                foreach ($coAuteurs as $coAuteur) {
+                    $idCoAuteur = $coAuteur->getIdUtilisateur();
                     $utilisateur = (new UtilisateurRepository())->select($idCoAuteur);
                     $loginCoAuteur = $utilisateur->getLogin();
                     //echo "<p> utilisateur ? ". $loginCoAuteur. "// </p>";
@@ -167,14 +159,13 @@ class ConnexionUtilisateur
                 }
 
             }
-        }
-        else{
+        } else {
             return false;
         }
         return false;
     }
 
-    public static function estCoAuteurReponse($reponse) : bool
+    public static function estCoAuteurReponse($reponse): bool
     {
         $user = Session::getInstance()->lire(static::$cleConnexion);
         if (self::estConnecte()) {
@@ -182,10 +173,10 @@ class ConnexionUtilisateur
             $reponseTab = (new ReponseRepository())->selectWhere('id_reponse', $reponse->getIdRponses());
             foreach ($reponseTab as $reponse) {
                 $idResponsable = $reponse->getIdRponses();
-                $coAuteurs = (new CoauteurRepository())->selectWhere("id_reponse",$idResponsable);
+                $coAuteurs = (new CoauteurRepository())->selectWhere("id_reponse", $idResponsable);
                 //var_dump($coAuteurs);
-                foreach ($coAuteurs as $coAuteur){
-                    $idCoAuteur =  $coAuteur->getIdUtilisateur();
+                foreach ($coAuteurs as $coAuteur) {
+                    $idCoAuteur = $coAuteur->getIdUtilisateur();
                     $utilisateur = (new UtilisateurRepository())->select($idCoAuteur);
                     $loginCoAuteur = $utilisateur->getLogin();
                     //echo "<p> utilisateur ? ". $loginCoAuteur. "// </p>";
@@ -196,30 +187,26 @@ class ConnexionUtilisateur
                 }
 
             }
-        }
-        else{
+        } else {
             return false;
         }
         return false;
     }
 
-    public static function estAdministrateur() : bool
+    public static function estAdministrateur(): bool
     {
         if (self::estConnecte()) {
             $log = self::getLoginUtilisateurConnecte();
             $u = (new AdminRepository())->select($log);
             if ($u->isEstAdmin()) {
                 return true;
-            }
-            else{
+            } else {
                 return false;
             }
 
-        }
-        else{
+        } else {
             return false;
         }
     }
-
 
 }

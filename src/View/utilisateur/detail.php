@@ -12,6 +12,7 @@ echo '<div class="login_container3" id="login_container"><p id="login"> Prénom 
 echo '<div class="separateur_user" id="separateur_user3" ></div>';
 echo '<div class="login_container4" id="login_container"><p id="login"> Email  </p>' . '<p id="login_contain4" class="login_contain">' . htmlspecialchars($user->getEmailAValider()) . '</p></div>';
 echo '<div class="separateur_user" id="separateur_user4" ></div>';
+echo '<div><a href="frontController.php?controller=utilisateur&action=update&login= '.rawurldecode($user->getIdUtilisateur()). '"> <input type="button" value="modifier"> </a></div>';
 echo '</div>';
 echo '</div>';
 echo '</div>';

@@ -18,7 +18,6 @@ use App\YourVoice\Model\Repository\UtilisateurRepository;
 
 class ControllerAdmin extends GenericController
 {
-
     public static function connexion(): void{
         self::afficheVue('/view.php', ["pagetitle" => "connection",
             "cheminVueBody" => "admin/connexion.php"   //"redirige" vers la vue
