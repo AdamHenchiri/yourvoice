@@ -120,8 +120,11 @@ class ControllerVotant extends GenericController
         $tableauNote = self::aux3();
         $newTab = self::aux4();
         if(count($newTab) > 1){
+            $cle = array_search(max($tableauNote), $tableauNote);
+            $rep = (new ReponseRepository())->select($cle);
+            $reponse = $rep;
             $trouve = 2;
-            $reponse = "";
+
         }
         else if(count($newTab) == 0){
             $trouve = 0;

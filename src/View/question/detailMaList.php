@@ -84,6 +84,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
             use App\YourVoice\Model\Repository\TexteRepository;
             use App\YourVoice\Model\Repository\UtilisateurRepository;
             use \App\YourVoice\Lib\ConnexionAdmin;
+
             foreach ($reponses as $reponse) {
                 if(count(ControllerVotant::aux4()) > 1 && ConnexionUtilisateur::estOrganisateur($question) && $question->getDateFinVote() < date("Y-m-d")) {
                     $liste = ControllerVotant::aux4();
@@ -164,6 +165,16 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                         echo "</div>";
                     }
                 }
+                if(ConnexionUtilisateur::estOrganisateur($question)){
+                    ?>
+                    <div class="titre">
+                <?php
+                    $user=(new UtilisateurRepository())->select($reponse->getIdUtilisateur());
+                    echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de ".  htmlspecialchars ( $user->getLogin() ) . " </a></h1> ";
+
+                echo "</div>";
+                }
+
             }
             ?>
 </body>

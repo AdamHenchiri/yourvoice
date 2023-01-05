@@ -94,6 +94,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
 
             $num++;
 
+
             if(isset($trouve) && $trouve == 2){
                 echo "<div class='titre'>";
                 echo "<p>Il y a une égalité. En attente de la décision finale</p>";
