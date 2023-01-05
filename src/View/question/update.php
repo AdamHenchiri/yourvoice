@@ -17,17 +17,17 @@
                 ?>
                 <input type="hidden" name="id_question" id="id_question" value="<?php echo $v->getIdQuestion(); ?>" />
 
-                <div class="question_description">
-                    <label for="intitule">Intitulé</label>
-                    <textarea name="intitule" id="intitule" cols="10"  rows="10" required><?php echo $v->getIntitule(); ?></textarea>
+<!--                <div class="question_description">-->
+<!--                    <label for="intitule">Intitulé</label>-->
+<!--                    <textarea name="intitule" id="intitule" cols="10"  rows="10" required>--><?php //echo $v->getIntitule(); ?><!--</textarea>-->
+<!---->
+<!---->
+<!--                    <label for="explication">Développement de la question</label>-->
+<!--                    <textarea name="explication" id="explication" cols="10"  rows="10" required>--><?php //echo $v->getExplication(); ?><!--</textarea>-->
+<!--                </div>-->
 
+                <div class="separateur1"></div>
 
-                    <label for="explication">Développement de la question</label>
-                    <textarea name="explication" id="explication" cols="10"  rows="10" required><?php echo $v->getExplication(); ?></textarea>
-                </div>
-
-                <div class="separateur1">
-                </div>
 
                 <div class="container_date">
                     <div class="date_redac">
@@ -129,7 +129,18 @@
                         <p id="minimum">Min : 2 votants</p>
                     </div>
                 </div>
-                <div class='separateur1'></div>
+
+                <div class="separateur1"></div>
+                <div class="question_description">
+                    <label for="intitule">Intitulé</label>
+                    <textarea name="intitule" id="intitule" cols="10"  rows="10" required><?php echo $v->getIntitule(); ?></textarea>
+
+
+                    <label for="explication">Développement de la question</label>
+                    <textarea name="explication" id="explication" cols="10"  rows="10" required><?php echo $v->getExplication(); ?></textarea>
+                </div>
+                <div class="separateur1">
+                </div>
                 <div>
 
 
