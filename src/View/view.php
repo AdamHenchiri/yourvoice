@@ -67,13 +67,13 @@
                         echo "active";
                     } ?>"><a id="anim" href="frontController.php?action=create&controller=question"><i
                                     class="fa-solid fa-person-circle-question"></i> Posez une question</a></li>
-                    <li class="<?php if ($_GET['action'] == "readAllMein") {
+                    <li class="<?php if ($_GET['action'] == "readMesQuestions") {
                         echo "active";
-                    } ?>"><a id="anim" href='frontController.php?action=readAllMein'> <i
+                    } ?>"><a id="anim" href='frontController.php?action=readMesQuestions'> <i
                                     class='fa-solid fa-clipboard-question'></i> Mes Questions</a></li>
-                    <li class="<?php if ($_GET['action'] == "readMyResponse") {
+                    <li class="<?php if ($_GET['action'] == "readMesResponses") {
                         echo "active";
-                    } ?>"><a id="anim" href="frontController.php?controller=reponse&action=readMyResponse"> <i
+                    } ?>"><a id="anim" href="frontController.php?controller=reponse&action=readMesResponses"> <i
                                     class="fa-solid fa-clipboard-question"></i> Mes Réponses </a></li>
                     <li class="<?php if ($_GET['action'] == "mesVotes") {
                         echo "active";

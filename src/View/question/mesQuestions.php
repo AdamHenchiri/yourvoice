@@ -42,7 +42,9 @@
                 }
             }
         }
-
+        if ($nbLigne == 0) {
+            echo "<div class='questions' >désolé vous n'avez pas de question</div>";
+        }
 
 
         ?>

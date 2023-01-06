@@ -87,43 +87,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
             use \App\YourVoice\Lib\ConnexionAdmin;
 
             foreach ($reponses as $reponse) {
-                if(count(ControllerVotant::aux4()) > 1 && ConnexionUtilisateur::estOrganisateur($question) && $question->getDateFinVote() < date("Y-m-d")) {
-                    $liste = ControllerVotant::aux4();
-                    foreach ($liste as $key => $value) {
-                        $cle = $key;
-                        if ($cle == $reponse->getIdRponses()) {
-                            $repFormater = rawurlencode($reponse->getIdRponses());
-                            echo "<div class='titre'>";
-                            if ($reponse->isActif() == false) {
-                                $user = (new UtilisateurRepository())->select($reponse->getIdUtilisateur());
-                                echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de " . htmlspecialchars($user->getLogin()) . " </a></h1> ";
-                                ?>
-            <?php echo $cle; ?>
 
-                                <div class='question_update'>
-                                <form method="get" action="frontController.php">
-                                    <input type="hidden" value="voteFinal" name="action">
-                                    <input type="hidden" value="reponse" name="controller">
-                                    <input type="hidden" value="<?php echo $cle; ?>" name="id_reponse" >
-                                    <input type="hidden" value="<?php echo $idQuestion; ?>" name="id_question" >
-
-                                <input id="valider" type="submit" value="&#x1F451;" name="valider" />
-
-                                </form>
-            <?php
-
-                            }
-
-
-                        }
-
-
-            echo "</div>";
-
-
-
-                    }
-                }
 
                 $num++;
 
@@ -169,6 +133,43 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                     }
                 }
                 if(ConnexionUtilisateur::estOrganisateur($question) ){
+                    if(count(ControllerVotant::aux4()) > 1 && ConnexionUtilisateur::estOrganisateur($question) && $question->getDateFinVote() < date("Y-m-d")) {
+                        $liste = ControllerVotant::aux4();
+                        foreach ($liste as $key => $value) {
+                            $cle = $key;
+                            if ($cle == $reponse->getIdRponses()) {
+                                $repFormater = rawurlencode($reponse->getIdRponses());
+                                echo "<div class='titre'>";
+                                if ($reponse->isActif() == false) {
+                                    $user = (new UtilisateurRepository())->select($reponse->getIdUtilisateur());
+                                    echo "<div><h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de " . htmlspecialchars($user->getLogin()) . " </a></h1> ";
+                                    ?>
+
+                                    <div class='question_update'>
+                                    <form method="get" action="frontController.php">
+                                        <input type="hidden" value="voteFinal" name="action">
+                                        <input type="hidden" value="reponse" name="controller">
+                                        <input type="hidden" value="<?php echo $cle; ?>" name="id_reponse" >
+                                        <input type="hidden" value="<?php echo $idQuestion; ?>" name="id_question" >
+
+                                        <input id="valider" type="submit" value="&#x1F451;" name="valider" />
+
+                                    </form>
+                                    </div>
+                                    <?php
+
+                                }
+
+
+                            }
+
+
+                            echo "</div>";
+
+
+
+                        }
+                    }else{
                     $repNonFormater = $reponse->getIdRponses();
                     $repFormater = rawurlencode($repNonFormater);
                         if (!ConnexionUtilisateur::estCoAuteurReponse($reponse)){
@@ -181,7 +182,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                     <div class='separateur1'></div>
 
                     <?php
-
+                        }
                 }
                     }
 

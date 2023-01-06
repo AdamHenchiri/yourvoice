@@ -327,7 +327,7 @@ class ControllerReponse extends GenericController
 
     }
 
-    public static function readMyResponse() : void{
+    public static function readMesResponses() : void{
         if (ConnexionUtilisateur::getUtilisateurConnecte()!=null) {
             $question = new QuestionRepository();//appel au modèle pour gerer la BD
             $questions = $question->selectAll();

@@ -41,13 +41,13 @@ class ControllerQuestion extends GenericController
     }
 
 
-    public static function readAllMein(): void
+    public static function readMesQuestions(): void
     {
         if (ConnexionUtilisateur::getUtilisateurConnecte()!=null) {
             $question = new QuestionRepository();//appel au modèle pour gerer la BD
         $questions = $question->selectAll();
         self::afficheVue('/view.php', ["pagetitle" => "Liste des questions",
-                "cheminVueBody" => "question/maList.php",   //"redirige" vers la vue
+                "cheminVueBody" => "question/mesQuestions.php",   //"redirige" vers la vue
             "questions" => $questions]);
         }else{
             MessageFlash::ajouter("warning", "Autorisation déniée");

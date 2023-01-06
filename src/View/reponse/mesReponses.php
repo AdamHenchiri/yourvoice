@@ -19,7 +19,7 @@ $nbLigne=0;
 foreach ($questions as $question) {
 
 
-    if(ConnexionUtilisateur::estResponsable($question) || ConnexionUtilisateur::estCoAuteur($question)){
+    if(ConnexionUtilisateur::estResponsable($question) || ConnexionUtilisateur::estCoAuteur($question) and !$question->isActif()){
 
         $questNonFormater = $question->getIdQuestion();
     $questFormater = rawurlencode($questNonFormater);
@@ -38,13 +38,6 @@ foreach ($questions as $question) {
         if (ConnexionUtilisateur::estResponsable($question)) {
             echo "(Responsable d'une réponse)";
         }
-        if (ConnexionUtilisateur::estOrganisateur($question)) {
-            if ($question->getDateDebutRedaction() > date("Y-m-d")) {
-                echo "<a href=\"frontController.php?controller=question&action=update&id_question={$questFormater}\"> <i class='fa-solid fa-pencil'></i> </a>";
-                echo "<a id=\"confirmation\" href=\"frontController.php?controller=question&action=check&id_question={$questFormater}\"> <i class='fa-solid fa-trash'></i></a>";
-
-            }
-        }
         echo "</div>";
         echo "</div>";
     }
@@ -52,7 +45,9 @@ foreach ($questions as $question) {
 
    }
 }
-
+if ($nbLigne == 0) {
+    echo "<div class='questions' >désolé il n'a pas de réponse pour vous</div>";
+}
 
 
 

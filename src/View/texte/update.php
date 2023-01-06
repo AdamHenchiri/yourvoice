@@ -39,7 +39,8 @@
 
                     }
                 }
-                if (ConnexionUtilisateur::estResponsable($q)) {
+                $reponse =(new \App\YourVoice\Model\Repository\ReponseRepository)->select($texte->getIdReponse());
+                if (ConnexionUtilisateur::estResponsableReponse($reponse)) {
                 ?>
 
                 <div class="separateur1"></div>
