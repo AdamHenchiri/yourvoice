@@ -12,7 +12,8 @@
         use App\YourVoice\Model\Repository\UtilisateurRepository;
         foreach ($textes as $texte){
             $section = (new SectionRepository())->select($texte->getIdSection());
-            if ($section){                    ?>
+        if (!$section->isActif()){
+                 ?>
 
                     <input type="hidden" value="<?php echo $section->getIdSection()?>" name="id_section[]" >
 
