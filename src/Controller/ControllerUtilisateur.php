@@ -137,9 +137,9 @@ class ControllerUtilisateur extends GenericController
         $v=(new UtilisateurRepository())->select($_GET['login']);
         $rep=(new UtilisateurRepository())->supprimer($_GET['login']);
         if ($v!=null){
-            self::afficheVue('/view.php', ["pagetitle" => "suppresion de utilisateur",
-                "cheminVueBody" => "utilisateur/deleted.php","nom"=>$v->getnom(),"login"=>$v->getlogin()   //"redirige" vers la vue
-            ]);
+            MessageFlash::ajouter("success","L'utilisateur a été supprimée ! ");
+            $url="frontController.php?controller=Utilisateur&action=monCompte";
+            header("Location: ".$url);
         }else{
             $s='suppression echoué';
             self::error($s);
