@@ -84,20 +84,28 @@ class ControllerQuestion extends GenericController
 
     public static function read(): void
     {
-        $question = (new QuestionRepository())->select($_GET['id_question']);
-        $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
-        $reponses = (new ReponseRepository())->selectWhere("id_question", $_GET['id_question']);
-        if ($question !== null && $sections !== null) {
-            self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
-                "cheminVueBody" => "question/detail.php",   //"redirige" vers la vue
-                "question" => $question,
-                "sections" => $sections,
-                "reponses" => $reponses]);
+        if (!isset($_GET['id_question'])){
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
+        }else {
+            $question = (new QuestionRepository())->select($_GET['id_question']);
+            $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
+            $reponses = (new ReponseRepository())->selectWhere("id_question", $_GET['id_question']);
+            if ($question !== null && $sections !== null && !$question->isActif()) {
+                self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
+                    "cheminVueBody" => "question/detail.php",   //"redirige" vers la vue
+                    "question" => $question,
+                    "sections" => $sections,
+                    "reponses" => $reponses]);
 
-        }else{
-            self::afficheVue('/view.php', ["pagetitle" => "ERROR",
-                "cheminVueBody" => "question/error.php",   //"redirige" vers la vue
-            ]);
+            } else {
+                MessageFlash::ajouter("warning", "Autorisation déniée");
+                $url = "frontController.php";
+                header("Location: $url");
+                exit();
+            }
         }
     }
 

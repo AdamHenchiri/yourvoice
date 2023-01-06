@@ -59,6 +59,8 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
 
         $num = 0;
         foreach ($sections as $section) {
+        if (!$section->isActif()){
+
         $num++;
 
         $titreSection = $section->getTitre();
@@ -75,6 +77,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
             <?php
             echo "qsdfg";
             echo "<div class='separateur1'></div>";
+            }
             }
 
             use App\YourVoice\Controller\ControllerVotant;
@@ -165,10 +168,10 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                         echo "</div>";
                     }
                 }
-                if(ConnexionUtilisateur::estOrganisateur($question)){
+                if(ConnexionUtilisateur::estOrganisateur($question) ){
                     $repNonFormater = $reponse->getIdRponses();
                     $repFormater = rawurlencode($repNonFormater);
-
+                        if (!ConnexionUtilisateur::estCoAuteurReponse($reponse)){
                     ?>
 
                         <?php
@@ -180,6 +183,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                     <?php
 
                 }
+                    }
 
             }
             ?>

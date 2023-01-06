@@ -187,12 +187,13 @@ class ControllerReponse extends GenericController
 
     public static function updated(): void
     {
-        $test = false;
-        $id_question = $_POST["id_question"];
-        $q = (new QuestionRepository())->select($id_question);
-        $id_reponse = $_POST["id_reponse"];
-        $responsable = (new ReponseRepository())->selectWhereAnd("id_question", $id_question,"id_reponse",$id_reponse);
-        foreach ($_POST["texte"] as $i => $section) {
+        if (isset($_POST["id_question"]) && isset($_POST["id_reponse"])) {
+            $test = false;
+            $id_question = $_POST["id_question"];
+            $q = (new QuestionRepository())->select($id_question);
+            $id_reponse = $_POST["id_reponse"];
+            $responsable = (new ReponseRepository())->selectWhereAnd("id_question", $id_question, "id_reponse", $id_reponse);
+            foreach ($_POST["texte"] as $i => $section) {
                 $coauteurs = (new CoauteurRepository())->selectWhere("id_reponse", $id_reponse);
                 $textes = (new TexteRepository())->selectWhere("id_reponse", $id_reponse);
                 $verif = false;
@@ -226,8 +227,8 @@ class ControllerReponse extends GenericController
                                     $aux = false;
                                 }
                             }
-                        }else{
-                            $aux=false;
+                        } else {
+                            $aux = false;
                         }
                         if ($aux == false) {
                             (new CoauteurRepository())->supprimer([$id_reponse, $coauteur->getIdUtilisateur()]);
@@ -256,31 +257,32 @@ class ControllerReponse extends GenericController
                             }
                         }
                     }
+                } //Sinon si l'utilisateur est coAuteurs
+                else if (ConnexionUtilisateur::estCoAuteur($q)) {
+                    if (!$verif) {
+                        $texte = new Texte(null, $_POST["texte"][$i], $id_reponse, $_POST["id_section"][$i]);
+                        (new TexteRepository())->sauvegarder($texte);
+                        $test = true;
+                    } else {
+                        $texte = new Texte($update, $_POST["texte"][$i], $id_reponse, $_POST["id_section"][$i]);
+                        (new TexteRepository())->update($texte);
+                        $test = true;
+                    }
                 }
-                //Sinon si l'utilisateur est coAuteurs
-                 else if (ConnexionUtilisateur::estCoAuteur($q)) {
-                            if (!$verif) {
-                                $texte = new Texte(null, $_POST["texte"][$i], $id_reponse, $_POST["id_section"][$i]);
-                                (new TexteRepository())->sauvegarder($texte);
-                                $test = true;
-                            } else {
-                                $texte = new Texte($update, $_POST["texte"][$i], $id_reponse, $_POST["id_section"][$i]);
-                                (new TexteRepository())->update($texte);
-                                $test = true;
-                            }
-                }
+            }
         }
-        if ($test == true) {
-            MessageFlash::ajouter("success", "Mise à jour avec succès");
-            $url = "frontController.php?controller=question&action=readAll";
-            header("Location: $url");
-            exit();
-        } else {
-            MessageFlash::ajouter("warning", "Un problème s'est produit lors de la mise à jour ");
-            $url = "frontController.php?controller=question&action=readAll";
-            header("Location: $url");
-            exit();
-        }
+            if ($test == true) {
+                MessageFlash::ajouter("success", "Mise à jour avec succès");
+                $url = "frontController.php?controller=reponse&action=update&id_reponse=" . $id_reponse . "&id_question=" . $id_question;
+                header("Location: $url");
+                exit();
+            } else {
+                MessageFlash::ajouter("warning", "Un problème s'est produit lors de la mise à jour ");
+                $url = "frontController.php?controller=question&action=readAll";
+                header("Location: $url");
+                exit();
+            }
+
     }
 
     public  static function check(){

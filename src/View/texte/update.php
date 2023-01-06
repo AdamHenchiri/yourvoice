@@ -2,7 +2,6 @@
     <div class="container">
         <div class="container_creerquestion">
             <div class="titre">
-                <a id="boutonpublic" class="public"><i class="fa-solid fa-eye"></i> Public</a>
                 <h1 class="titre_section">MODIFIER UNE REPONSE</h1>
             </div>
             <div class="question_description">
@@ -57,7 +56,9 @@
                         $users = (new UtilisateurRepository())->selectAll();
                         if ($users) {
                             foreach ($users as $user) {
-                                $aux = false;
+                                if ($user != ConnexionUtilisateur::getUtilisateurConnecte()){
+
+                                    $aux = false;
                                 foreach ($coauteurs as $coauteur) {
                                     if ($user->getIdUtilisateur() == $coauteur->getIdUtilisateur()) {
                                         ?>
@@ -77,7 +78,7 @@
                                     </div>
                                 <?php } ?>
                             <?php }
-                        }
+                        }}
                         echo "</div></div>";
                         }
                         ?>

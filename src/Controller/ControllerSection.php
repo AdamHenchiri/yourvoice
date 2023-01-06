@@ -3,6 +3,7 @@
 namespace App\YourVoice\Controller;
 
 use App\YourVoice\Lib\ConnexionAdmin;
+use App\YourVoice\Lib\ConnexionUtilisateur;
 use App\YourVoice\Lib\MessageFlash;
 use App\YourVoice\Model\Repository\AbstractRepository;
 use App\YourVoice\Model\Repository\QuestionRepository;
@@ -21,7 +22,7 @@ class ControllerSection extends GenericController
             MessageFlash::ajouter("warning", "La rédaction des réponses a déjà commencée");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question'] );
         }
-        if(date('Y-m-d H:i:s') <= $dateDebut || ConnexionAdmin::estConnecte()) {
+        if(date('Y-m-d H:i:s') <= $dateDebut || ConnexionAdmin::estConnecte() && ConnexionUtilisateur::estOrganisateur($q)) {
             $id = $_GET["id_question"];
             self::afficheVue('/view.php', ["pagetitle" => "Ajouter une section",
                 "cheminVueBody" => "section/create.php", "id_question" => $id  //"redirige" vers la vue
@@ -31,12 +32,21 @@ class ControllerSection extends GenericController
 
 
     public static function created() : void {
-        $id=$_POST["id_question"];
-        $v=new Section(null,$_POST["titre"],$_POST["texte_explicatif"],$id, 0);
-        (new SectionRepository())->sauvegarder($v);
-        (new ControllerQuestion())::readAll();
-        if (ConnexionAdmin::estConnecte()){
-            (new ControllerAdmin())::readAllQuest();
+        if (isset($_POST["id_question"])) {
+            $id = $_POST["id_question"];
+            $v = new Section(null, $_POST["titre"], $_POST["texte_explicatif"], $id, 0);
+            (new SectionRepository())->sauvegarder($v);
+            MessageFlash::ajouter("success", "Section crée!");
+            $url = "frontController.php?controller=question&action=readMy&id_question=".$id;
+            header("Location: $url");
+            if (ConnexionAdmin::estConnecte()) {
+                (new ControllerAdmin())::readAllQuest();
+            }
+        }else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
         }
 
     }
@@ -84,11 +94,11 @@ class ControllerSection extends GenericController
             if ($v != null && count($sections) > 1) {
                 $s = new Section($v->getIdSection(), $v->getTitre(), $v->getTexteExplicatif(), $v->getIdQuestion(), 1);
                 (new SectionRepository())->update($s);
-                MessageFlash::ajouter("success", "Question supprimée");
+                MessageFlash::ajouter("success", "Section supprimée");
             } else {
                 MessageFlash::ajouter("danger", "Erreur de la suppression");
             }
-            header("Location: frontController.php?controller=question&action=read&id_question=" . rawurlencode($v->getIdQuestion()));
+            header("Location: frontController.php?controller=question&action=readMy&id_question=" . rawurlencode($v->getIdQuestion()));
 
         }
     }

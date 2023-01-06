@@ -4,7 +4,6 @@
             <div class="container_creerquestion">
 
                 <div class="titre">
-                    <a id="boutonpublic" class="public"><i class="fa-solid fa-eye"></i> Public</a>
                     <h1>Modifier une question</h1>
                 </div>
                 <?php
@@ -78,7 +77,9 @@
                 $tabOrganisateur =(new ReponseRepository())->selectWhere("id_question",$v->getIdQuestion());
                 $tabUsers = (new UtilisateurRepository())->selectAll();
                 foreach ($tabUsers as $user){
-                $aux=false;
+                if ($user != ConnexionUtilisateur::getUtilisateurConnecte()){
+
+                    $aux=false;
                 foreach ($tabOrganisateur as $organisateur){
                         if($user->getIdUtilisateur() == $organisateur->getIdUtilisateur()){
                     ?>
@@ -94,7 +95,7 @@
 
                     <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
                         </div>
-            <?php }}?>
+            <?php }}}?>
                         </div>
                         <p id="minimum">Min : 1 responsable</p>
                     </div>
@@ -109,7 +110,9 @@
                 $tabVotanats =(new VotantRepository())->selectWhere("id_question",$v->getIdQuestion());
                 $tabUsers = (new UtilisateurRepository())->selectAll();
                 foreach ($tabUsers as $user){
-                $aux=false;
+                if ($user != ConnexionUtilisateur::getUtilisateurConnecte()){
+
+                    $aux=false;
                 foreach ($tabVotanats as $votanat){
                 if($user->getIdUtilisateur() == $votanat->getIdUtilisateur()){
                 ?>
@@ -124,7 +127,7 @@
 
                 <label for="<?php echo $user->getIdUtilisateur()?>"><?php echo $user->getLogin()?></label>
             </div>
-            <?php }} ?>
+            <?php }}} ?>
                         </div>
                         <p id="minimum">Min : 2 votants</p>
                     </div>
@@ -154,6 +157,7 @@
                     $num=0;
                     //var_dump($sections);
                     foreach ($sections as $section) {
+                        if (!$section->isActif()){
                     $num++;
                     //$questNonFormater = $question->getIdQuestion();
                     //$questFormater = rawurlencode($questNonFormater);
@@ -180,7 +184,7 @@
                     echo "<div class='separateur1'></div>";
                     echo "</div>";
                     }
-
+                    }
 
                     echo "<div class='question_description'>";
                     //echo "<div class='separateur1'></div>";

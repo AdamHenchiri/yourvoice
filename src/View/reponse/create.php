@@ -3,7 +3,6 @@
     <div class="container">
         <div class="container_creerquestion">
             <div class="titre">
-                <a id="boutonpublic" class="public"><i class="fa-solid fa-eye"></i> Public</a>
                 <h1 class="titre_section">CRÉER UNE REPONSE</h1>
             </div>
 
@@ -17,7 +16,9 @@
             use App\YourVoice\Model\Repository\UtilisateurRepository;
             $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
             if ($sections){
-                foreach ($sections as $section){ ?>
+                foreach ($sections as $section){
+                    if (!$section->isActif()){
+                        ?>
                     <input type="hidden" value="<?php echo $section->getIdSection()?>" name="id_section[]" >
 
                     <label class="ecart_texte" for="titre">Section : <NOBR class = "texte_des"><?php
@@ -45,7 +46,7 @@
 
                     <textarea name="texte[]" id="texte[]" cols="90"  rows="6"></textarea>
 
-                <?php }}
+                <?php }}}
             ?>
 
                 <div class="separateur1"></div>
@@ -63,14 +64,14 @@
 
                 $users = (new UtilisateurRepository())->selectAll();
                 if ($users){
-                foreach($users as $user)
-                {
+                foreach($users as $user){
+                    if ($user != ConnexionUtilisateur::getUtilisateurConnecte()){
                 ?>
             <div>
                 <input type="checkbox"  name="idCoAuteur[]" value="<?php echo $user->getIdUtilisateur()?>">
                 <?php echo $user->getLogin()?>
             </div>
-        <?php } }?>
+        <?php } }}?>
 
                 </div>
                 </div>
