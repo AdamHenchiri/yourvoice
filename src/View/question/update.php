@@ -9,9 +9,11 @@
                 <?php
 
                 use App\YourVoice\Lib\ConnexionUtilisateur;
+                use App\YourVoice\Lib\ConnexionAdmin;
                 use App\YourVoice\Model\Repository\ReponseRepository;
                 use App\YourVoice\Model\Repository\UtilisateurRepository;
                 use App\YourVoice\Model\Repository\VotantRepository;
+
 
                 ?>
                 <input type="hidden" name="id_question" id="id_question" value="<?php echo $v->getIdQuestion(); ?>" />
@@ -32,7 +34,11 @@
                     <div class="date_redac">
                         <div class="date_all">
                             <label for="dateDebut_redaction">Début de la rédaction</label> :
-                            <input type="date" value=<?php echo $v->getDateDebutRedaction(); ?> name="dateDebut_redaction"  readonly/>
+                            <?php if (ConnexionAdmin::estConnecte()){ ?>
+                            <input type="date" value=<?php echo $v->getDateDebutRedaction(); ?> name="dateDebut_redaction"  required/>
+                            <?php }else{ ?>
+                            <input type="date" value=<?php echo $v->getDateDebutRedaction(); ?> name="dateDebut_redaction"  required/>
+                            <?php } ?>
                         </div>
                         <div class="date_all">
                             <label for="dateFin_redaction">Fin de la rédaction</label> :
@@ -173,7 +179,7 @@
                         <div > <?php  echo " Titre : " . htmlspecialchars($section->getTitre()); ?> </div>
                         <div > <?php  echo " Description :  " . htmlspecialchars($section->getTexteExplicatif()) ; ?> </div>
                     <?php
-                    if(date('Y-m-d H:i:s') < $dateDebutRedaction) {
+                    if(date('Y-m-d H:i:s') < $dateDebutRedaction || ConnexionAdmin::estConnecte()) {
                         echo "<div class='question_update'>";
                         echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>";
                         echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-trash'></i></a>";

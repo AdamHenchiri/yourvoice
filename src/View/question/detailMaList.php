@@ -99,7 +99,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                 ?>
                 <div class="titre">
                 <?php
-                if (ConnexionUtilisateur::estResponsableReponse($reponse) || ConnexionUtilisateur::estCoAuteurReponse($reponse) || ConnexionAdmin::estConnecte() && $reponse->isActif() == false) {
+                if (ConnexionUtilisateur::estResponsableReponse($reponse) || ConnexionUtilisateur::estCoAuteurReponse($reponse) || ConnexionAdmin::estConnecte() && $reponse->isActif() == false || (ConnexionAdmin::estConnecte() && $reponse->isActif() == true)) {
                     $user = (new UtilisateurRepository())->select($reponse->getIdUtilisateur());
                     echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de " . htmlspecialchars($user->getLogin()) . " </a></h1> "; ?>
                     </div>
@@ -109,9 +109,12 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                     if (date('Y-m-d H:i:s') >= $dateDebutRedaction && date('Y-m-d H:i:s') <= $dateFinRedaction && ConnexionUtilisateur::estResponsableReponse($reponse) || ConnexionAdmin::estConnecte() ) {
                         if (empty($t)) {
                             echo "<a href=\"frontController.php?controller=reponse&action=create&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
-                            echo "<a href=\"frontController.php?controller=reponse&action=check&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
                         } else {
                             echo "<a href=\"frontController.php?controller=reponse&action=update&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
+                        }
+                        if ($reponse->isActif() == true){
+                            echo "<a href=\"frontController.php?controller=reponse&action=restaure&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash-arrow-up'></i></a>      ";
+                        }else {
                             echo "<a href=\"frontController.php?controller=reponse&action=check&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
                         }
                         echo "</div>";

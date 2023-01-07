@@ -40,7 +40,7 @@
                     }
                 }
                 $reponse =(new \App\YourVoice\Model\Repository\ReponseRepository)->select($texte->getIdReponse());
-                if (ConnexionUtilisateur::estResponsableReponse($reponse)) {
+                if (ConnexionUtilisateur::estResponsableReponse($reponse) || \App\YourVoice\Lib\ConnexionAdmin::estConnecte()) {
                 ?>
 
                 <div class="separateur1"></div>
@@ -57,7 +57,7 @@
                         $users = (new UtilisateurRepository())->selectAll();
                         if ($users) {
                             foreach ($users as $user) {
-                                if ($user != ConnexionUtilisateur::getUtilisateurConnecte()){
+                                if ($user != ConnexionUtilisateur::getUtilisateurConnecte() ){
 
                                     $aux = false;
                                 foreach ($coauteurs as $coauteur) {

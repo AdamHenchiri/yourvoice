@@ -2,6 +2,7 @@
 
 namespace App\YourVoice\Controller;
 
+use App\YourVoice\Lib\ConnexionAdmin;
 use App\YourVoice\Lib\ConnexionUtilisateur;
 use App\YourVoice\Lib\MotDePasse;
 use App\YourVoice\Model\DataObject\Question;
@@ -27,15 +28,15 @@ class ControllerReponse extends GenericController
         $q = (new QuestionRepository())->select($_GET['id_question']);
         $dateFin = $q->getDateFinRedaction();
         $dateDebut = $q->getDateDebutRedaction();
-        if (date('Y-m-d H:i:s') > $dateFin) {
+        if (date('Y-m-d H:i:s') > $dateFin && !ConnexionAdmin::estConnecte()) {
             MessageFlash::ajouter("warning", "Date de rédaction écoulée");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         }
-        if (date('Y-m-d H:i:s') < $dateDebut) {
+        if (date('Y-m-d H:i:s') < $dateDebut && !ConnexionAdmin::estConnecte()) {
             MessageFlash::ajouter("warning", "La rédaction n'a pas encore commencée");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         }
-        if (date('Y-m-d H:i:s') <= $dateFin and date('Y-m-d H:i:s') >= $dateDebut && !$q->isActif()) {
+        if ((date('Y-m-d H:i:s') <= $dateFin and date('Y-m-d H:i:s') >= $dateDebut && !$q->isActif()) || ConnexionAdmin::estConnecte()) {
             self::afficheVue('/view.php', ["pagetitle" => "Ajouter une réponse",
                 "cheminVueBody" => "reponse/create.php",   //"redirige" vers la vue
             ]);
@@ -72,7 +73,7 @@ class ControllerReponse extends GenericController
                             $update = $t->getIdTexte();
                         }
                     }
-                    if ($reponse->getIdUtilisateur() == ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur()) {
+                    if (ConnexionAdmin::estConnecte() || ($reponse->getIdUtilisateur() == ConnexionUtilisateur::getUtilisateurConnecte()->getIdUtilisateur()) ) {
                         $test = true;
                         if (!$verif) {
                             $texte = new Texte(null, $_POST["texte"][$i], $reponse->getIdRponses(), $_POST["id_section"][$i]);
@@ -155,16 +156,16 @@ class ControllerReponse extends GenericController
         $dateFin = $q->getDateFinRedaction();
         $dateDebut = $q->getDateDebutRedaction();
         $textes = (new TexteRepository())->selectWhere("id_reponse", $_GET['id_reponse']);
-        if (date('Y-m-d H:i:s') > $dateFin) {
+        if (date('Y-m-d H:i:s') > $dateFin && !ConnexionAdmin::estConnecte()) {
             MessageFlash::ajouter("warning", "Date de rédaction écoulée");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         }
-        if (date('Y-m-d H:i:s') < $dateDebut) {
+        if (date('Y-m-d H:i:s') < $dateDebut && !ConnexionAdmin::estConnecte()) {
             MessageFlash::ajouter("warning", "La rédaction n'a pas encore commencée");
             header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
         }
-        if (date('Y-m-d H:i:s') <= $dateFin and date('Y-m-d H:i:s') >= $dateDebut && !$q->isActif()) {
-            if (ConnexionUtilisateur::estResponsable($q) || ConnexionUtilisateur::estCoAuteur($q)) {
+        if ((date('Y-m-d H:i:s') <= $dateFin and date('Y-m-d H:i:s') >= $dateDebut && !$q->isActif()) || ConnexionAdmin::estConnecte()) {
+            if (ConnexionUtilisateur::estResponsable($q) || ConnexionUtilisateur::estCoAuteur($q) || ConnexionAdmin::estConnecte()) {
                 self::afficheVue('/view.php', ["pagetitle" => "Update d'une réponse",
                     "cheminVueBody" => "texte/update.php",   //"redirige" vers la
                     "textes" => $textes,
@@ -205,7 +206,7 @@ class ControllerReponse extends GenericController
                     }
                 }
                 //si l'utilisateur est responsable de la réponse
-                if (ConnexionUtilisateur::estResponsable($q)) {
+                if (ConnexionUtilisateur::estResponsable($q) || ConnexionAdmin::estConnecte()) {
                     if (!$verif) {
                         $texte = new Texte(null, $_POST["texte"][$i], $id_reponse, $_POST["id_section"][$i]);
                         (new TexteRepository())->sauvegarder($texte);
@@ -286,12 +287,44 @@ class ControllerReponse extends GenericController
     }
 
     public  static function check(){
+        if (isset($_GET['id_reponse']) && !is_null($_GET['id_reponse'])){
         $v= (new ReponseRepository())->select($_GET['id_reponse']);
-        self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
-            "cheminVueBody" => "reponse/deleted.php", "v" => $v   //"redirige" vers la vue
-        ]);
+        if (ConnexionAdmin::estConnecte()){
+            $rep = new Reponse($v->getIdRponses(), $v->getIdUtilisateur(), $v->getIdQuestion(), 1);
+            (new ReponseRepository())->update($rep);
+            MessageFlash::ajouter("success", "Supprimée avec succès");
+            $url = "frontController.php?";
+            header("Location: $url");
+            exit();
+        }else{
+            self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre question",
+                "cheminVueBody" => "reponse/deleted.php", "v" => $v   //"redirige" vers la vue
+            ]);
+        }}
+        else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php?";
+            header("Location: $url");
+            exit();
+        }
     }
 
+    public static function restaure() : void {
+        if (isset($_GET['id_reponse']) && !is_null($_GET['id_reponse']) && ConnexionAdmin::estConnecte()){
+            $v= (new ReponseRepository())->select($_GET['id_reponse']);
+            $rep = new Reponse($v->getIdRponses(), $v->getIdUtilisateur(), $v->getIdQuestion(), 0);
+            (new ReponseRepository())->update($rep);
+            MessageFlash::ajouter("success", "Reponse restaurée avec succès");
+            $url = "frontController.php?";
+            header("Location: $url");
+            exit();
+        }else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php?";
+            header("Location: $url");
+            exit();
+        }
+    }
     public static function delete() : void {
         if (!isset($_POST["mdp"])){
             MessageFlash::ajouter("danger","Veuillez remplir le formulaire");

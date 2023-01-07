@@ -15,18 +15,25 @@ class ControllerSection extends GenericController
 {
 
     public static function create() : void {
-        $q = (new QuestionRepository())->select($_GET['id_question']);
-        //$dateFin = $q->getDateFinRedaction();
-        $dateDebut = $q->getDateDebutRedaction();
-        if(date('Y-m-d H:i:s') > $dateDebut && !ConnexionAdmin::estConnecte()){
-            MessageFlash::ajouter("warning", "La rédaction des réponses a déjà commencée");
-            header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question'] );
-        }
-        if(date('Y-m-d H:i:s') <= $dateDebut || ConnexionAdmin::estConnecte() && ConnexionUtilisateur::estOrganisateur($q)) {
-            $id = $_GET["id_question"];
-            self::afficheVue('/view.php', ["pagetitle" => "Ajouter une section",
-                "cheminVueBody" => "section/create.php", "id_question" => $id  //"redirige" vers la vue
-            ]);
+        if (isset($_GET['id_question']) && !is_null($_GET['id_question'])) {
+            $q = (new QuestionRepository())->select($_GET['id_question']);
+            //$dateFin = $q->getDateFinRedaction();
+            $dateDebut = $q->getDateDebutRedaction();
+            if (date('Y-m-d H:i:s') > $dateDebut && !ConnexionAdmin::estConnecte()) {
+                MessageFlash::ajouter("warning", "La rédaction des réponses a déjà commencée");
+                header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
+            }
+            if ((date('Y-m-d H:i:s') <= $dateDebut  && ConnexionUtilisateur::estOrganisateur($q)) || ConnexionAdmin::estConnecte()) {
+                $id = $_GET["id_question"];
+                self::afficheVue('/view.php', ["pagetitle" => "Ajouter une section",
+                    "cheminVueBody" => "section/create.php", "id_question" => $id  //"redirige" vers la vue
+                ]);
+            }
+        }else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
         }
     }
 

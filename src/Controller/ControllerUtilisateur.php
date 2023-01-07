@@ -139,17 +139,24 @@ class ControllerUtilisateur extends GenericController
     }
 
     public static function delete() : void {
-        $v=(new UtilisateurRepository())->select($_GET['login']);
-        $rep=(new UtilisateurRepository())->supprimer($_GET['login']);
-        if ($v!=null){
-            MessageFlash::ajouter("success","L'utilisateur a été supprimée ! ");
-            $url="frontController.php?controller=Utilisateur&action=monCompte";
-            header("Location: ".$url);
+        if (isset($_GET['login']) && !is_null($_GET['login']) && ConnexionAdmin::estConnecte()) {
+            $v = (new UtilisateurRepository())->selectWhere("login", $_GET['login']);
+            if (count($v) != null) {
+                $rep = (new UtilisateurRepository())->supprimer($v[0]->getIdUtilisateur());
+                MessageFlash::ajouter("success", "L'utilisateur a été supprimée ! ");
+                $url = "frontController.php?";
+                header("Location: " . $url);
+            } else {
+                MessageFlash::ajouter("warning", "L'utilisateur n'existe pas ! ");
+                $url = "frontController.php?";
+                header("Location: " . $url);
+            }
         }else{
-            $s='suppression echoué';
-            self::error($s);
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
         }
-        self::readAll();
     }
 
     public static function readAll() : void {
@@ -161,7 +168,7 @@ class ControllerUtilisateur extends GenericController
     }
 
     public static function read() : void {
-        if (isset($_GET['login']) && ConnexionUtilisateur::getLoginUtilisateurConnecte()==$_GET['login'] ) {
+        if (isset($_GET['login']) && (ConnexionUtilisateur::getLoginUtilisateurConnecte()==$_GET['login'] || ConnexionAdmin::estConnecte()) ) {
             $user = (new UtilisateurRepository())->selectWhere("login", $_GET['login']);
             if ($user !== null) {
                 self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
