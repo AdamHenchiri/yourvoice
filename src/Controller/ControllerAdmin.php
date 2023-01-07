@@ -69,25 +69,35 @@ class ControllerAdmin extends GenericController
     }
     */
     public static function create() : void {
-        self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre utilisateur",
-            "cheminVueBody" => "admin/create.php"   //"redirige" vers la vue
-        ]);
+        if (ConnexionAdmin::estConnecte()) {
+            self::afficheVue('/view.php', ["pagetitle" => "Ajouter votre utilisateur",
+                "cheminVueBody" => "admin/create.php"   //"redirige" vers la vue
+            ]);
+        }
+        else{
+            MessageFlash::ajouter("warning","Autorisation dénié ");
+            $url="frontController.php?";
+            header("Location: ".$url);
+            exit();
+        }
     }
 
 
     public static function created() : void {
-        if ($_POST["password_2"] == $_POST["password_1"]) {
-            $v = Admin::construireDepuisFormulaire(["login" => $_POST["login"],"password" => $_POST["password_1"], "email" => $_POST["email"]]);
-            (new AdminRepository())->sauvegarder($v);
-            MessageFlash::ajouter("success", "Merci de confirmer votre email");
-            $url = "frontController.php?controller=admin&action=connexion";
-            header("Location: $url");
-            exit();
-        } else {
-            MessageFlash::ajouter("warning", "Mots de passe distincts");
-            $url = "frontController.php?controller=admin&action=create";
-            header("Location: $url");
-            exit();
+        if (ConnexionAdmin::estConnecte()) {
+            if ($_POST["password_2"] == $_POST["password_1"]) {
+                $v = Admin::construireDepuisFormulaire(["login" => $_POST["login"], "password" => $_POST["password_1"], "email" => $_POST["email"]]);
+                (new AdminRepository())->sauvegarder($v);
+                MessageFlash::ajouter("success", "Merci de confirmer votre email");
+                $url = "frontController.php?controller=admin&action=connexion";
+                header("Location: $url");
+                exit();
+            } else {
+                MessageFlash::ajouter("warning", "Mots de passe distincts");
+                $url = "frontController.php?controller=admin&action=create";
+                header("Location: $url");
+                exit();
+            }
         }
     }
 
