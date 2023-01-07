@@ -166,6 +166,7 @@ class ControllerReponse extends GenericController
         }
         if ((date('Y-m-d H:i:s') <= $dateFin and date('Y-m-d H:i:s') >= $dateDebut && !$q->isActif()) || ConnexionAdmin::estConnecte()) {
             if (ConnexionUtilisateur::estResponsable($q) || ConnexionUtilisateur::estCoAuteur($q) || ConnexionAdmin::estConnecte()) {
+
                 self::afficheVue('/view.php', ["pagetitle" => "Update d'une réponse",
                     "cheminVueBody" => "texte/update.php",   //"redirige" vers la
                     "textes" => $textes,
@@ -485,6 +486,18 @@ class ControllerReponse extends GenericController
         }
 
 
+    }
+
+    public static function cleanAll(?array $reps)
+    {
+        foreach ($reps as $rep){
+            $textes = (new TexteRepository())->selectWhere("id_reponse",$rep->getIdRponses());
+            if (count($textes)>0){
+                foreach ($textes as $t){
+                    (new TexteRepository())->supprimer($t->getIdTexte());
+                }
+            }
+        }
     }
 
 

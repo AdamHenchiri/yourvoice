@@ -19,11 +19,12 @@ class ControllerSection extends GenericController
             $q = (new QuestionRepository())->select($_GET['id_question']);
             //$dateFin = $q->getDateFinRedaction();
             $dateDebut = $q->getDateDebutRedaction();
-            if (date('Y-m-d H:i:s') > $dateDebut && !ConnexionAdmin::estConnecte()) {
+            if (date('Y-m-d H:i:s') > $dateDebut ) {
                 MessageFlash::ajouter("warning", "La rédaction des réponses a déjà commencée");
                 header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
+                exit();
             }
-            if ((date('Y-m-d H:i:s') <= $dateDebut  && ConnexionUtilisateur::estOrganisateur($q)) || ConnexionAdmin::estConnecte()) {
+            if ((date('Y-m-d H:i:s') <= $dateDebut  && (ConnexionUtilisateur::estOrganisateur($q)) || ConnexionAdmin::estConnecte())) {
                 $id = $_GET["id_question"];
                 self::afficheVue('/view.php', ["pagetitle" => "Ajouter une section",
                     "cheminVueBody" => "section/create.php", "id_question" => $id  //"redirige" vers la vue
@@ -85,29 +86,73 @@ class ControllerSection extends GenericController
 
     }
 
+
+    public static function restaure() : void {
+
+        if (isset($_GET['id_question']) && !is_null($_GET['id_question'])) {
+            $q = (new QuestionRepository())->select($_GET['id_question']);
+            //$dateFin = $q->getDateFinRedaction();
+            $dateDebut = $q->getDateDebutRedaction();
+            if (date('Y-m-d H:i:s') > $dateDebut) {
+                MessageFlash::ajouter("warning", "La rédaction des réponses a déjà commencée");
+                header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
+            }
+            if (date('Y-m-d H:i:s') <= $dateDebut) {
+                $sections = (new SectionRepository())->selectWhere("id_question", $_GET["id_question"]);
+                $v = (new SectionRepository())->select($_GET['id_section']);
+                //$question = (new QuestionRepository())->select($_GET["id_question"]);
+                if ($v != null && count($sections) > 1) {
+                    $s = new Section($v->getIdSection(), $v->getTitre(), $v->getTexteExplicatif(), $v->getIdQuestion(), 0);
+                    (new SectionRepository())->update($s);
+                    MessageFlash::ajouter("success", "Reponse restaurée ");
+                } else {
+                    MessageFlash::ajouter("danger", "Erreur de la restauration");
+                }
+                header("Location: frontController.php?controller=question&action=readMy&id_question=" . rawurlencode($v->getIdQuestion()));
+
+            }
+        }else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
+        }
+
+    }
+
+
+
     public static function delete() : void
     {
-        $q = (new QuestionRepository())->select($_GET['id_question']);
-        //$dateFin = $q->getDateFinRedaction();
-        $dateDebut = $q->getDateDebutRedaction();
-        if (date('Y-m-d H:i:s') > $dateDebut) {
-            MessageFlash::ajouter("warning", "La rédaction des réponses a déjà commencée");
-            header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
-        }
-        if (date('Y-m-d H:i:s') <= $dateDebut) {
-            $sections = (new SectionRepository())->selectWhere("id_question", $_GET["id_question"]);
-            $v = (new SectionRepository())->select($_GET['id_section']);
-            //$question = (new QuestionRepository())->select($_GET["id_question"]);
-            if ($v != null && count($sections) > 1) {
-                $s = new Section($v->getIdSection(), $v->getTitre(), $v->getTexteExplicatif(), $v->getIdQuestion(), 1);
-                (new SectionRepository())->update($s);
-                MessageFlash::ajouter("success", "Section supprimée");
-            } else {
-                MessageFlash::ajouter("danger", "Erreur de la suppression");
+        if (isset($_GET['id_question']) && !is_null($_GET['id_question'])) {
+            $q = (new QuestionRepository())->select($_GET['id_question']);
+            //$dateFin = $q->getDateFinRedaction();
+            $dateDebut = $q->getDateDebutRedaction();
+            if (date('Y-m-d H:i:s') > $dateDebut) {
+                MessageFlash::ajouter("warning", "La rédaction des réponses a déjà commencée");
+                header("Location: frontController.php?controller=question&action=read&id_question=" . $_GET['id_question']);
             }
-            header("Location: frontController.php?controller=question&action=readMy&id_question=" . rawurlencode($v->getIdQuestion()));
+            if (date('Y-m-d H:i:s') <= $dateDebut) {
+                $sections = (new SectionRepository())->selectWhere("id_question", $_GET["id_question"]);
+                $v = (new SectionRepository())->select($_GET['id_section']);
+                //$question = (new QuestionRepository())->select($_GET["id_question"]);
+                if ($v != null && count($sections) > 1) {
+                    $s = new Section($v->getIdSection(), $v->getTitre(), $v->getTexteExplicatif(), $v->getIdQuestion(), 1);
+                    (new SectionRepository())->update($s);
+                    MessageFlash::ajouter("success", "Section supprimée");
+                } else {
+                    MessageFlash::ajouter("danger", "Erreur de la suppression");
+                }
+                header("Location: frontController.php?controller=question&action=readMy&id_question=" . rawurlencode($v->getIdQuestion()));
 
+            }
+        }else{
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php";
+            header("Location: $url");
+            exit();
         }
+
     }
 
 

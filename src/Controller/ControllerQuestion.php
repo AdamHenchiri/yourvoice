@@ -14,6 +14,7 @@ use App\YourVoice\Model\DataObject\Question;
 use App\YourVoice\Model\DataObject\Section;
 use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\Repository\SectionRepository;
+use App\YourVoice\Model\Repository\TexteRepository;
 use App\YourVoice\Model\Repository\VotantRepository;
 use App\YourVoice\Model\Repository\UtilisateurRepository;
 
@@ -430,7 +431,8 @@ class ControllerQuestion extends GenericController
                 (new ReponseRepository())->sauvegarder($v3);
             }
         }
-
+        $reps = (new ReponseRepository())->selectWhere("id_question",$id);
+        ControllerReponse::cleanAll($reps);
         MessageFlash::ajouter("success", "Question mise à jour avec succès");
         $url = "frontController.php?controller=question&action=readAll";
         header("Location: $url");

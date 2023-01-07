@@ -163,7 +163,7 @@
                     $num=0;
                     //var_dump($sections);
                     foreach ($sections as $section) {
-                        if (!$section->isActif()){
+                        if (!$section->isActif() || (ConnexionAdmin::estConnecte() && $section->isActif())){
                     $num++;
                     //$questNonFormater = $question->getIdQuestion();
                     //$questFormater = rawurlencode($questNonFormater);
@@ -182,7 +182,11 @@
                     if(date('Y-m-d H:i:s') < $dateDebutRedaction || ConnexionAdmin::estConnecte()) {
                         echo "<div class='question_update'>";
                         echo "<a href=\"frontController.php?controller=section&action=update&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>";
-                        echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-trash'></i></a>";
+                        if ($section->isActif()){
+                            echo "<a  href=\"frontController.php?controller=section&action=restaure&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-trash-arrow-up'></i></a>";
+                        }else{
+                            echo "<a id=\"confirmation\" onclick=\"return confirmationSection()\" href=\"frontController.php?controller=section&action=delete&id_section={$sectionFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-trash'></i></a>";
+                        }
                         echo "</div>";
                         //echo "<div class='separateur1'></div>";
                     }

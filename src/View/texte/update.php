@@ -13,6 +13,7 @@
 
                 foreach ($textes as $texte) {
                     $section = (new SectionRepository())->select($texte->getIdSection());
+
                     if ($section) { ?>
 
                         <input type="hidden" value="<?php echo $section->getIdQuestion() ?>" name="id_question">
