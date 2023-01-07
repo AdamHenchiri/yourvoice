@@ -347,10 +347,11 @@ class ControllerReponse extends GenericController
     {
         $u = (ConnexionUtilisateur::getUtilisateurConnecte())->getIdUtilisateur();
         $votants = (new VotantRepository())->selectWhere("id_votant", $u);
-
+        $qustion = (new QuestionRepository())->select($_GET["id_question"]);
+        $nomQuestion = $qustion->getIntitule();
         self::afficheVue('/view.php', ["pagetitle" => "Liste des réponses",
             "cheminVueBody" => "reponse/list.php",   //"redirige" vers la vue
-             "votants" => $votants, "id_question" => $_GET["id_question"]]);
+             "votants" => $votants, "id_question" => $_GET["id_question"], "nomQuestion"=>$nomQuestion]);
     }
 
     public static function read(): void

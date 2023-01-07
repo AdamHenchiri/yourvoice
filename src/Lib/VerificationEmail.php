@@ -47,8 +47,7 @@ class VerificationEmail
 
     public static function aValideEmail(Utilisateur $utilisateur) : bool
     {
-        // À compléter
-        return true;
+        return $utilisateur->getEmail() != "";
     }
 }
 

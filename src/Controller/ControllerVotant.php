@@ -149,7 +149,9 @@ class ControllerVotant extends GenericController
 
         $question = (new QuestionRepository())->select($_GET['id_question']);
         $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
-        if ($question !== null && $sections !== null && !$question->isActif()) {
+
+
+        if (!is_null($question) && !is_null($sections) && !$question->isActif() && strtotime($question->getDateFinVote()) < strtotime(date ("Y-m-d"))) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la question",
             "cheminVueBody" => "question/detail.php",
                     //"redirige" vers la vue

@@ -23,33 +23,38 @@ class ControllerUtilisateur extends GenericController
     }
 
     public static function connected() : void {
-        if (!isset($_POST["login"]) && !isset($_POST["mdp"])){
+        if (!isset($_POST["login"]) && !isset($_POST["mdp"]) ){
             MessageFlash::ajouter("danger","Veuillez remplir le formulaire");
             $url="frontController.php?controller=utilisateur&action=connexion";
             header("Location: ".$url);
             exit();
         }else{
             $user=(new UtilisateurRepository())->selectWhere("login",$_POST["login"]);
-            if ($user==null){
-                MessageFlash::ajouter("warning","Utilisateur inconnu");
-                $url="frontController.php?controller=utilisateur&action=connexion";
-                header("Location: ".$url);
-                exit();
+                if ($user == null) {
+                    MessageFlash::ajouter("warning", "Utilisateur inconnu");
+                    $url = "frontController.php?controller=utilisateur&action=connexion";
+                    header("Location: " . $url);
+                    exit();
+                } else if (!MotDePasse::verifier($_POST["mdp"], $user[0]->getMdpHache())) {
+                    MessageFlash::ajouter("warning", "Mot de passe erroné");
+                    $url = "frontController.php?controller=utilisateur&action=connexion";
+                    header("Location: " . $url);
+                    exit();
+                }
+                else if (VerificationEmail::aValideEmail($user[0])) {
+                    ConnexionUtilisateur::connecter($_POST["login"]);
+                    MessageFlash::ajouter("success", "Bienvenue " . $_POST["login"]);
+                    $url = "frontController.php?controller=utilisateur&action=read&login=" . $_POST["login"];
+                    header("Location: " . $url);
+                    exit();
+                }
+                else{
+                    MessageFlash::ajouter("warning", "Vous n'avez pas vérifié votre email");
+                    $url = "frontController.php?controller=utilisateur&action=connexion";
+                    header("Location: " . $url);
+                    exit();
+                }
             }
-            else if (!MotDePasse::verifier($_POST["mdp"],$user[0]->getMdpHache())){
-                MessageFlash::ajouter("warning","Mot de passe erroné");
-                $url="frontController.php?controller=utilisateur&action=connexion";
-                header("Location: ".$url);
-                exit();
-            }
-            else{
-                ConnexionUtilisateur::connecter($_POST["login"]);
-                MessageFlash::ajouter("success","Bienvenue ".$_POST["login"]);
-                $url="frontController.php?controller=utilisateur&action=read&login=".$_POST["login"];
-                header("Location: ".$url);
-                exit();
-            }
-        }
     }
 
     public static function deconnecter(): void
@@ -156,15 +161,22 @@ class ControllerUtilisateur extends GenericController
     }
 
     public static function read() : void {
-        $user =(new UtilisateurRepository())->selectWhere("login",$_GET['login']);
-        if ($user!==null) {
-            self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
-                "cheminVueBody" => "utilisateur/detail.php",   //"redirige" vers la vue
-                "user"=>$user[0]]);
+        if (isset($_GET['login']) && ConnexionUtilisateur::getLoginUtilisateurConnecte()==$_GET['login'] ) {
+            $user = (new UtilisateurRepository())->selectWhere("login", $_GET['login']);
+            if ($user !== null) {
+                self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
+                    "cheminVueBody" => "utilisateur/detail.php",   //"redirige" vers la vue
+                    "user" => $user[0]]);
+            } else {
+                self::afficheVue('/view.php', ["pagetitle" => "ERROR",
+                    "cheminVueBody" => "utilisateur/error.php",   //"redirige" vers la vue
+                ]);
+            }
         }else{
-            self::afficheVue('/view.php', ["pagetitle" => "ERROR",
-                "cheminVueBody" => "utilisateur/error.php",   //"redirige" vers la vue
-            ]);
+            MessageFlash::ajouter("warning", "Autorisation déniée");
+            $url = "frontController.php?controller=reponse&action=readMyResponse";
+            header("Location: $url");
+            exit();
         }
     }
     public static function monCompte() : void {
@@ -200,13 +212,13 @@ class ControllerUtilisateur extends GenericController
                 exit();
             }else{
                 MessageFlash::ajouter("warning","Error :: email non valide");
-                $url="frontController.php?controller=utilisateur&action=readAll";
+                $url="frontController.php?";
                 header("Location: ".$url);
                 exit();
             }
         }else{
             MessageFlash::ajouter("warning","Login ou nonce introuvable");
-            $url="frontController.php?controller=utilisateur&action=readAll";
+            $url="frontController.php?";
             header("Location: ".$url);
             exit();
         }
