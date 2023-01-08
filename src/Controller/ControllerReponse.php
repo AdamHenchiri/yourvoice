@@ -509,8 +509,10 @@ class ControllerReponse extends GenericController
         $pdf = new FPDF();
         $pdf->AddPage();
 
-        $pdf->SetFont('Arial','B',16);
-        $pdf->Cell(40, 10,"REPONSE" , 0, 1);
+        $pdf->SetFont('Arial','B',16, );
+        $pdf->Cell(0, 10,"REPONSE" , 0, 1, 'C');
+        $pdf->Ln();
+
         // B pour mettre en gras
         //$pdf->Cell(40,10,print_r($textes, true), 0, 1);
         // 40 pour la largeur de la box 10 pour la hauteur
@@ -525,17 +527,25 @@ class ControllerReponse extends GenericController
             $section = (new SectionRepository())->select($texte->getIdSection());
             if (!$section->isActif()) {
 
-                $pdf->Cell(40, 10,"Section :" . $section->getTitre() , 0, 1);
+                $pdf->Cell(0, 10,"Section :" . $section->getTitre() , 0, 1);
                 $pdf->SetFont('Arial', '', 14);
 
-                $pdf->Cell(40, 10, "Description : " . $section->getTexteExplicatif(), 0, 1);
+
+                $pdf->Cell(0, 10, "Description : " . $section->getTexteExplicatif(), 0, 1);
                 $pdf->SetFont('Arial', '', 14);
 
-                $pdf->Cell(40, 10,"Texte : ". $texte->getTexte(), 0, 1);
+
+
+                $pdf->Cell(0, 10,"Texte : ". $texte->getTexte(), 0, 1);
                 $pdf->SetFont('Arial', '', 14);
+                $pdf->Ln();
+
 
             }
         }
+
+
+
         $pdf->Output("", "commande.pdf", true);
     }
 
