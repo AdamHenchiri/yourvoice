@@ -14,6 +14,7 @@ use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\DataObject\Reponse;
 use App\YourVoice\Model\DataObject\Texte;
+use App\YourVoice\Model\Repository\SectionRepository;
 use App\YourVoice\Model\Repository\TexteRepository;
 use App\YourVoice\Model\Repository\VotantRepository;
 use http\Env\Response;
@@ -509,18 +510,33 @@ class ControllerReponse extends GenericController
         $pdf->AddPage();
 
         $pdf->SetFont('Arial','B',16);
+        $pdf->Cell(40, 10,"REPONSE" , 0, 1);
         // B pour mettre en gras
-        $pdf->Cell(40,10,print_r($textes, true), 0, 1);
+        //$pdf->Cell(40,10,print_r($textes, true), 0, 1);
         // 40 pour la largeur de la box 10 pour la hauteur
         // Bonsoir pour le texte a écrire
         // 0 pour pour pas faire de border et 1 pour faire un retour a la ligne
+        //$pdf->Cell(40,10,'Commande-' . var_dump($textes), 0, 1);
 
-        $pdf->SetFont('Arial','',14);
-        //$pdf->Cell(40,10,'Commande-' . $commande->getId(), 0, 1);
+       // $pdf->SetFont('Arial','',14);
 
 
+        foreach ($textes as $texte) {
+            $section = (new SectionRepository())->select($texte->getIdSection());
+            if (!$section->isActif()) {
+
+                $pdf->Cell(40, 10,"Section :" . $section->getTitre() , 0, 1);
+                $pdf->SetFont('Arial', '', 14);
+
+                $pdf->Cell(40, 10, "Description : " . $section->getTexteExplicatif(), 0, 1);
+                $pdf->SetFont('Arial', '', 14);
+
+                $pdf->Cell(40, 10,"Texte : ". $texte->getTexte(), 0, 1);
+                $pdf->SetFont('Arial', '', 14);
+
+            }
+        }
         $pdf->Output("", "commande.pdf", true);
-
     }
 
 
