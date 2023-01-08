@@ -4,6 +4,7 @@ namespace App\YourVoice\Controller;
 
 use App\YourVoice\Lib\ConnexionAdmin;
 use App\YourVoice\Lib\ConnexionUtilisateur;
+use App\YourVoice\Lib\FPDF;
 use App\YourVoice\Lib\MotDePasse;
 use App\YourVoice\Model\DataObject\Question;
 use App\YourVoice\Model\DataObject\Votant;
@@ -394,7 +395,8 @@ class ControllerReponse extends GenericController
         if (!empty($textes)) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
                 "cheminVueBody" => "texte/detail.php",   //"redirige" vers la vue
-                "textes" => $textes]);
+                "textes" => $textes,
+                "id" => $_GET['id_reponse']]);
         } else {
             MessageFlash::ajouter("warning", "Pas encore de réponse du responsable");
             $url = "frontController.php?controller=question&action=readAll";
@@ -498,6 +500,27 @@ class ControllerReponse extends GenericController
                 }
             }
         }
+    }
+
+    public static function exporterPdf(){
+        //echo $_GET['id_reponse'];
+        $textes = (new TexteRepository())->selectWhere("id_reponse", $_GET['id_reponse']);
+        $pdf = new FPDF();
+        $pdf->AddPage();
+
+        $pdf->SetFont('Arial','B',16);
+        // B pour mettre en gras
+        $pdf->Cell(40,10,print_r($textes, true), 0, 1);
+        // 40 pour la largeur de la box 10 pour la hauteur
+        // Bonsoir pour le texte a écrire
+        // 0 pour pour pas faire de border et 1 pour faire un retour a la ligne
+
+        $pdf->SetFont('Arial','',14);
+        //$pdf->Cell(40,10,'Commande-' . $commande->getId(), 0, 1);
+
+
+        $pdf->Output("", "commande.pdf", true);
+
     }
 
 
