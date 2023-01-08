@@ -526,24 +526,24 @@ class ControllerReponse extends GenericController
 
 
         $pdf->SetFont('Arial', 'B', 11,);
-        $pdf->Cell(0, 10,utf8_decode("Titre de la question  : ") , 0, 1, 'C');
+        $pdf->MultiCell(0, 10,utf8_decode("Titre de la question  : ") , 0, 'C', );
         $pdf->SetFont('Arial', '', 11,);
-        $pdf->Cell(0, 10,utf8_decode($question->getIntitule()) , 0, 1, 'C');
+        $pdf->MultiCell(0, 10,utf8_decode($question->getIntitule()) , 0, 'C');
 
         $pdf->SetFont('Arial', 'B', 11,);
-        $pdf->Cell(0, 10,utf8_decode("Description de la question  :") , 0, 1, 'C');
+        $pdf->MultiCell(0, 10,utf8_decode("Description de la question  :") , 0, 'C');
         $pdf->SetFont('Arial', '', 11,);
-        $pdf->Cell(0, 10,utf8_decode($question->getExplication()) , 0, 1, 'C');
+        $pdf->MultiCell(0, 10,utf8_decode($question->getExplication()) , 0, 'C');
 
         $pdf->SetFont('Arial', 'B', 11,);
-        $pdf->Cell(0, 10,utf8_decode("Date de début de rédaction de la reponse  :") , 0, 1, 'C');
+        $pdf->MultiCell(0, 10,utf8_decode("Date de début de rédaction de la reponse  :") , 0, 'C');
         $pdf->SetFont('Arial', '', 11,);
-        $pdf->Cell(0, 10,utf8_decode($question->getDateDebutRedaction()) , 0, 1, 'C');
+        $pdf->MultiCell(0, 10,utf8_decode($question->getDateDebutRedaction()) , 0, 'C');
 
         $pdf->SetFont('Arial', 'B', 11,);
-        $pdf->Cell(0, 10,utf8_decode("Date de début de rédaction de la reponse  :")  , 0, 1, 'C');
+        $pdf->MultiCell(0, 10,utf8_decode("Date de début de rédaction de la reponse  :")  , 0, 'C');
         $pdf->SetFont('Arial', '', 11,);
-        $pdf->Cell(0, 10,utf8_decode($question->getDateFinRedaction()) , 0, 1, 'C');
+        $pdf->MultiCell(0, 10,utf8_decode($question->getDateFinRedaction()) , 0, 'C');
 
         $pdf->Ln();
         $pdf->Ln();
@@ -562,17 +562,17 @@ class ControllerReponse extends GenericController
         foreach ($textes as $texte) {
             $section = (new SectionRepository())->select($texte->getIdSection());
             if (!$section->isActif()) {
+                $pdf->SetFont('Arial', 'B', 14);
+                $pdf->MultiCell(0, 10,utf8_decode("Section :" . $section->getTitre()) , 0, );
+
+
                 $pdf->SetFont('Arial', '', 14);
-                $pdf->Cell(0, 10,utf8_decode("Section :" . $section->getTitre()) , 0, 1);
+                $pdf->MultiCell(0, 10, utf8_decode("Description : " . $section->getTexteExplicatif()), 0, );
 
 
 
-                $pdf->Cell(0, 10, utf8_decode("Description : " . $section->getTexteExplicatif()), 0, 1);
                 $pdf->SetFont('Arial', '', 14);
-
-
-
-                $pdf->Cell(0, 10,utf8_decode("Texte : ". $texte->getTexte()), 0, 1);
+                $pdf->MultiCell(0, 10,utf8_decode($texte->getTexte()), 0, );
                 $pdf->SetFont('Arial', '', 14);
                 $pdf->Ln();
 
