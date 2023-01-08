@@ -6,6 +6,7 @@ use App\YourVoice\Lib\ConnexionAdmin;
 use App\YourVoice\Lib\ConnexionUtilisateur;
 use App\YourVoice\Lib\FPDF;
 use App\YourVoice\Lib\MotDePasse;
+use App\YourVoice\Lib\PDF;
 use App\YourVoice\Model\DataObject\Question;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
@@ -503,15 +504,50 @@ class ControllerReponse extends GenericController
         }
     }
 
+
+
     public static function exporterPdf(){
         //echo $_GET['id_reponse'];
+
+        $reponse = (new ReponseRepository())->select($_GET['id_reponse']);
+        $idQuestion = $reponse->getIdQuestion();
+        $question = (new QuestionRepository())->select($idQuestion);
         $textes = (new TexteRepository())->selectWhere("id_reponse", $_GET['id_reponse']);
-        $pdf = new FPDF();
+        $pdf=new PDF();
         $pdf->AddPage();
+        $pdf->SetLineWidth(0.5);
+        $pdf->SetFillColor(255);
+        $pdf->RoundedRect(10, 29, 190, 85, 3.5, 'DF');
 
         $pdf->SetFont('Arial','B',16, );
-        $pdf->Cell(0, 10,"REPONSE" , 0, 1, 'C');
+        $pdf->Cell(0, 10,utf8_decode("RÉPONSE GAGNANTE") , 1, 1, 'C');
         $pdf->Ln();
+
+
+
+        $pdf->SetFont('Arial', 'B', 11,);
+        $pdf->Cell(0, 10,utf8_decode("Titre de la question  : ") , 0, 1, 'C');
+        $pdf->SetFont('Arial', '', 11,);
+        $pdf->Cell(0, 10,utf8_decode($question->getIntitule()) , 0, 1, 'C');
+
+        $pdf->SetFont('Arial', 'B', 11,);
+        $pdf->Cell(0, 10,utf8_decode("Description de la question  :") , 0, 1, 'C');
+        $pdf->SetFont('Arial', '', 11,);
+        $pdf->Cell(0, 10,utf8_decode($question->getExplication()) , 0, 1, 'C');
+
+        $pdf->SetFont('Arial', 'B', 11,);
+        $pdf->Cell(0, 10,utf8_decode("Date de début de rédaction de la reponse  :") , 0, 1, 'C');
+        $pdf->SetFont('Arial', '', 11,);
+        $pdf->Cell(0, 10,utf8_decode($question->getDateDebutRedaction()) , 0, 1, 'C');
+
+        $pdf->SetFont('Arial', 'B', 11,);
+        $pdf->Cell(0, 10,utf8_decode("Date de début de rédaction de la reponse  :")  , 0, 1, 'C');
+        $pdf->SetFont('Arial', '', 11,);
+        $pdf->Cell(0, 10,utf8_decode($question->getDateFinRedaction()) , 0, 1, 'C');
+
+        $pdf->Ln();
+        $pdf->Ln();
+
 
         // B pour mettre en gras
         //$pdf->Cell(40,10,print_r($textes, true), 0, 1);
@@ -526,17 +562,17 @@ class ControllerReponse extends GenericController
         foreach ($textes as $texte) {
             $section = (new SectionRepository())->select($texte->getIdSection());
             if (!$section->isActif()) {
+                $pdf->SetFont('Arial', '', 14);
+                $pdf->Cell(0, 10,utf8_decode("Section :" . $section->getTitre()) , 0, 1);
 
-                $pdf->Cell(0, 10,"Section :" . $section->getTitre() , 0, 1);
+
+
+                $pdf->Cell(0, 10, utf8_decode("Description : " . $section->getTexteExplicatif()), 0, 1);
                 $pdf->SetFont('Arial', '', 14);
 
 
-                $pdf->Cell(0, 10, "Description : " . $section->getTexteExplicatif(), 0, 1);
-                $pdf->SetFont('Arial', '', 14);
 
-
-
-                $pdf->Cell(0, 10,"Texte : ". $texte->getTexte(), 0, 1);
+                $pdf->Cell(0, 10,utf8_decode("Texte : ". $texte->getTexte()), 0, 1);
                 $pdf->SetFont('Arial', '', 14);
                 $pdf->Ln();
 
