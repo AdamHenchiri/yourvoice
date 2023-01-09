@@ -104,34 +104,68 @@ class ControllerUtilisateur extends GenericController
         if (ConnexionUtilisateur::getUtilisateurConnecte() == $u || ConnexionAdmin::estConnecte() ) {
             if (ConnexionAdmin::estConnecte() && MotDePasse::verifier($_POST["mdp1"],ConnexionAdmin::getUtilisateurConnecte()->getPassword())){
                 if($_POST["mdp2"]==$_POST["mdp3"] && $_POST["mdp2"]!=null && $_POST["mdp3"]!=null){
-                    $v =new Utilisateur($_POST["id"],$_POST["login"],$_POST["nom"],$_POST["prenom"], $_POST["age"],"",MotDePasse::hacher($_POST["mdp3"]),$_POST["email"],$u->getNonce(),$u->isEstOrganisateur(),$u->isDemandeOrga() );
-                    (new UtilisateurRepository())->update($v);
-                    MessageFlash::ajouter("success","L'utilisateur a été mise à jour! ");
-                    $url="frontController.php?controller=admin&action=readAllUsers";
-                    header("Location: ".$url);
-                    exit();
+                    if ($u->getEmail()==($_POST["email"])) {
+                        $v = new Utilisateur($_POST["id"], $_POST["login"], $_POST["nom"], $_POST["prenom"], $_POST["age"], $_POST["email"], MotDePasse::hacher($_POST["mdp3"]), "", "", $u->isEstOrganisateur(), $u->isDemandeOrga());
+                        (new UtilisateurRepository())->update($v);
+                        MessageFlash::ajouter("success", "L'utilisateur a été mise à jour! ");
+                        $url = "frontController.php?controller=admin&action=readAllUsers";
+                        header("Location: " . $url);
+                        exit();
+                    }else{
+                        $v = new Utilisateur($_POST["id"], $_POST["login"], $_POST["nom"], $_POST["prenom"], $_POST["age"], "", MotDePasse::hacher($_POST["mdp3"]), $_POST["email"],MotDePasse::genererChaineAleatoire(6), $u->isEstOrganisateur(), $u->isDemandeOrga());
+                        (new UtilisateurRepository())->update($v);
+                        MessageFlash::ajouter("success", "L'utilisateur a été mise à jour! l'utilisateur va devoir vérifier son mail pour ce connecté");
+                        $url = "frontController.php?controller=admin&action=readAllUsers";
+                        header("Location: " . $url);
+                        exit();
+                    }
                 }else if ($_POST["mdp2"]==null && $_POST["mdp3"]==null){
-                    $v =new Utilisateur($_POST["id"],$_POST["login"],$_POST["nom"],$_POST["prenom"], $_POST["age"],"",$u->getMdpHache(),$_POST["email"],$u->getNonce(),$u->isEstOrganisateur(),$u->isDemandeOrga() );
-                    (new UtilisateurRepository())->update($v);
-                    MessageFlash::ajouter("success","L'utilisateur a été mise à jour! ");
-                    $url="frontController.php?controller=admin&action=readAllUsers";
-                    header("Location: ".$url);
+                    if ($u->getEmail()==($_POST["email"])) {
+                        $v = new Utilisateur($_POST["id"], $_POST["login"], $_POST["nom"], $_POST["prenom"], $_POST["age"], $_POST["email"], $u->getMdpHache(), "", "", $u->isEstOrganisateur(), $u->isDemandeOrga());
+                        (new UtilisateurRepository())->update($v);
+                        MessageFlash::ajouter("success", "L'utilisateur a été mise à jour! ");
+                        $url = "frontController.php?controller=admin&action=readAllUsers";
+                        header("Location: " . $url);
+                    }else{
+                        $v = new Utilisateur($_POST["id"], $_POST["login"], $_POST["nom"], $_POST["prenom"], $_POST["age"], "", $u->getMdpHache(), $_POST["email"], MotDePasse::genererChaineAleatoire(6), $u->isEstOrganisateur(), $u->isDemandeOrga());
+                        (new UtilisateurRepository())->update($v);
+                        MessageFlash::ajouter("success", "L'utilisateur a été mise à jour! l'utilisateur va devoir vérifier son mail pour ce connecté");
+                        $url = "frontController.php?controller=admin&action=readAllUsers";
+                        header("Location: " . $url);
+                    }
                 }
             }
             if (ConnexionUtilisateur::estConnecte() && MotDePasse::verifier($_POST["mdp1"],ConnexionUtilisateur::getUtilisateurConnecte()->getMdpHache())){
                 if($_POST["mdp2"]==$_POST["mdp3"] && $_POST["mdp2"]!=null && $_POST["mdp3"]!=null){
-                    $v =new Utilisateur($_POST["id"],$_POST["login"],$_POST["nom"],$_POST["prenom"], $_POST["age"],"",MotDePasse::hacher($_POST["mdp3"]),$_POST["email"],$u->getNonce(),$u->isEstOrganisateur(),$u->isDemandeOrga() );
-                    (new UtilisateurRepository())->update($v);
-                    MessageFlash::ajouter("success","Vos informations personnelles ont été mise à jour! ");
-                    $url="frontController.php?controller=Utilisateur&action=monCompte";
-                    header("Location: ".$url);
-                    exit();
+                    if ($u->getEmail()==($_POST["email"])) {
+                        $v = new Utilisateur($_POST["id"], $_POST["login"], $_POST["nom"], $_POST["prenom"], $_POST["age"], $_POST["email"], MotDePasse::hacher($_POST["mdp3"]), "", "", $u->isEstOrganisateur(), $u->isDemandeOrga());
+                        (new UtilisateurRepository())->update($v);
+                        MessageFlash::ajouter("success", "Vos informations personnelles ont été mise à jour! ");
+                        $url = "frontController.php?controller=Utilisateur&action=monCompte";
+                        header("Location: " . $url);
+                        exit();
+                    }else{
+                        $v = new Utilisateur($_POST["id"], $_POST["login"], $_POST["nom"], $_POST["prenom"], $_POST["age"], "", MotDePasse::hacher($_POST["mdp3"]), $_POST["email"], MotDePasse::genererChaineAleatoire(6), $u->isEstOrganisateur(), $u->isDemandeOrga());
+                        (new UtilisateurRepository())->update($v);
+                        MessageFlash::ajouter("success", "Vos informations personnelles ont été mise à jour! N'oublier pas de vérifier le nouveau mail");
+                        $url = "frontController.php?controller=Utilisateur&action=monCompte";
+                        header("Location: " . $url);
+                        exit();
+                    }
                 }else if ($_POST["mdp2"]==null && $_POST["mdp3"]==null){
-                    $v =new Utilisateur($_POST["id"],$_POST["login"],$_POST["nom"],$_POST["prenom"], $_POST["age"],"",$u->getMdpHache(),$_POST["email"],$u->getNonce(),$u->isEstOrganisateur(),$u->isDemandeOrga() );
-                    (new UtilisateurRepository())->update($v);
-                    MessageFlash::ajouter("success","L'utilisateur a été mise à jour! ");
-                    $url="frontController.php?controller=Utilisateur&action=monCompte";
-                    header("Location: ".$url);
+                    if ($u->getEmail()==($_POST["email"])) {
+                        $v = new Utilisateur($_POST["id"], $_POST["login"], $_POST["nom"], $_POST["prenom"], $_POST["age"], $_POST["email"], $u->getMdpHache(), "", "", $u->isEstOrganisateur(), $u->isDemandeOrga());
+                        (new UtilisateurRepository())->update($v);
+                        MessageFlash::ajouter("success", "L'utilisateur a été mise à jour! ");
+                        $url = "frontController.php?controller=Utilisateur&action=monCompte";
+                        header("Location: " . $url);
+                    }else{
+                        $v = new Utilisateur($_POST["id"], $_POST["login"], $_POST["nom"], $_POST["prenom"], $_POST["age"], "", $u->getMdpHache(), $_POST["email"], MotDePasse::genererChaineAleatoire(6), $u->isEstOrganisateur(), $u->isDemandeOrga());
+                        (new UtilisateurRepository())->update($v);
+                        MessageFlash::ajouter("success", "L'utilisateur a été mise à jour! N'oublier pas de vérifier le nouveau mail ");
+                        $url = "frontController.php?controller=Utilisateur&action=monCompte";
+                        header("Location: " . $url);
+                    }
                 }
             }
         }
