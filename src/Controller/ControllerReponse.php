@@ -4,7 +4,9 @@ namespace App\YourVoice\Controller;
 
 use App\YourVoice\Lib\ConnexionAdmin;
 use App\YourVoice\Lib\ConnexionUtilisateur;
+use App\YourVoice\Lib\FPDF;
 use App\YourVoice\Lib\MotDePasse;
+use App\YourVoice\Lib\PDF;
 use App\YourVoice\Model\DataObject\Question;
 use App\YourVoice\Model\DataObject\Votant;
 use App\YourVoice\Model\Repository\AbstractRepository;
@@ -13,6 +15,7 @@ use App\YourVoice\Model\Repository\QuestionRepository;
 use App\YourVoice\Model\Repository\ReponseRepository;
 use App\YourVoice\Model\DataObject\Reponse;
 use App\YourVoice\Model\DataObject\Texte;
+use App\YourVoice\Model\Repository\SectionRepository;
 use App\YourVoice\Model\Repository\TexteRepository;
 use App\YourVoice\Model\Repository\VotantRepository;
 use http\Env\Response;
@@ -394,7 +397,8 @@ class ControllerReponse extends GenericController
         if (!empty($textes)) {
             self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
                 "cheminVueBody" => "texte/detail.php",   //"redirige" vers la vue
-                "textes" => $textes]);
+                "textes" => $textes,
+                "id" => $_GET['id_reponse']]);
         } else {
             MessageFlash::ajouter("warning", "Pas encore de réponse du responsable");
             $url = "frontController.php?controller=question&action=readAll";
@@ -498,6 +502,87 @@ class ControllerReponse extends GenericController
                 }
             }
         }
+    }
+
+
+
+    public static function exporterPdf(){
+        //echo $_GET['id_reponse'];
+
+        $reponse = (new ReponseRepository())->select($_GET['id_reponse']);
+        $idQuestion = $reponse->getIdQuestion();
+        $question = (new QuestionRepository())->select($idQuestion);
+        $textes = (new TexteRepository())->selectWhere("id_reponse", $_GET['id_reponse']);
+        $pdf=new PDF();
+        $pdf->AddPage();
+        $pdf->SetLineWidth(0.5);
+        $pdf->SetFillColor(255);
+        $pdf->RoundedRect(10, 29, 190, 85, 3.5, 'DF');
+
+        $pdf->SetFont('Arial','B',16, );
+        $pdf->Cell(0, 10,utf8_decode("RÉPONSE GAGNANTE") , 1, 1, 'C');
+        $pdf->Ln();
+
+
+
+        $pdf->SetFont('Arial', 'B', 11,);
+        $pdf->MultiCell(0, 10,utf8_decode("Titre de la question  : ") , 0, 'C', );
+        $pdf->SetFont('Arial', '', 11,);
+        $pdf->MultiCell(0, 10,utf8_decode($question->getIntitule()) , 0, 'C');
+
+        $pdf->SetFont('Arial', 'B', 11,);
+        $pdf->MultiCell(0, 10,utf8_decode("Description de la question  :") , 0, 'C');
+        $pdf->SetFont('Arial', '', 11,);
+        $pdf->MultiCell(0, 10,utf8_decode($question->getExplication()) , 0, 'C');
+
+        $pdf->SetFont('Arial', 'B', 11,);
+        $pdf->MultiCell(0, 10,utf8_decode("Date de début de rédaction de la reponse  :") , 0, 'C');
+        $pdf->SetFont('Arial', '', 11,);
+        $pdf->MultiCell(0, 10,utf8_decode($question->getDateDebutRedaction()) , 0, 'C');
+
+        $pdf->SetFont('Arial', 'B', 11,);
+        $pdf->MultiCell(0, 10,utf8_decode("Date de début de rédaction de la reponse  :")  , 0, 'C');
+        $pdf->SetFont('Arial', '', 11,);
+        $pdf->MultiCell(0, 10,utf8_decode($question->getDateFinRedaction()) , 0, 'C');
+
+        $pdf->Ln();
+        $pdf->Ln();
+
+
+        // B pour mettre en gras
+        //$pdf->Cell(40,10,print_r($textes, true), 0, 1);
+        // 40 pour la largeur de la box 10 pour la hauteur
+        // Bonsoir pour le texte a écrire
+        // 0 pour pour pas faire de border et 1 pour faire un retour a la ligne
+        //$pdf->Cell(40,10,'Commande-' . var_dump($textes), 0, 1);
+
+       // $pdf->SetFont('Arial','',14);
+
+
+        foreach ($textes as $texte) {
+            $section = (new SectionRepository())->select($texte->getIdSection());
+            if (!$section->isActif()) {
+                $pdf->SetFont('Arial', 'B', 14);
+                $pdf->MultiCell(0, 10,utf8_decode("Section :" . $section->getTitre()) , 0, );
+
+
+                $pdf->SetFont('Arial', '', 14);
+                $pdf->MultiCell(0, 10, utf8_decode("Description : " . $section->getTexteExplicatif()), 0, );
+
+
+
+                $pdf->SetFont('Arial', '', 14);
+                $pdf->MultiCell(0, 10,utf8_decode($texte->getTexte()), 0, );
+                $pdf->SetFont('Arial', '', 14);
+                $pdf->Ln();
+
+
+            }
+        }
+
+
+
+        $pdf->Output("", "commande.pdf", true);
     }
 
 
