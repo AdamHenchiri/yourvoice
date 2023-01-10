@@ -42,6 +42,7 @@ class ControllerUtilisateur extends GenericController
                     exit();
                 }
                 else if (VerificationEmail::aValideEmail($user[0])) {
+
                     ConnexionUtilisateur::connecter($_POST["login"]);
                     MessageFlash::ajouter("success", "Bienvenue " . $_POST["login"]);
                     $url = "frontController.php?controller=utilisateur&action=read&login=" . $_POST["login"];

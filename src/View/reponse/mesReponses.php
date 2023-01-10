@@ -20,7 +20,6 @@ foreach ($questions as $question) {
 
 
     if(ConnexionUtilisateur::estResponsable($question) || ConnexionUtilisateur::estCoAuteur($question) and !$question->isActif()){
-
         $questNonFormater = $question->getIdQuestion();
     $questFormater = rawurlencode($questNonFormater);
     $reponses=(new ReponseRepository())->selectWhere("id_question",$questNonFormater);

@@ -85,20 +85,13 @@ class ConnexionUtilisateur
         }
     }
 
-    public static function estResponsable($question)  //Fonctionne ok
+    // confirmer que l'utilisateur en session est responsable de la question $question
+    public static function estResponsable($question)
     {
         if (self::estConnecte()) {
             $u = (self::getUtilisateurConnecte())->getIdUtilisateur();
-            //$reponseTab = (new ReponseRepository())->selectWhere('id_question', 75);
             $reponseTab = (new ReponseRepository())->selectWhere('id_question', $question->getIdQuestion());
-            //echo "question : " . $question->getIdQuestion();
-            //var_dump($reponseTab);
             foreach ($reponseTab as $reponse) {
-                /*echo "<p>------------------------------------------------------- </p>";
-                echo "<p> id question : " . $reponse->getIdQuestion() . "// </p>";
-                echo "<p> id rep : " . $reponse->getIdRponses() . "// </p>";
-                echo "<p> utilisateur ? ". $reponse->getIdUtilisateur(). "// </p>";
-                echo "<p> connecter : ". $u. "// </p>";*/
                 if ($reponse->getIdUtilisateur() == $u) {
                     // echo 'true';
                     return true;
@@ -110,7 +103,6 @@ class ConnexionUtilisateur
             return false;
         }
         return false;
-
 
     }
 
@@ -141,12 +133,11 @@ class ConnexionUtilisateur
     {
         $user = Session::getInstance()->lire(static::$cleConnexion);
         if (self::estConnecte()) {
-            $log = self::getLoginUtilisateurConnecte();
+            $log = self::getUtilisateurConnecte()->getLogin();
             $reponseTab = (new ReponseRepository())->selectWhere('id_question', $question->getIdQuestion());
             foreach ($reponseTab as $reponse) {
                 $idResponsable = $reponse->getIdRponses();
                 $coAuteurs = (new CoauteurRepository())->selectWhere("id_reponse", $idResponsable);
-                //var_dump($coAuteurs);
                 foreach ($coAuteurs as $coAuteur) {
                     $idCoAuteur = $coAuteur->getIdUtilisateur();
                     $utilisateur = (new UtilisateurRepository())->select($idCoAuteur);
