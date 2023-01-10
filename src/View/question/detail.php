@@ -126,14 +126,16 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
                 echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de ".  htmlspecialchars ( $user->getLogin() ) . " </a></h1> "; ?>
             </div>
             <?php
-            echo "<div class='question_description'>";
+            echo "<div class='question_description'></div>";
             }}
             echo "<div class='separateur1'></div>";
 
-            echo "<div class='question_update'>";
+            echo "<div class='question_update'></div>";
 
 
-
+echo '</div>';
+echo '</div>';
+echo '</div>';
 
 
 
