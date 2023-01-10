@@ -46,7 +46,7 @@ foreach ($questions as $question) {
    }
 }
 if ($nbLigne == 0) {
-    echo "<div class='questions' >désolé il n'a pas de réponse pour vous</div>";
+    echo "<div class='questions' >Désolé il n'y a pas de réponse pour vous</div>";
 }
 
 
