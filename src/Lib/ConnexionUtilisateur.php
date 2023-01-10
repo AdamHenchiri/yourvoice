@@ -65,7 +65,7 @@ class ConnexionUtilisateur
     {
         $user = Session::getInstance()->lire(static::$cleConnexion);
         if (self::estConnecte()) {
-            $log = self::getLoginUtilisateurConnecte();
+            $log = self::getUtilisateurConnecte()->getLogin();
             //$q = (new QuestionRepository())->select($question->getIdQuestion());
             $id = $question->getIdUtilisateur();
             $utilisateur = (new UtilisateurRepository())->select($id);

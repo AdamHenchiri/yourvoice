@@ -14,6 +14,7 @@
             use App\YourVoice\Lib\ConnexionUtilisateur;
             use App\YourVoice\Model\Repository\SectionRepository;
             use App\YourVoice\Model\Repository\UtilisateurRepository;
+            $q = (new \App\YourVoice\Model\Repository\QuestionRepository())->select($_GET["id_question"]);
             $sections = (new SectionRepository())->selectWhere("id_question", $_GET['id_question']);
             if ($sections){
                 foreach ($sections as $section){
@@ -63,9 +64,14 @@
 
 
                 $users = (new UtilisateurRepository())->selectAll();
+                $responsables = (new \App\YourVoice\Model\Repository\ReponseRepository())->selectWhere("id_question",$_GET["id_question"]);
+                $tabRes=[];
+                foreach ($responsables as $r){
+                    array_push($tabRes,(new UtilisateurRepository())->select($r->getIdUtilisateur())) ;
+                }
                 if ($users){
                 foreach($users as $user){
-                    if ($user != ConnexionUtilisateur::getUtilisateurConnecte()){
+                    if ($user != ConnexionUtilisateur::getUtilisateurConnecte() && !in_array($user,$tabRes)){
                 ?>
             <div>
                 <input type="checkbox"  name="idCoAuteur[]" value="<?php echo $user->getIdUtilisateur()?>">

@@ -111,7 +111,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                         } else {
                             echo "<a href=\"frontController.php?controller=reponse&action=update&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
                         }
-                        if ($reponse->isActif() == true){
+                        if ($reponse->isActif() == true && ConnexionAdmin::estConnecte()){
                             echo "<a href=\"frontController.php?controller=reponse&action=restaure&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash-arrow-up'></i></a>      ";
                         }else {
                             echo "<a href=\"frontController.php?controller=reponse&action=check&id_reponse={$repFormater}\"> <i class='fa-solid fa-trash'></i></a>      ";
