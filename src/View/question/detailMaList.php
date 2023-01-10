@@ -75,7 +75,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
             <div> <?php echo " Titre : " . htmlspecialchars($section->getTitre()); ?> </div>
             <div> <?php echo " Description :  " . htmlspecialchars($section->getTexteExplicatif()); ?> </div>
             <?php
-            echo "qsdfg";
+            //echo "qsdfg";
             echo "<div class='separateur1'></div>";
             }
             }
@@ -134,7 +134,9 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                         echo "<div class='separateur1'></div>";
                         echo "</div>";
                     }
-                }
+                echo "</div>";
+
+            }
                 if(ConnexionUtilisateur::estOrganisateur($question) ){
                     if(count(ControllerVotant::aux4()) > 1 && ConnexionUtilisateur::estOrganisateur($question) && $question->getDateFinVote() < date("Y-m-d")) {
                         $liste = ControllerVotant::aux4();
