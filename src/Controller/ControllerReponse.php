@@ -407,6 +407,22 @@ class ControllerReponse extends GenericController
         }
     }
 
+    public static function readRepGagnante(): void
+    {
+        $textes = (new TexteRepository())->selectWhere("id_reponse", $_GET['id_reponse']);
+        if (!empty($textes)) {
+            self::afficheVue('/view.php', ["pagetitle" => "detail de la utilisateur",
+                "cheminVueBody" => "texte/detailReponseGagnante.php",   //"redirige" vers la vue
+                "textes" => $textes,
+                "id" => $_GET['id_reponse']]);
+        } else {
+            MessageFlash::ajouter("warning", "Pas encore de réponse du responsable");
+            $url = "frontController.php?controller=question&action=readAll";
+            header("Location: $url");
+            exit();
+        }
+    }
+
 
 
 
@@ -520,7 +536,7 @@ class ControllerReponse extends GenericController
         $pdf->RoundedRect(10, 29, 190, 85, 3.5, 'DF');
 
         $pdf->SetFont('Arial','B',16, );
-        $pdf->Cell(0, 10,utf8_decode("RÉPONSE GAGNANTE") , 1, 1, 'C');
+        $pdf->Cell(0, 10,utf8_decode("QUESTION") , 1, 1, 'C');
         $pdf->Ln();
 
 
@@ -557,24 +573,40 @@ class ControllerReponse extends GenericController
         //$pdf->Cell(40,10,'Commande-' . var_dump($textes), 0, 1);
 
        // $pdf->SetFont('Arial','',14);
+        $pdf->SetFont('Arial','B',16, );
+        $pdf->Cell(0, 10,utf8_decode("RÉPONSE GAGNANTE") , 1, 1, 'C');
+        $pdf->Ln();
 
+
+        $pdf->SetLineWidth(0.5);
+        $pdf->SetFillColor(255);
+        $pdf->RoundedRect(10, 145, 190, 140, 3.5, 'DF');
 
         foreach ($textes as $texte) {
             $section = (new SectionRepository())->select($texte->getIdSection());
             if (!$section->isActif()) {
-                $pdf->SetFont('Arial', 'B', 14);
+                if($pdf->GetY() >= 200){
+                    $pdf->AddPage();
+                    $pdf->SetLineWidth(0.5);
+                    $pdf->SetFillColor(255);
+                    $pdf->RoundedRect(10, 10, 190, 275, 3.5, 'DF');
+
+                }
+
+                $pdf->SetFont('Arial', 'B', 13);
                 $pdf->MultiCell(0, 10,utf8_decode("Section :" . $section->getTitre()) , 0, );
 
 
-                $pdf->SetFont('Arial', '', 14);
+                $pdf->SetFont('Arial', '', 13);
                 $pdf->MultiCell(0, 10, utf8_decode("Description : " . $section->getTexteExplicatif()), 0, );
 
 
 
-                $pdf->SetFont('Arial', '', 14);
+                $pdf->SetFont('Arial', '', 13);
                 $pdf->MultiCell(0, 10,utf8_decode($texte->getTexte()), 0, );
-                $pdf->SetFont('Arial', '', 14);
+                $pdf->SetFont('Arial', '', 13);
                 $pdf->Ln();
+
 
 
             }

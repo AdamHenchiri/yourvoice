@@ -122,7 +122,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
                     <div class="titre">
                         <?php
                         $user=(new UtilisateurRepository())->select($reponse->getIdUtilisateur());
-                        echo "<h1><a href=\"frontController.php?controller=reponse&action=read&id_reponse={$repFormater}\"> Réponse de ".  htmlspecialchars ( $user->getLogin() ) . " </a></h1> "; ?>
+                        echo "<h1><a href=\"frontController.php?controller=reponse&action=readRepGagnante&id_reponse={$repFormater}\"> Réponse de ".  htmlspecialchars ( $user->getLogin() ) . " </a></h1> "; ?>
                     </div>
                     <?php
 

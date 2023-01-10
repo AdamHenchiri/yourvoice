@@ -891,7 +891,7 @@ class FPDF
         return $this->h;
     }
 
-    function GetX()
+        function GetX()
     {
         // Get x position
         return $this->x;
