@@ -109,7 +109,7 @@ class ConnexionUtilisateur
     public static function estResponsableReponse($reponse): bool //Fonctionne ok
     {
         if (self::estConnecte()) {
-            $log = self::getLoginUtilisateurConnecte();
+            $log = self::getUtilisateurConnecte()->getLogin();
             $reponseTab = (new ReponseRepository())->selectWhere('id_reponse', $reponse->getIdRponses());
             foreach ($reponseTab as $reponse) {
                 $idUtilisateur = $reponse->getIdUtilisateur();
