@@ -530,10 +530,11 @@ class ControllerReponse extends GenericController
         $question = (new QuestionRepository())->select($idQuestion);
         $textes = (new TexteRepository())->selectWhere("id_reponse", $_GET['id_reponse']);
         $pdf=new PDF();
+        $deb = $pdf->GetY();
         $pdf->AddPage();
         $pdf->SetLineWidth(0.5);
         $pdf->SetFillColor(255);
-        $pdf->RoundedRect(10, 29, 190, 85, 3.5, 'DF');
+        //$pdf->RoundedRect(10, 29, 190, $pdf->GetY(), 3.5, 'DF');
 
         $pdf->SetFont('Arial','B',16, );
         $pdf->Cell(0, 10,utf8_decode("QUESTION") , 1, 1, 'C');
@@ -580,18 +581,19 @@ class ControllerReponse extends GenericController
 
         $pdf->SetLineWidth(0.5);
         $pdf->SetFillColor(255);
-        $pdf->RoundedRect(10, 145, 190, 140, 3.5, 'DF');
+        //$pdf->RoundedRect(10, 145, 190, 150, 3.5, 'DF');
 
         foreach ($textes as $texte) {
             $section = (new SectionRepository())->select($texte->getIdSection());
             if (!$section->isActif()) {
-                if($pdf->GetY() >= 200){
+                if($pdf->GetY() >= 200 ){
                     $pdf->AddPage();
                     $pdf->SetLineWidth(0.5);
                     $pdf->SetFillColor(255);
-                    $pdf->RoundedRect(10, 10, 190, 275, 3.5, 'DF');
+                    //$pdf->RoundedRect(10, 10, 190, 275, 3.5, 'DF');
 
                 }
+
 
                 $pdf->SetFont('Arial', 'B', 13);
                 $pdf->MultiCell(0, 10,utf8_decode("Section :" . $section->getTitre()) , 0, );
