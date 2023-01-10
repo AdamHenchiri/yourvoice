@@ -249,7 +249,7 @@ class ControllerUtilisateur extends GenericController
         if (isset($_GET["login"])&& isset($_GET["nonce"])){
             if ( VerificationEmail::traiterEmailValidation($_GET["login"],$_GET["nonce"])){
                 MessageFlash::ajouter("success","Bravo! Vous avez validé votre email");
-                $url="frontController.php?controller=utilisateur&action=read&login=".$_GET["login"];
+                $url="frontController.php?controller=utilisateur&action=connexion";
                 header("Location: ".$url);
                 exit();
             }else{
@@ -264,5 +264,30 @@ class ControllerUtilisateur extends GenericController
             header("Location: ".$url);
             exit();
         }
+    }
+    public static function mdpOublieView(){
+        self::afficheVue('/view.php', ["pagetitle" => "mot de passe oublié ",
+            "cheminVueBody" => "utilisateur/motDePasseOublié.php"   //"redirige" vers la vue
+        ]);
+    }
+    public static function mdpOublie(){
+        if (isset($_POST["login"])){
+                $u=(new UtilisateurRepository())->selectWhere("login",$_POST["login"]);
+                $email=$u[0]->getEmail();
+                $newMdp=MotDePasse::genererChaineAleatoire(8);
+                $u[0]->setMdpHache("");
+                 $u[0]->setMdpHache($newMdp);
+                (new UtilisateurRepository())->update($u[0]);
+                mail($email,"nouveau mot de passe","voici votre nouveau mot de passe ".$newMdp);
+                MessageFlash::ajouter("success","Vous avec reçus un email avec votre nouveau mot de passe");
+                $url="frontController.php?controller=utilisateur&action=connexion";
+                header("Location: ".$url);
+                exit();
+        }else{
+                MessageFlash::ajouter("warning","Login introuvable");
+                $url="frontController.php?";
+                header("Location: ".$url);
+                exit();
+            }
     }
 }

@@ -14,6 +14,7 @@
                 <div class="separateur">
 
                 </div>
+            <?php echo "<a id=\"redirection\" href=\"frontController.php?controller=utilisateur&action=mdpOublieView\"> Mot de passe oublié </a> "; ?>
 
             <?php echo "<a id=\"redirection\" href=\"frontController.php?controller=utilisateur&action=create\"> Je n'ai pas encore de compte</a> "; ?>
 

@@ -184,20 +184,5 @@ class ConnexionUtilisateur
         return false;
     }
 
-    public static function estAdministrateur(): bool
-    {
-        if (self::estConnecte()) {
-            $log = self::getLoginUtilisateurConnecte();
-            $u = (new AdminRepository())->select($log);
-            if ($u->isEstAdmin()) {
-                return true;
-            } else {
-                return false;
-            }
-
-        } else {
-            return false;
-        }
-    }
 
 }
