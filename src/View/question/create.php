@@ -47,9 +47,7 @@
                 <div class="container_contributeur">
                     <label for="contributeurs">Choisissez les responsables</label>
                     <div id="affichecontributeur">
-                        <div id="surpluscontributeur">
 
-                        </div>
                     </div>
                     <div class="scroll_votant">
 
@@ -79,9 +77,6 @@
                 <div class="container_votant">
                     <label for="votants ">Choisissez les votants</label>
                     <div id="affichevotant">
-                        <div id="surplusvotant">
-
-                        </div>
                     </div>
                     <div class="scroll_votant">
 

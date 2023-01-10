@@ -93,11 +93,11 @@
 
 #valider{
     align-self: center;
-    border: 1px solid black;
+    border: 1px solid #8b3dff;
     border-radius: 50px;
     width: 100px;
     color: white;
-    background-color: black;
+    background-color: #8b3dff;
     font-size: 15px;
     transition-duration: 0.2s;
     padding-bottom: 5px;
@@ -108,10 +108,10 @@
 }
 
 #valider:hover{
-    border: 1px solid black;
+    border: 1px solid #8b3dff;
     transition-duration: 0.2s;
     border-radius: 50px;
-    color: black;
+    color: #8b3dff;
     background-color: white;
 }
 
@@ -309,9 +309,9 @@
     width: 30px;
     height: 30px;
     line-height: 30px;
-    border: solid 1px black;
+    border: solid 1px #8b3dff;
     border-radius: 100px;
-    background-color: black;
+    background-color: #8b3dff;
     color: white;
     text-align: center;
     margin-top: 20px;
@@ -323,7 +323,7 @@
 .section_main a:hover{
     transition-duration: 0.2s;
     background-color: white;
-    color: black;
+    color: #8b3dff;
 }
 
 .bouttonsupp{
