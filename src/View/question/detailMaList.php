@@ -88,7 +88,6 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
 
             foreach ($reponses as $reponse) {
 
-
                 $num++;
 
                 $repNonFormater = $reponse->getIdRponses();
