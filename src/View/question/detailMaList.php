@@ -69,7 +69,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
         ?>
 
         <div class="titre">
-            <?php echo "<h1> Section: {$num} \n" . htmlspecialchars($titreSection) . " </h1> "; ?>
+            <?php echo "<h1> Section {$num} \n </h1> "; ?>
         </div>
         <div class="question_description">
             <div> <?php echo " Titre : " . htmlspecialchars($section->getTitre()); ?> </div>
@@ -126,7 +126,6 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote());
                             echo "<a href=\"frontController.php?controller=reponse&action=update&id_reponse={$repFormater}&id_question={$idQuestion}\"> <i class='fa-solid fa-pencil'></i> </a>     ";
                         }
                         echo "</div>";
-                        echo "<div class='separateur1'></div>";
                         echo "</div>";
                     } else {
                         echo "</div>";
