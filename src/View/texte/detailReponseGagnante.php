@@ -34,7 +34,7 @@
                         </p>
 
                     <?php }} ?>
-                <a href='frontController.php?controller=reponse&action=exporterPdf&id_reponse=<?=rawurlencode($id)?>'>Exporter en PDF</a>
+                <a href='frontController.php?controller=reponse&action=exporterPdf&id_reponse=<?=htmlspecialchars($id)?>'><i class="fa-solid fa-circle-down"></i><br>Exporter en PDF</a>
 
             </div>
 
