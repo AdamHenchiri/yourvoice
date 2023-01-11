@@ -81,7 +81,7 @@ $dateFinVote = htmlspecialchars($question->getDateFinVote()); ;
         ?>
 
         <div class="titre">
-            <?php echo "<h1> Section: {$num} \n".  htmlspecialchars ( $titreSection ) . " </h1> "; ?>
+            <?php echo "<h1> Section: {$num} \n </h1> "; ?>
         </div>
         <div class="question_description">
             <div > <?php  echo " Titre : " . htmlspecialchars($section->getTitre()); ?> </div>
