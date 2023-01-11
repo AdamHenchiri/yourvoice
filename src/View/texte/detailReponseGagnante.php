@@ -34,7 +34,7 @@
                         </p>
 
                     <?php }} ?>
-                <a href='frontController.php?controller=reponse&action=exporterPdf&id_reponse=<?=htmlspecialchars($id)?>'><i class="fa-solid fa-circle-down"></i><br>Exporter en PDF</a>
+                <a class="boutton-modifier" id="download-pdf" href='frontController.php?controller=reponse&action=exporterPdf&id_reponse=<?=htmlspecialchars($id)?>'><i class="fa-solid fa-circle-down"></i> Exporter en PDF</a>
 
             </div>
 

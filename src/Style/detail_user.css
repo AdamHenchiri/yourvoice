@@ -46,6 +46,7 @@
     padding-left: 10px;
     padding-right: 10px;
     transition-duration: 0.2s;
+    text-decoration: none;
 }
 
 .boutton-modifier:hover{
